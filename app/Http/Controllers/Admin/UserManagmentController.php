@@ -27,7 +27,7 @@ class UserManagmentController extends Controller
             $data = ['status' => $request->status];
             $this->authorize('change_users_status');
           
-            (new User())->setConnection('tenant')->whereIn('id', $ids)->update($data);
+            (new User())->whereIn('id', $ids)->update($data);
             return back()->with('success', __('general.updated_successfully'));
         }
          if ($request->bulk_action_btn === 'update_status' && $request->role && is_array($ids) && count($ids)) {
@@ -35,30 +35,30 @@ class UserManagmentController extends Controller
             $this->authorize('change_users_role');
 
             ($request->role == 1) ? $data['role_name'] = "user" : $data['role_name'] = 'admin' ;
-            $is_update = (new User())->setConnection('tenant')->whereIn('id', $ids)->update($data);
+            $is_update = (new User())->whereIn('id', $ids)->update($data);
             
             return back()->with('success', __('general.updated_successfully'));
         }
         if ($request->bulk_action_btn === 'update_role' && $request->role_id && is_array($ids) && count($ids)) {
             $data = ['role_id' => $request->role_id];
-            (new User())->setConnection('tenant')->whereIn('id', $ids)->update($data);
+            (new User())->whereIn('id', $ids)->update($data);
             return back()->with('success', __('general.updated_successfully'));
         }
         if ($request->bulk_action_btn === 'delete' &&  is_array($ids) && count($ids)) {
 
 
-            (new User())->setConnection('tenant')->whereIn('id', $ids)->delete();
+            (new User())->whereIn('id', $ids)->delete();
             return back()->with('success', __('general.deleted_successfully'));
         }
         $roles = Role::select('id' , 'name'  )->get();
 
-        $users = (new User())->setConnection('tenant')->orderBy("created_at","desc")->paginate(10);
+        $users = (new User())->orderBy("created_at","desc")->paginate(10);
         return view("tenant.users.all_users", compact("users" , 'roles'));
     }
 
     public function edit($id){
         $this->authorize('edit_user');
-        $user = (new User())->setConnection('tenant')->findOrFail($id);
+        $user = (new User())->findOrFail($id);
         $roles = Role::select('id' , 'name'  )->get();
         return view("tenant.users.edit", compact("user" , 'roles'));
     }
@@ -81,7 +81,7 @@ class UserManagmentController extends Controller
 
          
         $role = Role::where("id", $request->role)->select('id' , 'name'  )->first();
-        $user = (new User())->setConnection('tenant')->create([
+        $user = (new User())->create([
             'name' => $request->name,
             'user_name' =>  $request->user_name,
             'phone' =>  $request->phone,
@@ -98,7 +98,7 @@ class UserManagmentController extends Controller
     }
     public function update(Request $request , $id){
         $this->authorize('edit_user');
-        $user = (new User())->setConnection('tenant')->findOrFail($id);
+        $user = (new User())->findOrFail($id);
         try{
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -142,7 +142,7 @@ class UserManagmentController extends Controller
 
     public function destroy($id){
         $this->authorize('delete_user');
-        $user = (new User())->setConnection('tenant')->findOrFail($id);
+        $user = (new User())->findOrFail($id);
         $user->delete();
         return redirect()->route("user_managment")->with("success", __(   'general.deleted_successfully'));
     }

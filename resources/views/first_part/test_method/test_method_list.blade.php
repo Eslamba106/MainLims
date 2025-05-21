@@ -97,7 +97,7 @@
                                         </td>
                                     @endif
                                     <td class="text-center">{{ $item->name }}</td>
-                                    <td class="text-center">{{ $item->main_unit->name }}</td>
+                                    <td class="text-center">{{ optional($item->main_unit)->name }}</td>
                                     <td class="text-center">{{ $item->lower_range }}</td>
                                     <td class="text-center">{{ $item->upper_range }}</td>
                                     @if ($index === 0)

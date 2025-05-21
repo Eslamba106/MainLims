@@ -19,16 +19,16 @@ class SetActiveTenant
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $tenant = Tenant::active()->where('domain', $request->getHost())->first();
-        if ($tenant) {
-            $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
-            Config::set('database.connections.tenant.database', $db);
-            DB::purge('tenant');
-            DB::reconnect('tenant');
-            DB::setDefaultConnection('tenant'); 
+        // $tenant = Tenant::active()->where('domain', $request->getHost())->first();
+        // if ($tenant) {
+        //     $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
+        //     Config::set('database.connections.tenant.database', $db);
+        //     DB::purge('tenant');
+        //     DB::reconnect('tenant');
+        //     DB::setDefaultConnection('tenant'); 
 
-            app()->instance('tenant', $tenant);
-        }  
+        //     app()->instance('tenant', $tenant);
+        // }  
         return $next($request);
     }
 }

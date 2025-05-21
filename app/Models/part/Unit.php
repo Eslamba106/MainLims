@@ -10,7 +10,7 @@ class Unit extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $connection = 'tenant';
+    // protected $connection = 'tenant';
     public function test_method_items()
     {
         return $this->hasMany(TestMethodItem::class, 'unit', 'id');
