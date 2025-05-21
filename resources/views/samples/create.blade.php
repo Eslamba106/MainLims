@@ -100,15 +100,19 @@
                                         @enderror
                                     </div>
                                 </div> 
-
-                                <div class="col-md-5 d-flex align-items-center mt-4 ml-2">
-                                    <input type="checkbox" name="toxic" id="toxic" class="form-check-input me-2  ">
-                                    <label for="toxic" class="form-check-label d-flex align-items-center">
-                                        {{ __('samples.toxic') }}
-                                        <span class="text-danger ms-1" style="font-size: 18px;">☠</span>
-                                    </label>
+                                <div class="col-md-6   col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">{{ __('samples.toxic') }} <span class="text-danger ms-1" style="font-size: 18px;">☠</span></label>
+                                        <select name="toxic" class="form-control"> 
+                                            @foreach ($toxic_degrees as $toxic_degree_item)
+                                                <option value="{{ $toxic_degree_item->id }}">{{ $toxic_degree_item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('toxic')
+                                            <span class="error text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-
 
                             </div>
 
@@ -506,36 +510,36 @@
     </script>
     <script>
         function change_action_limit_type(id) {
-            var action_limit_type = document.querySelector('select[name=action_limit_type-'+id +']').value;
-            var action_limit = document.querySelector('input[name=action_limit-'+id +']').value;
+            var action_limit_type = document.querySelector('select[name=action_limit_type-' + id + ']').value;
+            var action_limit = document.querySelector('input[name=action_limit-' + id + ']').value;
 
             if (action_limit_type == '=') {
-                document.getElementById('action_limit_type-'+id).innerHTML = '= ' + action_limit;
+                document.getElementById('action_limit_type-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
-                document.getElementById('action_limit_type-'+id).innerHTML = '&ge; ' + action_limit;
+                document.getElementById('action_limit_type-' + id).innerHTML = '&ge; ' + action_limit;
             } else if (action_limit_type == '<=') {
-                document.getElementById('action_limit_type-'+id).innerHTML = '&le; ' + action_limit;
+                document.getElementById('action_limit_type-' + id).innerHTML = '&le; ' + action_limit;
             } else if (action_limit_type == '<') {
-                document.getElementById('action_limit_type-'+id).innerHTML = '&lt; ' + action_limit;
+                document.getElementById('action_limit_type-' + id).innerHTML = '&lt; ' + action_limit;
             } else if (action_limit_type == '>') {
-                document.getElementById('action_limit_type-'+id).innerHTML = '&gt; ' + action_limit;
+                document.getElementById('action_limit_type-' + id).innerHTML = '&gt; ' + action_limit;
             }
         }
 
         function change_warning_limit_type(id) {
-            var warning_limit_type = document.querySelector('select[name=warning_limit_type-'+id+']').value;
-            var warning_limit = document.querySelector('input[name=warning_limit-'+id+']').value;
+            var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + id + ']').value;
+            var warning_limit = document.querySelector('input[name=warning_limit-' + id + ']').value;
 
             if (warning_limit_type == '=') {
-                document.getElementById('warning_limit_type-'+id).innerHTML = '= ' + warning_limit;
+                document.getElementById('warning_limit_type-' + id).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
-                document.getElementById('warning_limit_type-'+id).innerHTML = '&ge; ' + warning_limit;
+                document.getElementById('warning_limit_type-' + id).innerHTML = '&ge; ' + warning_limit;
             } else if (warning_limit_type == '<=') {
-                document.getElementById('warning_limit_type-'+id).innerHTML = '&le; ' + warning_limit;
+                document.getElementById('warning_limit_type-' + id).innerHTML = '&le; ' + warning_limit;
             } else if (warning_limit_type == '<') {
-                document.getElementById('warning_limit_type-'+id).innerHTML = '&lt; ' + warning_limit;
+                document.getElementById('warning_limit_type-' + id).innerHTML = '&lt; ' + warning_limit;
             } else if (warning_limit_type == '>') {
-                document.getElementById('warning_limit_type-'+id).innerHTML = '&gt; ' + warning_limit;
+                document.getElementById('warning_limit_type-' + id).innerHTML = '&gt; ' + warning_limit;
             }
         }
 
@@ -573,6 +577,50 @@
             }
         }
 
+        function add_only_one_change_action_limit_type(id, test_method_id) {
+            var action_limit_type = document.querySelector('select[name=action_limit_type-' + test_method_id + '-' + id +
+                ']').value;
+            var action_limit = document.querySelector('input[name=action_limit-' + test_method_id + '-' + id + ']').value;
+
+            if (action_limit_type == '=') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '= ' + action_limit;
+            } else if (action_limit_type == '>=') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&ge; ' +
+                action_limit;
+            } else if (action_limit_type == '<=') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&le; ' +
+                action_limit;
+            } else if (action_limit_type == '<') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&lt; ' +
+                action_limit;
+            } else if (action_limit_type == '>') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&gt; ' +
+                action_limit;
+            }
+        }
+
+        function add_only_one_change_warning_limit_type(id, test_method_id) {
+            var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' + id +
+                ']').value;
+            var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + id + ']').value;
+
+            if (warning_limit_type == '=') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '= ' + warning_limit;
+            } else if (warning_limit_type == '>=') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '&ge; ' +
+                    warning_limit;
+            } else if (warning_limit_type == '<=') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '&le; ' +
+                    warning_limit;
+            } else if (warning_limit_type == '<') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '&lt; ' +
+                    warning_limit;
+            } else if (warning_limit_type == '>') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '&gt; ' +
+                    warning_limit;
+            }
+        }
+
         function general_change_action_limit_type(compnent_id, index) {
             var action_limit_type = document.querySelector('select[name="action_limit_type-' + compnent_id + '-' + index +
                 '"]').value;
@@ -582,16 +630,16 @@
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '&ge; ' +
-                action_limit;
+                    action_limit;
             } else if (action_limit_type == '<=') {
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '&le; ' +
-                action_limit;
+                    action_limit;
             } else if (action_limit_type == '<') {
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '&lt; ' +
-                action_limit;
+                    action_limit;
             } else if (action_limit_type == '>') {
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '&gt; ' +
-                action_limit;
+                    action_limit;
             }
         }
 
@@ -613,6 +661,64 @@
                     warning_limit;
             } else if (warning_limit_type == '>') {
                 document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = '&gt; ' +
+                    warning_limit;
+            } + compnent_id + '-'
+        }
+
+        function add_general_change_action_limit_type(compnent_id, index, test_method_id) {
+            var action_limit_type = document.querySelector('select[name="action_limit_type-' + test_method_id + '-' +
+                compnent_id + '-' + index +
+                '"]').value;
+            var action_limit = document.querySelector('input[name=action_limit-' + test_method_id + '-' + compnent_id +
+                '-' + index + ']').value;
+
+            if (action_limit_type == '=') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
+                    '= ' + action_limit;
+            } else if (action_limit_type == '>=') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
+                    '&ge; ' +
+                    action_limit;
+            } else if (action_limit_type == '<=') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
+                    '&le; ' +
+                    action_limit;
+            } else if (action_limit_type == '<') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
+                    '&lt; ' +
+                    action_limit;
+            } else if (action_limit_type == '>') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
+                    '&gt; ' +
+                    action_limit;
+            }
+        }
+
+        function add_general_change_warning_limit_type(compnent_id, index, test_method_id) {
+            var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' +
+                compnent_id + '-' + index +
+                ']').value;
+            var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + compnent_id +
+                '-' + index + ']').value;
+
+            if (warning_limit_type == '=') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
+                    .innerHTML = '= ' + warning_limit;
+            } else if (warning_limit_type == '>=') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
+                    .innerHTML = '&ge; ' +
+                    warning_limit;
+            } else if (warning_limit_type == '<=') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
+                    .innerHTML = '&le; ' +
+                    warning_limit;
+            } else if (warning_limit_type == '<') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
+                    .innerHTML = '&lt; ' +
+                    warning_limit;
+            } else if (warning_limit_type == '>') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
+                    .innerHTML = '&gt; ' +
                     warning_limit;
             } + compnent_id + '-'
         }
@@ -753,7 +859,7 @@
                                             style="background-color: #f8f9fa;">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div> 
-                                                     <input type="checkbox" id="tds"  name="component-${component.id}-${index+1}"  checked>
+                                                     <input type="checkbox" id="tds"  name="component-${i}-${component.id}-${index+1}"  checked>
                                                     <label for="tds" class="fw-bold text-primary">${component.name}</label>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">Unit:${component.main_unit && component.main_unit.name ? component.main_unit.name : 'N/A'}</div>
@@ -761,17 +867,17 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
-                                                    <input type="number"  name="warning_limit-${component.id}-${index+1}" class="form-control"     onkeyup="general_change_warning_limit_type(${index+1})">
+                                                    <input type="number"  name="warning_limit-${i}-${component.id}-${index+1}" class="form-control"     onkeyup="add_general_change_warning_limit_type(${index+1} ,${i})">
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
-                                                    <input type="number"  name="action_limit-${component.id}-${index+1}" class="form-control"     onkeyup="general_change_action_limit_type(${index+1})">
+                                                    <input type="number"  name="action_limit-${i}-${component.id}-${index+1}" class="form-control"     onkeyup="add_general_change_action_limit_type(${index+1} ,${i})">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
-                                                      <select name="warning_limit_type-${component.id}-${index+1}" class="form-control"   onchange="general_change_warning_limit_type(${component.id} , ${index+1})">
+                                                      <select name="warning_limit_type-${i}-${component.id}-${index+1}" class="form-control"   onchange="add_general_change_warning_limit_type(${component.id} , ${index+1} , ${i})">
                                                         <option value="">{{ __('samples.select_warning_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -783,7 +889,7 @@
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
                                                    
-                                                    <select name="action_limit_type-${component.id}-${index+1}" class="form-control"   onchange="general_change_action_limit_type(${component.id},${index+1})">
+                                                    <select name="action_limit_type-${i}-${component.id}-${index+1}" class="form-control"   onchange="add_general_change_action_limit_type(${component.id},${index+1} , ${i})">
                                                             <option value="">{{ __('samples.select_action_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -797,13 +903,13 @@
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #fff8dc;">
                                                         <small class="text-muted d-block">Warning Limit</small>
-                                                        <span class="text-warning fw-bold" id="warning_limit_type-${component.id}-${index+1}"></span>
+                                                        <span class="text-warning fw-bold" id="warning_limit_type-${i}-${component.id}-${index+1}"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #ffeeee;">
                                                         <small class="text-muted d-block">Action Limit</small>
-                                                        <span class="text-danger fw-bold" id="action_limit_type-${component.id}-${index+1}"></span>
+                                                        <span class="text-danger fw-bold" id="action_limit_type-${i}-${component.id}-${index+1}"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -847,7 +953,7 @@
                                           
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div> 
-                                                     <input type="checkbox" id="tds" name="component-${data.component.id}" checked>
+                                                     <input type="checkbox" id="tds" name="component-${i}-${data.component.id}" checked>
                                                     <label for="tds" class="fw-bold text-primary">${data.component.name}</label>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">Unit:${data.component.main_unit && data.component.main_unit.name ? data.component.main_unit.name : 'N/A'}</div>
@@ -855,17 +961,17 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
-                                                    <input type="number"  name="warning_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
+                                                    <input type="number"  name="warning_limit-${i}-${data.component.id}" class="form-control"     onkeyup="add_only_one_change_warning_limit_type(${data.component.id},${i})"> 
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
-                                                    <input type="number"  name="action_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
+                                                    <input type="number"  name="action_limit-${i}-${data.component.id}" class="form-control"     onkeyup="add_only_one_change_action_limit_type(${data.component.id},${i})">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
-                                                      <select name="warning_limit_type-${data.component.id}" class="form-control"   onchange="only_one_change_warning_limit_type(${data.component.id})">
+                                                      <select name="warning_limit_type-${i}-${data.component.id}" class="form-control"   onchange="add_only_one_change_warning_limit_type(${data.component.id},${i})">
                                                         <option value="">{{ __('samples.select_warning_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -877,7 +983,7 @@
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
                                                    
-                                                    <select name="action_limit_type-${data.component.id}" class="form-control"   onchange="only_one_change_action_limit_type(${data.component.id})">
+                                                    <select name="action_limit_type-${i}-${data.component.id}" class="form-control"   onchange="add_only_one_change_action_limit_type(${data.component.id},${i})">
                                                             <option value="">{{ __('samples.select_action_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -891,13 +997,13 @@
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #fff8dc;">
                                                         <small class="text-muted d-block">Warning Limit</small>
-                                                        <span class="text-warning fw-bold"  id="warning_limit_type-${data.component.id}"></span>
+                                                        <span class="text-warning fw-bold"  id="warning_limit_type-${i}-${data.component.id}"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #ffeeee;">
                                                         <small class="text-muted d-block">Action Limit</small>
-                                                        <span class="text-danger fw-bold" id="action_limit_type-${data.component.id}"></span>
+                                                        <span class="text-danger fw-bold" id="action_limit_type-${i}-${data.component.id}"></span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -30,4 +30,5 @@ return [
     'added'             => 'Added',
     'not_added'             => 'Not Added',
     'test_method' => 'Test Method',
+    'test_methods' => 'Test Methods',
 ];

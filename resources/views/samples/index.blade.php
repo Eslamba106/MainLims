@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
-<?php $lang = Session::get('locale'); ?>
+    <?php $lang = Session::get('locale'); ?>
 
     {{ __('roles.sample_managment') }}
 @endsection
@@ -63,15 +63,15 @@
                             <i class="la la-refresh"></i> {{ __('dashboard.update') }}
                         </button>
                          @endcan --}}
-                        @can('delete_sample') 
-                        <button type="submit" name="bulk_action_btn" value="delete"
-                            class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
-                            {{ __('dashboard.delete') }}</button>
-                            @endcan
+                        @can('delete_sample')
+                            <button type="submit" name="bulk_action_btn" value="delete"
+                                class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
+                                {{ __('dashboard.delete') }}</button>
+                        @endcan
                         @can('create_sample')
-                        <a href="{{ route('admin.sample.create') }}" class="btn btn-secondary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{ __('dashboard.create') }}
-                        </a> 
+                            <a href="{{ route('admin.sample.create') }}" class="btn btn-secondary mt-3 mr-2">
+                                <i class="la la-refresh"></i> {{ __('dashboard.create') }}
+                            </a>
                         @endcan
                     </div>
                 </div>
@@ -81,41 +81,48 @@
                     <thead>
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
-                            <th class="text-center" scope="col">{{ __('roles.name') }}</th>
-                            <th class="text-center" scope="col">@lang('login.sample_name')</th>
-                            <th class="text-center" scope="col">@lang('roles.role_name')</th>
-                            <th class="text-center" scope="col">{{ __('roles.email') }}</th>
+                            <th class="text-center" scope="col">{{ __('samples.plant_name') }}</th>
+                            <th class="text-center" scope="col">@lang('samples.sample_name')</th>
+                            <th class="text-center" scope="col">@lang('test_method.test_methods')</th> 
                             <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($samples as $sample_item)
                             <tr>
-                                {{-- <th scope="row">
+                                <th scope="row">
                                     <label>
                                         <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
-                                            value="{{ $sample->id }}" />
-                                        <span class="text-muted">#{{ $sample->id }}</span>
+                                            value="{{ $sample_item->id }}" />
+                                        <span class="text-muted">#{{ $sample_item->id }}</span>
                                     </label>
                                 </th>
-                                <td class="text-center">{{ $sample->name }}</td>
-                                <td class="text-center"> {{ $sample->sample_name }}</span>
+                                <td class="text-center">{{ $sample_item->plant_main->name }} @if ($sample_item->sub_plant)
+                                        - {{ $sample_item->sub_plant->name }}
+                                    @endif
                                 </td>
-                                <td class="text-center">{{ $sample->role_name }} </td>
-                                <td class="text-center">{{ $sample->email ?? $sample->sample_name }}</td>
-                              
+                                <td class="text-center">{{ $sample_item->sample_name->name }}</td>
+                                <td class="text-center">
+                                    <ul class="list-unstyled m-0">
+                                        @foreach ($sample_item->test_methods as $test_method_item)
+                                            <li>{{ $test_method_item->master_test_method->name }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+
+                                
                                 <td class="text-center">
                                     @can('delete_sample') 
-                                        <a href="{{ route('sample_managment.delete', $sample->id) }}"
+                                        <a href="{{ route('admin.sample.delete', $sample_item->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
                                     @can('edit_sample') 
-                                        <a href="{{ route('sample_managment.edit', $sample->id) }}"
+                                        <a href="{{ route('admin.sample.edit', $sample_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
-                                </td> --}}
+                                </td>
                             </tr>
                         @empty
                         @endforelse

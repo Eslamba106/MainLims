@@ -131,6 +131,7 @@ return [
     'create_result_type'                                           => "Create Result Type",
 
     'sample_management'                                       => 'Sample',
+    'sample_managment'                                       => 'Sample',
     'all_samples'                                             => 'Samples List', 
     'show_all_samples'                                        => "Show All Samples",
     'change_samples_status'                                   => "Change Sample Status",
@@ -145,5 +146,13 @@ return [
     'delete_plant'                                           => "Delete Plant",
     'edit_plant'                                             => "Edit Plant",
     'create_plant'                                           => "Create Plant",
+
+    'toxic_degree_management'                                       => 'Toxic Degree',
+    'all_toxic_degrees'                                             => 'Toxic Degrees List', 
+    'show_all_toxic_degrees'                                        => "Show All Toxic Degrees",
+    'change_toxic_degrees_status'                                   => "Change Toxic Degree Status",
+    'delete_toxic_degree'                                           => "Delete Toxic Degree",
+    'edit_toxic_degree'                                             => "Edit Toxic Degree",
+    'create_toxic_degree'                                           => "Create Toxic Degree",
 
 ];  

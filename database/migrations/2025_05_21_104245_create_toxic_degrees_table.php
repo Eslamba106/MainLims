@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sample_test_methods', function (Blueprint $table) {
+        Schema::create('toxic_degrees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sample_id')->constrained('samples')->onDelete('cascade');
-            $table->foreignId('test_method_id')->constrained('test_methods')->onDelete('cascade');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sample_test_methods');
+        Schema::dropIfExists('toxic_degrees');
     }
 };

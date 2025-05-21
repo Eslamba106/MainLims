@@ -81,8 +81,8 @@ class PlantController extends Controller
         return view('part.edit', $data);
     }
     public function plant_update(Request $request, $id)
-    {
-        // dd($request->all());
+    { 
+        dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255|unique:plants,name,' . $id . ',id',
         ]);

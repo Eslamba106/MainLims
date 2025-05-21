@@ -79,52 +79,55 @@
                     </thead>
                     <tbody>
                         @forelse ($test_methods as $test_method)
-                        @php
-                            $itemCount = $test_method->test_method_items->count();
-                        @endphp
-                    
-                        @foreach ($test_method->test_method_items as $index => $item)
-                            <tr>
-                                {{-- أول عمود (checkbox + ID) --}}
-                                @if ($index === 0)
-                                    <th scope="row" rowspan="{{ $itemCount }}">
-                                        <label>
-                                            <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
-                                                value="{{ $test_method->id }}" />
-                                            <span class="text-muted">#{{ $loop->index + 1 }}</span>
-                                        </label>
-                                    </th>
-                                    <td class="text-center" rowspan="{{ $itemCount }}">{{ $test_method->name }}</td>
-                                @endif 
-                                <td class="text-center">{{ $item->name }}</td>
-                                <td class="text-center">{{ $item->unit }}</td>
-                                <td class="text-center">{{ $item->lower_range }}</td>
-                                <td class="text-center">{{ $item->upper_range }}</td> 
-                                @if ($index === 0)
-                                    <td class="text-center" rowspan="{{ $itemCount }}">
-                                        <span class="badge badge-pill {{ $test_method->status == 'added' ? 'badge-success' : 'badge-secondary' }}">
-                                            {{ __('test_method.'.$test_method->status) }}
-                                        </span>
-                                    </td>
-                                    <td class="text-center" rowspan="{{ $itemCount }}">
-                                        @can('delete_test_method')
-                                            <a href="{{ route('admin.test_method.delete', $test_method->id) }}"
-                                                class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i class="fa fa-trash"></i></a>
-                                        @endcan
-                                        @can('edit_test_method')
-                                            <a href="{{ route('admin.test_method.edit', $test_method->id) }}"
-                                                class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i class="mdi mdi-pencil"></i> </a>
-                                        @endcan
-                                    </td>
-                                @endif
-                            </tr>
-                        @endforeach
+                            @php
+                                $itemCount = $test_method->test_method_items->count();
+                            @endphp
+
+                            @forelse ($test_method->test_method_items as $index => $item)
+                                <tr>
+                                    @if ($index === 0)
+                                        <th scope="row" rowspan="{{ $itemCount }}">
+                                            <label>
+                                                <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
+                                                    value="{{ $test_method->id }}" />
+                                                <span class="text-muted">#{{ $loop->index + 1 }}</span>
+                                            </label>
+                                        </th>
+                                        <td class="text-center" rowspan="{{ $itemCount }}">{{ $test_method->name }}
+                                        </td>
+                                    @endif
+                                    <td class="text-center">{{ $item->name }}</td>
+                                    <td class="text-center">{{ $item->main_unit->name }}</td>
+                                    <td class="text-center">{{ $item->lower_range }}</td>
+                                    <td class="text-center">{{ $item->upper_range }}</td>
+                                    @if ($index === 0)
+                                        <td class="text-center" rowspan="{{ $itemCount }}">
+                                            <span
+                                                class="badge badge-pill {{ $test_method->status == 'added' ? 'badge-success' : 'badge-secondary' }}">
+                                                {{ __('test_method.' . $test_method->status) }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center" rowspan="{{ $itemCount }}">
+                                            @can('delete_test_method')
+                                                <a href="{{ route('admin.test_method.delete', $test_method->id) }}"
+                                                    class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
+                                                        class="fa fa-trash"></i></a>
+                                            @endcan
+                                            @can('edit_test_method')
+                                                <a href="{{ route('admin.test_method.edit', $test_method->id) }}"
+                                                    class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
+                                                        class="mdi mdi-pencil"></i> </a>
+                                            @endcan
+                                        </td>
+                                    @endif
+                                </tr>
+                            @empty
+                                
+                        @endforelse
                     @empty
                         <tr>
                             <td colspan="8" class="text-center">@lang('No data found')</td>
                         </tr>
-                     
-                    
                         @endforelse
 
 

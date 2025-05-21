@@ -61,6 +61,7 @@ Route::group(['prefix' => 'test_method'], function () {
     Route::get('/edit/{id}' , [TestMethodController::class , 'edit'])->name('admin.test_method.edit');
     Route::patch('/update/{id}' , [TestMethodController::class , 'update'])->name('admin.test_method.update');
     Route::get('/delete/{id}', [TestMethodController::class ,'destroy'])->name('admin.test_method.delete'); 
+    Route::get('/delete_component/{id}', [TestMethodController::class, 'delete_component'])->name('admin.test_method.delete_component');
 
 });
 
@@ -102,6 +103,17 @@ Route::group(['prefix' => 'unit'], function () {
     Route::get('/edit/{id}' , [GeneralController::class , 'unit_edit'])->name('admin.unit.edit');
     Route::patch('/update/{id}' , [GeneralController::class , 'unit_update'])->name('admin.unit.update');
     Route::get('/delete/{id}', [GeneralController::class ,'unit_destroy'])->name('admin.unit.delete'); 
+
+});
+// Unit Managment
+Route::group(['prefix' => 'toxic_degree'], function () {
+
+    Route::get('/', [GeneralController::class, 'toxic_degree_index'])->name('admin.toxic_degree');
+    Route::get('/create', [GeneralController::class , 'toxic_degree_create'])->name('admin.toxic_degree.create');
+    Route::post('/create', [GeneralController::class , 'toxic_degree_store'])->name('admin.toxic_degree.store');
+    Route::get('/edit/{id}' , [GeneralController::class , 'toxic_degree_edit'])->name('admin.toxic_degree.edit');
+    Route::patch('/update/{id}' , [GeneralController::class , 'toxic_degree_update'])->name('admin.toxic_degree.update');
+    Route::get('/delete/{id}', [GeneralController::class ,'toxic_degree_destroy'])->name('admin.toxic_degree.delete'); 
 
 });
 // Result Type Managment

@@ -86,5 +86,16 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 48], ['name' => 'all_plants', 'section_group_id' => 43, 'caption' => 'show_all_plants']);
         
     
+        
+    
+        // Toxic Degrees Management 49 -  54
+        Section::updateOrCreate(['id' => 49], ['name' => 'toxic_degree_management', 'caption' => 'toxic_degree_management']);
+        Section::updateOrCreate(['id' => 50], ['name' => 'change_toxic_degrees_status', 'section_group_id' => 49, 'caption' => 'change_toxic_degrees_status']);
+        Section::updateOrCreate(['id' => 51], ['name' => 'delete_toxic_degree', 'section_group_id' => 49, 'caption' => 'delete_toxic_degree']);
+        Section::updateOrCreate(['id' => 52], ['name' => 'edit_toxic_degree', 'section_group_id' => 49, 'caption' => 'edit_toxic_degree']);
+        Section::updateOrCreate(['id' => 53], ['name' => 'create_toxic_degree', 'section_group_id' => 49, 'caption' => 'create_toxic_degree']);
+        Section::updateOrCreate(['id' => 54], ['name' => 'all_toxic_degrees', 'section_group_id' => 49, 'caption' => 'show_all_toxic_degrees']);
+        
+    
     }
 }

@@ -141,7 +141,7 @@
                                     <div class="form-group">
                                         <label for="">{{ __('test_method.precision') }} <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" name="precision[]" class="form-control" />
+                                        <input type="number" name="precision[]" class="form-control" />
 
                                         @error('precision')
                                             <span class="error text-danger">{{ $message }}</span>
@@ -152,7 +152,7 @@
                                     <div class="form-group">
                                         <label for="">{{ __('test_method.lower_range') }} <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" name="lower_range[]" class="form-control" />
+                                        <input type="number" name="lower_range[]" class="form-control" />
 
                                         @error('lower_range')
                                             <span class="error text-danger">{{ $message }}</span>
@@ -163,7 +163,7 @@
                                     <div class="form-group">
                                         <label for="">{{ __('test_method.upper_range') }} <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" name="upper_range[]" class="form-control" />
+                                        <input type="number" name="upper_range[]" class="form-control" />
 
                                         @error('upper_range')
                                             <span class="error text-danger">{{ $message }}</span>
@@ -244,9 +244,10 @@
                     <label for="">{{ __('test_method.unit') }} <span class="text-danger">*</span></label>
                     <select name="unit[]" class="form-control">
                         <option value="">{{ __('test_method.select_unit') }}</option>
-                        <option value="1">kg/L</option>
-                        <option value="2">ppm</option>
-                        <option value="3">ppb</option>
+                         @foreach ($units as $unit_item)
+                                                
+                                            <option value="{{ $unit_item->id }}">{{ $unit_item->name }}</option> 
+                                            @endforeach
                     </select>
                     @error('role')
                         <span class="error text-danger">{{ $message }}</span>

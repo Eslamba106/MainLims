@@ -76,6 +76,15 @@
                                 </li>
                             @endcan
                            
+                            @can('toxic_degree_management')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.toxic_degree') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('roles.all_toxic_degrees') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
+                           
                         </ul>
                     </li>
                 @endcan
