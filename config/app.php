@@ -58,9 +58,9 @@ return [
 
     // 'asset_url' => env('ASSET_URL', 'http://localhost/MainLims/'),
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost/MainLims/'),
 
-    'asset_url' => env('ASSET_URL'  ),
+    'asset_url' =>   'http://localhost/MainLims/' ,
 
     /*
     |--------------------------------------------------------------------------

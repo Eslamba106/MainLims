@@ -100,8 +100,10 @@ class SampleController extends Controller
                         'test_method_id'        => $sample_test_method->id,
                         'sample_id'             => $sample->id,
                         'test_method_item_id' => $item->id,
+                        'warning_limit_end'       => $request->input("warning_limit_end-$index"),
                         'warning_limit'       => $request->input("warning_limit-$index"),
                         'action_limit'        => $request->input("action_limit-$index"),
+                        'action_limit_end'        => $request->input("action_limit_end-$index"),
                         'warning_limit_type'  => $request->input("warning_limit_type-$index"),
                         'action_limit_type'   => $request->input("action_limit_type-$index"),
                     ]);
@@ -119,7 +121,9 @@ class SampleController extends Controller
                     'sample_id'             => $sample->id,
                     'test_method_item_id' => $request->main_components,
                     'warning_limit'       => $request->input("warning_limit-$request->main_components"),
+                    'warning_limit_end'       => $request->input("warning_limit_end-$request->main_components"),
                     'action_limit'        => $request->input("action_limit-$request->main_components"),
+                    'action_limit_end'        => $request->input("action_limit_end-$request->main_components"),
                     'warning_limit_type'  => $request->input("warning_limit_type-$request->main_components"),
                     'action_limit_type'   => $request->input("action_limit_type-$request->main_components"),
                 ]);
@@ -149,6 +153,8 @@ class SampleController extends Controller
                             'sample_id'             => $sample->id,
                             'test_method_item_id' => $component_num,
                             'warning_limit'       => $request->input("warning_limit-$number-$component_num"),
+                            'warning_limit_end'       => $request->input("warning_limit_end-$number-$component_num"),
+                            'action_limit_end'        => $request->input("action_limit_end-$number-$component_num"),
                             'action_limit'        => $request->input("action_limit-$number-$component_num"),
                             'warning_limit_type'  => $request->input("warning_limit_type-$number-$component_num"),
                             'action_limit_type'   => $request->input("action_limit_type-$number-$component_num"),
@@ -167,6 +173,8 @@ class SampleController extends Controller
                                 'test_method_item_id' => $item->id,
                                 'warning_limit'       => $request->input("warning_limit-$number-$item->id-$new_index"),
                                 'action_limit'        => $request->input("action_limit-$number-$item->id-$new_index"),
+                                'warning_limit_end'       => $request->input("warning_limit_end-$number-$item->id-$new_index"),
+                                'action_limit_end'        => $request->input("action_limit_end-$number-$item->id-$new_index"),
                                 'warning_limit_type'  => $request->input("warning_limit_type-$number-$item->id-$new_index"),
                                 'action_limit_type'   => $request->input("action_limit_type-$number-$item->id-$new_index"),
                             ]);

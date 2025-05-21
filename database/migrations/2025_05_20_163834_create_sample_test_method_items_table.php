@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('test_method_id')->constrained('sample_test_methods')->onDelete('cascade');
             $table->foreignId('test_method_item_id')->constrained('test_method_items')->onDelete('cascade');
             $table->string('warning_limit')->nullable();
+            $table->string('warning_limit_end')->nullable();
             $table->string('action_limit')->nullable();
+            $table->string('action_limit_end')->nullable();
             $table->string('action_limit_type')->nullable();
             $table->string('warning_limit_type')->nullable();
             $table->timestamps();

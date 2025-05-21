@@ -82,7 +82,7 @@ class PlantController extends Controller
     }
     public function plant_update(Request $request, $id)
     { 
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255|unique:plants,name,' . $id . ',id',
         ]);

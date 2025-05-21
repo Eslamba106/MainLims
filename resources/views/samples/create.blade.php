@@ -99,13 +99,15 @@
                                             <span class="error text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-6   col-lg-6">
                                     <div class="form-group">
-                                        <label for="">{{ __('samples.toxic') }} <span class="text-danger ms-1" style="font-size: 18px;">☠</span></label>
-                                        <select name="toxic" class="form-control"> 
+                                        <label for="">{{ __('samples.toxic') }} <span class="text-danger ms-1"
+                                                style="font-size: 18px;">☠</span></label>
+                                        <select name="toxic" class="form-control">
                                             @foreach ($toxic_degrees as $toxic_degree_item)
-                                                <option value="{{ $toxic_degree_item->id }}">{{ $toxic_degree_item->name }}</option>
+                                                <option value="{{ $toxic_degree_item->id }}">
+                                                    {{ $toxic_degree_item->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('toxic')
@@ -353,10 +355,12 @@
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
                                                     <input type="number"  name="warning_limit-${component.id}" class="form-control"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
+                                                    <input type="number"  name="warning_limit_end-${component.id}" class="form-control d-none"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
                                                     <input type="number"  name="action_limit-${component.id}" class="form-control"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
+                                                    <input type="number"  name="action_limit_end-${component.id}" class="form-control d-none"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
@@ -369,6 +373,8 @@
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
                                                             <option value=">">&gt;</option> 
+                                                            <option value="8646">&#8646;</option> 
+
                                                     </select>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
@@ -381,6 +387,7 @@
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
                                                             <option value=">">&gt;</option> 
+                                                            <option value="8646">&#8646;</option>
                                                     </select>
                                                     </div>
                                             </div>
@@ -447,10 +454,12 @@
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
                                                     <input type="number"  name="warning_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
+                                                    <input type="number"  name="warning_limit_end-${data.component.id}" class="form-control d-none"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
                                                     <input type="number"  name="action_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
+                                                    <input type="number"  name="action_limit_end-${data.component.id}" class="form-control d-none"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
@@ -463,6 +472,7 @@
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
                                                             <option value=">">&gt;</option> 
+                                                            <option value="8646">&#8646;</option>
                                                     </select>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
@@ -474,7 +484,8 @@
                                                             <option value=">=">&ge;</option> 
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
-                                                            <option value=">">&gt;</option> 
+                                                            <option value=">">&gt;</option>
+                                                            <option value="8646">&#8646;</option> 
                                                     </select>
                                                     </div>
                                             </div>
@@ -523,6 +534,15 @@
                 document.getElementById('action_limit_type-' + id).innerHTML = '&lt; ' + action_limit;
             } else if (action_limit_type == '>') {
                 document.getElementById('action_limit_type-' + id).innerHTML = '&gt; ' + action_limit;
+            } else if (action_limit_type == '8646') {
+                document.getElementById('action_limit_type-' + id).innerHTML = '&#8646; ' + action_limit;
+                let elements = document.getElementsByName('action_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.remove('d-none');
+                }
+
+
             }
         }
 
@@ -540,12 +560,21 @@
                 document.getElementById('warning_limit_type-' + id).innerHTML = '&lt; ' + warning_limit;
             } else if (warning_limit_type == '>') {
                 document.getElementById('warning_limit_type-' + id).innerHTML = '&gt; ' + warning_limit;
+            } else if (warning_limit_type == '8646') {
+                document.getElementById('warning_limit_type-' + id).innerHTML = warning_limit + ' &#8646; ' +
+                    warning_limit_end;
+                let elements = document.getElementsByName('warning_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.remove('d-none');
+                }
             }
         }
 
         function only_one_change_action_limit_type(id) {
             var action_limit_type = document.querySelector('select[name=action_limit_type-' + id + ']').value;
             var action_limit = document.querySelector('input[name=action_limit-' + id + ']').value;
+            var action_limit_end = document.querySelector('input[name=action_limit_end-' + id + ']').value;
 
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + id).innerHTML = '= ' + action_limit;
@@ -557,12 +586,23 @@
                 document.getElementById('action_limit_type-' + id).innerHTML = '&lt; ' + action_limit;
             } else if (action_limit_type == '>') {
                 document.getElementById('action_limit_type-' + id).innerHTML = '&gt; ' + action_limit;
+            } else if (action_limit_type == '8646') {
+                document.getElementById('action_limit_type-' + id).innerHTML = action_limit + ' &#8646; ' +
+                    action_limit_end;
+                let elements = document.getElementsByName('action_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.remove('d-none');
+                }
+
+
             }
         }
 
         function only_one_change_warning_limit_type(id) {
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + id + ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + id + ']').value;
+            var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + id + ']').value;
 
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + id).innerHTML = '= ' + warning_limit;
@@ -574,6 +614,14 @@
                 document.getElementById('warning_limit_type-' + id).innerHTML = '&lt; ' + warning_limit;
             } else if (warning_limit_type == '>') {
                 document.getElementById('warning_limit_type-' + id).innerHTML = '&gt; ' + warning_limit;
+            } else if (warning_limit_type == '8646') {
+                document.getElementById('warning_limit_type-' + id).innerHTML = warning_limit + ' &#8646; ' +
+                    warning_limit_end;
+                let elements = document.getElementsByName('warning_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.remove('d-none');
+                }
             }
         }
 
@@ -581,21 +629,32 @@
             var action_limit_type = document.querySelector('select[name=action_limit_type-' + test_method_id + '-' + id +
                 ']').value;
             var action_limit = document.querySelector('input[name=action_limit-' + test_method_id + '-' + id + ']').value;
+            var action_limit_end = document.querySelector('input[name=action_limit_end-'+ test_method_id + '-' + id + ']').value;
 
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&ge; ' +
-                action_limit;
+                    action_limit;
             } else if (action_limit_type == '<=') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&le; ' +
-                action_limit;
+                    action_limit;
             } else if (action_limit_type == '<') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&lt; ' +
-                action_limit;
+                    action_limit;
             } else if (action_limit_type == '>') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&gt; ' +
-                action_limit;
+                    action_limit;
+            } else if (action_limit_type == '8646') {
+                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = action_limit + ' &#8646; ' +
+                    action_limit_end;
+                let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.remove('d-none');
+                }
+
+
             }
         }
 
@@ -603,7 +662,7 @@
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' + id +
                 ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + id + ']').value;
-
+            var warning_limit_end = document.querySelector('input[name=warning_limit_end-'+ test_method_id + '-' + id + ']').value;
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -618,6 +677,14 @@
             } else if (warning_limit_type == '>') {
                 document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '&gt; ' +
                     warning_limit;
+            } else if (warning_limit_type == '8646') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = warning_limit + ' &#8646; ' +
+                    warning_limit_end;
+                let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.remove('d-none');
+                }
             }
         }
 
@@ -625,7 +692,8 @@
             var action_limit_type = document.querySelector('select[name="action_limit_type-' + compnent_id + '-' + index +
                 '"]').value;
             var action_limit = document.querySelector('input[name=action_limit-' + compnent_id + '-' + index + ']').value;
-
+            var action_limit_end = document.querySelector('input[name=action_limit_end-' + compnent_id + '-' + index + ']')
+                .value;
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -640,6 +708,14 @@
             } else if (action_limit_type == '>') {
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '&gt; ' +
                     action_limit;
+            } else if (action_limit_type == '8646') {
+                document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = action_limit + ' &#8646; ' +
+                    action_limit_end;
+                let elements = document.getElementsByName('action_limit_end-' + compnent_id + '-' + index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.remove('d-none');
+                }
             }
         }
 
@@ -647,7 +723,7 @@
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + compnent_id + '-' + index +
                 ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + compnent_id + '-' + index + ']').value;
-
+            var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + compnent_id + '-' + index + ']').value; 
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -662,7 +738,15 @@
             } else if (warning_limit_type == '>') {
                 document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = '&gt; ' +
                     warning_limit;
-            } + compnent_id + '-'
+            } else if (warning_limit_type == '8646') {
+                document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = warning_limit + ' &#8646; ' +
+                    warning_limit_end;
+                let elements = document.getElementsByName('warning_limit_end-' + compnent_id + '-' + index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.remove('d-none');
+                }
+            }
         }
 
         function add_general_change_action_limit_type(compnent_id, index, test_method_id) {
@@ -671,7 +755,9 @@
                 '"]').value;
             var action_limit = document.querySelector('input[name=action_limit-' + test_method_id + '-' + compnent_id +
                 '-' + index + ']').value;
-
+            var action_limit_end = document.querySelector('input[name=action_limit_end-' + test_method_id + '-' +
+                compnent_id +
+                '-' + index + ']').value;
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
                     '= ' + action_limit;
@@ -691,14 +777,22 @@
                 document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
                     '&gt; ' +
                     action_limit;
+            } else if (action_limit_type == '8646') {
+                document.getElementById('action_limit_type-'+ test_method_id + '-' + compnent_id + '-' + index).innerHTML = action_limit + ' &#8646; ' +
+                    action_limit_end;
+                let elements = document.getElementsByName('action_limit_end-'+ test_method_id + '-' + compnent_id + '-' + index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.remove('d-none');
+                }
             }
         }
 
         function add_general_change_warning_limit_type(compnent_id, index, test_method_id) {
-            var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' +
-                compnent_id + '-' + index +
-                ']').value;
-            var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + compnent_id +
+            var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index + ']').value;
+            var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + compnent_id + '-' + index + ']').value;
+            var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + test_method_id + '-' +
+                compnent_id +
                 '-' + index + ']').value;
 
             if (warning_limit_type == '=') {
@@ -720,12 +814,21 @@
                 document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
                     .innerHTML = '&gt; ' +
                     warning_limit;
-            } + compnent_id + '-'
+            } else if (warning_limit_type == '8646') {
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML = warning_limit + ' &#8646; ' +
+                    warning_limit_end;
+                let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + compnent_id + '-' + index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.remove('d-none');
+                }
+            }
         }
 
         function only_one_general_change_action_limit_type(compnent_id) {
             var action_limit_type = document.querySelector('select[name="action_limit_type-' + compnent_id + '"]').value;
             var action_limit = document.querySelector('input[name=action_limit-' + compnent_id + ']').value;
+            var action_limit_end = document.querySelector('input[name=action_limit_end-' + compnent_id + ']').value;
 
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + compnent_id).innerHTML = '= ' + action_limit;
@@ -737,12 +840,21 @@
                 document.getElementById('action_limit_type-' + compnent_id).innerHTML = '&lt; ' + action_limit;
             } else if (action_limit_type == '>') {
                 document.getElementById('action_limit_type-' + compnent_id).innerHTML = '&gt; ' + action_limit;
+            } else if (action_limit_type == '8646') {
+                document.getElementById('action_limit_type-' + compnent_id).innerHTML = action_limit + ' &#8646; ' +
+                    action_limit_end;
+                let elements = document.getElementsByName('action_limit_end-' + compnent_id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.remove('d-none');
+                }
             }
         }
 
         function only_one_general_change_warning_limit_type(compnent_id) {
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + compnent_id + ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + compnent_id + ']').value;
+            var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + compnent_id + ']').value;
 
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + compnent_id).innerHTML = '= ' + warning_limit;
@@ -754,7 +866,15 @@
                 document.getElementById('warning_limit_type-' + compnent_id).innerHTML = '&lt; ' + warning_limit;
             } else if (warning_limit_type == '>') {
                 document.getElementById('warning_limit_type-' + compnent_id).innerHTML = '&gt; ' + warning_limit;
-            } + compnent_id + '-'
+            } else if (warning_limit_type == '8646') {
+                document.getElementById('warning_limit_type-' + compnent_id).innerHTML = warning_limit + ' &#8646; ' +
+                    warning_limit_end;
+                let elements = document.getElementsByName('warning_limit_end-' + compnent_id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.remove('d-none');
+                }
+            }
         }
     </script>
     <script>
@@ -867,11 +987,13 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
-                                                    <input type="number"  name="warning_limit-${i}-${component.id}-${index+1}" class="form-control"     onkeyup="add_general_change_warning_limit_type(${index+1} ,${i})">
+                                                    <input type="number"  name="warning_limit-${i}-${component.id}-${index+1}" class="form-control"     onkeyup="add_general_change_warning_limit_type(${component.id} , ${index+1} , ${i})">
+                                                    <input type="number"  name="warning_limit_end-${i}-${component.id}-${index+1}" class="form-control d-none"     onkeyup="add_general_change_warning_limit_type(${component.id} , ${index+1} , ${i})">
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
-                                                    <input type="number"  name="action_limit-${i}-${component.id}-${index+1}" class="form-control"     onkeyup="add_general_change_action_limit_type(${index+1} ,${i})">
+                                                    <input type="number"  name="action_limit-${i}-${component.id}-${index+1}" class="form-control"      onkeyup="add_general_change_action_limit_type(${component.id} , ${index+1} , ${i})">
+                                                    <input type="number"  name="action_limit_end-${i}-${component.id}-${index+1}" class="form-control d-none"     onkeyup="add_general_change_action_limit_type(${component.id} , ${index+1} , ${i})">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
@@ -884,18 +1006,20 @@
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
                                                             <option value=">">&gt;</option> 
+                                                            <option value="8646">&#8646;</option> 
                                                     </select>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
                                                    
-                                                    <select name="action_limit_type-${i}-${component.id}-${index+1}" class="form-control"   onchange="add_general_change_action_limit_type(${component.id},${index+1} , ${i})">
+                                                    <select name="action_limit_type-${i}-${component.id}-${index+1}" class="form-control"   onchange="add_general_change_action_limit_type(${component.id} , ${index+1} , ${i})">
                                                             <option value="">{{ __('samples.select_action_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
                                                             <option value=">">&gt;</option> 
+                                                            <option value="8646">&#8646;</option> 
                                                     </select>
                                                     </div>
                                             </div>
@@ -962,10 +1086,12 @@
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
                                                     <input type="number"  name="warning_limit-${i}-${data.component.id}" class="form-control"     onkeyup="add_only_one_change_warning_limit_type(${data.component.id},${i})"> 
+                                                    <input type="number"  name="warning_limit_end-${i}-${data.component.id}" class="form-control d-none"     onkeyup="add_only_one_change_warning_limit_type(${data.component.id},${i})"> 
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
                                                     <input type="number"  name="action_limit-${i}-${data.component.id}" class="form-control"     onkeyup="add_only_one_change_action_limit_type(${data.component.id},${i})">
+                                                    <input type="number"  name="action_limit_end-${i}-${data.component.id}" class="form-control d-none"     onkeyup="add_only_one_change_action_limit_type(${data.component.id},${i})">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
@@ -978,6 +1104,8 @@
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
                                                             <option value=">">&gt;</option> 
+                                                            <option value="8646">&#8646;</option> 
+
                                                     </select>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
@@ -990,6 +1118,8 @@
                                                             <option value="<=">&le;</option> 
                                                             <option value="<">&lt;</option> 
                                                             <option value=">">&gt;</option> 
+                                                            <option value="8646">&#8646;</option> 
+
                                                     </select>
                                                     </div>
                                             </div>
