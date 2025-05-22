@@ -8,7 +8,7 @@ return [
     'create_role' => 'Create Role',
     'set_role'   => "Set Role",
     'user_managment' => 'User Management',
-    'user'              =>"User",
+    'user'              => "User",
     'admin'             => "Admin",
     'name' => "Name",
     'status' => "Status",
@@ -20,13 +20,13 @@ return [
     'Created_At'    => "Created At",
     'Actions'       => "Actions",
     'admin_general_dashboard'                                     => "General Dashboard",
-    'general_dashboard_page'                                => "General Dashboard Show" ,
-    'admin_roles'                                           => "Roles" ,
-    'show_admin_roles'                                      => "Show Roles" ,
-    'create_admin_roles'                                    => "Create Roles" ,
-    'edit_admin_roles'                                      => "Edit Roles" ,
-    'update_admin_roles'                                    => "Update Roles" ,
-    'delete_admin_roles'                                    => "Delete Roles" ,
+    'general_dashboard_page'                                => "General Dashboard Show",
+    'admin_roles'                                           => "Roles",
+    'show_admin_roles'                                      => "Show Roles",
+    'create_admin_roles'                                    => "Create Roles",
+    'edit_admin_roles'                                      => "Edit Roles",
+    'update_admin_roles'                                    => "Update Roles",
+    'delete_admin_roles'                                    => "Delete Roles",
     'Caption'                                               => "Caption",
     'show_all_users'                                        => "Show All Users",
     'change_users_role'                                     => "Change User Role",
@@ -53,7 +53,7 @@ return [
     'create_customer'                                           => "Create Customer",
 
     'unit_type_management'                                       => 'Unit Type Management',
-    'all_unit_types'                                             => 'All Unit Types', 
+    'all_unit_types'                                             => 'All Unit Types',
     'show_all_unit_types'                                        => "Show All Unit Types",
     'change_unit_types_status'                                   => "Change Unit Type Status",
     'delete_unit_type'                                           => "Delete Unit Type",
@@ -61,26 +61,26 @@ return [
     'create_unit_type'                                           => "Create Unit Type",
 
     'hotel_management'                                       => 'Hotel Management',
-    'all_hotels'                                             => 'All Hotels', 
+    'all_hotels'                                             => 'All Hotels',
     'show_all_hotels'                                        => "Show All Hotels",
     'change_hotels_status'                                   => "Change Hotel Status",
     'delete_hotel'                                           => "Delete Hotel",
     'edit_hotel'                                             => "Edit Hotel",
     'create_hotel'                                           => "Create Hotel",
- 
- 
+
+
     'moved_to_archive' => 'Moved to Archive',
- 
+
     'archive'           => "Archive",
     'delete_from_archive' => "Delete From Archive",
     'show_archive' => "Show Archive",
-   
+
     'uploadpdf'                         => "Upload External File",
     'external_files'                         => "External File",
 
 
     'driver_management'                                       => 'Driver Management',
-    'all_drivers'                                             => 'All Drivers', 
+    'all_drivers'                                             => 'All Drivers',
     'show_all_drivers'                                        => "Show All Drivers",
     'change_drivers_status'                                   => "Change Driver Status",
     'delete_driver'                                           => "Delete Driver",
@@ -90,24 +90,24 @@ return [
     'qyt'                                                      => "Qyt",
     'price'                                                    => "Price",
     'service_management'                                       => 'Service Management',
-    'all_services'                                             => 'All Services', 
+    'all_services'                                             => 'All Services',
     'show_all_services'                                        => "Show All Services",
     'change_services_status'                                   => "Change Service Status",
     'delete_service'                                           => "Delete Service",
     'edit_service'                                             => "Edit Service",
     'create_service'                                           => "Create Service",
-    
+
     'tenant_management'                                       => 'Tenant Management',
-    'all_tenants'                                             => 'All Tenants', 
+    'all_tenants'                                             => 'All Tenants',
     'show_all_tenants'                                        => "Show All Tenants",
     'change_tenants_status'                                   => "Change Tenant Status",
     'delete_tenant'                                           => "Delete Tenant",
     'edit_tenant'                                             => "Edit Tenant",
     'create_tenant'                                           => "Create Tenant",
-    
+
     'basic_information'                                             => 'Basic Information',
     'test_method_management'                                       => 'Test Method',
-    'all_test_methods'                                             => 'Test Methods List', 
+    'all_test_methods'                                             => 'Test Methods List',
     'show_all_test_methods'                                        => "Show All Test Methods",
     'change_test_methods_status'                                   => "Change Test Method Status",
     'delete_test_method'                                           => "Delete Test Method",
@@ -115,7 +115,7 @@ return [
     'create_test_method'                                           => "Create Test Method",
 
     'unit_management'                                       => 'Unit',
-    'all_units'                                             => 'Units List', 
+    'all_units'                                             => 'Units List',
     'show_all_units'                                        => "Show All Units",
     'change_units_status'                                   => "Change Unit Status",
     'delete_unit'                                           => "Delete Unit",
@@ -123,7 +123,7 @@ return [
     'create_unit'                                           => "Create Unit",
 
     'result_type_management'                                       => 'Result Type',
-    'all_result_types'                                             => 'Result Types List', 
+    'all_result_types'                                             => 'Result Types List',
     'show_all_result_types'                                        => "Show All Result Types",
     'change_result_types_status'                                   => "Change Result Type Status",
     'delete_result_type'                                           => "Delete Result Type",
@@ -132,7 +132,7 @@ return [
 
     'sample_management'                                       => 'Sample',
     'sample_managment'                                       => 'Sample',
-    'all_samples'                                             => 'Samples List', 
+    'all_samples'                                             => 'Samples List',
     'show_all_samples'                                        => "Show All Samples",
     'change_samples_status'                                   => "Change Sample Status",
     'delete_sample'                                           => "Delete Sample",
@@ -140,7 +140,7 @@ return [
     'create_sample'                                           => "Create Sample",
 
     'plant_management'                                       => 'Plant',
-    'all_plants'                                             => 'Plants List', 
+    'all_plants'                                             => 'Plants List',
     'show_all_plants'                                        => "Show All Plants",
     'change_plants_status'                                   => "Change Plant Status",
     'delete_plant'                                           => "Delete Plant",
@@ -148,11 +148,31 @@ return [
     'create_plant'                                           => "Create Plant",
 
     'toxic_degree_management'                                       => 'Toxic Degree',
-    'all_toxic_degrees'                                             => 'Toxic Degrees List', 
+    'all_toxic_degrees'                                             => 'Toxic Degrees List',
     'show_all_toxic_degrees'                                        => "Show All Toxic Degrees",
     'change_toxic_degrees_status'                                   => "Change Toxic Degree Status",
     'delete_toxic_degree'                                           => "Delete Toxic Degree",
     'edit_toxic_degree'                                             => "Edit Toxic Degree",
     'create_toxic_degree'                                           => "Create Toxic Degree",
 
-];  
+    'sample_information'                                            => 'Sample Information',
+    'additional_information'                                        => 'Additional Information',
+    'testing_requirements'                                          => 'Testing Requirements',
+    'required_test_methods'                                         => 'Required Test Methods',
+    'comment'                                                       => 'Comment',
+    'priority_level'                                                => 'Priority Level',
+    'submission_management'                                         => 'Submission',
+    'submission_managment'                                          => 'Submission',
+    'all_submissions'                                             => 'Submissions List',
+    'show_all_submissions'                                        => "Show All Submissions",
+    'change_submissions_status'                                   => "Change Submission Status",
+    'delete_submission'                                           => "Delete Submission",
+    'edit_submission'                                             => "Edit Submission",
+    'create_submission'                                           => "Create Submission",
+    'critical' => 'Critical',
+    'normal' => 'Normal',
+    'high' => 'High',
+    'submission_number' => 'Submission Number',
+    'sampling_date_and_time' => 'Sampling Date and Time',
+
+];

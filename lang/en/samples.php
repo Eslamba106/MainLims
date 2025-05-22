@@ -34,4 +34,6 @@ return [
     'select_action_limit_type'          => 'Select Action Limit Type',
     'select_warning_limit_type'          => 'Select Warning Limit Type',
     'toxic' => 'Toxic Sample Point',
+    'select_sample' => 'Select Sample',
+    'sample_id' => 'Sample ID',
 ];

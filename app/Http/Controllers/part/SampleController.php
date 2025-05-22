@@ -63,8 +63,7 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
-        $inputs = $request->all();
-        // dd($request->all());
+        $inputs = $request->all(); 
         $numbers = [];
 
         foreach ($inputs as $key => $value) {

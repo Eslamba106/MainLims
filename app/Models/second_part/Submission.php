@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Models\second_part;
+
+use App\Models\Plant;
+use App\Models\Sample;
+use App\Models\SampleTestMethod;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Submission extends Model
+{
+    use HasFactory;
+
+    protected $guarded = ['id'];
+    public function plant()
+    {
+        return $this->belongsTo(Plant::class , 'plant_id');
+    }
+    public function sub_plant()
+    {
+        return $this->belongsTo(Plant::class, 'sub_plant_id');
+    }
+    public function sample_main()
+    {
+        return $this->belongsTo(Sample::class, 'plant_sample_id');
+    }
+    public function submission_test_method_items()
+    {
+        return $this->hasMany(SubmissionItem::class, 'submission_id' , 'id');
+    }
+}

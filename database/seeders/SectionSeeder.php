@@ -96,6 +96,14 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 53], ['name' => 'create_toxic_degree', 'section_group_id' => 49, 'caption' => 'create_toxic_degree']);
         Section::updateOrCreate(['id' => 54], ['name' => 'all_toxic_degrees', 'section_group_id' => 49, 'caption' => 'show_all_toxic_degrees']);
         
+        // Submission Management 55 - 60 
+        Section::updateOrCreate(['id' => 55], ['name' => 'submission_management', 'caption' => 'submission_management']);
+        Section::updateOrCreate(['id' => 56], ['name' => 'change_submissions_status', 'section_group_id' => 55, 'caption' => 'change_submissions_status']);
+        Section::updateOrCreate(['id' => 57], ['name' => 'delete_submission', 'section_group_id' => 55, 'caption' => 'delete_submission']);
+        Section::updateOrCreate(['id' => 58], ['name' => 'edit_submission', 'section_group_id' => 55, 'caption' => 'edit_submission']);
+        Section::updateOrCreate(['id' => 59], ['name' => 'create_submission', 'section_group_id' => 55, 'caption' => 'create_submission']);
+        Section::updateOrCreate(['id' => 60], ['name' => 'all_submissions', 'section_group_id' => 55, 'caption' => 'show_all_submissions']);
+        
     
     }
 }

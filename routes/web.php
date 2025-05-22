@@ -9,6 +9,7 @@ use App\Http\Controllers\part\SampleController;
 use App\Http\Controllers\part\GeneralController;
 use App\Http\Controllers\Admin\UserManagmentController;
 use App\Http\Controllers\first_part\TestMethodController;
+use App\Http\Controllers\second_part\SubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,21 @@ Route::group(['prefix' => 'sample'], function () {
     Route::get('/get_sample_from_plant/{id}', [SampleController::class, 'get_sample_from_plant'])->name('admin.sample.get_sample_from_plant');
     Route::get('/get_components_by_test_method/{id}', [SampleController::class, 'get_components_by_test_method'])->name('admin.sample.get_components_by_test_method');
     Route::get('/get_one_component_by_test_method/{id}', [SampleController::class, 'get_one_component_by_test_method'])->name('admin.sample.get_one_component_by_test_method');
+
+});
+// Submission Managment
+Route::group(['prefix' => 'submission'], function () {
+
+    Route::get('/', [SubmissionController::class, 'index'])->name('admin.submission');
+    Route::get('/create', [SubmissionController::class , 'create'])->name('admin.submission.create');
+    Route::post('/create', [SubmissionController::class , 'store'])->name('admin.submission.store');
+    Route::get('/edit/{id}' , [SubmissionController::class , 'edit'])->name('admin.submission.edit');
+    Route::patch('/update/{id}' , [SubmissionController::class , 'update'])->name('admin.submission.update');
+    Route::get('/delete/{id}', [SubmissionController::class ,'destroy'])->name('admin.submission.delete'); 
+    Route::get('/get_sub_from_plant/{id}', [SubmissionController::class, 'get_sub_from_plant'])->name('admin.submission.get_sub_from_plant');
+    Route::get('/get_sample_from_plant/{id}', [SubmissionController::class, 'get_sample_from_plant'])->name('admin.submission.get_sample_from_plant');
+    Route::get('/get_test_method_by_sample_id/{id}', [SubmissionController::class, 'get_test_method_by_sample_id'])->name('admin.submission.get_test_method_by_sample_id');
+    // Route::get('/get_one_component_by_test_method/{id}', [SubmissionController::class, 'get_one_component_by_test_method'])->name('admin.submission.get_one_component_by_test_method');
 
 });
 

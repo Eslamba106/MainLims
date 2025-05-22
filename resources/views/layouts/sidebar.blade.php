@@ -90,6 +90,31 @@
                 @endcan
 
                    <!--  Sample Management End-->
+                   <!--  Submission Management Start-->
+                @can('submission_management')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false">
+                            <i class="fas fa-microscope"></i>
+
+                            <span class="hide-menu">{{ __('roles.submission_management') }} </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            @can('all_submissions')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.submission') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('roles.all_submissions') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            
+                           
+                        </ul>
+                    </li>
+                @endcan
+
+                   <!--  Submission Management End-->
 
                 @can('user_management')
                     <li class="sidebar-item">
