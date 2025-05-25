@@ -50,14 +50,14 @@
                             <div class="remv_control mr-2">
                                 <select name="role" class="mr-3 mt-3 form-control">
                                     <option value="">{{ __('roles.set_role') }}</option>
-                                    @foreach ($roles as $item_role) 
+                                    @foreach ($roles as $item_role)
                                     <option value="{{ $item_role->id }}">{{ $item_role->name }}</option>
                                     @endforeach
- 
+
                                 </select>
                             </div>
-                       
-                        
+
+
                         <button type="submit" name="bulk_action_btn" value="update_status"
                             class="btn btn-primary mt-3 mr-2">
                             <i class="la la-refresh"></i> {{ __('dashboard.update') }}
@@ -83,7 +83,7 @@
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ __('samples.plant_name') }}</th>
                             <th class="text-center" scope="col">@lang('samples.sample_name')</th>
-                            <th class="text-center" scope="col">@lang('test_method.test_methods')</th> 
+                            <th class="text-center" scope="col">@lang('test_method.test_methods')</th>
                             <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
                         </tr>
                     </thead>
@@ -110,14 +110,14 @@
                                     </ul>
                                 </td>
 
-                                
+
                                 <td class="text-center">
-                                    @can('delete_sample') 
+                                    @can('delete_sample')
                                         <a href="{{ route('admin.sample.delete', $sample_item->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
-                                    @can('edit_sample') 
+                                    @can('edit_sample')
                                         <a href="{{ route('admin.sample.edit', $sample_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>

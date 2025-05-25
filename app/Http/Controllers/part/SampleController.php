@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\part;
 
+use App\Models\PlantSubSample;
 use Carbon\Carbon;
 use App\Models\Plant;
 use App\Models\Sample;
@@ -63,9 +64,10 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
-        $inputs = $request->all(); 
+        // dd($request->all());
+        $inputs = $request->all();
         $numbers = [];
-
+        // dd($inputs);
         foreach ($inputs as $key => $value) {
             if (Str::startsWith($key, 'test_method-')) {
                 $number = (int) str_replace('test_method-', '', $key);
@@ -142,9 +144,9 @@ class SampleController extends Controller
                         $component_num = (int) str_replace("component-$number-", '', $key);
                         $component_nums[] = $component_num;
                     }
-                } 
+                }
                 if (!empty($component_nums) && is_array($component_nums) && !in_array(-1, $request->components)) {
-                     
+
                     foreach ($component_nums as $index => $component_num) {
 
                         DB::table('sample_test_method_items')->insert([
@@ -161,9 +163,9 @@ class SampleController extends Controller
                     }
                 } elseif (is_array($component_nums) && is_array($request->components) &&  in_array(-1, $request->components)) {
                     $test_method_items = TestMethodItem::select('id', 'test_method_id')->where('test_method_id', $test_method->id)->get();
-                      
+
                     foreach ($test_method_items as $index => $item) {
-                        $new_index = $index + 1; 
+                        $new_index = $index + 1;
                         if ($request->has("component-$number-$item->id-$new_index")) {
 
                             DB::table('sample_test_method_items')->insert([
@@ -182,7 +184,7 @@ class SampleController extends Controller
                 }
             }
         }
-        
+
         return redirect()->route('admin.sample')->with('success', __('general.created_successfully'));
     }
 
@@ -236,5 +238,168 @@ class SampleController extends Controller
             'status'      => 200,
             "component" => $component,
         ]);
+    }
+    public function edit($id)
+    {
+        $this->authorize('edit_sample');
+
+        $sample = Sample::with([
+
+
+            'test_methods.test_method.test_method_items.component'
+        ])->findOrFail($id);
+
+        $plants = Plant::whereNull('plant_id')->get();
+        $toxic_degrees = ToxicDegree::all();
+        $master_test_methods = TestMethod::all();
+
+        // Get sub plants if main plant has sub plants
+        $sub_plants = [];
+        if ($sample->plant && $sample->plant->sub_plants) {
+            $sub_plants = $sample->plant->sub_plants;
+        }
+
+        // Get samples for the selected plant (main or sub)
+        $plant_samples = [];
+        $plant_id = $sample->sub_plant_id ?? $sample->plant_id;
+        if ($plant_id) {
+            $plant_samples = SamplePlant::where('plant_id', $plant_id)->get();
+        }
+
+        return view('samples.edit', compact(
+            'sample',
+            'plants',
+            'sub_plants',
+            'plant_samples',
+            'toxic_degrees',
+            'master_test_methods'
+        ));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->authorize('edit_sample');
+
+        $request->validate([
+            'main_plant_item' => 'required',
+            'sample_name' => 'required',
+        ]);
+
+        $sample = Sample::findOrFail($id);
+
+        // Update basic sample info
+        $sample->update([
+            'plant_id' => $request->main_plant_item,
+            'sub_plant_id' => $request->sub_plant_item ?? null,
+            'plant_sample_id' => $request->sample_name,
+            'toxic' => $request->toxic ?? null,
+        ]);
+
+        // Handle test methods and components
+        $numbers = [];
+        foreach ($request->all() as $key => $value) {
+            if (Str::startsWith($key, 'test_method-')) {
+                $number = (int) str_replace('test_method-', '', $key);
+                $numbers[] = $number;
+            }
+        }
+
+        // First delete all existing test methods and items
+        $sample->test_methods()->delete();
+
+        // Process the main test method (if exists)
+        if ($request->test_method) {
+            $test_method = TestMethod::find($request->test_method);
+
+            if ($test_method) {
+                $sample_test_method = $sample->test_methods()->create([
+                    'test_method_id' => $test_method->id,
+                ]);
+
+                // Process components
+                if ($request->main_components == -1) {
+                    // All components selected
+                    foreach ($test_method->items as $item) {
+                        if ($request->has("component-{$item->id}")) {
+                            $sample_test_method->items()->create([
+                                'test_method_item_id' => $item->id,
+                                'warning_limit' => $request->input("warning_limit-{$item->id}"),
+                                'warning_limit_end' => $request->input("warning_limit_end-{$item->id}"),
+                                'action_limit' => $request->input("action_limit-{$item->id}"),
+                                'action_limit_end' => $request->input("action_limit_end-{$item->id}"),
+                                'warning_limit_type' => $request->input("warning_limit_type-{$item->id}"),
+                                'action_limit_type' => $request->input("action_limit_type-{$item->id}"),
+                            ]);
+                        }
+                    }
+                } elseif ($request->main_components) {
+                    // Single component selected
+                    if ($request->has("component-{$request->main_components}")) {
+                        $sample_test_method->items()->create([
+                            'test_method_item_id' => $request->main_components,
+                            'warning_limit' => $request->input("warning_limit-{$request->main_components}"),
+                            'warning_limit_end' => $request->input("warning_limit_end-{$request->main_components}"),
+                            'action_limit' => $request->input("action_limit-{$request->main_components}"),
+                            'action_limit_end' => $request->input("action_limit_end-{$request->main_components}"),
+                            'warning_limit_type' => $request->input("warning_limit_type-{$request->main_components}"),
+                            'action_limit_type' => $request->input("action_limit_type-{$request->main_components}"),
+                        ]);
+                    }
+                }
+            }
+        }
+
+        // Process additional test methods
+        foreach ($numbers as $number) {
+            $test_method_id = $request->input("test_method-{$number}");
+            $test_method = TestMethod::find($test_method_id);
+
+            if ($test_method) {
+                $sample_test_method = $sample->test_methods()->create([
+                    'test_method_id' => $test_method->id,
+                ]);
+
+                $component_nums = [];
+                foreach ($request->all() as $key => $value) {
+                    if (Str::startsWith($key, "component-{$number}-")) {
+                        $component_num = (int) str_replace("component-{$number}-", '', $key);
+                        $component_nums[] = $component_num;
+                    }
+                }
+
+                if (!empty($component_nums) && is_array($component_nums) && !in_array(-1, $request->components ?? [])) {
+                    // Specific components selected
+                    foreach ($component_nums as $component_num) {
+                        $sample_test_method->items()->create([
+                            'test_method_item_id' => $component_num,
+                            'warning_limit' => $request->input("warning_limit-{$number}-{$component_num}"),
+                            'warning_limit_end' => $request->input("warning_limit_end-{$number}-{$component_num}"),
+                            'action_limit' => $request->input("action_limit-{$number}-{$component_num}"),
+                            'action_limit_end' => $request->input("action_limit_end-{$number}-{$component_num}"),
+                            'warning_limit_type' => $request->input("warning_limit_type-{$number}-{$component_num}"),
+                            'action_limit_type' => $request->input("action_limit_type-{$number}-{$component_num}"),
+                        ]);
+                    }
+                } elseif (is_array($component_nums) && is_array($request->components ?? []) && in_array(-1, $request->components)) {
+                    // All components selected
+                    foreach ($test_method->items as $index => $item) {
+                        $new_index = $index + 1;
+                        if ($request->has("component-{$number}-{$item->id}-{$new_index}")) {
+                            $sample_test_method->items()->create([
+                                'test_method_item_id' => $item->id,
+                                'warning_limit' => $request->input("warning_limit-{$number}-{$item->id}-{$new_index}"),
+                                'warning_limit_end' => $request->input("warning_limit_end-{$number}-{$item->id}-{$new_index}"),
+                                'action_limit' => $request->input("action_limit-{$number}-{$item->id}-{$new_index}"),
+                                'action_limit_end' => $request->input("action_limit_end-{$number}-{$item->id}-{$new_index}"),
+                                'warning_limit_type' => $request->input("warning_limit_type-{$number}-{$item->id}-{$new_index}"),
+                                'action_limit_type' => $request->input("action_limit_type-{$number}-{$item->id}-{$new_index}"),
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        return redirect()->route('admin.sample')->with('success', __('general.updated_successfully'));
     }
 }

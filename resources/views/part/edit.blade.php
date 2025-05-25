@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label for="">{{ __('roles.name') }} <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" name="name" value="{{ $main->name }}"
+                                        <input type="text" name="sub_plant_name[{{$main->id}}]" value="{{ $main->name }}"
                                             class="form-control" />
 
                                         @error('name')
@@ -96,11 +96,11 @@
                                                 <div class="form-group">
                                                     <label for="sample_name[]">{{ __('samples.sample_name') }} <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="text" name="sample_name_master[]"
+                                                    <input type="text" name="sample_name[{{$semples_item->id}}]"
                                                         value="{{ $semples_item->name }}" class="form-control" />
                                                     @error('name')
                                                         <span class="error text-danger">{{ $message }}</span>
-                                                    @enderror   
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@
                                         <div class="form-group">
                                             <label for="">{{ __('roles.name') }} <span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" name="sub_plant_name-{{ $sub_plant_item->id }}"
+                                            <input type="text" name="sub_plant_name[{{$sub_plant_item->id}}]"
                                                 value="{{ $sub_plant_item->name }}" class="form-control" />
 
                                             @error('name')
@@ -146,6 +146,7 @@
                                     </div>
                                     <div class="card-body" id="main_sample_content-{{ $sub_plant_item->id }}">
                                         @foreach ($sub_plant_item->samplePlants as $semples_item)
+                                        {{-- @dd($sub_plant_item->samplePlants ) --}}
                                             <div class="row mt-1 bg-primary border rounded p-2 position-relative"
                                                 id="sample_name-{{ $semples_item->id }}">
                                                 <div class="col-md-6 col-lg-4 col-lg-12">
@@ -206,7 +207,7 @@
                             <div class="col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label>{{ __('roles.name') }} <span class="text-danger">*</span></label>
-                                    <input type="text" name="sub_plant_name[]" class="form-control" />
+                                    <input type="text" name="sub_plant_name_new[]" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-6">
@@ -234,12 +235,12 @@
         function add_samples_to_new_sub(index) {
             const target = document.getElementById(`main_sample_content_${index}`);
             const sampleHtml = `
-                
+
                  <div class="row mt-1 bg-primary border rounded p-2 position-relative" id="sample_name">
                     <div class="col-md-6 col-lg-4 col-lg-12">
                         <div class="form-group">
-                            <label for="sample_name[${index}][]">{{ __('samples.sample_name') }} <span class="text-danger">*</span></label>
-                            <input type="text" name="sample_name[${index}][]" class="form-control" />
+                            <label for="sample_name[]">{{ __('samples.sample_name') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="sample_name_new[]" class="form-control" />
                             @error('name')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror

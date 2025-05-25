@@ -30,7 +30,7 @@ class PlantController extends Controller
     public function plant_store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:plants',
         ]);
 
 
@@ -81,52 +81,51 @@ class PlantController extends Controller
         return view('part.edit', $data);
     }
     public function plant_update(Request $request, $id)
-    { 
+    {
         // dd($request->all());
-        $request->validate([
-            'name' => 'required|string|max:255|unique:plants,name,' . $id . ',id',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|string|max:255|unique:plants,name,' . $id . ',id',
+        // ]);
         $plant = Plant::findOrFail($id);
-        $plant->samplePlants()->each(function ($sample) {
-            $sample->delete();
-        });
-        $plant->sub_plants()->each(function ($sub_plant) {
-            $sub_plant->samplePlants()->each(function ($sample) {
-                $sample->delete();
-            });
-            $sub_plant->delete();
-        });
+
+        if ($request->has('sub_plant_name')) {
+            foreach ($request->sub_plant_name as $subPlantId => $subPlantName) {
+                DB::table('plants')->where('id', $subPlantId)->update([
+                    'name' => $subPlantName,
+                ]);
+            }
+        }
 
 
-        $plant->update([
-            'name' => $request->name,
-        ]);
-        if ($request->sample_name_master) {
-            foreach ($request->sample_name_master as $key => $sample_name_master_item) {
+        if ($request->has('sample_name')) {
+            foreach ($request->sample_name as $sampleId => $sampleName) {
+                DB::table('plant_samples')->where('id', $sampleId)->update([
+                    'name' => $sampleName,
+                ]);
+            }
+        }
+        if ($request->has('sub_plant_name_new')) {
+            foreach ($request->sub_plant_name_new as  $subPlantName) {
+                $plant = Plant::create([
+                    'name' => $subPlantName,
+                ]);
+            }
+        }
+
+
+
+        if ($request->has('sample_name_new')) {
+            foreach ($request->sample_name_new as  $sampleName) {
                 $plant->samplePlants()->create([
-                    'name' => $sample_name_master_item,
+                    'name' => $sampleName,
                     'plant_id' => $plant->id,
                 ]);
             }
         }
-        if ($request->sub_plant_name) {
 
 
-            foreach ($request->sub_plant_name as $index => $subName) {
-                $subPlant = Plant::create([
-                    'plant_id' => $plant->id,
-                    'name' => $subName,
-                ]);
-                if (isset($request->sample_name[$index])) {
-                    foreach ($request->sample_name[$index] as $sampleName) {
-                        $subPlant->samplePlants()->create([
-                            'plant_id' => $subPlant->id,
-                            'name' => $sampleName,
-                        ]);
-                    }
-                }
-            }
-        }
+
+
 
         return redirect()->route('admin.plant')->with('success', __('general.updated_successfully'));
     }

@@ -22,6 +22,6 @@ class Plant extends Model
     {
         return $this->hasMany(SamplePlant::class, 'plant_id');
     }
-   
+
 
 }
