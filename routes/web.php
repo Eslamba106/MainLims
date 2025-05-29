@@ -10,6 +10,7 @@ use App\Http\Controllers\part\GeneralController;
 use App\Http\Controllers\Admin\UserManagmentController;
 use App\Http\Controllers\first_part\TestMethodController;
 use App\Http\Controllers\second_part\SubmissionController;
+use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,12 +94,17 @@ Route::group(['prefix' => 'submission'], function () {
     Route::get('/get_sub_from_plant/{id}', [SubmissionController::class, 'get_sub_from_plant'])->name('admin.submission.get_sub_from_plant');
     Route::get('/get_sample_from_plant/{id}', [SubmissionController::class, 'get_sample_from_plant'])->name('admin.submission.get_sample_from_plant');
     Route::get('/get_test_method_by_sample_id/{id}', [SubmissionController::class, 'get_test_method_by_sample_id'])->name('admin.submission.get_test_method_by_sample_id');
-    // Route::get('/get_one_component_by_test_method/{id}', [SubmissionController::class, 'get_one_component_by_test_method'])->name('admin.submission.get_one_component_by_test_method');
+    
+    // schedule
+    Route::get('/schedule', [SampleRoutineSchedulerController::class, 'index'])->name('admin.submission.schedule');
+    Route::get('/schedule/create', [SampleRoutineSchedulerController::class, 'create'])->name('admin.submission.schedule.create');
+    Route::post('/schedule/create', [SampleRoutineSchedulerController::class, 'store'])->name('admin.submission.schedule.store');
+    Route::get('/schedule/get_sample_by_plant_id/{id}', [SampleRoutineSchedulerController::class, 'get_sample_by_plant_id'])->name('admin.submission.schedule.get_sample_by_plant_id');
 
 });
 
 // // Plant Management
-// Route::group(['prefix' => 'plant'], function () {
+// Route::group(['prefix' => 'plant'], function () {98  
 
 //     Route::get('/', [GeneralController::class, 'plant_index'])->name('admin.plant');
 //     Route::get('/create', [GeneralController::class , 'plant_create'])->name('admin.plant.create');
@@ -132,6 +138,18 @@ Route::group(['prefix' => 'toxic_degree'], function () {
     Route::get('/delete/{id}', [GeneralController::class ,'toxic_degree_destroy'])->name('admin.toxic_degree.delete'); 
 
 });
+// Frequency Managment
+Route::group(['prefix' => 'frequency'], function () {
+
+    Route::get('/', [GeneralController::class, 'frequency_index'])->name('admin.frequency');
+    Route::get('/create', [GeneralController::class , 'frequency_create'])->name('admin.frequency.create');
+    Route::post('/create', [GeneralController::class , 'frequency_store'])->name('admin.frequency.store');
+    Route::get('/edit/{id}' , [GeneralController::class , 'frequency_edit'])->name('admin.frequency.edit');
+    Route::patch('/update/{id}' , [GeneralController::class , 'frequency_update'])->name('admin.frequency.update');
+    Route::get('/delete/{id}', [GeneralController::class ,'frequency_destroy'])->name('admin.frequency.delete'); 
+
+});
+ 
 // Result Type Managment
 Route::group(['prefix' => 'result_type'], function () {
 

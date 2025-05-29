@@ -9,11 +9,14 @@ class Sample extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-
-    public function sample_name()
+  public function sample_name()
     {
-        return $this->hasOne(SamplePlant::class ,'id', 'plant_sample_id');
+        return $this->belongsTo(SamplePlant::class, 'plant_sample_id', 'id');
     }
+    // public function sample_name()
+    // {
+    //     return $this->hasOne(SamplePlant::class ,'id', 'plant_sample_id');
+    // }
     public function plant_main()
     {
         return $this->hasOne(Plant::class ,'id', 'plant_id');

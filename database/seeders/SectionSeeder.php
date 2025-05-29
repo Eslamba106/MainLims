@@ -104,6 +104,21 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 59], ['name' => 'create_submission', 'section_group_id' => 55, 'caption' => 'create_submission']);
         Section::updateOrCreate(['id' => 60], ['name' => 'all_submissions', 'section_group_id' => 55, 'caption' => 'show_all_submissions']);
         
+        // Sample Routine Scheduler 61 - 66
+        Section::updateOrCreate(['id' => 61], ['name' => 'sample_routine_scheduler', 'caption' => 'sample_routine_scheduler']);
+        Section::updateOrCreate(['id' => 62], ['name' => 'change_sample_routine_scheduler_status', 'section_group_id' => 61, 'caption' => 'change_sample_routine_scheduler_status']);
+        Section::updateOrCreate(['id' => 63], ['name' => 'delete_sample_routine_scheduler', 'section_group_id' => 61, 'caption' => 'delete_sample_routine_scheduler']);
+        Section::updateOrCreate(['id' => 64], ['name' => 'edit_sample_routine_scheduler', 'section_group_id' => 61, 'caption' => 'edit_sample_routine_scheduler']);
+        Section::updateOrCreate(['id' => 65], ['name' => 'create_sample_routine_scheduler', 'section_group_id' => 61, 'caption' => 'create_sample_routine_scheduler']);
+        Section::updateOrCreate(['id' => 66], ['name' => 'all_sample_routine_scheduler', 'section_group_id' => 61, 'caption' => 'show_all_sample_routine_scheduler']);
+        // Frequency Management 67 - 72
+        Section::updateOrCreate(['id' => 67], ['name' => 'frequency_management', 'caption' => 'frequency_management']);
+        Section::updateOrCreate(['id' => 68], ['name' => 'change_frequencies_status', 'section_group_id' => 67, 'caption' => 'change_frequencies_status']); 
+        Section::updateOrCreate(['id' => 69], ['name' => 'delete_frequency', 'section_group_id' => 67, 'caption' => 'delete_frequency']);
+        Section::updateOrCreate(['id' => 70], ['name' => 'edit_frequency', 'section_group_id' => 67, 'caption' => 'edit_frequency']);
+        Section::updateOrCreate(['id' => 71], ['name' => 'create_frequency', 'section_group_id' => 67, 'caption' => 'create_frequency']);
+        Section::updateOrCreate(['id' => 72], ['name' => 'all_frequencies', 'section_group_id' => 67, 'caption' => 'show_all_frequencies']);
+        
     
     }
 }

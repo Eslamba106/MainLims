@@ -42,7 +42,7 @@
                         @can('create_unit')
                             <div class="m-2">
                                 <a href="" class="btn btn-sm btn-outline-primary mr-2" href="#" data-add_unit=""
-                                    data-toggle="modal" data-target="#add_unit">{{ __('roles.create_'. $route ) }}</a>
+                                    data-toggle="modal" data-target="#add_unit">{{ __('roles.create_' . $route) }}</a>
                             </div>
                         @endcan
                     </div>
@@ -54,6 +54,9 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ __('roles.name') }}</th>
+                            @if ($route = 'frequency') 
+                                <th class="text-center" scope="col">{{ __('roles.time_by_hours') }} </th>
+                            @endif
                             <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
                         </tr>
                     </thead>
@@ -69,7 +72,9 @@
                                 </th>
 
                                 <td class="text-center">{{ $main_item->name }}</td>
-
+                                @if ($route = 'frequency')
+                                    <td class="text-center">{{ $main_item->time_by_hours }} H</td>
+                                @endif
                                 <td class="text-center">
                                     @can('delete_' . $route . '')
                                         <a href="{{ route('admin.' . $route . '.delete', $main_item->id) }}"
@@ -103,14 +108,14 @@
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ __('roles.create_'. $route ) }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ __('roles.create_' . $route) }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="card-body">
-                        <form action="{{ route('admin.'. $route .'.store') }}" method="post"
+                        <form action="{{ route('admin.' . $route . '.store') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row">
@@ -131,7 +136,21 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                @if ($route = 'frequency')
+                                                    <div class="col-md-6 col-lg-12 col-xl-12">
 
+                                                        <div class="form-group">
+                                                            <label for="">{{ __('roles.time_by_hours') }} <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="number" name="time_by_hours"
+                                                                class="form-control" />
+
+                                                            @error('time_by_hours')
+                                                                <span class="error text-danger">{{ $error }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="form-group mt-2"
                                                 style="text-align: {{ Session::get('locale') == 'en' ? 'right;margin-right:10px' : 'left;margin-left:10px' }}">

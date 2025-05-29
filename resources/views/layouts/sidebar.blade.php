@@ -108,6 +108,22 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('all_sample_routine_scheduler')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.submission.schedule') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('roles.all_sample_routine_scheduler') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('all_frequencies')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.frequency') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('roles.all_frequencies') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
                             
                            
                         </ul>

@@ -74,14 +74,27 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+                                @if ($route = 'frequency')
+                                    <div class="col-md-6 col-lg-6 col-xl-6">
+
+                                        <div class="form-group">
+                                            <label for="">{{ __('roles.time_by_hours') }} <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="number" name="time_by_hours" value="{{ $main->time_by_hours }}" class="form-control" />
+
+                                            @error('time_by_hours')
+                                                <span class="error text-danger">{{ $error }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
 
                         </div>
 
 
                     </div>
-                   
+
                     <div>
                         <div class="form-group mt-2"
                             @if (session()->get('locale') == 'ar') style="text-align: left;" @else style="text-align: right;" @endif>
@@ -94,6 +107,4 @@
 @endsection
 @section('js')
     <script src="{{ asset('js/select2.min.js') }}"></script>
-    
-    
 @endsection

@@ -2,14 +2,71 @@
 
 namespace App\Http\Controllers\part;
 
-use App\Models\part\ToxicDegree;
 use App\Models\part\Unit;
 use Illuminate\Http\Request;
 use App\Models\part\ResultType;
+use App\Models\part\ToxicDegree;
 use App\Http\Controllers\Controller;
+use App\Models\second_part\Frequency;
 
 class GeneralController extends Controller
 {
+    public function frequency_index(Request $request)
+    {
+        $frequencys = Frequency::select('id', 'name' , 'time_by_hours' )->orderBy("created_at", "desc")->paginate(10);
+        $data = [
+            'main' => $frequencys,
+            'route' => 'frequency',
+        ];
+        return view('general_part.index' , $data);
+    }
+
+    public function frequency_create()
+    {
+        $data = [
+            'route' => 'frequency',
+        ];
+        return view('general_part.create' , $data);
+    }
+
+    public function frequency_store(Request $request)
+    { 
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $frequency = Frequency::create([
+            'name' => $request->name,
+            'time_by_hours' => $request->time_by_hours,
+        ]);
+        return redirect()->route('admin.frequency')->with('success', __('general.added_successfully'));
+    }
+    public function frequency_edit($id)
+    {
+        $frequency = Frequency::findOrFail($id); 
+        $data = [
+            'main' => $frequency,
+            'route' => 'frequency',
+        ];
+        return view('general_part.edit', $data);
+    }
+    public function frequency_update(Request $request, $id)
+    {
+        $frequency = Frequency::findOrFail($id);
+       
+        $request->validate([
+            'name' => 'required|string|max:255|unique:frequencies,name,'.$id.',id',
+        ]);
+        $frequency->update([
+            'name' => $request->name,
+        ]);
+        return redirect()->route('admin.frequency')->with('success', __('general.updated_successfully'));
+    }
+    public function frequency_destroy($id)
+    {
+        $frequency = Frequency::findOrFail($id);
+        $frequency->delete();
+        return redirect()->route('admin.frequency')->with('success', __('general.deleted_successfully'));
+    }
     public function toxic_degree_index(Request $request)
     {
         $toxic_degrees = ToxicDegree::select('id', 'name' )->orderBy("created_at", "desc")->paginate(10);

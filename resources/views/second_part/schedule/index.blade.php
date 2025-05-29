@@ -66,7 +66,7 @@
                                 {{ __('dashboard.delete') }}</button>
                         @endcan
                         @can('create_submission')
-                            <a href="{{ route('admin.submission.create') }}" class="btn btn-secondary mt-3 mr-2">
+                            <a href="{{ route('admin.submission.schedule.create') }}" class="btn btn-secondary mt-3 mr-2">
                                 <i class="la la-refresh"></i> {{ __('dashboard.create') }}
                             </a>
                         @endcan
