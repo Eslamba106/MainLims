@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Illuminate\Support\Facades\Facade;
 
@@ -58,9 +58,9 @@ return [
 
     // 'asset_url' => env('ASSET_URL', 'http://localhost/MainLims/'),
 
-    'url' => env('APP_URL', 'http://localhost/MainLims/'),
+    'url' => env('APP_URL', 'https://limsmaster.endak.net/'),
 
-    'asset_url' =>   'http://localhost/MainLims/' ,
+    'asset_url' =>   'https://limsmaster.endak.net/' ,
 
     /*
     |--------------------------------------------------------------------------
