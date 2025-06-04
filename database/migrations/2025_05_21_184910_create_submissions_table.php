@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('plant_id')->constrained('plants')->onDelete('cascade');
             $table->foreignId('sub_plant_id')->nullable()->constrained('plants')->onDelete('cascade');
             $table->foreignId('plant_sample_id')->nullable()->constrained('plant_samples')->onDelete('cascade');
+            $table->foreignId('sample_id')->nullable()->constrained('samples')->onDelete('cascade');
             $table->enum('priority', ['high', 'normal', 'critical'])->default('normal');
             $table->dateTime('sampling_date_and_time')->nullable();
             $table->text('comment')->nullable();

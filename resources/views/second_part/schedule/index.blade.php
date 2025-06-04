@@ -83,7 +83,7 @@
                             <th class="text-center" scope="col">@lang('samples.plant')</th>
                             <th class="text-center" scope="col">@lang('submissions.sample_point')</th>
                             <th class="text-center" scope="col">@lang('roles.status')</th>
-                            <th class="text-center" scope="col">@lang('submissions.priority')</th>
+                            {{-- <th class="text-center" scope="col">@lang('submissions.priority')</th> --}}
                             <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
                         </tr>
                     </thead>
@@ -102,7 +102,7 @@
                                     {{ \Carbon\Carbon::parse($submission_item->sampling_date_and_time)->format('M d, Y h:i A') }}
                                 </td>
                                 <td class="text-center">{{ $submission_item->plant->name }} </td>
-                                <td class="text-center">{{ $submission_item->sample_main->sample_name->name }} </td>
+                                <td class="text-center">{{ $submission_item->sample->sample_plant->name }} </td>
                                 {{-- <td class="text-center">{{ $submission_item->status  }} </td>
                                 <td class="text-center">{{ $submission_item->priority  }} </td> --}}
                                 <td class="text-center">
@@ -119,7 +119,7 @@
                                     </span>
                                 </td>
 
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     @php
                                         $priorityColors = [
                                             'high' => 'bg-danger text-white',
@@ -131,7 +131,7 @@
                                         class="badge {{ $priorityColors[$submission_item->priority] ?? 'bg-light text-dark' }}">
                                         {{ $submission_item->priority }}
                                     </span>
-                                </td>
+                                </td> --}}
 
 
 

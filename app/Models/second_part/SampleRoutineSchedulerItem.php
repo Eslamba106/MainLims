@@ -7,10 +7,14 @@ use App\Models\Sample;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class SampleRoutineScheduler extends Model
+class SampleRoutineSchedulerItem extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function sample_routine_scheduler()
+    {
+        return $this->belongsTo(SampleRoutineScheduler::class, 'sample_scheduler_id', 'id');
+    }
     public function sample()
     {
         return $this->belongsTo(Sample::class, 'sample_id', 'id');
@@ -21,14 +25,6 @@ class SampleRoutineScheduler extends Model
     }
     public function sub_plant()
     {
-        return $this->belongsTo(Plant::class, 'sub_plant_id', 'id');
-    }
-    public function frequency()
-    {
-        return $this->belongsTo(Frequency::class, 'frequency_id', 'id');
-    }
-    public function sample_routine_scheduler_items()
-    {
-        return $this->hasMany(SampleRoutineSchedulerItem::class, 'sample_scheduler_id', 'id');
+        return $this->belongsTo(Plant::class, 'sub_plant_id', 'id');    
     }
 }

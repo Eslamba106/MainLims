@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('submission_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('submission_id')->constrained('submissions')->onDelete('cascade');
-            $table->foreignId('sample_test_method_item_id')->constrained('sample_test_method_items')->onDelete('cascade');
+            $table->foreignId('sample_test_method_item_id')->constrained('sample_test_methods')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models\second_part;
 
 use App\Models\Plant;
 use App\Models\Sample;
+use App\Models\SamplePlant;
 use App\Models\SampleTestMethod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,15 @@ class Submission extends Model
     }
     public function sample_main()
     {
-        return $this->belongsTo(Sample::class, 'plant_sample_id');
+        return $this->belongsTo(SamplePlant::class, 'plant_sample_id');
+    }
+    public function sample()
+    {
+        return $this->belongsTo(Sample::class, 'sample_id');
+    }
+    public function new_sample_main()
+    {
+        return $this->belongsTo(SamplePlant::class, 'plant_sample_id');
     }
     public function submission_test_method_items()
     {

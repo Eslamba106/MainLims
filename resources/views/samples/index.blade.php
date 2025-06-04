@@ -101,7 +101,7 @@
                                         - {{ $sample_item->sub_plant->name }}
                                     @endif
                                 </td>
-                                <td class="text-center">{{ $sample_item->sample_name->name }}</td>
+                                <td class="text-center">{{ $sample_item->sample_plant->name }}</td>
                                 <td class="text-center">
                                     <ul class="list-unstyled m-0">
                                         @foreach ($sample_item->test_methods as $test_method_item)

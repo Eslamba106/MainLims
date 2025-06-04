@@ -110,7 +110,8 @@
                     <div class="card  " id="testing_requirements">
                         <div class="card-header">
                             <div class="d-flex gap-2">
-                                <h4 class="mb-0"><i class="bi bi-ui-checks-grid me-2"></i>{{ __('roles.testing_requirements') }}</h4>
+                                <h4 class="mb-0"><i
+                                        class="bi bi-ui-checks-grid me-2"></i>{{ __('roles.testing_requirements') }}</h4>
                             </div>
                         </div>
                         <div class="card-body bg-light">
@@ -130,17 +131,20 @@
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" checked type="radio" name="priority"
                                                     id="normal" value="normal">
-                                                <label class="form-check-label"  for="normal">⚪ {{ __('roles.normal') }}</label>
+                                                <label class="form-check-label" for="normal">⚪
+                                                    {{ __('roles.normal') }}</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="priority"
                                                     id="high" value="high">
-                                                <label class="form-check-label" for="high">🟠 {{ __('roles.high') }}</label>
+                                                <label class="form-check-label" for="high">🟠
+                                                    {{ __('roles.high') }}</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="priority"
                                                     id="critical" value="critical">
-                                                <label class="form-check-label" for="critical">🔺 {{ __('roles.critical') }}</label>
+                                                <label class="form-check-label" for="critical">🔺
+                                                    {{ __('roles.critical') }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +154,8 @@
                                             <h6 class="mb-3">{{ __('roles.sampling_date_and_time') }}</h6>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
-                                                <input type="datetime-local" class="form-control" name="sampling_date_and_time" required>
+                                                <input type="datetime-local" class="form-control"
+                                                    name="sampling_date_and_time" required>
                                             </div>
                                         </div>
                                     </div>
@@ -170,10 +175,11 @@
 
                                 <div class="col-md-12   col-lg-12">
                                     <div class="form-group">
-                                        <label for="">{{ __('samples.plant_name') }} <span
+                                        <label for="">{{ __('roles.comment') }} <span
                                                 class="text-danger">*</span></label>
 
-                                        <textarea name="comment" id="" class="form-control" cols="30" rows="5" placeholder="Enter any additional information or comments here..."></textarea>
+                                        <textarea name="comment" id="" class="form-control" cols="30" rows="5"
+                                            placeholder="Enter any additional information or comments here..."></textarea>
                                         @error('comment')
                                             <span class="error text-danger">{{ $message }}</span>
                                         @enderror
@@ -189,8 +195,7 @@
                     <div>
                         <div class="form-group mt-2"
                             @if (session()->get('locale') == 'ar') style="text-align: left;" @else style="text-align: right;" @endif>
-                            <button type="submit"
-                                class="btn btn-primary mt-2">{{ __('general.save') }}</button>
+                            <button type="submit" class="btn btn-primary mt-2">{{ __('general.save') }}</button>
                         </div>
                     </div>
                 </div>
@@ -212,20 +217,24 @@
                 dataType: "json",
                 success: function(data) {
 
+
                     var methodsContainer = $('#test-methods-list');
                     methodsContainer.empty(); // Clear previous test methods
                     data.test_methods.forEach(function(method, index) {
+
                         var id = 'test_method_' + index;
                         var methodHtml = `
                     <div class="col-md-5 m-1 ">
                         <div class="form-check border rounded p-2">
                             <input class="form-check-input" name="sample_test_method_item_id[]" type="checkbox" value="${method.id}" id="${id}">
-                            <label class="form-check-label" for="${id}">${method.master_test_method.name}</label>
+                            <label class="form-check-label" for="${id}">${method.master_test_method.name} </label>
                         </div>
                     </div>
                      
                     `;
                         methodsContainer.append(methodHtml);
+
+
                     });
                 },
                 error: function() {
@@ -233,13 +242,13 @@
                 }
             });
         }
-
-   
     </script>
     <script>
         $('select[name=plant_id]').on('change', function() {
             var tenant_id = $(this).val();
             if (tenant_id) {
+                var methodsContainer = $('#test-methods-list');
+                methodsContainer.empty();
                 $.ajax({
                     url: "{{ route('admin.sample.get_sub_from_plant', ':id') }}".replace(':id',
                         tenant_id),
@@ -272,7 +281,6 @@
                                             sample
                                             .name + '</option>');
                                     });
-
                                 }
                             } else if (data && data.samples && data.samples.length > 0) {
                                 $('select[name="plant_sample_id"]').empty().prop('disabled', false);
@@ -285,7 +293,7 @@
                                     select.append('<option value="' + sample.id + '">' + sample
                                         .name + '</option>');
                                 });
-
+                                // console.log(data.samples);
                             }
 
 
@@ -300,6 +308,8 @@
         $('select[name=sub_plant_id]').on('change', function() {
             var tenant_id = $(this).val();
             if (tenant_id) {
+                var methodsContainer = $('#test-methods-list');
+                methodsContainer.empty();
                 $.ajax({
                     url: "{{ route('admin.sample.get_sample_from_plant', ':id') }}".replace(':id',
                         tenant_id),

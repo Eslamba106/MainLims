@@ -56,6 +56,7 @@ class SubmissionController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->authorize('create_submission');
         $request->validate([
             'plant_id' => 'required|exists:plants,id',
@@ -70,15 +71,18 @@ class SubmissionController extends Controller
             'plant_id' => $request->plant_id,
             'sub_plant_id' => $request->sub_plant_id,
             'plant_sample_id' => $request->plant_sample_id,
+            'sample_id' => $request->sample_name,
             'priority' => $request->priority,
             'sampling_date_and_time' => $date,
             'comment' => $request->comment,
         ]);
         $submission->submission_number = 'SUB-' . str_pad($submission->id, 6, '0', STR_PAD_LEFT);
         $submission->save();
-        foreach ($request->sample_test_method_item_id as $sample_test_method_item) {
+        // dd($request->sample_test_method_item_id);
+        foreach ($request->input("sample_test_method_item_id") as $key =>  $sample_test_method_item_main) {
+            // dd($sample_test_method_item);
             DB::table('submission_items')->insert([
-                'sample_test_method_item_id' => $sample_test_method_item,
+                'sample_test_method_item_id' => $sample_test_method_item_main,
                 'submission_id' => $submission->id,
             ]);
         }
@@ -149,7 +153,9 @@ class SubmissionController extends Controller
     public function get_test_method_by_sample_id($id)
     {
         $this->authorize('create_sample');
-        $test_method = SampleTestMethod::where('sample_id', $id)->with('master_test_method')->get();
+        $sample = Sample::where('plant_sample_id' , $id)->select('id' )->first();
+        $test_method = SampleTestMethod::where('sample_id', $sample->id)->with('master_test_method')->get();
+
         return response()->json([
             'status'      => 200,
             "test_methods" => $test_method,

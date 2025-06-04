@@ -54,7 +54,7 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ __('roles.name') }}</th>
-                            @if ($route = 'frequency') 
+                            @if ($route == 'frequency') 
                                 <th class="text-center" scope="col">{{ __('roles.time_by_hours') }} </th>
                             @endif
                             <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
@@ -72,7 +72,7 @@
                                 </th>
 
                                 <td class="text-center">{{ $main_item->name }}</td>
-                                @if ($route = 'frequency')
+                                @if ($route == 'frequency')
                                     <td class="text-center">{{ $main_item->time_by_hours }} H</td>
                                 @endif
                                 <td class="text-center">
@@ -136,7 +136,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                @if ($route = 'frequency')
+                                                @if ($route == 'frequency')
                                                     <div class="col-md-6 col-lg-12 col-xl-12">
 
                                                         <div class="form-group">

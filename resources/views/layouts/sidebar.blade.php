@@ -75,6 +75,14 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('all_plants')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.master_sample') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('samples.master_samples') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
                            
                             @can('toxic_degree_management')
                                 <li class="sidebar-item">

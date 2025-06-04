@@ -14,5 +14,6 @@ class SampleTestMethod extends Model
     public function master_test_method()
     {
         return $this->hasOne(TestMethod::class, 'id', 'test_method_id');
+        // return $this->belongsTo(TestMethod::class);
     }
 }

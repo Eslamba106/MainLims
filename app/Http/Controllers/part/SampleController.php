@@ -43,6 +43,7 @@ class SampleController extends Controller
         }
 
         $samples = Sample::orderBy("created_at", "desc")->paginate(10);
+        // dd($samples);
         return view("samples.index", compact("samples"));
     }
 
@@ -236,5 +237,10 @@ class SampleController extends Controller
             'status'      => 200,
             "component" => $component,
         ]);
+    }
+    public function destroy($id){
+        $sample = Sample::findOrFail($id);
+        $sample->delete();
+        return redirect()->back()->with('success', __('general.deleted_successfully'));
     }
 }

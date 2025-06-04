@@ -172,6 +172,20 @@ Route::group(['prefix' => 'plant'], function () {
     Route::get('/delete/{id}', [PlantController::class ,'plant_destroy'])->name('admin.plant.delete'); 
     Route::get('/delete_sample_from_plant/{id}', [PlantController::class, 'delete_sample_from_plant'])->name('plant.delete_sample_from_plant');
     Route::get('/delete_sub_plant_from_plant/{id}', [PlantController::class, 'delete_sub_plant_from_plant'])->name('plant.delete_sub_plant_from_plant');
+    Route::get('/get_sub_plants', [PlantController::class, 'get_sub_plants'])->name('admin.plant.get_sub_plants');
+
+});
+// Sample Master Managment
+Route::group(['prefix' => 'master_sample'], function () {
+
+    Route::get('/', [PlantController::class, 'master_sample_index'])->name('admin.master_sample');
+    Route::get('/create', [PlantController::class , 'master_sample_create'])->name('admin.master_sample.create');
+    Route::post('/create', [PlantController::class , 'master_sample_store'])->name('admin.master_sample.store');
+    Route::get('/edit/{id}' , [PlantController::class , 'master_sample_edit'])->name('admin.master_sample.edit');
+    Route::patch('/update/{id}' , [PlantController::class , 'master_sample_update'])->name('admin.master_sample.update');
+    Route::get('/delete/{id}', [PlantController::class ,'master_sample_destroy'])->name('admin.master_sample.delete'); 
+    Route::get('/delete_sample_from_master_sample/{id}', [PlantController::class, 'delete_sample_from_master_sample'])->name('master_sample.delete_sample_from_master_sample');
+    Route::get('/delete_sub_master_sample_from_master_sample/{id}', [PlantController::class, 'delete_sub_master_sample_from_master_sample'])->name('master_sample.delete_sub_master_sample_from_plant');
 
 });
 

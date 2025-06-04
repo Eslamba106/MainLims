@@ -101,8 +101,9 @@
                                 <td class="text-center">
                                     {{ \Carbon\Carbon::parse($submission_item->sampling_date_and_time)->format('M d, Y h:i A') }}
                                 </td>
+                                {{-- {{ dd($submission_item->new_sample_main) }} --}}
                                 <td class="text-center">{{ $submission_item->plant->name }} </td>
-                                <td class="text-center">{{ $submission_item->sample_main->sample_name->name }} </td>
+                                <td class="text-center">{{ optional($submission_item->sample_main)->name }} </td>
                                 {{-- <td class="text-center">{{ $submission_item->status  }} </td>
                                 <td class="text-center">{{ $submission_item->priority  }} </td> --}}
                                 <td class="text-center">

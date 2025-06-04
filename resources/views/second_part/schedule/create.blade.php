@@ -185,13 +185,12 @@
                                 </div> --}}
                             </div>
                         </div>
-                        
+
                     </div>
-                      <div>
+                    <div>
                         <div class="form-group mt-2"
                             @if (session()->get('locale') == 'ar') style="text-align: left;" @else style="text-align: right;" @endif>
-                            <button type="submit"
-                                class="btn btn-primary mt-2">{{ __('general.save') }}</button>
+                            <button type="submit" class="btn btn-primary mt-2">{{ __('general.save') }}</button>
                         </div>
                     </div>
                 </div>
@@ -202,7 +201,89 @@
 @section('js')
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script>
-        $(document).on('change', 'select[name=plant_id]', function() {
+       $(document).on('change', 'select[name=plant_id]', function () {
+    var select = $(this);
+    var methodsContainer = $('#sample-point-form');
+
+    if (select.val()) {
+        $.ajax({
+            url: "{{ route('admin.submission.schedule.get_sample_by_plant_id', ':id') }}".replace(':id', select.val()),
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                methodsContainer.empty();
+
+                data.all_samples.forEach(function (sample, sampleIndex) {
+                    var id = 'test_method_' + sampleIndex;
+                    let testMethodsHtml = ''; 
+                    sample.test_methods.forEach((test_method_item, testIndex) => {
+                        testMethodsHtml += `
+                            <div class="row align-items-center mb-2">
+                                <div class="col-3 test-method">
+                                    <i class="bi bi-beaker icon-lab"></i> ${testIndex + 1}. ${test_method_item.master_test_method.name}
+                                </div> 
+                                
+                                <div class="col-3">   
+                                    <select name="frequency_id-${sample.id}-${test_method_item.master_test_method.id}" class="form-control" required>
+                                        @foreach ($frequencies as $frequency)
+                                            <option value="{{ $frequency->id }}">{{ $frequency->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <input class="form-control" name="schedule_hour-${sample.id}-${test_method_item.master_test_method.id}" type="time">
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <div class="form-check form-switch me-2">
+                                        <input class="form-check-input" type="checkbox" value="${test_method_item.master_test_method.id}" name="test_method_id[${sample.id}][]">
+                                    </div>
+                                    <i class="bi bi-gear-fill"></i>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    var methodHtml = `
+                        <div class="container bg-white p-4 rounded shadow col-lg-12"> 
+                            <div class="card mb-3">
+                                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                                    <div>
+                                        <strong>${sample.sample_plant?.name}</strong><br>
+                                        <small class="text-muted">Location:  </small>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <span class="badge bg-primary">  Tests</span>
+                                        <div class="form-check form-switch m-0">
+                                            <input class="form-check-input" type="checkbox" name="sample_points[]" checked value="${sample.id} " id="${id}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2">
+                                    <div class="row text-muted mb-2">
+                                        <div class="col-3">{{ __('test_method.test_method') }}</div>
+                                        <div class="col-3">Frequency</div>
+                                        <div class="col-3">Schedule</div>
+                                        <div class="col-3">Status</div>
+                                    </div>
+                                    ${testMethodsHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    methodsContainer.append(methodHtml);
+                });
+            },
+            error: function () {
+                methodsContainer.html('<p class="text-danger">Failed to load test methods.</p>');
+            }
+        });
+    } else {
+        methodsContainer.empty();
+    }
+});
+
+        $(document).on('change', 'select[name=sub_plant_id]', function() {
             var select = $(this);
             if (select.val()) {
                 var methodsContainer = $('#sample-point-form');
@@ -216,112 +297,66 @@
                     success: function(data) {
 
                         methodsContainer.empty();
-                        data.all_samples.forEach(function(method, index) {
-                            var id = 'test_method_' + index;
-                            let testMethodsHtml = '';
-                            console.log(method.sample);
-                            if (method.sample && method.sample.test_methods) {
-                                method.sample.test_methods.forEach(test_method => {
-                                testMethodsHtml += `
-                                  
-                                        <div class="row align-items-center mb-2">
-                                            <div class="col-3 test-method">
-                                                <i class="bi bi-beaker icon-lab"></i> ${test_method.master_test_method.name}
-                                            </div> 
-                                            <div class="col-3">   
-                                                <select name="frequency_id-${test_method.master_test_method.id}" class="form-control" required >
-                                                    @foreach ($frequencies as $frequency)
-                                                        <option value="{{ $frequency->id }}">{{ $frequency->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                </div>
-                                            <div class="col-3"><input class="form-control" name="schedule_hour-${test_method.master_test_method.id}" type="time"></div>
-                                            <div class="col-3 d-flex align-items-center">
-                                                <div class="form-check form-switch me-2">
-                                                    <input class="form-check-input"  type="checkbox" value="${test_method.master_test_method.id}" name="test_method_ids[]">
-                                                </div>
-                                                <i class="bi bi-gear-fill"></i>
-                                            </div>
-                                        </div>
-                                    
-                                `;
-                                });
-                            }
-                            var methodHtml = `
-                                <div class="container bg-white p-4 rounded shadow col-lg-12"> 
-                                    <div class="card mb-3">
-                                        <div class="card-header d-flex justify-content-between align-items-center bg-light">
-                                            <div>
-                                                <strong>${method.name}</strong><br>
-                                                <small class="text-muted">Location: ${method.main_plant_name ?? 'N/A'}</small>
-                                            </div>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <span class="badge bg-primary">${method.sample.test_methods.length + "Tests" ?? 'N/A'}</span>
-                                                <div class="form-check form-switch m-0">
-                                                    <input class="form-check-input" type="checkbox" name="sample_points[]" checked value="${method.sample.id}" id="${id}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                          <div class="card-body p-2">
-                                        <div class="row text-muted mb-2">
-                                            <div class="col-3">{{ __('test_method.test_method') }}</div>
-                                            <div class="col-3">Frequency</div>
-                                            <div class="col-3">Schedule</div>
-                                            <div class="col-3">Status</div>
-                                        </div>
-                                        ${testMethodsHtml}
+                         data.all_samples.forEach(function (sample, sampleIndex) {
+                    var id = 'test_method_' + sampleIndex;
+                    let testMethodsHtml = ''; 
+                    sample.test_methods.forEach((test_method_item, testIndex) => {
+                        testMethodsHtml += `
+                            <div class="row align-items-center mb-2">
+                                <div class="col-3 test-method">
+                                    <i class="bi bi-beaker icon-lab"></i> ${testIndex + 1}. ${test_method_item.master_test_method.name}
+                                </div> 
+                                <div class="col-3">   
+                                    <select name="frequency_id-${test_method_item.master_test_method.id}-${sample.id}" class="form-control" required>
+                                        @foreach ($frequencies as $frequency)
+                                            <option value="{{ $frequency->id }}">{{ $frequency->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <input class="form-control" name="schedule_hour-${test_method_item.master_test_method.id}-${sample.id}" type="time">
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <div class="form-check form-switch me-2">
+                                        <input class="form-check-input" type="checkbox" value="${test_method_item.master_test_method.id}" name="test_method_id-${test_method_item.id}[]">
+                                    </div>
+                                    <i class="bi bi-gear-fill"></i>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    var methodHtml = `
+                        <div class="container bg-white p-4 rounded shadow col-lg-12"> 
+                            <div class="card mb-3">
+                                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                                    <div>
+                                        <strong>${sample.sample_plant?.name}</strong><br>
+                                        <small class="text-muted">Location:  </small>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <span class="badge bg-primary">  Tests</span>
+                                        <div class="form-check form-switch m-0">
+                                            <input class="form-check-input" type="checkbox" name="sample_points[]" checked value=" " id="${id}">
                                         </div>
                                     </div>
                                 </div>
-                            `;
-                            methodsContainer.append(methodHtml);
-                        });
+                                <div class="card-body p-2">
+                                    <div class="row text-muted mb-2">
+                                        <div class="col-3">{{ __('test_method.test_method') }}</div>
+                                        <div class="col-3">Frequency</div>
+                                        <div class="col-3">Schedule</div>
+                                        <div class="col-3">Status</div>
+                                    </div>
+                                    ${testMethodsHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
 
-                            //         var methodHtml = `
-                        //    <div class="container bg-white p-4 rounded shadow   col-lg-12"> 
-                        //                 <div class="card mb-3">
-                        //                     <div class="card-header d-flex justify-content-between align-items-center bg-light">
-                        //                         <div>
-                        //                             <strong>${method.name}</strong><br>
-                        //                             <small class="text-muted">Location: ${method.main_plant_name  ?? 'N/A'}</small>
-                        //                         </div>
-                        //                         <div class="d-flex align-items-center gap-3">
-                        //                             <span class="badge bg-primary">${method.test_methods  ?? 'N/A'}</span>
-                        //                             <div class="form-check form-switch m-0">
-                        //                                 <input class="form-check-input" type="checkbox">
-                        //                             </div>
-                        //                         </div>
-                        //                     </div>
-                        //                      
-                        //                     <div class="card-body p-2">
-                        //                         <div class="row text-muted mb-2">
-                        //                             <div class="col-3">${test_method.name}</div>
-                        //                             <div class="col-3">Frequency</div>
-                        //                             <div class="col-3">Schedule</div>
-                        //                             <div class="col-3">Status</div>
-                        //                         </div>
-                        //                         <div class="row align-items-center mb-2">
-                        //                             <div class="col-3 test-method">
-                        //                                 <i class="bi bi-beaker icon-lab"></i> pH Analysis
-                        //                             </div>
-                        //                             <div class="col-3">Every 2 Hours</div>
-                        //                             <div class="col-3">08:00, 14:00</div>
-                        //                             <div class="col-3 d-flex align-items-center">
-                        //                                 <div class="form-check form-switch me-2">
-                        //                                     <input class="form-check-input" type="checkbox">
-                        //                                 </div>
-                        //                                 <i class="bi bi-gear-fill"></i>
-                        //                             </div>
-                        //                         </div>
-                        //                       
-                        //                     </div>
-                        //                 </div>
-                        //             </div>
+                    methodsContainer.append(methodHtml);
+                });
 
-                        // `;
-                            //         methodsContainer.append(methodHtml);
-
-                            
                     },
                     error: function() {
                         methodsContainer.html(

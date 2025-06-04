@@ -4,6 +4,7 @@ namespace App\Http\Controllers\second_part;
 
 use Carbon\Carbon;
 use App\Models\Plant;
+use App\Models\Sample;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\second_part\Frequency;
@@ -42,7 +43,7 @@ class SampleRoutineSchedulerController extends Controller
     {
         $this->authorize('create_sample_routine_scheduler');
         $plants = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
-        $frequencies = Frequency::select('id', 'name')->get(); 
+        $frequencies = Frequency::select('id', 'name')->get();
         $data = [
             'plants' => $plants,
             'frequencies' => $frequencies,
@@ -52,17 +53,36 @@ class SampleRoutineSchedulerController extends Controller
     }
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $this->authorize('create_sample_routine_scheduler');
-        $data = $request->validate([
+        $request->validate([
             'plant_id' => 'required|exists:plants,id',
-            'frequency_id' => 'required|exists:frequencies,id',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'sub_plant_id' => 'nullable|exists:plants,id',
+            'sample_points' => 'required|array',
+
         ]);
 
-        SampleRoutineScheduler::create($data);
-        return redirect()->route('sample_routine_scheduler.index')->with('success', __('general.created_successfully'));
+        foreach ($request->sample_points as $index => $sample_point) {
+            $sechdeule_routing = SampleRoutineScheduler::create([
+                'plant_id' => $request->plant_id,
+                'sub_plant_id' => $request->sub_plant_id,
+                'sample_id' => $sample_point,
+            ]);
+            $sechdeule_routing->submission_number = 'SUB-' . str_pad($sechdeule_routing->id, 6, '0', STR_PAD_LEFT);
+            $sechdeule_routing->save();
+            foreach ($request->test_method_id[$sample_point] as $key => $test_method_id) {
+                $schedule_routine_items = $sechdeule_routing->sample_routine_scheduler_items()->create([
+                    'sample_id' => $request->sample_points[$index],
+                    'plant_id' => $request->plant_id,
+                    'sub_plant_id' => $request->sub_plant_id,
+                    'frequency_id' => ($request->input("frequency_id-$sample_point-$test_method_id")) ? $request->input("frequency_id-$sample_point-$test_method_id") : null,
+                    'schedule_hour' => ($request->input("schedule_hour-$sample_point-$test_method_id")) ? $request->input("frequency_id-$sample_point-$test_method_id") : null,
+                    'test_method_ids' => $test_method_id,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.submission.schedule')->with('success', __('general.created_successfully'));
     }
 
 
@@ -77,19 +97,33 @@ class SampleRoutineSchedulerController extends Controller
 
     public function get_sample_by_plant_id($id)
     {
-        $plant = Plant::with('sub_plants.samplePlants')->findOrFail($id);
-        $mainSamples = $plant->samplePlants()->with('mainPlant'  , 'sample', 'sample.test_methods', 'sample.test_methods.master_test_method')->select('id', 'name', 'plant_id')->get(); 
-        // dd($plant->samplePlants()->with('sample')->first());
+        $samples = Sample::where('plant_id', $id)->orWhere('sub_plant_id', $id)
+            ->with(['test_methods', 'test_methods.master_test_method', 'sample_plant'])
+            ->select('id', 'sub_plant_id', 'plant_id', 'plant_sample_id')
+            ->get();
 
-        $subPlantSamples = collect();
-        foreach ($plant->sub_plants as $subPlant) {
-            $subPlantSamples = $subPlantSamples->merge($subPlant->samplePlants()->with('mainPlant' , 'sample' , 'sample.test_methods' , 'sample.test_methods.master_test_method')->select('id', 'name', 'plant_id')->get());
-        }
-        $allSamples = $mainSamples->merge($subPlantSamples);
-
+        // dd($samples->toArray());
         return response()->json([
             'status'      => 200,
-            "all_samples" => $allSamples,
+            "all_samples" => $samples,
         ]);
     }
+    //     public function get_sample_by_plant_id($id)
+    //     {
+    //         $plant = Plant::with('sub_plants.samplePlants')->findOrFail($id);
+    //         $mainSamples = $plant->samplePlants()->with('mainPlant', 'sample', 'sample.test_methods', 'sample.test_methods.master_test_method')->select('id', 'name', 'plant_id')->get();
+    //         // dd($plant->samplePlants()->with('sample')->first());
+
+    //         $subPlantSamples = collect();
+    //         foreach ($plant->sub_plants as $subPlant) {
+    //             $subPlantSamples = $subPlantSamples->merge($subPlant->samplePlants()->with('mainPlant', 'sample', 'sample.test_methods', 'sample.test_methods.master_test_method')->select('id', 'name', 'plant_id')->get());
+    //         }
+    //         $allSamples = $mainSamples->merge($subPlantSamples);
+    // dd($allSamples->toArray());
+
+    //         return response()->json([
+    //             'status'      => 200,
+    //             "all_samples" => $allSamples,
+    //         ]);
+    //     }
 }

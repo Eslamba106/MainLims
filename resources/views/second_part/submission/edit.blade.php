@@ -104,7 +104,7 @@
                                         <select name="plant_sample_id" class="form-control" required
                                             onchange="add_test_methods(this)">
                                             <option value="{{ $submission->plant_sample_id }}">
-                                                {{ $submission->sample_main->sample_name->name }}</option>
+                                                {{ optional($submission->sample_main)->name}}</option>
                                         </select>
                                         @error('plant_sample_id')
                                             <span class="error text-danger">{{ $message }}</span>
@@ -147,7 +147,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        @foreach ($submission->sample_main->test_methods as $submission_test_method_item)
+                                        @if ($submission->sample)
+                                             
+                                              @foreach ($submission->sample->test_methods as $submission_test_method_item)
                                             @if (!in_array($submission_test_method_item->id, $selected_test_method))
                                                 <div class="col-md-5 m-1 ">
                                                     <div class="form-check border rounded p-2">
@@ -159,6 +161,8 @@
                                                 </div>
                                             @endif
                                         @endforeach
+                                        @endif
+                                      
                                     </div>
 
                                 </div>

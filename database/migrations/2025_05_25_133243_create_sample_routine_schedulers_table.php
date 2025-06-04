@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('sample_routine_schedulers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sample_id')->constrained('samples')->onDelete('cascade');
+            $table->foreignId('plant_id')->constrained('plants')->onDelete('cascade');
+            $table->foreignId('sub_plant_id')->nullable()->constrained('plants')->onDelete('cascade');
+            $table->string('submission_number')->nullable()->unique();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
