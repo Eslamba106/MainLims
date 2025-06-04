@@ -60,7 +60,7 @@ return [
 
     'url' => env('APP_URL', 'https://limsmaster.endak.net/'),
 
-    'asset_url' =>   'https://limsmaster.endak.net/public' ,
+    'asset_url' =>   'https://limsmaster.endak.net' ,
 
     /*
     |--------------------------------------------------------------------------
