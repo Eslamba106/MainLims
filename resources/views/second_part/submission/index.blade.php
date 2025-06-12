@@ -26,11 +26,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    {{-- @if (session()->has('locale'))
-    {{ dd(session()->get('locale') ) }}
-@endif --}}
-
+    </div> 
     <form action="" method="get">
 
         <div class="col-12">
@@ -146,6 +142,10 @@
                                         <a href="{{ route('admin.submission.edit', $submission_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
+                                    @endcan
+                                    @can('create_result')
+                                        <a href="{{ route('admin.result.create', [$submission_item->id ,'submission']) }}"
+                                            class="btn btn-outline-warning text-dark btn-sm" title="@lang('results.add_result')">@lang('results.add_result')</a>
                                     @endcan
                                 </td>
                             </tr>

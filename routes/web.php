@@ -9,6 +9,7 @@ use App\Http\Controllers\part\SampleController;
 use App\Http\Controllers\part\GeneralController;
 use App\Http\Controllers\Admin\UserManagmentController;
 use App\Http\Controllers\first_part\TestMethodController;
+use App\Http\Controllers\part_three\ResultController;
 use App\Http\Controllers\second_part\SubmissionController;
 use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
 
@@ -72,7 +73,7 @@ Route::group(['prefix' => 'sample'], function () {
 
     Route::get('/', [SampleController::class, 'index'])->name('admin.sample');
     Route::get('/create', [SampleController::class , 'create'])->name('admin.sample.create');
-    Route::post('/create', [SampleController::class , 'store'])->name('admin.sample.store');
+    Route::post('/store', [SampleController::class , 'store'])->name('admin.sample.store');
     Route::get('/edit/{id}' , [SampleController::class , 'edit'])->name('admin.sample.edit');
     Route::patch('/update/{id}' , [SampleController::class , 'update'])->name('admin.sample.update');
     Route::get('/delete/{id}', [SampleController::class ,'destroy'])->name('admin.sample.delete'); 
@@ -102,19 +103,19 @@ Route::group(['prefix' => 'submission'], function () {
     Route::get('/schedule/get_sample_by_plant_id/{id}', [SampleRoutineSchedulerController::class, 'get_sample_by_plant_id'])->name('admin.submission.schedule.get_sample_by_plant_id');
 
 });
+ 
+// Result Management
+Route::group(['prefix' => 'results'], function () {   
 
-// // Plant Management
-// Route::group(['prefix' => 'plant'], function () {98  
-
-//     Route::get('/', [GeneralController::class, 'plant_index'])->name('admin.plant');
-//     Route::get('/create', [GeneralController::class , 'plant_create'])->name('admin.plant.create');
-//     Route::post('/create', [GeneralController::class , 'plant_store'])->name('admin.plant.store');
-//     Route::get('/edit/{id}' , [GeneralController::class , 'plant_edit'])->name('admin.plant.edit');
-//     Route::patch('/update/{id}' , [GeneralController::class , 'plant_update'])->name('admin.plant.update');
-//     Route::get('/delete/{id}', [GeneralController::class ,'plant_destroy'])->name('admin.plant.delete'); 
+    Route::get('/', [ResultController::class, 'index'])->name('admin.result');
+    Route::get('/create/{id}/{slug}', [ResultController::class , 'create'])->name('admin.result.create');
+    Route::post('/create', [ResultController::class , 'store'])->name('admin.result.store');
+    Route::get('/edit/{id}' , [ResultController::class , 'edit'])->name('admin.result.edit');
+    Route::patch('/update/{id}' , [ResultController::class , 'update'])->name('admin.result.update');
+    Route::get('/delete/{id}', [ResultController::class ,'destroy'])->name('admin.result.delete'); 
 
 
-// });
+});
 
 // Unit Managment
 Route::group(['prefix' => 'unit'], function () {

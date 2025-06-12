@@ -30,6 +30,10 @@ class Submission extends Model
     {
         return $this->belongsTo(Sample::class, 'sample_id');
     }
+    public function master_sample()
+    {
+        return $this->belongsTo(Sample::class, 'sample_id');
+    }
     public function new_sample_main()
     {
         return $this->belongsTo(SamplePlant::class, 'plant_sample_id');

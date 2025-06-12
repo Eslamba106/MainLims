@@ -254,7 +254,7 @@
                                     <div class="d-flex align-items-center gap-3">
                                         <span class="badge bg-primary">  Tests</span>
                                         <div class="form-check form-switch m-0">
-                                            <input class="form-check-input" type="checkbox" name="sample_points[]" checked value="${sample.id} " id="${id}">
+                                            <input class="form-check-input" type="checkbox" name="sample_points[]"   value="${sample.id} " id="${id}">
                                         </div>
                                     </div>
                                 </div>

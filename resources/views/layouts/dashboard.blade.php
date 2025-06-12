@@ -18,10 +18,12 @@
     <link rel="stylesheet" href="{{ asset(main_path() . 'select2-4.0.3/css/select2.css') }}">
 
     <link href="{{ asset(main_path() . 'assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
+    <link href="{{ asset(main_path() . 'css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset(main_path() . 'assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
     <link href="{{ asset(main_path() . 'assets/libs/morris.js/morris.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
 
 
     <link href="{{ asset(main_path() . 'dist/css/style.min.css') }}" rel="stylesheet">
@@ -54,6 +56,7 @@
         @include('layouts.sidebar')
         <div class="page-wrapper">
             @yield('content')
+            @include('layouts.toggle_status_modal')
             @include('layouts.footer')
         </div>
 
@@ -138,6 +141,54 @@
                 allowClear: true
             });
         });
+        function toogleStatusModal(e, toggle_id, on_image, off_image, on_title, off_title, on_message, off_message) {
+            e.preventDefault();
+            $('.toggle-modal-img-box .status-icon').attr('src', '');
+            if ($('#' + toggle_id).is(':checked')) {
+                $('#toggle-status-title').empty().append(on_title);
+                $('#toggle-status-message').empty().append(on_message);
+                $('#toggle-status-image').attr('src', "{{ asset('/public/assets/images/modal') }}/" + on_image);
+                $('#toggle-status-ok-button').attr('toggle-ok-button', toggle_id);
+            } else {
+                $('#toggle-status-title').empty().append(off_title);
+                $('#toggle-status-message').empty().append(off_message);
+                $('#toggle-status-image').attr('src', "{{ asset('/public/assets/images/modal') }}/" + off_image);
+                $('#toggle-status-ok-button').attr('toggle-ok-button', toggle_id);
+            }
+            $('#toggle-status-modal').modal('show');
+        }
+          function confirmToggle() {
+            var toggle_id = $('#toggle-ok-button').attr('toggle-ok-button');
+            if ($('#' + toggle_id).is(':checked')) {
+                $('#' + toggle_id).prop('checked', false);
+            } else {
+                $('#' + toggle_id).prop('checked', true);
+            }
+            $('#toggle-modal').modal('hide');
+
+            if (toggle_id == 'email_verification') {
+                if ($("#email_verification").is(':checked')) {
+                    $('#otp_verification').removeAttr('checked');
+                }
+            }
+
+            if (toggle_id == 'otp_verification') {
+                if ($("#otp_verification").is(':checked')) {
+                    $('#email_verification').removeAttr('checked');
+                }
+            }
+        }
+        function confirmStatusToggle() {
+            var toggle_id = $('#toggle-status-ok-button').attr('toggle-ok-button');
+            if ($('#' + toggle_id).is(':checked')) {
+                $('#' + toggle_id).prop('checked', false);
+                $('#' + toggle_id).val(0);
+            } else {
+                $('#' + toggle_id).prop('checked', true);
+                $('#' + toggle_id).val(1);
+            }
+            $('#' + toggle_id + '_form').submit();
+        }
     </script>
 
     @yield('js')

@@ -191,5 +191,15 @@ return [
     'create_sample_routine_scheduler' => "Create Sample Routine Scheduler",
     'sample_routine_scheduler_management' => 'Sample Routine Scheduler Management',
     'sample_routine_scheduler_managment' => 'Sample Routine Scheduler',
+    'sample_routine_scheduler_number' => 'Sample Routine Scheduler Number',
+
+    'result_management'                                         => 'Results',
+    'result_managment'                                          => 'Results',
+    'all_results'                                             => 'Results List',
+    'show_all_results'                                        => "Show All Results",
+    'change_results_status'                                   => "Change Result Status",
+    'delete_result'                                           => "Delete Result",
+    'edit_result'                                             => "Edit Result",
+    'create_result'                                           => "Create Result",
 
 ];

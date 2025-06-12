@@ -63,8 +63,8 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         $inputs = $request->all();
-        // dd($request->all());
         $numbers = [];
 
         foreach ($inputs as $key => $value) {
@@ -77,7 +77,7 @@ class SampleController extends Controller
         $this->authorize('create_sample');
         $request->validate([
             'main_plant_item' => 'required',
-            'sample_name' => 'required',
+            'sample_name' => 'required|unique:samples,plant_sample_id',
         ]);
         $sample = Sample::create([
             'plant_id'  => $request->main_plant_item,

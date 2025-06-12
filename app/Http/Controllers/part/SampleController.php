@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\part;
 
+use App\Models\SampleTestMethodItem;
 use Carbon\Carbon;
 use App\Models\Plant;
 use App\Models\Sample;
@@ -49,8 +50,7 @@ class SampleController extends Controller
 
     public function create()
     {
-        $this->authorize('create_sample');
-
+        $this->authorize('create_sample'); 
         $plants = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
         $test_methods = TestMethod::select('id', 'name')->get();
         $toxic_degrees = ToxicDegree::select('id', 'name')->get();
@@ -61,9 +61,33 @@ class SampleController extends Controller
         ];
         return view("samples.create", $data);
     }
+    public function edit($id)
+    {
+        $this->authorize('edit_sample'); 
+        $sample = Sample::findOrFail($id);
+        $sample_test_methods = SampleTestMethod::where('sample_id', $id)->get();
+        $sample_test_method_items = SampleTestMethodItem::where('sample_id', $id)->get();
+        
+        $plants = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
+        $sub_plants = Plant::select('id', 'name', 'plant_id')->whereNotNull('plant_id')->get();
+        $test_methods = TestMethod::select('id', 'name')->get();
+        $toxic_degrees = ToxicDegree::select('id', 'name')->get();
+        $data = [
+            'plants' => $plants,
+            'test_methods' => $test_methods,
+            'toxic_degrees' => $toxic_degrees,
+            'sample' => $sample,
+            'sample_test_methods' => $sample_test_methods,
+            'sample_test_method_items' => $sample_test_method_items,
+            'sub_plants'                => $sub_plants,
+        ];
+        return view("samples.edit", $data);
+    }
 
     public function store(Request $request)
     {
+              
+
         $inputs = $request->all(); 
         $numbers = [];
 
@@ -77,8 +101,8 @@ class SampleController extends Controller
         $this->authorize('create_sample');
         $request->validate([
             'main_plant_item' => 'required',
-            'sample_name' => 'required',
-        ]);
+            'sample_name' => 'required|unique:samples,plant_sample_id',
+        ]); 
         $sample = Sample::create([
             'plant_id'  => $request->main_plant_item,
             'sub_plant_id'  => $request->sub_plant_item ?? null,

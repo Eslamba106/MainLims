@@ -67,11 +67,12 @@ class SubmissionController extends Controller
             'comment' => 'nullable|string|max:255',
         ]);
         $date =  Carbon::createFromFormat('Y-m-d\TH:i', $request->sampling_date_and_time);
+        $sample = Sample::where('plant_sample_id', $request->plant_sample_id)->first();
         $submission = Submission::create([
             'plant_id' => $request->plant_id,
             'sub_plant_id' => $request->sub_plant_id,
             'plant_sample_id' => $request->plant_sample_id,
-            'sample_id' => $request->sample_name,
+            'sample_id' => $sample->id,
             'priority' => $request->priority,
             'sampling_date_and_time' => $date,
             'comment' => $request->comment,

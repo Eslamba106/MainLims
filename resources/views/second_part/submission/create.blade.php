@@ -92,7 +92,7 @@
                                     <div class="form-group">
                                         <label for="">{{ __('samples.sample_name') }} <span
                                                 class="text-danger">*</span></label>
-                                        <select name="plant_sample_id" class="form-control" required disabled
+                                        <select name="plant_sample_id" class="form-control" required readonly
                                             onchange="add_test_methods(this)">
                                             <option value="">{{ __('samples.select_sub_plant') }}</option>
                                         </select>

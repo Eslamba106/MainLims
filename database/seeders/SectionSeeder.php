@@ -119,6 +119,13 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 71], ['name' => 'create_frequency', 'section_group_id' => 67, 'caption' => 'create_frequency']);
         Section::updateOrCreate(['id' => 72], ['name' => 'all_frequencies', 'section_group_id' => 67, 'caption' => 'show_all_frequencies']);
         
+        // Results Management 73 - 78
+        Section::updateOrCreate(['id' => 73], ['name' => 'result_management', 'caption' => 'result_management']);
+        Section::updateOrCreate(['id' => 74], ['name' => 'change_results_status', 'section_group_id' => 73, 'caption' => 'change_results_status']);
+        Section::updateOrCreate(['id' => 75], ['name' => 'delete_result', 'section_group_id' => 73, 'caption' => 'delete_result']);
+        Section::updateOrCreate(['id' => 76], ['name' => 'edit_result', 'section_group_id' => 73, 'caption' => 'edit_result']); 
+        Section::updateOrCreate(['id' => 77], ['name' => 'create_result', 'section_group_id' => 73, 'caption' => 'create_result']);
+        Section::updateOrCreate(['id' => 78], ['name' => 'all_results', 'section_group_id' => 73, 'caption' => 'show_all_results']);
     
     }
 }

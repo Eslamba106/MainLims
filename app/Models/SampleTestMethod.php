@@ -16,4 +16,8 @@ class SampleTestMethod extends Model
         return $this->hasOne(TestMethod::class, 'id', 'test_method_id');
         // return $this->belongsTo(TestMethod::class);
     }
+    public function sample_test_method_items()
+    {
+        return $this->hasMany(SampleTestMethodItem::class, 'test_method_id', 'id');
+    }
 }

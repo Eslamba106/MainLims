@@ -4,6 +4,10 @@
 
     {{ __('roles.submission_managment') }}
 @endsection
+@section('css')
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
+@endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
@@ -49,17 +53,17 @@
                         @can('change_submissions_role')
                             <div class="remv_control mr-2">
                                 <select name="role" class="mr-3 mt-3 form-control">
-                                    <option value="">{{ __('roles.set_role') }}</option> 
-                                    <option value="pending">{{ $item_role->name }}</option> 
+                                    <option value="">{{ __('roles.set_role') }}</option>
+                                    <option value="pending">{{ $item_role->name }}</option>
                                 </select>
                             </div>
-                       
-                        
-                        <button type="submit" name="bulk_action_btn" value="update_status"
-                            class="btn btn-primary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{ __('dashboard.update') }}
-                        </button>
-                         @endcan
+
+
+                            <button type="submit" name="bulk_action_btn" value="update_status"
+                                class="btn btn-primary mt-3 mr-2">
+                                <i class="la la-refresh"></i> {{ __('dashboard.update') }}
+                            </button>
+                        @endcan
                         @can('delete_submission')
                             <button type="submit" name="bulk_action_btn" value="delete"
                                 class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
@@ -103,21 +107,40 @@
                                 </td>
                                 <td class="text-center">{{ $submission_item->plant->name }} </td>
                                 <td class="text-center">{{ $submission_item->sample->sample_plant->name }} </td>
+
                                 {{-- <td class="text-center">{{ $submission_item->status  }} </td>
                                 <td class="text-center">{{ $submission_item->priority  }} </td> --}}
-                                <td class="text-center">
-                                    @php
-                                        $statusColors = [
-                                            'in progress' => 'bg-warning text-dark',
-                                            'pending' => 'bg-secondary text-white',
-                                            'completed' => 'bg-success text-white',
-                                        ];
-                                    @endphp
-                                    <span
-                                        class="badge {{ $statusColors[$submission_item->status] ?? 'bg-yellow text-dark' }}">
-                                        {{ $submission_item->status }}
-                                    </span>
-                                </td>
+                                {{-- <td class="text-center">
+                                    <form action=" " method="post" id="product_status{{ $submission_item->id }}_form"
+                                        class="status_form">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $submission_item->id }}">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="flexSwitchCheckChecked"   onclick="toogleStatusModal(event,'product_status{{ $submission_item->id }}',
+                                                    'product-status-on.png','product-status-off.png',
+                                                    '{{ __('general.Want_to_Turn_ON') }} {{ $submission_item->name }} ',
+                                                    '{{ __('general.Want_to_Turn_OFF') }} {{ $submission_item->name }} ',
+                                                    `<p>{{ __('general.if_enabled_this_product_will_be_available') }}</p>`,
+                                                    `<p>{{ __('general.if_disabled_this_product_will_be_hidden') }}</p>`)">  
+                                            <label class="form-check-label" for="flexSwitchCheckChecked"> </label>
+                                        </div>
+                                    </form>
+                                </td>  --}}
+                                @php
+                                
+                                            $statusColors = [
+                                                'in progress' => 'bg-warning text-dark',
+                                                'pending' => 'bg-secondary text-white',
+                                                'completed' => 'bg-success text-white',
+                                            ];
+                                        @endphp
+                                        <td class="text-center">
+                                        <span
+                                            class="badge {{ $statusColors[$submission_item->status] ?? 'bg-yellow text-dark' }}">
+                                            {{ $submission_item->status }}
+                                        </span>
+                                {{--  --}}</td>
 
                                 {{-- <td class="text-center">
                                     @php
@@ -158,4 +181,44 @@
         </div>
         </div>
     </form>
+@endsection
+@section('js')
+    <script>
+        // $('#statusSwitch').on('change', function() {
+        //     if ($(this).is(':checked')) {
+        //         console.log('Status: ON');
+        //     } else {
+        //         console.log('Status: OFF');
+        //     }
+        // });
+        
+    </script>
+    <script>
+        $('.status_form').on('submit', function(event) {
+            event.preventDefault();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "",
+                method: 'POST',
+                data: $(this).serialize(),
+                success: function(data) {
+                    if (data.success == true) {
+                        toastr.success('{{ __('general.updated_successfully') }}');
+                    } else if (data.success == false) {
+                        toastr.error(
+                            '{{ __('Status_updated_failed.') }} {{ __('Product_must_be_approved') }}'
+                        );
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    }
+                }
+            });
+        });
+    </script>
 @endsection
