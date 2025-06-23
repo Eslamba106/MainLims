@@ -50,7 +50,7 @@ class SampleController extends Controller
 
     public function create()
     {
-        $this->authorize('create_sample'); 
+        $this->authorize('create_sample');
         $plants = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
         $test_methods = TestMethod::select('id', 'name')->get();
         $toxic_degrees = ToxicDegree::select('id', 'name')->get();
@@ -63,11 +63,11 @@ class SampleController extends Controller
     }
     public function edit($id)
     {
-        $this->authorize('edit_sample'); 
+        $this->authorize('edit_sample');
         $sample = Sample::findOrFail($id);
         $sample_test_methods = SampleTestMethod::where('sample_id', $id)->get();
         $sample_test_method_items = SampleTestMethodItem::where('sample_id', $id)->get();
-        
+
         $plants = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
         $sub_plants = Plant::select('id', 'name', 'plant_id')->whereNotNull('plant_id')->get();
         $test_methods = TestMethod::select('id', 'name')->get();
@@ -84,11 +84,163 @@ class SampleController extends Controller
         return view("samples.edit", $data);
     }
 
+    public function update(Request $request, $id)
+    {
+
+        dd($request->all());
+        $inputs = $request->all();
+        $numbers = [];
+
+        foreach ($inputs as $key => $value) {
+            if (Str::startsWith($key, 'test_method-')) {
+                $number = (int) str_replace('test_method-', '', $key);
+                $numbers[] = $number;
+            }
+        }
+
+        $this->authorize('edit_sample');
+        $sample = Sample::findOrFail($id);
+        $request->validate([
+            'main_plant_item' => 'required',
+            'sample_name' => 'required',
+        ]);
+
+        $sample->update([
+            'plant_id'  => $request->main_plant_item,
+            'sub_plant_id'  => $request->sub_plant_item ?? null,
+            'plant_sample_id'  => $request->sample_name,
+            'toxic'  =>  $request->toxic  ?? null,
+        ]);
+        $test_method_old = SampleTestMethod::where('sample_id', $sample->id)->get();
+        if ($test_method_old->count()) {
+            foreach ($test_method_old as $old_test_method) {
+                foreach ($old_test_method->sample_test_method_items as $test_item) {
+                    // dd($test_item->test_method_id);
+                    if ($request->input("test_method-$test_item->test_method_item_id")) {
+
+                        $test_item->update([
+                            'test_method_item_id' => ($request->input("test_method-$test_item->test_method_item_id")) ? $request->input("test_method-$test_item->id") : $test_item->test_method_item_id,
+                            'warning_limit_end'       => $request->input("warning_limit_end_old-$test_item->id"),
+                            'warning_limit'       => $request->input("warning_limit_old-$test_item->id"),
+                            'action_limit'        => $request->input("action_limit_old-$test_item->id"),
+                            'action_limit_end'        => $request->input("action_limit_end_old-$test_item->id"),
+                            'warning_limit_type'  => $request->input("warning_limit_type_old-$test_item->id"),
+                            'action_limit_type'   => $request->input("action_limit_type_old-$test_item->id"),
+                        ]);
+                    }
+                    // else{
+                    //     $test_item->delete();
+                    // }
+                }
+            }
+        }
+        // $test_method = TestMethod::select('id')->where('id', $request->test_method)->first();
+        // if (isset($request->main_components) && $request->main_components == -1) {
+        //     $test_method_items = TestMethodItem::select('id', 'test_method_id')->where('test_method_id', $request->test_method)->get();
+        //     $sample_test_method = SampleTestMethod::create([
+        //         'test_method_id'        => $test_method->id,
+        //         'sample_id'             => $sample->id,
+        //     ]);
+        //     foreach ($test_method_items as $item) {
+        //         $index = $item->id;
+        //         if ($request->has("component-$index")) {
+
+        //             DB::table('sample_test_method_items')->insert([
+        //                 'test_method_id'        => $sample_test_method->id,
+        //                 'sample_id'             => $sample->id,
+        //                 'test_method_item_id' => $item->id,
+        //                 'warning_limit_end'       => $request->input("warning_limit_end-$index"),
+        //                 'warning_limit'       => $request->input("warning_limit-$index"),
+        //                 'action_limit'        => $request->input("action_limit-$index"),
+        //                 'action_limit_end'        => $request->input("action_limit_end-$index"),
+        //                 'warning_limit_type'  => $request->input("warning_limit_type-$index"),
+        //                 'action_limit_type'   => $request->input("action_limit_type-$index"),
+        //             ]);
+        //         }
+        //     }
+        // } elseif (isset($request->main_components)) {
+        //     $test_method_items = TestMethod::select('id')->where('id', $request->test_method)->first();
+        //     if ($request->has("component-$request->main_components")) {
+        //         $sample_test_method = SampleTestMethod::create([
+        //             'test_method_id'        => $test_method_items->id,
+        //             'sample_id'             => $sample->id,
+        //         ]);
+        //         DB::table('sample_test_method_items')->insert([
+        //             'test_method_id'        => $sample_test_method->id,
+        //             'sample_id'             => $sample->id,
+        //             'test_method_item_id' => $request->main_components,
+        //             'warning_limit'       => $request->input("warning_limit-$request->main_components"),
+        //             'warning_limit_end'       => $request->input("warning_limit_end-$request->main_components"),
+        //             'action_limit'        => $request->input("action_limit-$request->main_components"),
+        //             'action_limit_end'        => $request->input("action_limit_end-$request->main_components"),
+        //             'warning_limit_type'  => $request->input("warning_limit_type-$request->main_components"),
+        //             'action_limit_type'   => $request->input("action_limit_type-$request->main_components"),
+        //         ]);
+        //     }
+        // }
+        // if (!empty($numbers)) {
+        //     foreach ($numbers as $index => $number) {
+        //         $test_method = TestMethod::select('id')->where('id', $request->input("test_method-$number"))->first();
+
+        //         $sample_test_method = SampleTestMethod::create([
+        //             'test_method_id'        => $test_method->id,
+        //             'sample_id'             => $sample->id,
+        //         ]);
+        //         $component_nums = [];
+        //         foreach ($inputs as $key => $value) {
+        //             if (Str::startsWith($key, "component-$number-")) {
+        //                 $component_num = (int) str_replace("component-$number-", '', $key);
+        //                 $component_nums[] = $component_num;
+        //             }
+        //         }
+        //         if (!empty($component_nums) && is_array($component_nums) && !in_array(-1, $request->components)) {
+
+        //             foreach ($component_nums as $index => $component_num) {
+
+        //                 DB::table('sample_test_method_items')->insert([
+        //                     'test_method_id'        => $sample_test_method->id,
+        //                     'sample_id'             => $sample->id,
+        //                     'test_method_item_id' => $component_num,
+        //                     'warning_limit'       => $request->input("warning_limit-$number-$component_num"),
+        //                     'warning_limit_end'       => $request->input("warning_limit_end-$number-$component_num"),
+        //                     'action_limit_end'        => $request->input("action_limit_end-$number-$component_num"),
+        //                     'action_limit'        => $request->input("action_limit-$number-$component_num"),
+        //                     'warning_limit_type'  => $request->input("warning_limit_type-$number-$component_num"),
+        //                     'action_limit_type'   => $request->input("action_limit_type-$number-$component_num"),
+        //                 ]);
+        //             }
+        //         } elseif (is_array($component_nums) && is_array($request->components) &&  in_array(-1, $request->components)) {
+        //             $test_method_items = TestMethodItem::select('id', 'test_method_id')->where('test_method_id', $test_method->id)->get();
+
+        //             foreach ($test_method_items as $index => $item) {
+        //                 $new_index = $index + 1;
+        //                 if ($request->has("component-$number-$item->id-$new_index")) {
+
+        //                     DB::table('sample_test_method_items')->insert([
+        //                         'test_method_id'        => $sample_test_method->id,
+        //                         'sample_id'             => $sample->id,
+        //                         'test_method_item_id' => $item->id,
+        //                         'warning_limit'       => $request->input("warning_limit-$number-$item->id-$new_index"),
+        //                         'action_limit'        => $request->input("action_limit-$number-$item->id-$new_index"),
+        //                         'warning_limit_end'       => $request->input("warning_limit_end-$number-$item->id-$new_index"),
+        //                         'action_limit_end'        => $request->input("action_limit_end-$number-$item->id-$new_index"),
+        //                         'warning_limit_type'  => $request->input("warning_limit_type-$number-$item->id-$new_index"),
+        //                         'action_limit_type'   => $request->input("action_limit_type-$number-$item->id-$new_index"),
+        //                     ]);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        return redirect()->route('admin.sample')->with('success', __('general.updated_successfully'));
+    }
+
     public function store(Request $request)
     {
-              
 
-        $inputs = $request->all(); 
+
+        $inputs = $request->all();
         $numbers = [];
 
         foreach ($inputs as $key => $value) {
@@ -102,7 +254,7 @@ class SampleController extends Controller
         $request->validate([
             'main_plant_item' => 'required',
             'sample_name' => 'required|unique:samples,plant_sample_id',
-        ]); 
+        ]);
         $sample = Sample::create([
             'plant_id'  => $request->main_plant_item,
             'sub_plant_id'  => $request->sub_plant_item ?? null,
@@ -167,9 +319,9 @@ class SampleController extends Controller
                         $component_num = (int) str_replace("component-$number-", '', $key);
                         $component_nums[] = $component_num;
                     }
-                } 
+                }
                 if (!empty($component_nums) && is_array($component_nums) && !in_array(-1, $request->components)) {
-                     
+
                     foreach ($component_nums as $index => $component_num) {
 
                         DB::table('sample_test_method_items')->insert([
@@ -186,9 +338,9 @@ class SampleController extends Controller
                     }
                 } elseif (is_array($component_nums) && is_array($request->components) &&  in_array(-1, $request->components)) {
                     $test_method_items = TestMethodItem::select('id', 'test_method_id')->where('test_method_id', $test_method->id)->get();
-                      
+
                     foreach ($test_method_items as $index => $item) {
-                        $new_index = $index + 1; 
+                        $new_index = $index + 1;
                         if ($request->has("component-$number-$item->id-$new_index")) {
 
                             DB::table('sample_test_method_items')->insert([
@@ -207,7 +359,7 @@ class SampleController extends Controller
                 }
             }
         }
-        
+
         return redirect()->route('admin.sample')->with('success', __('general.created_successfully'));
     }
 
@@ -262,7 +414,8 @@ class SampleController extends Controller
             "component" => $component,
         ]);
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         $sample = Sample::findOrFail($id);
         $sample->delete();
         return redirect()->back()->with('success', __('general.deleted_successfully'));

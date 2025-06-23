@@ -43,5 +43,5 @@ return [
     'status'                                                                => 'Status',
     'company'                                                               => 'Company',
     'admin'                                                                 => 'Admin',
-
+    'created_successfully'                                                  => 'Created Successfully',  
 ];

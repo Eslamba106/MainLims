@@ -154,27 +154,28 @@
 
                         <!-- Body -->
                         @if ($sample)
-                            <div class="card-body">
-                                {{-- <h4 class="mb-4 d-flex align-items-center gap-2"> 
-                                {{ __('companies.info') }}
-                            </h4> --}}
+                            @foreach ($item_test_method->sample_test_method->sample_test_method_items as $sample_test_method_item)
+                                <div class="card-body">
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="p-3 rounded" style="background-color: #fff8dc;">
-                                            <small class="text-muted d-block">Warning Limit</small>
-                                            <span class="text-warning fw-bold"
-                                                id="warning_limit_type-${component.id}"></span>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="p-3 rounded" style="background-color: #fff8dc;">
+                                                <small class="text-muted d-block">Warning Limit</small>
+                                                <span class="text-warning fw-bold"
+                                                    id="warning_limit_type-${component.id}"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 mt-2">
-                                        <div class="p-3 rounded" style="background-color: #ffeeee;">
-                                            <small class="text-muted d-block">Action Limit</small>
-                                            <span class="text-danger fw-bold" id="action_limit_type-${component.id}"></span>
+                                        <div class="col-md-12 mt-2">
+                                            <div class="p-3 rounded" style="background-color: #ffeeee;">
+                                                <small class="text-muted d-block">Action Limit</small>
+                                                <span class="text-danger fw-bold"
+                                                    id="action_limit_type-${component.id}"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         @else
                             <div class="card-body">
                                 <div class="media align-items-center">
