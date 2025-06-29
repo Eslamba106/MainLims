@@ -1,6 +1,8 @@
-<?php 
+<?php
 
+use App\Models\COASettings;
 use App\Models\Folder;
+use App\Models\part_three\ResultTestMethodItem;
 use App\Models\Tenant;
 
 if (!function_exists("uploadImage")) {
@@ -86,5 +88,25 @@ if (!function_exists('company_id')) {
             return $lastCompany->tenant_id + 1;
         } 
         return 1;
+    }
+}
+
+if (!function_exists('test_method_result')) {
+    function test_method_result($id)
+    {   
+        return ResultTestMethodItem::where('result_test_method_id' , $id)->select('result_test_method_id','id' ,'acceptance_status' )->first()->acceptance_status;
+    }
+}
+if (!function_exists('check_coa_settings')) {
+    function check_coa_settings($type)
+    {   
+         
+        return true; 
+        // $coa = COASettings::where('type' , $type)->where('value' , 1)->first();
+        // if($coa){
+
+        //     return true; 
+        // }
+        // return false; 
     }
 }

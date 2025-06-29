@@ -78,65 +78,54 @@
                     <thead>
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
-                            <th class="text-center" scope="col">{{ __('samples.sample_id') }}</th>
-                            <th class="text-center" scope="col">@lang('results.collection_date')</th>
-                            <th class="text-center" scope="col">@lang('samples.plant')</th>
-                            <th class="text-center" scope="col">@lang('results.sample_point')</th>
+                            <th class="text-center" scope="col">{{ __('results.tamplate_name') }}</th>
                             <th class="text-center" scope="col">@lang('roles.status')</th>
-                            <th class="text-center" scope="col">@lang('results.priority')</th>
-                            <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($results as $result_item)
+                        @forelse ($temp as $temp_item)
                             <tr>
                                 <th scope="row">
                                     <label>
                                         <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
-                                            value="{{ $result_item->id }}" />
+                                            value="{{ $temp_item->id }}" />
                                         <span class="text-muted">#{{ $loop->index + 1 }}</span>
                                     </label>
                                 </th>
-                                <td class="text-center">{{ $result_item->submission->submission_number }} </td>
-                                <td class="text-center">
-                                    {{ \Carbon\Carbon::parse($result_item->sampling_date_and_time)->format('M d, Y h:i A') }}
-                                </td>
-                                {{-- {{ dd($result_item->new_sample_main) }} --}}
-                                <td class="text-center">{{ $result_item->plant->name }} </td>
-                                <td class="text-center">{{ optional(optional($result_item->sample)->sample_plant)->name }}
-                                </td>
+
+                                <td class="text-center">{{ $temp_item->name }} </td>
                                 {{-- <td class="text-center">{{ $result_item->status  }} </td>
                                 <td class="text-center">{{ $result_item->priority  }} </td> --}}
                                 <td class="text-center">
-                                    @php
-                                        $statusColors = [
-                                            'in progress' => 'bg-warning text-dark',
-                                            'pending' => 'bg-secondary text-white',
-                                            'completed' => 'bg-success text-white',
-                                        ];
-                                    @endphp
-                                    <span class="badge {{ $statusColors[$result_item->status] ?? 'bg-yellow text-dark' }}">
-                                        {{ $result_item->status }}
-                                    </span>
+                                    {{-- @if (array_key_exists('default', $data) && $data['default'] == true)
+                                        <label class="switcher mx-auto" onclick="default_language_status_alert()">
+                                            <input type="checkbox" class="switcher_input" checked disabled>
+                                            <span class="switcher_control"></span>
+                                        </label>
+                                        @elseif(array_key_exists('default', $data) && $data['default']==false) --}}
+                                    <form
+                                        action="{{ route('coa_settings.update-default-status' ) }}"
+                                        method="GET" id="language_default_id_{{ $temp_item->id }}_form"
+                                        class="language_default_id_form">
+                                        @csrf
+                                        <input type="hidden" name="temp_id" value="{{ $temp_item->id }}">
+                                        <label class="form-check form-switch me-2 mx-auto">
+                                            <input type="checkbox" value="1" class="form-check-input"
+                                                @if ($temp_item->value == 1) checked @endif
+                                                id="language_default_id_{{ $temp_item->id }}" name="default"
+                                                class="toggle-switch-input"
+                                                
+                                                onclick="toogleStatusModal(event,'language_default_id_{{ $temp_item->id }}','language-on.png','language-off.png','{{ __('Want_to_Change_Default_Language_Status') }}','{{ __('Want_to_Turn_OFF_Language_Status') }}',`<p>{{ __('if_enabled_this_language_will_be_set_as_default_for_the_entire_system') }}</p>`,`<p>{{ __('if_disabled_this_language_will_be_unset_as_default_for_the_entire_system') }}</p>`)">
+                                            <span class="switcher_control"></span>
+                                        </label>
+                                    </form>
+                                    {{-- @endif --}}
                                 </td>
 
-                                <td class="text-center">
-                                    @php
-                                        $priorityColors = [
-                                            'high' => 'bg-danger text-white',
-                                            'normal' => 'bg-primary text-white',
-                                            'low' => 'bg-info text-dark',
-                                        ];
-                                    @endphp
-                                    <span
-                                        class="badge {{ $priorityColors[$result_item->priority] ?? 'bg-light text-dark' }}">
-                                        {{ $result_item->priority }}
-                                    </span>
-                                </td>
 
 
 
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                     @can('delete_result')
                                         <a href="{{ route('admin.result.delete', $result_item->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
@@ -153,7 +142,7 @@
                                                 class="mdi mdi-check"></i> </a>
                                     @endcan
 
-                                </td>
+                                </td> --}}
                             </tr>
                         @empty
                         @endforelse
@@ -165,4 +154,33 @@
         </div>
         </div>
     </form>
+@endsection
+@section('js')
+    <script>
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+
+        $('.language_default_id_form').on('click', function(event) {
+            event.preventDefault();
+            console.log("dfg");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('coa_settings.update-default-status') }}",
+                method: 'GET',
+                data: $(this).serialize(),
+                success: function(data) {
+                    toastr.success('{{ __('status_updated_successfully') }}');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }
+            });
+        });
+    </script>
 @endsection

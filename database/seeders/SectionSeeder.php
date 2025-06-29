@@ -126,6 +126,15 @@ class SectionSeeder extends Seeder
         Section::updateOrCreate(['id' => 76], ['name' => 'edit_result', 'section_group_id' => 73, 'caption' => 'edit_result']); 
         Section::updateOrCreate(['id' => 77], ['name' => 'create_result', 'section_group_id' => 73, 'caption' => 'create_result']);
         Section::updateOrCreate(['id' => 78], ['name' => 'all_results', 'section_group_id' => 73, 'caption' => 'show_all_results']);
+        
+        // Coa Management 79 - 85
+        Section::updateOrCreate(['id' => 79], ['name' => 'coa_management', 'caption' => 'coa_management']);
+        Section::updateOrCreate(['id' => 80], ['name' => 'change_coas_status', 'section_group_id' => 73, 'caption' => 'change_coas_status']);
+        Section::updateOrCreate(['id' => 81], ['name' => 'delete_coa', 'section_group_id' => 73, 'caption' => 'delete_coa']);
+        Section::updateOrCreate(['id' => 82], ['name' => 'edit_coa', 'section_group_id' => 73, 'caption' => 'edit_coa']); 
+        Section::updateOrCreate(['id' => 83], ['name' => 'create_coa', 'section_group_id' => 73, 'caption' => 'create_coa']);
+        Section::updateOrCreate(['id' => 84], ['name' => 'all_coas', 'section_group_id' => 73, 'caption' => 'show_all_coas']);
+        Section::updateOrCreate(['id' => 85], ['name' => 'coa_settings', 'section_group_id' => 73, 'caption' => 'coa_settings']);
     
     }
 }

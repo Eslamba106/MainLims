@@ -137,6 +137,51 @@
                         </ul>
                     </li>
                 @endcan
+                @can('result_management')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false">
+                            <i class="fas fa-microscope"></i>
+
+                            <span class="hide-menu">{{ __('roles.result_management') }} </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            @can('all_results')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.result') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('roles.all_results') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            
+                            
+                            
+                           
+                        </ul>
+                    </li>
+                @endcan
+                
+                @can('coa_settings')
+                    <li class="sidebar-item">
+                         <a href="{{ route('admin.template_designer') }}" class="sidebar-link"> 
+                            <i class="fa fa-users"></i>
+
+                            <span class="hide-menu">{{ __('roles.coa_settings') }} </span>
+                        </a>
+                        {{-- @can('all_users')
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ __('roles.all_users') }}</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        @endcan --}}
+                    </li>
+                @endcan
 
                    <!--  Submission Management End-->
 

@@ -2,6 +2,7 @@
 
 namespace App\Models\part_three;
 
+use App\Models\User;
 use App\Models\Plant;
 use App\Models\Sample;
 use App\Models\SamplePlant;
@@ -36,6 +37,10 @@ class Result extends Model
     public function result_test_method_items()
     {
         return $this->hasMany(ResultTestMethod::class, 'result_id', 'id');
+    }
+      public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
     
 }

@@ -7,9 +7,10 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\part\PlantController;
 use App\Http\Controllers\part\SampleController;
 use App\Http\Controllers\part\GeneralController;
+use App\Http\Controllers\part_three\ResultController;
 use App\Http\Controllers\Admin\UserManagmentController;
 use App\Http\Controllers\first_part\TestMethodController;
-use App\Http\Controllers\part_three\ResultController;
+use App\Http\Controllers\part_three\COATemplateController;
 use App\Http\Controllers\second_part\SubmissionController;
 use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
 
@@ -113,7 +114,21 @@ Route::group(['prefix' => 'results'], function () {
     Route::get('/edit/{id}' , [ResultController::class , 'edit'])->name('admin.result.edit');
     Route::patch('/update/{id}' , [ResultController::class , 'update'])->name('admin.result.update');
     Route::get('/delete/{id}', [ResultController::class ,'destroy'])->name('admin.result.delete'); 
+    Route::get('/confirm_results/{id}' , [ResultController::class , 'confirm_results'])->name('admin.result.confirm_results');
+    Route::get('/approve_confirm_results/{id}' , [ResultController::class , 'approve_confirm_results'])->name('admin.result.approve_confirm_results');
+    Route::get('/cancel_confirm_results/{id}' , [ResultController::class , 'cancel_confirm_results'])->name('admin.result.cancel_confirm_results');
+    Route::get('/approve_confirm_results_by_item/{id}' , [ResultController::class , 'approve_confirm_results_by_item'])->name('admin.result.approve_confirm_results_by_item');
+    Route::get('/cancel_confirm_results_by_item/{id}' , [ResultController::class , 'cancel_confirm_results_by_item'])->name('admin.result.cancel_confirm_results_by_item');
 
+
+});
+ 
+// CAO Management
+Route::group(['prefix' => 'cao'], function () {   
+
+    Route::get('/', [COATemplateController::class, 'template_designer'])->name('admin.template_designer'); 
+    Route::post('/coa_settings', [COATemplateController::class, 'coa_settings'])->name('coa_settings.store'); 
+    Route::get('update-default-status', [COATemplateController::class, 'update_default_status'] )->name('coa_settings.update-default-status');
 
 });
 

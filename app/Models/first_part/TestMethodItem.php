@@ -18,6 +18,7 @@ class TestMethodItem extends Model
     }
     public function main_unit()
     {
-        return $this->hasOne(Unit::class, 'id' , 'unit');
+        return $this->belongsTo(Unit::class, 'unit');
     }
+
 }

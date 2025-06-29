@@ -202,4 +202,42 @@ return [
     'edit_result'                                             => "Edit Result",
     'create_result'                                           => "Create Result",
 
+
+      'header_information' => 'Header Information',
+    'company_logo' => 'Company Logo',
+    'company_name' => 'Company Name',
+    'laboratory_accreditation' => 'Laboratory Accreditation',
+    'coa_number' => 'COA Number',
+    'lims_number' => 'LIMS Number',
+    'report_date' => 'Report Date',
+ 
+    'sample_plant' => 'Sample Plant',
+    'sample_subplant' => 'Sample Subplant',
+    'sample_point' => 'Sample Point',
+    'sample_description' => 'Sample Description',
+    'batch_lot_number' => 'Batch/Lot Number',
+    'date_received' => 'Date Received',
+    'date_analyzed' => 'Date Analyzed',
+    'date_authorized' => 'Date Authorized',
+
+    'test_results' => 'Test Results',
+    'component_name' => 'Component Name',
+    'specification' => 'Specification',
+    'test_method' => 'Test Method',
+    'pass_fail_status' => 'Pass/Fail Status',
+    'results' => 'Results',
+    'analyst' => 'Analyst',
+    'unit' => 'Unit',
+
+    'authorization' => 'Authorization',
+    'analyzed_by' => 'Analyzed By',
+    'authorized_by' => 'Authorized By',
+    'digital_signature' => 'Digital Signature',
+    'comments' => 'Comments',
+
+    'footer_information' => 'Footer Information',
+    'disclaimer_text' => 'Disclaimer Text',
+    'laboratory_contact_information' => 'Laboratory Contact Information',
+    'page_numbers' => 'Page Numbers',
+
 ];

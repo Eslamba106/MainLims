@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('test_method_item_id')->constrained('test_method_items')->onDelete('cascade');
             $table->string('result')->nullable();
             $table->string('status')->default('in_range'); 
+            $table->string('acceptance_status')->default('pending'); 
             $table->timestamps();
         });
     }
