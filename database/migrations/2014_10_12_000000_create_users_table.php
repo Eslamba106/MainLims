@@ -16,12 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->string('user_name')->unique()->nullable(); 
-            $table->string('role_name',64);
-            $table->integer('role_id')->unsigned();
             $table->string('phone')->nullable();
             $table->string('password');
+            $table->string('role_name',64);
+            $table->integer('role_id')->unsigned();
             $table->string('my_name')->nullable();
-            $table->rememberToken();
+            $table->string('slug')->unique()->nullable();
+            $table->longText('signature')->nullable();
+            $table->rememberToken(); 
             $table->timestamps();
         });
     }

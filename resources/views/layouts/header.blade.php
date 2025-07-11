@@ -135,6 +135,11 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">
                             <i class="fa fa-power-off m-r-5 m-l-5"></i>{{ __('login.logout') }}</a>
+                            <a class="dropdown-item"
+                                   href="{{route('profile.update',auth()->user()?->id)}}">
+                                    <span class="text-truncate pr-2"
+                                          title="Settings">{{translate('settings')}}</span>
+                                </a>
                       
                     </div>
                 </li>

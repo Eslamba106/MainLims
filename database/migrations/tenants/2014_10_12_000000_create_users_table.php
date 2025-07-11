@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('role_name',64);
             $table->integer('role_id')->unsigned();
             $table->string('my_name')->nullable();
+            $table->string('slug')->unique()->nullable();
+            $table->longText('signature')->nullable();
             $table->rememberToken(); 
             $table->timestamps();
         });

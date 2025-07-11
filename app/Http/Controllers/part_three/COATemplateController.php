@@ -15,8 +15,11 @@ class COATemplateController extends Controller
         ];
         return view('part_three.template_designer.template',$data);
     }
-    public function add_template_designer($id = 0)
+    public function add_template_designer($id = null)
     {
+        if(!is_null($id)){
+            
+        }
         return view('part_three.template_designer.template');
     }
 

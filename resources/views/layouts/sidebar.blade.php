@@ -15,14 +15,14 @@
                             aria-expanded="false">
                             <i class="fa fa-flask"></i>
 
-                            <span class="hide-menu">{{ __('roles.test_method_management') }} </span>
+                            <span class="hide-menu">{{ translate('test_method_management') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             @can('all_test_methods')
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.test_method') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_test_methods') }}</span>
+                                        <span class="hide-menu">{{ translate('all_test_methods') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -30,7 +30,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.unit') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_units') }}</span>
+                                        <span class="hide-menu">{{ translate('all_units') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -38,7 +38,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.result_type') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_result_types') }}</span>
+                                        <span class="hide-menu">{{ translate('all_result_types') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -56,14 +56,14 @@
                             aria-expanded="false">
                             <i class="fas fa-microscope"></i>
 
-                            <span class="hide-menu">{{ __('roles.sample_management') }} </span>
+                            <span class="hide-menu">{{ translate('sample_management') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             @can('all_samples')
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.sample') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_samples') }}</span>
+                                        <span class="hide-menu">{{ translate('all_samples') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -71,7 +71,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.plant') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_plants') }}</span>
+                                        <span class="hide-menu">{{ translate('all_plants') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -79,7 +79,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.master_sample') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('samples.master_samples') }}</span>
+                                        <span class="hide-menu">{{ translate('samples.master_samples') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -88,7 +88,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.toxic_degree') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_toxic_degrees') }}</span>
+                                        <span class="hide-menu">{{ translate('all_toxic_degrees') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -105,14 +105,14 @@
                             aria-expanded="false">
                             <i class="fas fa-microscope"></i>
 
-                            <span class="hide-menu">{{ __('roles.submission_management') }} </span>
+                            <span class="hide-menu">{{ translate('submission_management') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             @can('all_submissions')
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.submission') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_submissions') }}</span>
+                                        <span class="hide-menu">{{ translate('all_submissions') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -120,7 +120,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.submission.schedule') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_sample_routine_scheduler') }}</span>
+                                        <span class="hide-menu">{{ translate('all_sample_routine_scheduler') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -128,7 +128,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.frequency') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_frequencies') }}</span>
+                                        <span class="hide-menu">{{ translate('all_frequencies') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -143,14 +143,14 @@
                             aria-expanded="false">
                             <i class="fas fa-microscope"></i>
 
-                            <span class="hide-menu">{{ __('roles.result_management') }} </span>
+                            <span class="hide-menu">{{ translate('result_management') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             @can('all_results')
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.result') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_results') }}</span>
+                                        <span class="hide-menu">{{ translate('all_results') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -167,14 +167,14 @@
                          <a href="{{ route('admin.template_designer') }}" class="sidebar-link"> 
                             <i class="fa fa-users"></i>
 
-                            <span class="hide-menu">{{ __('roles.coa_settings') }} </span>
+                            <span class="hide-menu">{{ translate('coa_settings') }} </span>
                         </a>
                         {{-- @can('all_users')
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_users') }}</span>
+                                        <span class="hide-menu">{{ translate('all_users') }}</span>
                                     </a>
                                 </li>
 
@@ -191,14 +191,14 @@
                             aria-expanded="false">
                             <i class="fa fa-users"></i>
 
-                            <span class="hide-menu">{{ __('roles.user_management') }} </span>
+                            <span class="hide-menu">{{ translate('user_management') }} </span>
                         </a>
                         @can('all_users')
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a href="{{ route('user_managment') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_users') }}</span>
+                                        <span class="hide-menu">{{ translate('all_users') }}</span>
                                     </a>
                                 </li>
 
@@ -214,14 +214,14 @@
                             <i class="fa fa-id-badge"></i>
 
 
-                            <span class="hide-menu">{{ __('roles.roles') }} </span>
+                            <span class="hide-menu">{{ translate('roles') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse first-level">
                             @can('show_admin_roles')
                                 <li class="sidebar-item">
                                     <a href="{{ route('roles') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.all_roles') }}</span>
+                                        <span class="hide-menu">{{ translate('all_roles') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -229,10 +229,40 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('roles.create') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ __('roles.create_role') }}</span>
+                                        <span class="hide-menu">{{ translate('create_role') }}</span>
                                     </a>
                                 </li>
                             @endcan
+                        </ul>
+                    </li>
+                @endcan
+                @can('admin_roles')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false">
+                            <i class="fa fa-id-badge"></i>
+
+
+                            <span class="hide-menu">{{ translate('system_Setup') }} </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            @can('show_admin_roles')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('language.index') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ translate('languages') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('show_admin_roles')
+                                <li class="sidebar-item">
+                                    <a href="{{ route('profile.update' , auth()->id()) }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ translate('profile') }}</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            <!-- #region -->
                         </ul>
                     </li>
                 @endcan
@@ -240,7 +270,7 @@
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('logout') }}"
                         aria-expanded="false">
                         <i class="mdi mdi-directions"></i>
-                        <span class="hide-menu">{{ __('login.logout') }}</span>
+                        <span class="hide-menu">{{ translate('login.logout') }}</span>
                     </a>
                 </li>
             </ul>

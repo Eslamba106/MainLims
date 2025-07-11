@@ -23,8 +23,9 @@
     <link href="{{ asset(main_path() . 'assets/libs/morris.js/morris.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
 
+    <link rel="stylesheet" href="{{ asset(main_path() . 'css/toastr.css') }}">
 
     <link href="{{ asset(main_path() . 'dist/css/style.min.css') }}" rel="stylesheet">
 
@@ -128,8 +129,58 @@
     <script src="{{ asset(main_path() . 'select2-4.0.3/js/select2.min.js') }}"></script>
 
     <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
+    <script src="{{ asset(main_path() . 'js/sweet_alert.js') }}"></script>
+    <script src="{{ asset(main_path() . 'js/toastr.js') }}"></script>
+    {!! Toastr::message() !!}
 
     <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-left",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+
+    @if ($errors->any())
+        <script>
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}', Error, {
+                    CloseButton: true,
+                    ProgressBar: true
+                });
+            @endforeach
+        </script>
+    @endif
+    <script>
+         function form_alert(id, message) {
+            Swal.fire({
+                title: '{{ translate('are_you_sure') }}?',
+                text: message,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: '{{ translate('no') }}',
+                confirmButtonText: '{{ translate('yes') }}',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    $('#' + id).submit()
+                }
+            })
+        }
         $(document).on('change', '.bulk_check_all', function() {
             $('input.check_bulk_item:checkbox').not(this).prop('checked', this.checked);
         });
@@ -141,6 +192,7 @@
                 allowClear: true
             });
         });
+
         function toogleStatusModal(e, toggle_id, on_image, off_image, on_title, off_title, on_message, off_message) {
             e.preventDefault();
             $('.toggle-modal-img-box .status-icon').attr('src', '');
@@ -157,7 +209,8 @@
             }
             $('#toggle-status-modal').modal('show');
         }
-          function confirmToggle() {
+
+        function confirmToggle() {
             var toggle_id = $('#toggle-ok-button').attr('toggle-ok-button');
             if ($('#' + toggle_id).is(':checked')) {
                 $('#' + toggle_id).prop('checked', false);
@@ -178,6 +231,7 @@
                 }
             }
         }
+
         function confirmStatusToggle() {
             var toggle_id = $('#toggle-status-ok-button').attr('toggle-ok-button');
             if ($('#' + toggle_id).is(':checked')) {

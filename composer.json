@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "brian2694/laravel-toastr": "^5.59",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
@@ -27,7 +28,10 @@
             "Database\\Seeders\\": "database/seeders/"
         } ,
         "files": [
-            "app/helper/general.php"
+            "app/helper/general.php",
+            "app/helper/Helpers.php",
+            "app/helper/Translation.php",
+            "app/CPU/ImageManager.php"
         ]
     },
     "autoload-dev": {

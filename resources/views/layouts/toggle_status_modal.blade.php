@@ -11,8 +11,8 @@
                     <div class="text-center" id="toggle-message"></div>
                 </div>
                 <div class="d-flex justify-content-center gap-3">
-                    <button type="button" class="btn btn-primary min-w-120" data-dismiss="modal" id="toggle-ok-button" onclick="confirmToggle()">{{__('general.ok')}}</button>
-                    <button type="button" class="btn btn-danger  min-w-120" data-dismiss="modal">{{ __('general.cancel') }}</button>
+                    <button type="button" class="btn btn-primary min-w-120" data-dismiss="modal" id="toggle-ok-button" onclick="confirmToggle()">{{__('ok')}}</button>
+                    <button type="button" class="btn btn-danger  min-w-120" data-dismiss="modal">{{ __('cancel') }}</button>
                 </div>
             </div>
         </div>
@@ -35,8 +35,8 @@
                     <div class="text-center" id="toggle-status-message"></div>
                 </div>
                 <div class="d-flex justify-content-center gap-3">
-                    <button type="button" class="btn btn-primary min-w-120" data-dismiss="modal" id="toggle-status-ok-button" onclick="confirmStatusToggle()">{{__('general.ok')}}</button>
-                    <button type="button" class="btn btn-danger  min-w-120" data-dismiss="modal">{{ __('general.cancel') }}</button>
+                    <button type="button" class="btn btn-primary min-w-120" data-dismiss="modal" id="toggle-status-ok-button" onclick="confirmStatusToggle()">{{__('ok')}}</button>
+                    <button type="button" class="btn btn-danger  min-w-120" data-dismiss="modal">{{ __('cancel') }}</button>
                 </div>
             </div>
         </div>
