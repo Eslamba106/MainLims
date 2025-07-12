@@ -108,4 +108,5 @@
   'Profile_updated_successfully' => 'Profile updated successfully',
   'you_can_not_change_others_profile' => 'You can not change others profile',
   'your_Singature' => 'Your Singature',
+  'all_results' => 'All results',
 );
