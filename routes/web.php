@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\UserManagmentController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\first_part\TestMethodController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\part\GeneralController;
-use App\Http\Controllers\part\PlantController;
-use App\Http\Controllers\part\SampleController;
-use App\Http\Controllers\part_three\COATemplateController;
-use App\Http\Controllers\part_three\ResultController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
-use App\Http\Controllers\second_part\SubmissionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\part\PlantController;
+use App\Http\Controllers\CoaSettingsController;
+use App\Http\Controllers\part\SampleController;
+use App\Http\Controllers\part\GeneralController;
+use App\Http\Controllers\part_three\ResultController;
+use App\Http\Controllers\Admin\UserManagmentController;
+use App\Http\Controllers\first_part\TestMethodController;
+use App\Http\Controllers\part_three\COATemplateController;
+use App\Http\Controllers\second_part\SubmissionController;
+use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +130,17 @@ Route::group(['prefix' => 'cao'], function () {
     Route::get('edit/{id}', [COATemplateController::class, 'edit_template_designer'])->name('coa_settings.edit');
     Route::post('update/{id}', [COATemplateController::class, 'coa_settings_update'])->name('coa_settings.update');
     Route::get('add-new', [COATemplateController::class, 'add_template_designer'])->name('admin.add_template_designer');
+    Route::get('assign/{id}', [COATemplateController::class, 'assign_page'])->name('admin.assign_template_designer_page');
+    Route::post('assign_to_sample', [COATemplateController::class, 'assign'])->name('admin.assign_template_designer');
+
+});
+// CAO Management
+Route::group(['prefix' => 'coa-settings'], function () {
+
+   Route::get('/', [CoaSettingsController::class, 'create'])->name('coa-settings.create');
+Route::post('/store', [CoaSettingsController::class, 'store'])->name('coa-settings.store');
+Route::get('/delete/{id}', [CoaSettingsController::class, 'delete'])->name('coa-settings.delete');  
+
 
 });
 

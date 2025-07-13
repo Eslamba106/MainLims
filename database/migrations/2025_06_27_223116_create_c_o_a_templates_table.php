@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('c_o_a_settings', function (Blueprint $table) {
+        Schema::create('c_o_a_templates', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('value')->nullable();

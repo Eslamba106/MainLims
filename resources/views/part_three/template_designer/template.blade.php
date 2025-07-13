@@ -79,7 +79,7 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ translate('tamplate_Name') }}</th>
-                            {{-- <th class="text-center" scope="col">{{ translate('default_Status') }}</th> --}}
+                            <th class="text-center" scope="col">{{ translate('assigned_Sample_Point') }}</th>
                             <th class="text-center" scope="col">{{ translate('status') }}</th>
                         </tr>
                     </thead>
@@ -95,8 +95,14 @@
                                 </th>
 
                                 <td class="text-center">{{ $temp_item->name }} </td>
-                                {{-- <td class="text-center">{{ $result_item->status  }} </td>
-                                <td class="text-center">{{ $result_item->priority  }} </td> --}}
+                                <td class="text-center">
+                                    @foreach ($temp_item->samples as $sample_item)
+                                        
+                                    {{ $sample_item->sample_plant->name  }} - 
+                                    @endforeach
+                                
+                                </td>
+                                {{-- <td class="text-center">{{ $result_item->priority  }} </td> --}}
                                 <td class="text-center">
                                     {{-- @if (array_key_exists('default', $data) && $data['default'] == true)
                                         <label class="switcher mx-auto" onclick="default_language_status_alert()">
@@ -135,7 +141,8 @@
                                             class="btn btn-outline-info btn-sm" title="{{ translate('edit') }}"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
-
+                                        <a href="{{ route('admin.assign_template_designer_page', $temp_item->id) }}"
+                                            class="btn btn-outline-info btn-sm" title="{{ translate('assign') }}">{{ translate('assign') }}</a>
                                     
                                   {{--  
                                    @can('delete_result')

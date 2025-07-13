@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class COASettings extends Model
+class CoaSettings extends Model
 {
     use HasFactory;
+       protected $fillable = [
+        'name', 'frequency', 'day', 'execution_time', 'condition',
+        'sample_points', 'email_recipients',
+    ];
 
-    protected $guarded = [];
-
-    
+    protected $casts = [
+        'sample_points' => 'array',
+    ];
 }

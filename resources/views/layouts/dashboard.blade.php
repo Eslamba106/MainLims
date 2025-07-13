@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <link rel="stylesheet" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset(main_path() . 'select2-4.0.3/css/select2.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset(main_path() . 'select2-4.0.3/css/select2.css') }}"> --}}
 
     <link href="{{ asset(main_path() . 'assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset(main_path() . 'css/bootstrap.min.css') }}" rel="stylesheet">
@@ -126,7 +126,7 @@
     <script src="{{ asset(main_path() . 'assets/libs/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset(main_path() . 'assets/libs/morris.js/morris.min.js') }}"></script>
     {{-- <script src="{{ asset('assets/libs/select2/dist/js/select2.min.js') }}"></script> --}}
-    <script src="{{ asset(main_path() . 'select2-4.0.3/js/select2.min.js') }}"></script>
+    <script src="{{ asset(main_path() . 'js/select2.min.js') }}"></script>
 
     <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
     <script src="{{ asset(main_path() . 'js/sweet_alert.js') }}"></script>

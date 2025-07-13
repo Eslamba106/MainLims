@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('coa_template_samples', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
-            $table->foreignId('section_id')->constrained('sections')->cascadeOnDelete();
-            $table->boolean('allow')->default(false);
+            $table->foreignId('coa_temp_id')->constrained('c_o_a_settings')->cascadeOnDelete();
+            $table->foreignId('sample_id')->constrained('samples')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('coa_settings_samples');
     }
 };
