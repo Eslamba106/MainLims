@@ -49,7 +49,7 @@
                 <!--  Test Method Management End-->
 
 
-                <!--  Sample Management Start-->
+                   <!--  Sample Management Start-->
                 @can('sample_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -83,7 +83,7 @@
                                     </a>
                                 </li>
                             @endcan
-
+                           
                             @can('toxic_degree_management')
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.toxic_degree') }}" class="sidebar-link">
@@ -92,13 +92,13 @@
                                     </a>
                                 </li>
                             @endcan
-
+                           
                         </ul>
                     </li>
                 @endcan
 
-                <!--  Sample Management End-->
-                <!--  Submission Management Start-->
+                   <!--  Sample Management End-->
+                   <!--  Submission Management Start-->
                 @can('submission_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -132,8 +132,8 @@
                                     </a>
                                 </li>
                             @endcan
-
-
+                            
+                           
                         </ul>
                     </li>
                 @endcan
@@ -154,22 +154,45 @@
                                     </a>
                                 </li>
                             @endcan
-
-
-
-
+                            
+                            
+                            
+                           
                         </ul>
                     </li>
                 @endcan
-
+                
                 @can('coa_settings')
-                    <li class="sidebar-item">
-                        <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
+                   <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="fas fa-microscope"></i>
+
+                            <span class="hide-menu">{{ translate('coa_Template_Designer') }} </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                             
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ translate('template_Designer_List') }}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.add_template_designer') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ translate('add_template_designer') }}</span>
+                                    </a>
+                                </li>
+                           
+                        </ul>
+                    </li>
+                    {{-- <li class="sidebar-item">
+                         <a href="{{ route('admin.template_designer') }}" class="sidebar-link"> 
                             <i class="fa fa-users"></i>
 
                             <span class="hide-menu">{{ translate('coa_settings') }} </span>
                         </a>
-                        {{-- @can('all_users')
+                        @can('all_users')
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
@@ -179,11 +202,11 @@
                                 </li>
 
                             </ul>
-                        @endcan --}}
-                    </li>
+                        @endcan
+                    </li> --}}
                 @endcan
 
-                <!--  Submission Management End-->
+                   <!--  Submission Management End-->
 
                 @can('user_management')
                     <li class="sidebar-item">
@@ -256,7 +279,7 @@
                             @endcan
                             @can('show_admin_roles')
                                 <li class="sidebar-item">
-                                    <a href="{{ route('profile.update', auth()->id()) }}" class="sidebar-link">
+                                    <a href="{{ route('profile.update' , auth()->id()) }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
                                         <span class="hide-menu">{{ translate('profile') }}</span>
                                     </a>

@@ -87,7 +87,9 @@ class SampleController extends Controller
     public function update(Request $request, $id)
     {
 
-        dd($request->all());
+        // dd($request->all());
+        $this->authorize('edit_sample');
+
         $inputs = $request->all();
         $numbers = [];
 
@@ -98,7 +100,6 @@ class SampleController extends Controller
             }
         }
 
-        $this->authorize('edit_sample');
         $sample = Sample::findOrFail($id);
         $request->validate([
             'main_plant_item' => 'required',
@@ -112,25 +113,26 @@ class SampleController extends Controller
             'toxic'  =>  $request->toxic  ?? null,
         ]);
         $test_method_old = SampleTestMethod::where('sample_id', $sample->id)->get();
-        if ($test_method_old->count()) {
+        // dd($test_method_old);
+        dd($request->all());
+        if ($test_method_old->count()) {    
             foreach ($test_method_old as $old_test_method) {
-                foreach ($old_test_method->sample_test_method_items as $test_item) {
-                    // dd($test_item->test_method_id);
-                    if ($request->input("test_method-$test_item->test_method_item_id")) {
-
+                foreach ($old_test_method->sample_test_method_items as $test_item) { 
+                    if ($request->input("test_method-$old_test_method->id")) {
+                        dd($request->input("main_components-$test_item->id"));
                         $test_item->update([
-                            'test_method_item_id' => ($request->input("test_method-$test_item->test_method_item_id")) ? $request->input("test_method-$test_item->id") : $test_item->test_method_item_id,
-                            'warning_limit_end'       => $request->input("warning_limit_end_old-$test_item->id"),
+                            'test_method_item_id' => ($request->input("main_components-$test_item->id")) ? $request->input("main_components-$test_item->id") : $test_item->test_method_item_id,
+                            'warning_limit_end'   => $request->input("warning_limit_end_old-$test_item->id"),
                             'warning_limit'       => $request->input("warning_limit_old-$test_item->id"),
                             'action_limit'        => $request->input("action_limit_old-$test_item->id"),
-                            'action_limit_end'        => $request->input("action_limit_end_old-$test_item->id"),
+                            'action_limit_end'    => $request->input("action_limit_end_old-$test_item->id"),
                             'warning_limit_type'  => $request->input("warning_limit_type_old-$test_item->id"),
                             'action_limit_type'   => $request->input("action_limit_type_old-$test_item->id"),
                         ]);
                     }
-                    // else{
-                    //     $test_item->delete();
-                    // }
+                    else{
+                        $test_item->delete();
+                    }
                 }
             }
         }

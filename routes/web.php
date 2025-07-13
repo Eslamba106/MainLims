@@ -1,20 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserManagmentController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\first_part\TestMethodController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\part\GeneralController;
 use App\Http\Controllers\part\PlantController;
 use App\Http\Controllers\part\SampleController;
-use App\Http\Controllers\part\GeneralController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\part_three\ResultController;
-use App\Http\Controllers\Admin\UserManagmentController;
-use App\Http\Controllers\first_part\TestMethodController;
 use App\Http\Controllers\part_three\COATemplateController;
-use App\Http\Controllers\second_part\SubmissionController;
+use App\Http\Controllers\part_three\ResultController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
+use App\Http\Controllers\second_part\SubmissionController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +27,9 @@ use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
 |
 */
 
-
 Route::get('/', function () {
     return view('auth.login-page');
 })->name('login-page');
-
 
 Route::get('/login', function () {
     return view('first_part.auth.login-page');
@@ -57,7 +55,6 @@ Route::group(['prefix' => 'test_method'], function () {
     // Route::post('/test_method', [ TestMethodController::class, 'index'])->name('test_method.index');
 });
 
-
 // Test Method Managment
 Route::group(['prefix' => 'test_method'], function () {
 
@@ -68,6 +65,7 @@ Route::group(['prefix' => 'test_method'], function () {
     Route::patch('/update/{id}', [TestMethodController::class, 'update'])->name('admin.test_method.update');
     Route::get('/delete/{id}', [TestMethodController::class, 'destroy'])->name('admin.test_method.delete');
     Route::get('/delete_component/{id}', [TestMethodController::class, 'delete_component'])->name('admin.test_method.delete_component');
+
 });
 
 // Sample Managment
@@ -83,6 +81,7 @@ Route::group(['prefix' => 'sample'], function () {
     Route::get('/get_sample_from_plant/{id}', [SampleController::class, 'get_sample_from_plant'])->name('admin.sample.get_sample_from_plant');
     Route::get('/get_components_by_test_method/{id}', [SampleController::class, 'get_components_by_test_method'])->name('admin.sample.get_components_by_test_method');
     Route::get('/get_one_component_by_test_method/{id}', [SampleController::class, 'get_one_component_by_test_method'])->name('admin.sample.get_one_component_by_test_method');
+
 });
 // Submission Managment
 Route::group(['prefix' => 'submission'], function () {
@@ -102,6 +101,7 @@ Route::group(['prefix' => 'submission'], function () {
     Route::get('/schedule/create', [SampleRoutineSchedulerController::class, 'create'])->name('admin.submission.schedule.create');
     Route::post('/schedule/create', [SampleRoutineSchedulerController::class, 'store'])->name('admin.submission.schedule.store');
     Route::get('/schedule/get_sample_by_plant_id/{id}', [SampleRoutineSchedulerController::class, 'get_sample_by_plant_id'])->name('admin.submission.schedule.get_sample_by_plant_id');
+
 });
 
 // Result Management
@@ -126,7 +126,10 @@ Route::group(['prefix' => 'cao'], function () {
     Route::get('/', [COATemplateController::class, 'template_designer'])->name('admin.template_designer');
     Route::post('/coa_settings', [COATemplateController::class, 'coa_settings'])->name('coa_settings.store');
     Route::get('update-default-status', [COATemplateController::class, 'update_default_status'])->name('coa_settings.update-default-status');
-    Route::get('edit/{id}', [COATemplateController::class, 'add_template_designer'])->name('coa_settings.edit');
+    Route::get('edit/{id}', [COATemplateController::class, 'edit_template_designer'])->name('coa_settings.edit');
+    Route::post('update/{id}', [COATemplateController::class, 'coa_settings_update'])->name('coa_settings.update');
+    Route::get('add-new', [COATemplateController::class, 'add_template_designer'])->name('admin.add_template_designer');
+
 });
 
 // Unit Managment
@@ -138,6 +141,7 @@ Route::group(['prefix' => 'unit'], function () {
     Route::get('/edit/{id}', [GeneralController::class, 'unit_edit'])->name('admin.unit.edit');
     Route::patch('/update/{id}', [GeneralController::class, 'unit_update'])->name('admin.unit.update');
     Route::get('/delete/{id}', [GeneralController::class, 'unit_destroy'])->name('admin.unit.delete');
+
 });
 // Unit Managment
 Route::group(['prefix' => 'toxic_degree'], function () {
@@ -148,6 +152,7 @@ Route::group(['prefix' => 'toxic_degree'], function () {
     Route::get('/edit/{id}', [GeneralController::class, 'toxic_degree_edit'])->name('admin.toxic_degree.edit');
     Route::patch('/update/{id}', [GeneralController::class, 'toxic_degree_update'])->name('admin.toxic_degree.update');
     Route::get('/delete/{id}', [GeneralController::class, 'toxic_degree_destroy'])->name('admin.toxic_degree.delete');
+
 });
 // Frequency Managment
 Route::group(['prefix' => 'frequency'], function () {
@@ -158,6 +163,7 @@ Route::group(['prefix' => 'frequency'], function () {
     Route::get('/edit/{id}', [GeneralController::class, 'frequency_edit'])->name('admin.frequency.edit');
     Route::patch('/update/{id}', [GeneralController::class, 'frequency_update'])->name('admin.frequency.update');
     Route::get('/delete/{id}', [GeneralController::class, 'frequency_destroy'])->name('admin.frequency.delete');
+
 });
 
 // Result Type Managment
@@ -169,6 +175,7 @@ Route::group(['prefix' => 'result_type'], function () {
     Route::get('/edit/{id}', [GeneralController::class, 'result_type_edit'])->name('admin.result_type.edit');
     Route::patch('/update/{id}', [GeneralController::class, 'result_type_update'])->name('admin.result_type.update');
     Route::get('/delete/{id}', [GeneralController::class, 'result_type_destroy'])->name('admin.result_type.delete');
+
 });
 // Plant Managment
 Route::group(['prefix' => 'plant'], function () {
@@ -182,6 +189,7 @@ Route::group(['prefix' => 'plant'], function () {
     Route::get('/delete_sample_from_plant/{id}', [PlantController::class, 'delete_sample_from_plant'])->name('plant.delete_sample_from_plant');
     Route::get('/delete_sub_plant_from_plant/{id}', [PlantController::class, 'delete_sub_plant_from_plant'])->name('plant.delete_sub_plant_from_plant');
     Route::get('/get_sub_plants', [PlantController::class, 'get_sub_plants'])->name('admin.plant.get_sub_plants');
+
 });
 // Sample Master Managment
 Route::group(['prefix' => 'master_sample'], function () {
@@ -194,8 +202,8 @@ Route::group(['prefix' => 'master_sample'], function () {
     Route::get('/delete/{id}', [PlantController::class, 'master_sample_destroy'])->name('admin.master_sample.delete');
     Route::get('/delete_sample_from_master_sample/{id}', [PlantController::class, 'delete_sample_from_master_sample'])->name('master_sample.delete_sample_from_master_sample');
     Route::get('/delete_sub_master_sample_from_master_sample/{id}', [PlantController::class, 'delete_sub_master_sample_from_master_sample'])->name('master_sample.delete_sub_master_sample_from_plant');
-});
 
+});
 
 // User Managment
 Route::group(['prefix' => 'user_management'], function () {
@@ -206,16 +214,18 @@ Route::group(['prefix' => 'user_management'], function () {
     Route::get('/edit/{id}', [UserManagmentController::class, 'edit'])->name('user_managment.edit');
     Route::patch('/update/{id}', [UserManagmentController::class, 'update'])->name('user_managment.update');
     Route::get('/delete/{id}', [UserManagmentController::class, 'destroy'])->name('user_managment.delete');
+
 });
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-    Route::get('view',  [ProfileController::class, 'view'])->name('view');
-    Route::get('update/{id}',  [ProfileController::class, 'edit'])->name('update');
-    Route::post('update/{id}',  [ProfileController::class, 'update']);
+    Route::get('view', [ProfileController::class, 'view'])->name('view');
+    Route::get('update/{id}', [ProfileController::class, 'edit'])->name('update');
+    Route::post('update/{id}', [ProfileController::class, 'update']);
     Route::post('settings-password', [ProfileController::class, 'settings_password_update'])->name('settings-password');
 
-    Route::get('bank-edit/{id}',  [ProfileController::class, 'bank_edit'])->name('bankInfo');
-    Route::post('bank-update/{id}',  [ProfileController::class, 'bank_update'])->name('bank_update');
+    Route::get('bank-edit/{id}', [ProfileController::class, 'bank_edit'])->name('bankInfo');
+    Route::post('bank-update/{id}', [ProfileController::class, 'bank_update'])->name('bank_update');
+
 });
 
 Route::group(['prefix' => 'language', 'as' => 'language.'], function () {

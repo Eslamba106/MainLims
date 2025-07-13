@@ -130,7 +130,30 @@
 
     <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
     <script src="{{ asset(main_path() . 'js/sweet_alert.js') }}"></script>
-    <script src="{{ asset(main_path() . 'js/toastr.js') }}"></script>
+
+    <script>
+         function form_alert(id, message) {
+            Swal.fire({
+                title: '{{ translate('are_you_sure') }}?',
+                text: message,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: '{{ translate('no') }}',
+                confirmButtonText: '{{ translate('yes') }}',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    $('#' + id).submit()
+                }
+            })
+        }
+        $(document).on('change', '.bulk_check_all', function() {
+            $('input.check_bulk_item:checkbox').not(this).prop('checked', this.checked);
+        });
+    </script>
+        <script src="{{ asset(main_path() . 'js/toastr.js') }}"></script>
     {!! Toastr::message() !!}
 
     <script>
@@ -163,28 +186,6 @@
             @endforeach
         </script>
     @endif
-    <script>
-         function form_alert(id, message) {
-            Swal.fire({
-                title: '{{ translate('are_you_sure') }}?',
-                text: message,
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: '{{ translate('no') }}',
-                confirmButtonText: '{{ translate('yes') }}',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    $('#' + id).submit()
-                }
-            })
-        }
-        $(document).on('change', '.bulk_check_all', function() {
-            $('input.check_bulk_item:checkbox').not(this).prop('checked', this.checked);
-        });
-    </script>
     <script>
         $(document).ready(function() {
             $('.js-select2-custom').select2({
