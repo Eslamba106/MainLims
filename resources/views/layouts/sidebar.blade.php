@@ -146,7 +146,7 @@
                             <span class="hide-menu">{{ translate('result_management') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                            @can('show_all_results')
+                            @can('all_results')
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.result') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
