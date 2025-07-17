@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Admin\RoleController;
@@ -226,6 +227,17 @@ Route::group(['prefix' => 'user_management'], function () {
     Route::get('/edit/{id}', [UserManagmentController::class, 'edit'])->name('user_managment.edit');
     Route::patch('/update/{id}', [UserManagmentController::class, 'update'])->name('user_managment.update');
     Route::get('/delete/{id}', [UserManagmentController::class, 'destroy'])->name('user_managment.delete');
+
+});
+// Client Managment
+Route::group(['prefix' => 'client'], function () {
+
+    Route::get('/', [ClientController::class, 'index'])->name('client.list');
+    Route::get('/create', [ClientController::class, 'create'])->name('client.create');
+    Route::post('/create', [ClientController::class, 'store'])->name('client.store');
+    Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
+    Route::patch('/update/{id}', [ClientController::class, 'update'])->name('client.update');
+    Route::get('/delete/{id}', [ClientController::class, 'delete'])->name('client.delete');
 
 });
 

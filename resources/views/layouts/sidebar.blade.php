@@ -216,8 +216,8 @@
 
                             <span class="hide-menu">{{ translate('user_management') }} </span>
                         </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
                         @can('all_users')
-                            <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
                                     <a href="{{ route('user_managment') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
@@ -225,8 +225,18 @@
                                     </a>
                                 </li>
 
-                            </ul>
+                           
                         @endcan
+                        {{-- @can('all_users') --}} 
+                                <li class="sidebar-item">
+                                    <a href="{{ route('client.list') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ translate('clients_List') }}</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        {{-- @endcan --}}
                     </li>
                 @endcan
 
