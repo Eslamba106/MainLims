@@ -38,6 +38,10 @@ class Result extends Model
     {
         return $this->hasMany(ResultTestMethod::class, 'result_id', 'id');
     }
+    public function result_test_method()
+    {
+        return $this->hasMany(ResultTestMethod::class, 'result_id', 'id');
+    }
       public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

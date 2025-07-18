@@ -17,22 +17,7 @@ class ResultController extends Controller
 {
     public function index(Request $request)
     {
-        // $this->authorize('result');
-        $ids = $request->bulk_ids;
-        // $lastRun = Cache::get('last_result_expiry_run');
-        // if (! $lastRun || now()->diffInHours($lastRun) >= 24) {
-        //     $result_settings = get_business_settings('result')->where('type', 'result_expire_date')->first();
-        //     $expiry_days       = $result_settings ? (int) $result_settings->value : 0;
-        //     if ($expiry_days > 0) {
-        //         expire_unit($expiry_days, 'Proposal', 'ProposalUnits');
-        //         Cache::put('last_result_expiry_run', now(), now()->addDay());
-        //     }
-        // }
-        // if ($request->bulk_action_btn === 'update_status' && is_array($ids) && count($ids)) {
-        //     $data = ['status' => 1];
-        //     (new Proposal())->setConnection('tenant')->whereIn('id', $ids)->update($data);
-        //     return back()->with('success', __('general.updated_successfully'));
-        // }
+        $ids         = $request->bulk_ids;
         $search      = $request['search'];
         $query_param = $search ? ['search' => $request['search']] : '';
         $results     = Result::when($request['search'], function ($q) use ($request) {
@@ -71,6 +56,12 @@ class ResultController extends Controller
 
         $result = Result::findOrFail($id);
         return view('part_three.results.result_show', compact('result'));
+    }
+    public function review($id)
+    {
+
+        $result = Result::with('result_test_method' , 'result_test_method.result_test_method_child')->whereId($id)->first();
+        return view('part_three.results.review', compact('result'));
     }
     public function destroy($id)
     {
@@ -178,23 +169,23 @@ class ResultController extends Controller
     }
     public function approve_confirm_results_by_item($id)
     {
-         $test_method = ResultTestMethod::findOrFail($id);
-         foreach ($test_method->result_test_method_items as $result_item) {
-                $result_item->update([
-                    'acceptance_status' => 'approve',
-                ]);
-            }
+        $test_method = ResultTestMethod::findOrFail($id);
+        foreach ($test_method->result_test_method_items as $result_item) {
+            $result_item->update([
+                'acceptance_status' => 'approve',
+            ]);
+        }
         return redirect()->back()->with('success', __('results.approve_confirmed_successfully'));
     }
     public function cancel_confirm_results_by_item($id)
     {
         $test_method = ResultTestMethod::findOrFail($id);
-         foreach ($test_method->result_test_method_items as $result_item) {
-                $result_item->update([
-                    'acceptance_status' => 'cancel',
-                ]);
-            }
-         
+        foreach ($test_method->result_test_method_items as $result_item) {
+            $result_item->update([
+                'acceptance_status' => 'cancel',
+            ]);
+        }
+
         return redirect()->back()->with('success', __('results.cancel_confirmed_successfully'));
     }
 }

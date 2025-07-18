@@ -21,6 +21,10 @@ class ResultTestMethod extends Model
     {
         return $this->hasMany(ResultTestMethodItem::class, 'result_test_method_id', 'id');
     }
+    public function result_test_method_child()
+    {
+        return $this->hasMany(ResultTestMethodItem::class, 'result_test_method_id', 'id');
+    }
 
   
 }

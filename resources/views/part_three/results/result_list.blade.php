@@ -37,15 +37,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="input-group mb-3 d-flex justify-content-end">
-                        {{-- @can('change_results_status')
-                            <div class="remv_control mr-2">
-                                <select name="status" class="mr-3 mt-3 form-control ">
-                                    <option value="">{{ __('dashboard.set_status') }}</option>
-                                    <option value="1">{{ __('dashboard.active') }}</option>
-                                    <option value="2">{{ __('dashboard.disactive') }}</option>
-                                </select>
-                            </div>
-                        @endcan --}}
+                      
                         @can('change_results_role')
                             <div class="remv_control mr-2">
                                 <select name="role" class="mr-3 mt-3 form-control">
@@ -151,6 +143,11 @@
                                         <a href="{{ route('admin.result.confirm_results', $result_item->id) }}"
                                             class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i
                                                 class="mdi mdi-check"></i> </a>
+                                    @endcan
+                                    @can('edit_result')
+                                        <a href="{{ route('admin.result.review', $result_item->id) }}"
+                                            class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i
+                                                class="mdi mdi-file"></i> </a>
                                     @endcan
 
                                 </td>
