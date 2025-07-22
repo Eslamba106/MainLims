@@ -110,6 +110,7 @@
     Route::group(['prefix' => 'results'], function () {
 
         Route::get('/', [ResultController::class, 'index'])->name('admin.result');
+        Route::get('/completed', [ResultController::class, 'completed_list'])->name('admin.result_completed');
         Route::get('/create/{id}/{slug}', [ResultController::class, 'create'])->name('admin.result.create');
         Route::post('/create', [ResultController::class, 'store'])->name('admin.result.store');
         Route::get('/edit/{id}', [ResultController::class, 'edit'])->name('admin.result.edit');

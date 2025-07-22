@@ -78,6 +78,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php $counter = 1; @endphp
                         @forelse ($test_methods as $test_method)
                             @php
                                 $itemCount = $test_method->test_method_items->count();
@@ -90,7 +91,7 @@
                                             <label>
                                                 <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
                                                     value="{{ $test_method->id }}" />
-                                                <span class="text-muted">#{{ $loop->index + 1 }}</span>
+                                                <span class="text-muted">#{{ $counter }}</span>
                                             </label>
                                         </th>
                                         <td class="text-center" rowspan="{{ $itemCount }}">{{ $test_method->name }}
@@ -121,9 +122,11 @@
                                         </td>
                                     @endif
                                 </tr>
+                               
                             @empty
                                 
                         @endforelse
+                         @php $counter++; @endphp
                     @empty
                         <tr>
                             <td colspan="8" class="text-center">@lang('No data found')</td>

@@ -150,7 +150,13 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.result') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('all_results') }}</span>
+                                        <span class="hide-menu">{{ translate('all_results_pending') }}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ route('admin.result_completed') }}" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu">{{ translate('all_results_completed') }}</span>
                                     </a>
                                 </li>
                             @endcan

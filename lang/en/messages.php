@@ -180,4 +180,9 @@
   'edit_Client' => 'Edit Client',
   'client_updated_successfully' => 'Client updated successfully',
   'clients_List' => 'Clients List',
+  'update_sample' => 'Update sample',
+  'select_all_components' => 'Select all components',
+  'all_results_pending' => 'All results pending',
+  'all_results_completed' => 'All results completed',
+  'Review' => 'Review',
 );

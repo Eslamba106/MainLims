@@ -139,11 +139,15 @@
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
+                                    @if ($result_item->status == 'pending')
+                                        
+                                   
                                     @can('edit_result')
                                         <a href="{{ route('admin.result.confirm_results', $result_item->id) }}"
                                             class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i
                                                 class="mdi mdi-check"></i> </a>
                                     @endcan
+                                     @endif
                                     @can('edit_result')
                                         <a href="{{ route('admin.result.review', $result_item->id) }}"
                                             class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\part_three;
 
 use App\Http\Controllers\Controller;
@@ -51,6 +52,42 @@ class ResultController extends Controller
         ];
         return view("part_three.results.result_list", $data);
     }
+    public function completed_list(Request $request)
+    {
+        $ids         = $request->bulk_ids;
+        $search      = $request['search'];
+        $query_param = $search ? ['search' => $request['search']] : '';
+        $results     = Result::when($request['search'], function ($q) use ($request) {
+            $key = explode(' ', $request['search']);
+            foreach ($key as $value) {
+                $q->Where('result_no', 'like', "%{$value}%")
+                    ->orWhere('id', $value);
+            }
+        })->where('status', '!=','pending')->orWhere('status', 'result')
+            ->latest()->orderBy('created_at', 'asc')->paginate()->appends($query_param);
+        if ($request->bulk_action_btn === 'filter') {
+            $data         = ['status' => 1];
+            $report_query = Result::query();
+            if ($request->booking_status && $request->booking_status != -1) {
+                $report_query->where('booking_status', $request->booking_status);
+            }
+            if ($request->status && $request->status != -1) {
+                $report_query->where('status', $request->status);
+            }
+            if ($request->from && $request->to) {
+                $startDate = Carbon::createFromFormat('d/m/Y', $request->from)->startOfDay();
+                $endDate   = Carbon::createFromFormat('d/m/Y', $request->to)->endOfDay();
+                $report_query->whereBetween('created_at', [$startDate, $endDate]);
+            }
+            $results = $report_query->orderBy('created_at', 'desc')->paginate();
+        }
+        $data = [
+            'results' => $results,
+            'search'  => $search,
+
+        ];
+        return view("part_three.results.result_list", $data);
+    }
     public function show($id)
     {
 
@@ -60,14 +97,14 @@ class ResultController extends Controller
     public function review($id)
     {
 
-        $result = Result::with('result_test_method' , 'result_test_method.result_test_method_child')->whereId($id)->first();
+        $result = Result::with('result_test_method', 'result_test_method.result_test_method_child')->whereId($id)->first();
         return view('part_three.results.review', compact('result'));
     }
     public function destroy($id)
     {
         $result = Result::findOrFail($id);
         $result->delete();
-        return redirect()->route('part_three.results.index')->with('success', __('general.deleted_successfully'));
+        return redirect()->route('admin.result')->with('success', __('general.deleted_successfully'));
     }
     public function create($id, $type)
     {
@@ -135,8 +172,16 @@ class ResultController extends Controller
 
     public function confirm_results($id)
     {
-        $result = Result::with('submission', 'plant', 'sub_plant', 'plant_sample',
-            'sample', 'result_test_method_items', 'result_test_method_items.test_method', 'result_test_method_items.result_test_method_items')->findOrFail($id);
+        $result = Result::with(
+            'submission',
+            'plant',
+            'sub_plant',
+            'plant_sample',
+            'sample',
+            'result_test_method_items',
+            'result_test_method_items.test_method',
+            'result_test_method_items.result_test_method_items'
+        )->findOrFail($id);
         $data = [
             'result' => $result,
         ];
@@ -153,6 +198,9 @@ class ResultController extends Controller
                 ]);
             }
         }
+        $result->update([
+            'status' => 'approve',
+        ]);
         return redirect()->route('admin.result')->with('success', __('results.approve_confirmed_successfully'));
     }
     public function cancel_confirm_results($id)
@@ -165,14 +213,29 @@ class ResultController extends Controller
                 ]);
             }
         }
+        $result->update([
+            'status' => 'cancel',
+        ]);
         return redirect()->route('admin.result')->with('success', __('results.cancel_confirmed_successfully'));
     }
     public function approve_confirm_results_by_item($id)
     {
         $test_method = ResultTestMethod::findOrFail($id);
+
         foreach ($test_method->result_test_method_items as $result_item) {
             $result_item->update([
                 'acceptance_status' => 'approve',
+            ]);
+        }
+        $result = Result::findOrFail($test_method->result_id);
+        $allNotPending = $result->result_test_method_items->every(function ($item) {
+            return $item->status !== 'pending';
+        });
+
+        if ($allNotPending) {
+            $result = Result::findOrFail($test_method->result_id);
+            $result->update([
+                'status' => 'completed',
             ]);
         }
         return redirect()->back()->with('success', __('results.approve_confirmed_successfully'));

@@ -131,6 +131,9 @@
 
                         </div>
                     </div>
+                    @php
+    $var=[];
+@endphp
                     @foreach ($sample_test_methods as $sample_test_method_item)
                         <div class="card">
                             <div class="card-header">
@@ -144,7 +147,7 @@
                                         <div class="form-group">
                                             <label for="">{{ __('test_method.test_method') }} <span
                                                     class="text-danger">*</span></label>
-                                            <select name="test_method-{{ $sample_test_method_item->id }}"
+                                            <select name="test_method[{{ $sample_test_method_item->id }}]"
                                                 onchange="test_method_master(this,{{ $sample_test_method_item->id }})"
                                                 class="form-control">
                                                 <option value="">{{ __('samples.select_test_method') }}</option>
@@ -159,19 +162,18 @@
                                                 <span class="error text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div>
-                                    {{-- @foreach ($sample_test_method_item->sample_test_method_items as $sample_test_method_items_item)
-                                    @endforeach --}}
+                                    </div> 
                                     <div class="col-md-6   col-lg-6">
                                         <div class="form-group">
                                             <label for="">{{ __('test_method.component') }} <span
                                                     class="text-danger">*</span></label>
-                                            <select name="main_components-{{ $sample_test_method_item->id }}"
+                                            <select name="main_components[{{ $sample_test_method_item->id }}]"
                                                 onchange="main_components_master(this,{{ $sample_test_method_item->id }})"
                                                 class="form-control">
                                                 <option value="">{{ __('samples.select_component') }}</option>
+                                                <option value="-1">{{ translate('select_all_components') }}</option>
                                                 @foreach ($sample_test_method_item->master_test_method->test_method_items as $sample_test_method_items_item)
-                                                    <option value="{{ $sample_test_method_items_item->id }}">
+                                                    <option value="{{ $sample_test_method_items_item->id }}" {{ $sample_test_method_item->sample_test_method_items->contains('test_method_item_id', $sample_test_method_items_item->id) ? 'selected' : '' }}>
                                                         {{ $sample_test_method_items_item->name }}</option>
                                                 @endforeach
 
@@ -182,18 +184,19 @@
                                         </div>
 
                                     </div>
-
-                                    <div class="main_components  col-lg-12" id="main_components">
+{{-- {{ dd($sample_test_method_item->id ) }} --}}
+ 
+                                    <div class="main_components  col-lg-12" id="main_components_{{ $sample_test_method_item->id }}">
                                         @foreach ($sample_test_method_item->sample_test_method_items as $sample_test_method_sub_item)
                                             <div class="container mt-4">
+                                                {{-- {{ dd($sample_test_method_sub_item) }} --}}
                                                 <label class="form-label">Components & Limits:</label>
-
-                                                <div class="border border-primary rounded p-3 mb-3"
-                                                    style="background-color: #f8f9fa;">
+                                                <input type="hidden" name="test_method_item_id[{{ $sample_test_method_sub_item->id }}]" value="{{ $sample_test_method_sub_item->test_method_item_id }}">
+                                                <div class="border border-primary rounded p-3 mb-3" style="background-color: #f8f9fa;">
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <div>
                                                             <input type="checkbox" id="tds"
-                                                                name="component_old-{{ $sample_test_method_sub_item->id }}"
+                                                                name="component_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 checked>
                                                             <label for="tds"
                                                                 class="fw-bold text-primary">{{ $sample_test_method_sub_item->test_method_item->name }}
@@ -209,12 +212,12 @@
                                                             <label for="tds"
                                                                 class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
                                                             <input type="number"
-                                                                name="warning_limit_old-{{ $sample_test_method_sub_item->id }}"
+                                                                name="warning_limit_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
                                                                 value="{{ $sample_test_method_sub_item->warning_limit }}"
                                                                 onkeyup="only_one_general_change_warning_limit_type_old({{ $sample_test_method_sub_item->id }})">
                                                             <input type="number"
-                                                                name="warning_limit_end_old-{{ $sample_test_method_sub_item->id }}"
+                                                                name="warning_limit_end_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control {{ $sample_test_method_sub_item->warning_limit_end ? '' : 'd-none' }}"
                                                                 onkeyup="only_one_general_change_warning_limit_type_old({{ $sample_test_method_sub_item->id }})"
                                                                 value="{{ $sample_test_method_sub_item->warning_limit_end ? $sample_test_method_sub_item->warning_limit_end : '' }}">
@@ -223,12 +226,12 @@
                                                             <label for="tds"
                                                                 class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
                                                             <input type="number"
-                                                                name="action_limit_old-{{ $sample_test_method_sub_item->id }}"
+                                                                name="action_limit_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
                                                                 value="{{ $sample_test_method_sub_item->action_limit }}"
                                                                 onkeyup="only_one_general_change_action_limit_type_old({{ $sample_test_method_sub_item->id }} )">
                                                             <input type="number"
-                                                                name="action_limit_end_old-{{ $sample_test_method_sub_item->id }}"
+                                                                name="action_limit_end_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control {{ $sample_test_method_sub_item->action_limit_end ? '' : 'd-none' }}"
                                                                 value="{{ $sample_test_method_sub_item->action_limit_end ? $sample_test_method_sub_item->action_limit_end : '' }}"
                                                                 onkeyup="only_one_general_change_action_limit_type_old({{ $sample_test_method_sub_item->id }} )">
@@ -239,7 +242,7 @@
                                                             <label for="tds"
                                                                 class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
                                                             <select
-                                                                name="warning_limit_type_old-{{ $sample_test_method_sub_item->id }}"
+                                                                name="warning_limit_type_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
                                                                 onchange="only_one_general_change_warning_limit_type_old({{ $sample_test_method_sub_item->id }})">
                                                                 <option value="">
@@ -270,7 +273,7 @@
                                                                 class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
 
                                                             <select
-                                                                name="action_limit_type_old-{{ $sample_test_method_sub_item->id }}"
+                                                                name="action_limit_type_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
                                                                 onchange="only_one_general_change_action_limit_type_old({{ $sample_test_method_sub_item->id }})">
                                                                 <option value="">
@@ -336,16 +339,7 @@
                                         @endforeach
                                     </div>
 
-                                </div>
-                                <div class="form-group mt-2"
-                                    @if (session()->get('locale') == 'ar') style="text-align: left;" @else style="text-align: right;" @endif>
-                                    <button type="button" onclick="add_test_method()" class="btn btn-secondary mt-2"><i
-                                            class="mdi mdi-plus"></i>
-                                        {{ __('samples.add_another_test_method') }}</button>
-                                </div>
-
-
-
+                                </div> 
                             </div>
                             <div id="test_methods_main"></div>
                         </div>
@@ -355,11 +349,12 @@
             <div>
                 <div class="form-group mt-2"
                     @if (session()->get('locale') == 'ar') style="text-align: left;" @else style="text-align: right;" @endif>
-                    <button type="submit" class="btn btn-primary mt-2">{{ __('samples.create_sample') }}</button>
+                    <button type="submit" class="btn btn-primary mt-2">{{ translate('update_sample') }}</button>
                 </div>
             </div>
         </form>
     </div>
+    {{-- {{ dd($var) }} --}}
 @endsection
 @section('js')
     <script src="{{ asset('js/select2.min.js') }}"></script>
@@ -367,7 +362,7 @@
     <script>
         function test_method_master(element, id) {
             var test_method_id = $(element).val();
-            console.log(test_method_id);
+            // console.log(test_method_id , id);
             if (test_method_id) {
                 $.ajax({
                     url: "{{ route('admin.sample.get_components_by_test_method', ':id') }}".replace(':id',
@@ -376,11 +371,11 @@
                     dataType: "json",
                     success: function(data) {
 
-                        if (data) {
-                            //   
+                        if (data) {   
+                            // console.log('ff'); 
                             if (data && data.components && data.components.length > 0) {
-                                $(`select[name="main_components-${id}"]`).empty().prop('disabled', false);
-                                var select = $(`select[name="main_components-${id}"]`);
+                                $(`select[name="main_components_${id}"]`).empty().prop('disabled', false);
+                                var select = $(`select[name="main_components[${id}]"]`);
                                 select.empty().prop('disabled', false);
                                 select.append(
                                     '<option value="-1">{{ __('samples.select_component') }}</option>'
@@ -560,7 +555,7 @@
                                             style="background-color: #f8f9fa;">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div> 
-                                                    <input type="checkbox" id="tds" name="component-${component.id}" checked>
+                                                    <input type="checkbox" id="tds" name="component[${component.id}]" checked>
                                                     <label for="tds" class="fw-bold text-primary">${component.name}</label>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">Unit:${component.main_unit && component.main_unit.name ? component.main_unit.name : 'N/A'}</div>
@@ -568,19 +563,19 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
-                                                    <input type="number"  name="warning_limit-${component.id}" class="form-control"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
-                                                    <input type="number"  name="warning_limit_end-${component.id}" class="form-control d-none"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
+                                                    <input type="number"  name="warning_limit[${component.id}]" class="form-control"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
+                                                    <input type="number"  name="warning_limit_end[${component.id}]" class="form-control d-none"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
-                                                    <input type="number"  name="action_limit-${component.id}" class="form-control"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
-                                                    <input type="number"  name="action_limit_end-${component.id}" class="form-control d-none"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
+                                                    <input type="number"  name="action_limit[${component.id}]" class="form-control"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
+                                                    <input type="number"  name="action_limit_end[${component.id}]" class="form-control d-none"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
-                                                      <select name="warning_limit_type-${component.id}" class="form-control"   onchange="only_one_general_change_warning_limit_type(${component.id})">
+                                                      <select name="warning_limit_type[${component.id}]" class="form-control"   onchange="only_one_general_change_warning_limit_type(${component.id})">
                                                         <option value="">{{ __('samples.select_warning_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -594,7 +589,7 @@
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
                                                    
-                                                    <select name="action_limit_type-${component.id}" class="form-control"   onchange="only_one_general_change_action_limit_type(${component.id})">
+                                                    <select name="action_limit_type[${component.id}]" class="form-control"   onchange="only_one_general_change_action_limit_type(${component.id})">
                                                             <option value="">{{ __('samples.select_action_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -609,13 +604,13 @@
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #fff8dc;">
                                                         <small class="text-muted d-block">Warning Limit</small>
-                                                        <span class="text-warning fw-bold" id="warning_limit_type-${component.id}"></span>
+                                                        <span class="text-warning fw-bold" id="warning_limit_type[${component.id}]"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #ffeeee;">
                                                         <small class="text-muted d-block">Action Limit</small>
-                                                        <span class="text-danger fw-bold" id="action_limit_type-${component.id}"></span>
+                                                        <span class="text-danger fw-bold" id="action_limit_type[${component.id}]"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -659,7 +654,7 @@
                                           
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div> 
-                                                    <input type="checkbox" id="tds" name="component-${data.component.id}" checked>
+                                                    <input type="checkbox" id="tds" name="component[${data.component.id}]" checked>
                                                     <label for="tds" class="fw-bold text-primary">${data.component.name}</label>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">Unit:${data.component.main_unit && data.component.main_unit.name ? data.component.main_unit.name : 'N/A'}</div>
@@ -667,19 +662,19 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
-                                                    <input type="number"  name="warning_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
-                                                    <input type="number"  name="warning_limit_end-${data.component.id}" class="form-control d-none"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
+                                                    <input type="number"  name="warning_limit[${data.component.id}]" class="form-control"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
+                                                    <input type="number"  name="warning_limit_end[${data.component.id}]" class="form-control d-none"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
-                                                    <input type="number"  name="action_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
-                                                    <input type="number"  name="action_limit_end-${data.component.id}" class="form-control d-none"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
+                                                    <input type="number"  name="action_limit[${data.component.id}]" class="form-control"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
+                                                    <input type="number"  name="action_limit_end[${data.component.id}]" class="form-control d-none"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
-                                                      <select name="warning_limit_type-${data.component.id}" class="form-control"   onchange="only_one_change_warning_limit_type(${data.component.id})">
+                                                      <select name="warning_limit_type[${data.component.id}]" class="form-control"   onchange="only_one_change_warning_limit_type(${data.component.id})">
                                                         <option value="">{{ __('samples.select_warning_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -692,7 +687,7 @@
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
                                                    
-                                                    <select name="action_limit_type-${data.component.id}" class="form-control"   onchange="only_one_change_action_limit_type(${data.component.id})">
+                                                    <select name="action_limit_type[${data.component.id}]" class="form-control"   onchange="only_one_change_action_limit_type(${data.component.id})">
                                                             <option value="">{{ __('samples.select_action_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -707,13 +702,13 @@
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #fff8dc;">
                                                         <small class="text-muted d-block">Warning Limit</small>
-                                                        <span class="text-warning fw-bold"  id="warning_limit_type-${data.component.id}"></span>
+                                                        <span class="text-warning fw-bold"  id="warning_limit_type[${data.component.id}]"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #ffeeee;">
                                                         <small class="text-muted d-block">Action Limit</small>
-                                                        <span class="text-danger fw-bold" id="action_limit_type-${data.component.id}"></span>
+                                                        <span class="text-danger fw-bold" id="action_limit_type[${data.component.id}]"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1781,7 +1776,9 @@
         function main_components_master(element, id) {
 
             var component_id = $(element).val();
-            var test_method_id = $(`select[name=test_method-${id}]`).val();
+            // var test_method_id = $(`select[name=test_method[${id}]`).val();
+                var test_method_id = $(`select[name="test_method[${id}]"]`).val();
+            // console.log(  id);
             if (component_id == -1) {
                 $.ajax({
                     url: "{{ route('admin.sample.get_components_by_test_method', ':id') }}".replace(':id',
@@ -1791,21 +1788,22 @@
                     success: function(data) {
                         if (data) {
                             if (data && data.components && data.components.length > 0) {
+//<input type="hidden" name="test_method_item_id[${component.id}]" value="${component.test_method_item_id}">
 
-
-                                $('#main_components').empty();
-
+                                $(`#main_components_${id}`).empty();
+                                console.log((`#main_components_${id}`));
                                 $.each(data.components, function(index, component) {
-
-                                    $('#main_components').append(`
+                                    console.log(component);
+                                    $(`#main_components_${id}`).append(`
                                         <div class="container mt-4">
                                         <label class="form-label">Components & Limits:</label>
+                                            
 
                                         <div class="border border-primary rounded p-3 mb-3"
                                             style="background-color: #f8f9fa;">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div> 
-                                                    <input type="checkbox" id="tds" name="component-${component.id}" checked>
+                                                    <input type="checkbox" id="tds" value="${component.id}" name="component[${component.id}]" checked>
                                                     <label for="tds" class="fw-bold text-primary">${component.name}</label>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">Unit:${component.main_unit && component.main_unit.name ? component.main_unit.name : 'N/A'}</div>
@@ -1813,19 +1811,19 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
-                                                    <input type="number"  name="warning_limit-${component.id}" class="form-control"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
-                                                    <input type="number"  name="warning_limit_end-${component.id}" class="form-control d-none"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
+                                                    <input type="number"  name="warning_limit[${component.id}]" class="form-control"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
+                                                    <input type="number"  name="warning_limit_end[${component.id}]" class="form-control d-none"     onkeyup="only_one_general_change_warning_limit_type(${component.id})">
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
-                                                    <input type="number"  name="action_limit-${component.id}" class="form-control"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
-                                                    <input type="number"  name="action_limit_end-${component.id}" class="form-control d-none"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
+                                                    <input type="number"  name="action_limit[${component.id}]" class="form-control"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
+                                                    <input type="number"  name="action_limit_end[${component.id}]" class="form-control d-none"     onkeyup="only_one_general_change_action_limit_type(${component.id} )">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
-                                                      <select name="warning_limit_type-${component.id}" class="form-control"   onchange="only_one_general_change_warning_limit_type(${component.id})">
+                                                      <select name="warning_limit_type[${component.id}]" class="form-control"   onchange="only_one_general_change_warning_limit_type(${component.id})">
                                                         <option value="">{{ __('samples.select_warning_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -1839,7 +1837,7 @@
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
                                                    
-                                                    <select name="action_limit_type-${component.id}" class="form-control"   onchange="only_one_general_change_action_limit_type(${component.id})">
+                                                    <select name="action_limit_type[${component.id}]" class="form-control"   onchange="only_one_general_change_action_limit_type(${component.id})">
                                                             <option value="">{{ __('samples.select_action_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -1854,13 +1852,13 @@
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #fff8dc;">
                                                         <small class="text-muted d-block">Warning Limit</small>
-                                                        <span class="text-warning fw-bold" id="warning_limit_type-${component.id}"></span>
+                                                        <span class="text-warning fw-bold" id="warning_limit_type[${component.id}]"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #ffeeee;">
                                                         <small class="text-muted d-block">Action Limit</small>
-                                                        <span class="text-danger fw-bold" id="action_limit_type-${component.id}"></span>
+                                                        <span class="text-danger fw-bold" id="action_limit_type[${component.id}]"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1893,18 +1891,18 @@
                         if (data) {
                             if (data && data.component) {
 
-                                $('#main_components').empty();
+                                $(`#main_components_${id}`).empty();
 
-                                $('#main_components').append(`
+                                $(`#main_components_${id}`).append(`
                                         <div class="container mt-4">
                                         <label class="form-label">Components & Limits:</label>
 
                                         <div class="border border-primary rounded p-3 mb-3"
                                             style="background-color: #f8f9fa;">
-                                          
+                                            <input type="hidden" name="test_method_item_id[${data.component.id}]" value="${data.component.test_method_item_id}">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div> 
-                                                    <input type="checkbox" id="tds" name="component-${data.component.id}" checked>
+                                                    <input type="checkbox" id="tds" name="component[${data.component.id}]" checked>
                                                     <label for="tds" class="fw-bold text-primary">${data.component.name}</label>
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">Unit:${data.component.main_unit && data.component.main_unit.name ? data.component.main_unit.name : 'N/A'}</div>
@@ -1912,19 +1910,19 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
-                                                    <input type="number"  name="warning_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
-                                                    <input type="number"  name="warning_limit_end-${data.component.id}" class="form-control d-none"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
+                                                    <input type="number"  name="warning_limit[${data.component.id}]" class="form-control"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
+                                                    <input type="number"  name="warning_limit_end[${data.component.id}]" class="form-control d-none"     onkeyup="only_one_change_warning_limit_type(${data.component.id})"> 
                                                 </div>
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
-                                                    <input type="number"  name="action_limit-${data.component.id}" class="form-control"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
-                                                    <input type="number"  name="action_limit_end-${data.component.id}" class="form-control d-none"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
+                                                    <input type="number"  name="action_limit[${data.component.id}]" class="form-control"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
+                                                    <input type="number"  name="action_limit_end[${data.component.id}]" class="form-control d-none"     onkeyup="only_one_change_action_limit_type(${data.component.id})">
                                                     </div>
                                             </div>
                                               <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
                                                     <label for="tds" class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
-                                                      <select name="warning_limit_type-${data.component.id}" class="form-control"   onchange="only_one_change_warning_limit_type(${data.component.id})">
+                                                      <select name="warning_limit_type[${data.component.id}]" class="form-control"   onchange="only_one_change_warning_limit_type(${data.component.id})">
                                                         <option value="">{{ __('samples.select_warning_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -1937,7 +1935,7 @@
                                                 <div class="text-end text-primary fw-bold">
                                                      <label for="tds" class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
                                                    
-                                                    <select name="action_limit_type-${data.component.id}" class="form-control"   onchange="only_one_change_action_limit_type(${data.component.id})">
+                                                    <select name="action_limit_type[${data.component.id}]" class="form-control"   onchange="only_one_change_action_limit_type(${data.component.id})">
                                                             <option value="">{{ __('samples.select_action_limit_type') }}</option> 
                                                             <option value="=">=</option> 
                                                             <option value=">=">&ge;</option> 
@@ -1952,13 +1950,13 @@
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #fff8dc;">
                                                         <small class="text-muted d-block">Warning Limit</small>
-                                                        <span class="text-warning fw-bold"  id="warning_limit_type-${data.component.id}"></span>
+                                                        <span class="text-warning fw-bold"  id="warning_limit_type[${data.component.id}]"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="p-3 rounded" style="background-color: #ffeeee;">
                                                         <small class="text-muted d-block">Action Limit</small>
-                                                        <span class="text-danger fw-bold" id="action_limit_type-${data.component.id}"></span>
+                                                        <span class="text-danger fw-bold" id="action_limit_type[${data.component.id}]"></span>
                                                     </div>
                                                 </div>
                                             </div>

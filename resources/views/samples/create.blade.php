@@ -521,9 +521,14 @@
     </script>
     <script>
         function change_action_limit_type(id) {
+            
             var action_limit_type = document.querySelector('select[name=action_limit_type-' + id + ']').value;
             var action_limit = document.querySelector('input[name=action_limit-' + id + ']').value;
-
+            let elements = document.getElementsByName('action_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.add('d-none');
+                }
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -549,7 +554,11 @@
         function change_warning_limit_type(id) {
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + id + ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + id + ']').value;
-
+  let elements = document.getElementsByName('warning_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.add('d-none');
+                }
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + id).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -575,7 +584,11 @@
             var action_limit_type = document.querySelector('select[name=action_limit_type-' + id + ']').value;
             var action_limit = document.querySelector('input[name=action_limit-' + id + ']').value;
             var action_limit_end = document.querySelector('input[name=action_limit_end-' + id + ']').value;
-
+let elements = document.getElementsByName('action_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.add('d-none');
+                }
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -603,7 +616,11 @@
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + id + ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + id + ']').value;
             var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + id + ']').value;
-
+let elements = document.getElementsByName('warning_limit_end-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.add('d-none');
+                }
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + id).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -629,8 +646,13 @@
             var action_limit_type = document.querySelector('select[name=action_limit_type-' + test_method_id + '-' + id +
                 ']').value;
             var action_limit = document.querySelector('input[name=action_limit-' + test_method_id + '-' + id + ']').value;
-            var action_limit_end = document.querySelector('input[name=action_limit_end-'+ test_method_id + '-' + id + ']').value;
-
+            var action_limit_end = document.querySelector('input[name=action_limit_end-' + test_method_id + '-' + id + ']')
+                .value;
+let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.add('d-none');
+                }
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -646,7 +668,8 @@
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '&gt; ' +
                     action_limit;
             } else if (action_limit_type == '8646') {
-                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = action_limit + ' &#8646; ' +
+                document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = action_limit +
+                    ' &#8646; ' +
                     action_limit_end;
                 let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + id);
                 if (elements.length > 0) {
@@ -659,10 +682,17 @@
         }
 
         function add_only_one_change_warning_limit_type(id, test_method_id) {
+            let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + id);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + warning_limit;
+                elements[0].classList.add('d-none');
+            }
+            
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' + id +
                 ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + id + ']').value;
-            var warning_limit_end = document.querySelector('input[name=warning_limit_end-'+ test_method_id + '-' + id + ']').value;
+            var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + test_method_id + '-' + id +
+                ']').value;
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -678,7 +708,8 @@
                 document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = '&gt; ' +
                     warning_limit;
             } else if (warning_limit_type == '8646') {
-                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = warning_limit + ' &#8646; ' +
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + id).innerHTML = warning_limit +
+                    ' &#8646; ' +
                     warning_limit_end;
                 let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + id);
                 if (elements.length > 0) {
@@ -694,6 +725,14 @@
             var action_limit = document.querySelector('input[name=action_limit-' + compnent_id + '-' + index + ']').value;
             var action_limit_end = document.querySelector('input[name=action_limit_end-' + compnent_id + '-' + index + ']')
                 .value;
+
+                 let elements = document.getElementsByName('action_limit_end-' + compnent_id + '-' + index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.add('d-none');
+                }
+
+
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -709,7 +748,8 @@
                 document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = '&gt; ' +
                     action_limit;
             } else if (action_limit_type == '8646') {
-                document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = action_limit + ' &#8646; ' +
+                document.getElementById('action_limit_type-' + compnent_id + '-' + index).innerHTML = action_limit +
+                    ' &#8646; ' +
                     action_limit_end;
                 let elements = document.getElementsByName('action_limit_end-' + compnent_id + '-' + index);
                 if (elements.length > 0) {
@@ -723,7 +763,16 @@
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + compnent_id + '-' + index +
                 ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + compnent_id + '-' + index + ']').value;
-            var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + compnent_id + '-' + index + ']').value; 
+            var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + compnent_id + '-' + index +
+                ']').value;
+
+                let elements = document.getElementsByName('warning_limit_end-' + compnent_id + '-' + index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.add('d-none');
+                }
+
+
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -739,7 +788,8 @@
                 document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = '&gt; ' +
                     warning_limit;
             } else if (warning_limit_type == '8646') {
-                document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = warning_limit + ' &#8646; ' +
+                document.getElementById('warning_limit_type-' + compnent_id + '-' + index).innerHTML = warning_limit +
+                    ' &#8646; ' +
                     warning_limit_end;
                 let elements = document.getElementsByName('warning_limit_end-' + compnent_id + '-' + index);
                 if (elements.length > 0) {
@@ -758,6 +808,16 @@
             var action_limit_end = document.querySelector('input[name=action_limit_end-' + test_method_id + '-' +
                 compnent_id +
                 '-' + index + ']').value;
+
+
+                 let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + compnent_id + '-' +
+                    index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.add('d-none');
+                }
+
+
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
                     '= ' + action_limit;
@@ -778,9 +838,11 @@
                     '&gt; ' +
                     action_limit;
             } else if (action_limit_type == '8646') {
-                document.getElementById('action_limit_type-'+ test_method_id + '-' + compnent_id + '-' + index).innerHTML = action_limit + ' &#8646; ' +
+                document.getElementById('action_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML =
+                    action_limit + ' &#8646; ' +
                     action_limit_end;
-                let elements = document.getElementsByName('action_limit_end-'+ test_method_id + '-' + compnent_id + '-' + index);
+                let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + compnent_id + '-' +
+                    index);
                 if (elements.length > 0) {
                     elements[0].innerHTML = '> ' + action_limit;
                     elements[0].classList.remove('d-none');
@@ -789,11 +851,22 @@
         }
 
         function add_general_change_warning_limit_type(compnent_id, index, test_method_id) {
-            var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index + ']').value;
-            var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + compnent_id + '-' + index + ']').value;
+            var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' +
+                compnent_id + '-' + index + ']').value;
+            var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + compnent_id +
+                '-' + index + ']').value;
             var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + test_method_id + '-' +
                 compnent_id +
                 '-' + index + ']').value;
+
+
+                 let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + compnent_id + '-' +
+                    index);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.add('d-none');
+                }
+
 
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
@@ -815,9 +888,11 @@
                     .innerHTML = '&gt; ' +
                     warning_limit;
             } else if (warning_limit_type == '8646') {
-                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index).innerHTML = warning_limit + ' &#8646; ' +
+                document.getElementById('warning_limit_type-' + test_method_id + '-' + compnent_id + '-' + index)
+                    .innerHTML = warning_limit + ' &#8646; ' +
                     warning_limit_end;
-                let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + compnent_id + '-' + index);
+                let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + compnent_id + '-' +
+                    index);
                 if (elements.length > 0) {
                     elements[0].innerHTML = '> ' + warning_limit;
                     elements[0].classList.remove('d-none');
@@ -829,6 +904,14 @@
             var action_limit_type = document.querySelector('select[name="action_limit_type-' + compnent_id + '"]').value;
             var action_limit = document.querySelector('input[name=action_limit-' + compnent_id + ']').value;
             var action_limit_end = document.querySelector('input[name=action_limit_end-' + compnent_id + ']').value;
+
+
+            let elements = document.getElementsByName('action_limit_end-' + compnent_id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + action_limit;
+                    elements[0].classList.add('d-none');
+                }
+
 
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + compnent_id).innerHTML = '= ' + action_limit;
@@ -855,6 +938,13 @@
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + compnent_id + ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + compnent_id + ']').value;
             var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + compnent_id + ']').value;
+
+
+              let elements = document.getElementsByName('warning_limit_end-' + compnent_id);
+                if (elements.length > 0) {
+                    elements[0].innerHTML = '> ' + warning_limit;
+                    elements[0].classList.add('d-none');
+                }
 
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + compnent_id).innerHTML = '= ' + warning_limit;

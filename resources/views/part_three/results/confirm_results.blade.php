@@ -62,6 +62,9 @@
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
+                                    @if ($result->status == 'pending')
+                                        
+                                    
                                     @can('edit_result')
                                         <a href="{{ route('admin.result.approve_confirm_results', $result->id) }}"
                                             class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i
@@ -72,6 +75,7 @@
                                             class="btn btn-outline-danger btn-sm" title="@lang('results.confirm_results')"><i
                                                 class="mdi mdi-close"></i> </a>
                                     @endcan
+                                    @endif
                                 </td>
 
 
