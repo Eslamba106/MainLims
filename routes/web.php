@@ -83,6 +83,10 @@
         Route::get('/get_sample_from_plant/{id}', [SampleController::class, 'get_sample_from_plant'])->name('admin.sample.get_sample_from_plant');
         Route::get('/get_components_by_test_method/{id}', [SampleController::class, 'get_components_by_test_method'])->name('admin.sample.get_components_by_test_method');
         Route::get('/get_one_component_by_test_method/{id}', [SampleController::class, 'get_one_component_by_test_method'])->name('admin.sample.get_one_component_by_test_method');
+        Route::get('/delete_test_method_from_sample/{id}', [SampleController::class, 'delete_test_method_from_sample'])->name('admin.sample.delete_test_method_from_sample');
+        Route::get('/delete_test_method_item_from_sample/{id}', [SampleController::class, 'delete_test_method_item_from_sample'])->name('admin.sample.delete_test_method_item_from_sample');
+        Route::get('/add_test_method/{id}', [SampleController::class, 'add_test_method'])->name('admin.sample.add_test_method');
+        Route::post('/store_test_method', [SampleController::class, 'store_test_method'])->name('admin.sample.store_test_method');
 
     });
     // Submission Managment

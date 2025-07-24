@@ -83,7 +83,7 @@
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ __('samples.plant_name') }}</th>
                             <th class="text-center" scope="col">@lang('samples.sample_name')</th>
-                            <th class="text-center" scope="col">@lang('test_method.test_methods')</th> 
+                            <th class="text-center" scope="col">@lang('test_method.test_methods')</th>
                             <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
                         </tr>
                     </thead>
@@ -110,14 +110,23 @@
                                     </ul>
                                 </td>
 
-                                
+
                                 <td class="text-center">
-                                    @can('delete_sample') 
+                                    @can('delete_sample')
+                                        <a href="{{ route('admin.sample.add_test_method', $sample_item->id) }}"
+                                            class="btn btn-success btn-sm">{{ translate('add_Component') }}</a>
+                                    @endcan
+                                    @can('delete_sample')
+                                        <a href="{{ route('admin.sample.add_test_method', $sample_item->id) }}"
+                                            class="btn btn-success btn-sm">{{ translate('add_Test_Method') }}</a>
+                                    @endcan
+                                    @can('delete_sample')
                                         <a href="{{ route('admin.sample.delete', $sample_item->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
-                                    @can('edit_sample') 
+
+                                    @can('edit_sample')
                                         <a href="{{ route('admin.sample.edit', $sample_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>

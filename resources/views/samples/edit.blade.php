@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
-    {{ __('roles.create_sample') }}
+    {{ translate('edit_sample') }}
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
@@ -21,7 +21,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">{{ __('roles.create_sample') }}</h4>
+                <h4 class="page-title">{{ translate('edit_sample') }}</h4>
                 <div class="d-flex align-items-center">
 
                 </div>
@@ -132,14 +132,18 @@
                         </div>
                     </div>
                     @php
-    $var=[];
-@endphp
+                        $var = [];
+                    @endphp
                     @foreach ($sample_test_methods as $sample_test_method_item)
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between align-items-center">
                                 <div class="d-flex gap-2">
                                     <h4 class="mb-0">{{ __('samples.associated_test_method') }}</h4>
                                 </div>
+                                <a
+                                    href="{{ route('admin.sample.delete_test_method_from_sample', $sample_test_method_item->id) }}"class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                </a>
                             </div>
                             <div class="card-body  border border-primary">
                                 <div class="row componants" id="componants">
@@ -150,7 +154,7 @@
                                             <select name="test_method[{{ $sample_test_method_item->id }}]"
                                                 onchange="test_method_master(this,{{ $sample_test_method_item->id }})"
                                                 class="form-control">
-                                                <option value="">{{ __('samples.select_test_method') }}</option>
+                                                <option value="">{{ translate('select_test_method') }}</option>
                                                 @foreach ($test_methods as $test_method_item)
                                                     <option value="{{ $test_method_item->id }}"
                                                         {{ $sample_test_method_item->test_method_id == $test_method_item->id ? 'selected' : '' }}>
@@ -162,18 +166,19 @@
                                                 <span class="error text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="col-md-6   col-lg-6">
                                         <div class="form-group">
-                                            <label for="">{{ __('test_method.component') }} <span
+                                            <label for="">{{ translate('component') }} <span
                                                     class="text-danger">*</span></label>
                                             <select name="main_components[{{ $sample_test_method_item->id }}]"
                                                 onchange="main_components_master(this,{{ $sample_test_method_item->id }})"
                                                 class="form-control">
-                                                <option value="">{{ __('samples.select_component') }}</option>
+                                                <option value="">{{ translate('select_component') }}</option>
                                                 <option value="-1">{{ translate('select_all_components') }}</option>
                                                 @foreach ($sample_test_method_item->master_test_method->test_method_items as $sample_test_method_items_item)
-                                                    <option value="{{ $sample_test_method_items_item->id }}" {{ $sample_test_method_item->sample_test_method_items->contains('test_method_item_id', $sample_test_method_items_item->id) ? 'selected' : '' }}>
+                                                    <option value="{{ $sample_test_method_items_item->id }}"
+                                                        {{ $sample_test_method_item->sample_test_method_items->contains('test_method_item_id', $sample_test_method_items_item->id) ? 'selected' : '' }}>
                                                         {{ $sample_test_method_items_item->name }}</option>
                                                 @endforeach
 
@@ -184,15 +189,26 @@
                                         </div>
 
                                     </div>
-{{-- {{ dd($sample_test_method_item->id ) }} --}}
- 
-                                    <div class="main_components  col-lg-12" id="main_components_{{ $sample_test_method_item->id }}">
+
+                                    <div class="main_components  col-lg-12"
+                                        id="main_components_{{ $sample_test_method_item->id }}">
                                         @foreach ($sample_test_method_item->sample_test_method_items as $sample_test_method_sub_item)
                                             <div class="container mt-4">
-                                                {{-- {{ dd($sample_test_method_sub_item) }} --}}
-                                                <label class="form-label">Components & Limits:</label>
-                                                <input type="hidden" name="test_method_item_id[{{ $sample_test_method_sub_item->id }}]" value="{{ $sample_test_method_sub_item->test_method_item_id }}">
-                                                <div class="border border-primary rounded p-3 mb-3" style="background-color: #f8f9fa;">
+
+                                                <div class="  d-flex justify-content-between align-items-center">
+                                                    <label class="form-label">{{ translate('Components_&_Limits') }} :</label>
+
+                                                    <a
+                                                        href="{{ route('admin.sample.delete_test_method_item_from_sample', $sample_test_method_sub_item->id) }}"class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                    {{-- {{ dd($sample_test_method_sub_item) }} --}}
+                                                </div>
+                                                <input type="hidden"
+                                                    name="test_method_item_id[{{ $sample_test_method_sub_item->id }}]"
+                                                    value="{{ $sample_test_method_sub_item->test_method_item_id }}">
+                                                <div class="border border-primary rounded p-3 mb-3"
+                                                    style="background-color: #f8f9fa;">
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <div>
                                                             <input type="checkbox" id="tds"
@@ -202,7 +218,7 @@
                                                                 class="fw-bold text-primary">{{ $sample_test_method_sub_item->test_method_item->name }}
                                                             </label>
                                                         </div>
-                                                        <div class="text-end text-primary fw-bold">Unit:
+                                                        <div class="text-end text-primary fw-bold">{{ translate('Unit') }} :
                                                             {{ $sample_test_method_sub_item->test_method_item->main_unit && $sample_test_method_sub_item->test_method_item->main_unit->name ? $sample_test_method_sub_item->test_method_item->main_unit->name : 'N/A' }}
 
                                                         </div>
@@ -210,7 +226,7 @@
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <div>
                                                             <label for="tds"
-                                                                class="fw-bold text-primary">{{ __('samples.warning_limit') }}</label>
+                                                                class="fw-bold text-primary">{{ translate('warning_limit') }}</label>
                                                             <input type="number"
                                                                 name="warning_limit_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
@@ -224,7 +240,7 @@
                                                         </div>
                                                         <div class="text-end text-primary fw-bold">
                                                             <label for="tds"
-                                                                class="fw-bold text-primary">{{ __('samples.action_limit') }}</label>
+                                                                class="fw-bold text-primary">{{ translate('action_limit') }}</label>
                                                             <input type="number"
                                                                 name="action_limit_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
@@ -240,13 +256,13 @@
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <div>
                                                             <label for="tds"
-                                                                class="fw-bold text-primary">{{ __('samples.warning_limit_type') }}</label>
+                                                                class="fw-bold text-primary">{{ translate('warning_limit_type') }}</label>
                                                             <select
                                                                 name="warning_limit_type_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
                                                                 onchange="only_one_general_change_warning_limit_type_old({{ $sample_test_method_sub_item->id }})">
                                                                 <option value="">
-                                                                    {{ __('samples.select_warning_limit_type') }}</option>
+                                                                    {{ translate('select_warning_limit_type') }}</option>
                                                                 <option value="="
                                                                     {{ $sample_test_method_sub_item->warning_limit_type == '=' ? 'selected' : '' }}>
                                                                     =</option>
@@ -270,14 +286,14 @@
                                                         </div>
                                                         <div class="text-end text-primary fw-bold">
                                                             <label for="tds"
-                                                                class="fw-bold text-primary">{{ __('samples.action_limit_type') }}</label>
+                                                                class="fw-bold text-primary">{{ translate('action_limit_type') }}</label>
 
                                                             <select
                                                                 name="action_limit_type_old[{{ $sample_test_method_sub_item->id }}]"
                                                                 class="form-control"
                                                                 onchange="only_one_general_change_action_limit_type_old({{ $sample_test_method_sub_item->id }})">
                                                                 <option value="">
-                                                                    {{ __('samples.select_action_limit_type') }}</option>
+                                                                    {{ translate('select_action_limit_type') }}</option>
                                                                 <option value="="
                                                                     {{ $sample_test_method_sub_item->action_limit_type == '=' ? 'selected' : '' }}>
                                                                     =</option>
@@ -302,7 +318,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="p-3 rounded" style="background-color: #fff8dc;">
-                                                                <small class="text-muted d-block">Warning Limit</small>
+                                                                <small class="text-muted d-block">{{ translate('Warning_Limit') }}</small>
                                                                 <span class="text-warning fw-bold"
                                                                     id="warning_limit_type_old-{{ $sample_test_method_sub_item->id }}">
                                                                     @if ($sample_test_method_sub_item->warning_limit_type == '8646')
@@ -318,7 +334,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="p-3 rounded" style="background-color: #ffeeee;">
-                                                                <small class="text-muted d-block">Action Limit</small>
+                                                                <small class="text-muted d-block">{{ translate('Action_Limit') }}</small>
                                                                 <span class="text-danger fw-bold"
                                                                     id="action_limit_type_old-{{ $sample_test_method_sub_item->id }}">
 
@@ -339,7 +355,7 @@
                                         @endforeach
                                     </div>
 
-                                </div> 
+                                </div>
                             </div>
                             <div id="test_methods_main"></div>
                         </div>
@@ -371,7 +387,7 @@
                     dataType: "json",
                     success: function(data) {
 
-                        if (data) {   
+                        if (data) {
                             // console.log('ff'); 
                             if (data && data.components && data.components.length > 0) {
                                 $(`select[name="main_components_${id}"]`).empty().prop('disabled', false);
@@ -1777,7 +1793,7 @@
 
             var component_id = $(element).val();
             // var test_method_id = $(`select[name=test_method[${id}]`).val();
-                var test_method_id = $(`select[name="test_method[${id}]"]`).val();
+            var test_method_id = $(`select[name="test_method[${id}]"]`).val();
             // console.log(  id);
             if (component_id == -1) {
                 $.ajax({
@@ -1788,7 +1804,7 @@
                     success: function(data) {
                         if (data) {
                             if (data && data.components && data.components.length > 0) {
-//<input type="hidden" name="test_method_item_id[${component.id}]" value="${component.test_method_item_id}">
+                                //<input type="hidden" name="test_method_item_id[${component.id}]" value="${component.test_method_item_id}">
 
                                 $(`#main_components_${id}`).empty();
                                 console.log((`#main_components_${id}`));
