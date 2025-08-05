@@ -64,8 +64,9 @@
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
-        <form action="{{ route('admin.submission.schedule.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.submission.schedule.update' , $schedule_routing->id) }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PATCH')
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -81,10 +82,12 @@
                                     <div class="form-group">
                                         <label for="">{{ __('samples.plant_name') }} <span
                                                 class="text-danger">*</span></label>
-                                        <select name="plant_id" class="form-control" required>
+                                        <select name="plant_id" class="form-control" disabled>
                                             <option value="">{{ __('samples.select_plant') }}</option>
                                             @foreach ($plants as $plant_item)
-                                                <option value="{{ $plant_item->id }}">{{ $plant_item->name }}</option>
+                                                <option value="{{ $plant_item->id }}"
+                                                    {{ $schedule_routing->plant_id == $plant_item->id ? 'selected' : '' }}>
+                                                    {{ $plant_item->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('plant_id')
@@ -96,7 +99,8 @@
                                     <div class="form-group">
                                         <label for="">{{ __('samples.sub_plant_name') }} </label>
                                         <select name="sub_plant_id" class="form-control" disabled>
-                                            <option value="">{{ __('samples.select_sub_plant') }}</option>
+                                            <option value="{{ $schedule_routing->sub_plant?->id }}">
+                                                {{ $schedule_routing->sub_plant?->name }}</option>
                                         </select>
                                         @error('sub_plant_id')
                                             <span class="error text-danger">{{ $message }}</span>
@@ -104,22 +108,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="row align-items-center mb-3 ">
-                                <div class="col-md-6   col-lg-6">
-                                    <div class="form-group">
-                                        <label for="">{{ __('samples.sample_name') }} <span
-                                                class="text-danger">*</span></label>
-                                        <select name="plant_sample_id" class="form-control" required disabled
-                                            onchange="add_test_methods(this)">
-                                            <option value="">{{ __('samples.select_sub_plant') }}</option>
-                                        </select>
-                                        @error('plant_sample_id')
-                                            <span class="error text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                            </div> --}}
+                          
 
 
                         </div>
@@ -127,12 +116,47 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex gap-2">
-                                <h4><i class="bi bi-geo-alt-fill text-primary"></i> Sample Points</h4>
+                                <h4><i class="bi bi-geo-alt-fill text-primary"></i>{{ translate('Sample_Points') }}</h4>
                             </div>
                         </div>
 
-                        <div class="card-body bg-light">
-                            <div class="row " id="sample-point-form">
+                        <div class="card-body bg-light"> 
+                            @forelse ($schedule_routing->sample_routine_scheduler_items as $test_method_item)
+                                
+                         
+                                <div class="row align-items-center mb-2">
+                                    <div class="col-3 test-method">
+                                        <i class="bi bi-beaker icon-lab"></i> {{ $loop->index +1  }}
+                                        {{ $test_method_item->test_method?->name }}
+                                    </div>
+
+                                    <div class="col-3">
+                                        <select name="frequency_id[{{ $test_method_item->id }}]"
+                                            class="form-control" required>
+                                            @foreach ($frequencies as $frequency)
+                                                <option value="{{ $frequency->id }}" {{ ($frequency->id == $test_method_item->frequency_id) ? 'selected' : '' }}>{{ $frequency->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        @php
+                                            Log::info($test_method_item->id)
+                                        @endphp
+                                        <input class="form-control"
+                                            name="schedule_hour[{{ $test_method_item->id }}]"
+                                            type="time" value="{{ $test_method_item->schedule_hour }}">
+                                    </div>
+                                    <div class="col-3 d-flex align-items-center">
+                                        <div class="  me-2">
+                                            <input class="form-check-input" type="checkbox" checked 
+                                                name="test_method_id[{{ $test_method_item->id }}]">
+                                        </div>
+                                        <i class="bi bi-gear-fill"></i>
+                                    </div>
+                                </div>
+                                   @empty
+                                
+                            @endforelse
                                 {{-- <div class="container bg-white p-4 rounded shadow   col-lg-12"> 
                                     <div class="card mb-3">
                                         <div class="card-header d-flex justify-content-between align-items-center bg-light">
@@ -277,7 +301,7 @@
                     },
                     error: function() {
                         methodsContainer.html(
-                        '<p class="text-danger">Failed to load test methods.</p>');
+                            '<p class="text-danger">Failed to load test methods.</p>');
                     }
                 });
             } else {
@@ -466,4 +490,4 @@
             }
         })
     </script>
-@endsection 
+@endsection

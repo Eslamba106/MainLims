@@ -36,10 +36,10 @@
                         <thead>
                             <tr>
                                 <th><input class="bulk_check_all" type="checkbox" /></th>
-                                <th class="text-center" scope="col">{{ __('samples.sample_id') }}</th>
-                                <th class="text-center" scope="col">@lang('samples.plant')</th>
-                                <th class="text-center" scope="col">@lang('results.last_change_by')</th>
-                                <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
+                                <th class="text-center" scope="col">{{ translate('sample_id')  }}</th>
+                                <th class="text-center" scope="col">{{ translate('plant') }} </th>
+                                <th class="text-center" scope="col">{{ translate('last_change_by') }} </th>
+                                <th class="text-center" scope="col">{{ translate('Actions')  }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,25 +108,37 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" scope="col">{{ __('test_method.component') }}</th>
-                                        <th class="text-center" scope="col">@lang('results.result')</th>
-                                        <th class="text-center" scope="col">@lang('test_method.unit')</th>
-                                        <th class="text-center" scope="col">{{ __('samples.warning_limit') }}</th>
-                                        <th class="text-center" scope="col">{{ __('samples.action_limit') }}</th>
+                                        <th class="text-center" scope="col">{{ translate('component')  }}</th>
+                                        <th class="text-center" scope="col">{{ translate('unit') }} </th>
+                                        <th class="text-center" scope="col">{{ translate('result') }} </th>
+                                        <th class="text-center" scope="col">{{ translate('warning_limit') }}</th>
+                                        <th class="text-center" scope="col">{{ translate('action_limit') }}</th>
+                                        <th class="text-center" scope="col">{{ translate('status') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- {{dd($result_test_method)}} --}}
                                     @foreach ($result_test_method->result_test_method_items as $result_test_method_item)
                                         <tr>
                                             <td class="text-center">
                                                 {{ $result_test_method_item->main_test_method_item->name }} </td>
-                                            <td class="text-center">
-                                                {{ $result_test_method_item->result }} </td>
+                                          
                                             <td class="text-center">
                                                 {{ $result_test_method_item->main_test_method_item->main_unit->name }}
                                             </td>
+                                              <td class="text-center">
+                                                {{ $result_test_method_item->result }} </td>
                                             <td class="text-center">
-                                                {{ $result_test_method_item->main_test_method_item->warning_limit }} </td>
+                                                {{ get_warning_limit_and_type(  $result_test_method_item->test_method_item_id) }} </td>
+                                            <td class="text-center">
+                                                {{ get_action_limit_and_type(  $result_test_method_item->test_method_item_id) }} </td>
+                                                @php
+                                                    $result_status = getStatus( $result_test_method_item->result ,$result_test_method_item->test_method_item_id)
+                                                @endphp
+                                            <td class="text-center @if ($result_status == 'warning')
+                                                text-warning @elseif($result_status == 'danger') text-danger
+                                            @endif">
+                                                {{ getStatus( $result_test_method_item->result ,$result_test_method_item->test_method_item_id) }} </td>
                                             <td class="text-center">
                                                 {{ $result_test_method_item->main_test_method_item->action_limit }} </td>
                                         </tr>

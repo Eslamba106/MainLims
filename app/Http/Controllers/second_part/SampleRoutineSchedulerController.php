@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\second_part;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\Plant;
 use App\Models\Sample;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\second_part\Frequency;
 use App\Models\second_part\SampleRoutineScheduler;
@@ -19,7 +20,6 @@ class SampleRoutineSchedulerController extends Controller
 
         $this->authorize('submission_management');
 
-
         $ids = $request->bulk_ids;
         $now = Carbon::now()->toDateTimeString();
         if ($request->bulk_action_btn === 'update_status' && $request->status && is_array($ids) && count($ids)) {
@@ -27,13 +27,12 @@ class SampleRoutineSchedulerController extends Controller
             $this->authorize('change_submissions_status');
 
             SampleRoutineScheduler::whereIn('id', $ids)->update($data);
-            return back()->with('success', __('general.updated_successfully'));
+            return back()->with('success', translate('updated_successfully'));
         }
-        if ($request->bulk_action_btn === 'delete' &&  is_array($ids) && count($ids)) {
-
+        if ($request->bulk_action_btn === 'delete' && is_array($ids) && count($ids)) {
 
             SampleRoutineScheduler::whereIn('id', $ids)->delete();
-            return back()->with('success', __('general.deleted_successfully'));
+            return back()->with('success', translate('deleted_successfully'));
         }
 
         $submissions = SampleRoutineScheduler::orderBy("created_at", "desc")->paginate(10);
@@ -42,58 +41,97 @@ class SampleRoutineSchedulerController extends Controller
     public function create(Request $request)
     {
         $this->authorize('create_sample_routine_scheduler');
-        $plants = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
+        $plants      = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
         $frequencies = Frequency::select('id', 'name')->get();
-        $data = [
-            'plants' => $plants,
+        $data        = [
+            'plants'      => $plants,
             'frequencies' => $frequencies,
         ];
 
-        return  view('second_part.schedule.create', $data);;
+        return view('second_part.schedule.create', $data);
     }
     public function store(Request $request)
     {
         // dd($request->all());
         $this->authorize('create_sample_routine_scheduler');
         $request->validate([
-            'plant_id' => 'required|exists:plants,id',
-            'sub_plant_id' => 'nullable|exists:plants,id',
+            'plant_id'      => 'required|exists:plants,id',
+            'sub_plant_id'  => 'nullable|exists:plants,id',
             'sample_points' => 'required|array',
 
         ]);
-
+try{
         foreach ($request->sample_points as $index => $sample_point) {
             $sechdeule_routing = SampleRoutineScheduler::create([
-                'plant_id' => $request->plant_id,
+                'plant_id'     => $request->plant_id,
                 'sub_plant_id' => $request->sub_plant_id,
-                'sample_id' => $sample_point,
+                'sample_id'    => $sample_point,
             ]);
             $sechdeule_routing->submission_number = 'SUB-' . str_pad($sechdeule_routing->id, 6, '0', STR_PAD_LEFT);
             $sechdeule_routing->save();
-            foreach ($request->test_method_id[$sample_point] as $key => $test_method_id) {
-                $schedule_routine_items = $sechdeule_routing->sample_routine_scheduler_items()->create([
-                    'sample_id' => $request->sample_points[$index],
-                    'plant_id' => $request->plant_id,
-                    'sub_plant_id' => $request->sub_plant_id,
-                    'frequency_id' => ($request->input("frequency_id-$sample_point-$test_method_id")) ? $request->input("frequency_id-$sample_point-$test_method_id") : null,
-                    'schedule_hour' => ($request->input("schedule_hour-$sample_point-$test_method_id")) ? $request->input("frequency_id-$sample_point-$test_method_id") : null,
-                    'test_method_ids' => $test_method_id,
-                ]);
+            if (isset($request->test_method_id[$sample_point])) {
+                foreach ($request->test_method_id[$sample_point] as $key => $test_method_id) {
+                    $schedule_routine_items = $sechdeule_routing->sample_routine_scheduler_items()->create([
+                        'sample_id'       => $request->sample_points[$index],
+                        'plant_id'        => $request->plant_id,
+                        'sub_plant_id'    => $request->sub_plant_id,
+                        'frequency_id'    => ($request->input("frequency_id-$sample_point-$test_method_id")) ? $request->input("frequency_id-$sample_point-$test_method_id") : null,
+                        'schedule_hour'   => ($request->input("schedule_hour-$sample_point-$test_method_id")) ? $request->input("frequency_id-$sample_point-$test_method_id") : null,
+                        'test_method_ids' => $test_method_id,
+                    ]);
+                }
             }
         }
 
-        return redirect()->route('admin.submission.schedule')->with('success', __('general.created_successfully'));
+        return redirect()->route('admin.submission.schedule')->with('success', translate('created_successfully'));
+         }catch(Exception $e){
+        return back()->with('error' ,  $e->getMessage());
+    }
     }
 
+    public function edit($id)
+    {
+    $schedule_routing = SampleRoutineScheduler::with('sample_routine_scheduler_items')->findOrFail($id);
+      $plants      = Plant::select('id', 'name', 'plant_id')->whereNull('plant_id')->get();
+        $frequencies = Frequency::select('id', 'name')->get();
+        $data        = [
+            'plants'      => $plants,
+            'frequencies' => $frequencies,
+            'schedule_routing' => $schedule_routing,
+        ];
+     return view('second_part.schedule.edit' , $data);
 
+    }
 
+    public function update(Request $request , $id){
+        $schedule_routing = SampleRoutineScheduler::findOrFail($id);
+        
+        try{
+        foreach($schedule_routing->sample_routine_scheduler_items  as $sample_routine_scheduler_items ){
+            // Log::info($sample_routine_scheduler_items->id);
+            if(isset($request->test_method_id[$sample_routine_scheduler_items->id])){
+                $sample_routine_scheduler_items->update([
+                    'frequency_id'          => $request->frequency_id[$sample_routine_scheduler_items->id],
+                    'schedule_hour'          => $request->schedule_hour[$sample_routine_scheduler_items->id], 
+                ]);
+            }else{
+                $sample_routine_scheduler_items->delete();
+            }
+        }
 
+        return to_route('admin.submission.schedule')->with('success' , translate('updated_successfully'));
+    }catch(Exception $e){
+        return back()->with('error' ,  $e->getMessage());
+    }
+    }
+    public function delete($id)
+    {
+        $schedule_routing = SampleRoutineScheduler::findOrFail($id);
+        $schedule_routing->sample_routine_scheduler_items()->delete();
+        $schedule_routing->delete();
+        return back()->with('success', translate('deleted_successfully'));
 
-
-
-
-
-
+    }
 
     public function get_sample_by_plant_id($id)
     {

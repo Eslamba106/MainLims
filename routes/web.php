@@ -106,6 +106,9 @@
         Route::get('/schedule', [SampleRoutineSchedulerController::class, 'index'])->name('admin.submission.schedule');
         Route::get('/schedule/create', [SampleRoutineSchedulerController::class, 'create'])->name('admin.submission.schedule.create');
         Route::post('/schedule/create', [SampleRoutineSchedulerController::class, 'store'])->name('admin.submission.schedule.store');
+        Route::get('/schedule/delete/{id}', [SampleRoutineSchedulerController::class, 'delete'])->name('admin.submission.schedule.delete');
+        Route::get('/schedule/edit/{id}', [SampleRoutineSchedulerController::class, 'edit'])->name('admin.submission.schedule.edit');
+        Route::patch('/schedule/update/{id}', [SampleRoutineSchedulerController::class, 'update'])->name('admin.submission.schedule.update');
         Route::get('/schedule/get_sample_by_plant_id/{id}', [SampleRoutineSchedulerController::class, 'get_sample_by_plant_id'])->name('admin.submission.schedule.get_sample_by_plant_id');
 
     });

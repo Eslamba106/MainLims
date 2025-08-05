@@ -160,12 +160,12 @@
 
                                 <td class="text-center">
                                     @can('delete_submission')
-                                        <a href="{{ route('admin.submission.delete', $submission_item->id) }}"
+                                        <a href="{{ route('admin.submission.schedule.delete', $submission_item->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
                                     @can('edit_submission')
-                                        <a href="{{ route('admin.submission.edit', $submission_item->id) }}"
+                                        <a href="{{ route('admin.submission.schedule.edit', $submission_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
