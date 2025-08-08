@@ -46,6 +46,6 @@ class Submission extends Model
     }
     public function result()
     {
-        return $this->hasMany(Result::class, 'submission_id' , 'id');
+        return $this->belongsTo(Result::class, 'submission_id' , 'id');
     }
 }

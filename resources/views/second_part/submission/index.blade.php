@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
     <form action="" method="get">
 
         <div class="col-12">
@@ -45,17 +45,17 @@
                         @can('change_submissions_role')
                             <div class="remv_control mr-2">
                                 <select name="role" class="mr-3 mt-3 form-control">
-                                    <option value="">{{ __('roles.set_role') }}</option> 
-                                    <option value="pending">{{ $item_role->name }}</option> 
+                                    <option value="">{{ __('roles.set_role') }}</option>
+                                    <option value="pending">{{ $item_role->name }}</option>
                                 </select>
                             </div>
-                       
-                        
-                        <button type="submit" name="bulk_action_btn" value="update_status"
-                            class="btn btn-primary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{ __('dashboard.update') }}
-                        </button>
-                         @endcan
+
+
+                            <button type="submit" name="bulk_action_btn" value="update_status"
+                                class="btn btn-primary mt-3 mr-2">
+                                <i class="la la-refresh"></i> {{ __('dashboard.update') }}
+                            </button>
+                        @endcan
                         @can('delete_submission')
                             <button type="submit" name="bulk_action_btn" value="delete"
                                 class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
@@ -144,12 +144,11 @@
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
                                     @if (isset($submission_item->result))
-                                        
-                                    
-                                    @can('create_result')
-                                        <a href="{{ route('admin.result.create', [$submission_item->id ,'submission']) }}"
-                                            class="btn btn-outline-warning text-dark btn-sm" title="@lang('results.add_result')">@lang('results.add_result')</a>
-                                    @endcan
+                                        @can('create_result')
+                                            <a href="{{ route('admin.result.create', [$submission_item->id, 'submission']) }}"
+                                                class="btn btn-outline-warning text-dark btn-sm"
+                                                title="@lang('results.add_result')">@lang('results.add_result')</a>
+                                        @endcan
                                     @endif
                                 </td>
                             </tr>
