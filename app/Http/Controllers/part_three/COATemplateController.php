@@ -13,7 +13,7 @@ class COATemplateController extends Controller
 {
     public function template_designer()
     {
-        $temp = COASettings::select('id', 'name', 'value')->with('samples' , 'samples.sample_plant')->get();
+        $temp = COASettings::select('id', 'name', 'value')->get();
         $data = [
             'temp' => $temp,
         ];
