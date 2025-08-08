@@ -126,8 +126,8 @@ class TestMethodController extends Controller
 
         ]);
 
-        DB::beginTransaction();
-        try {
+        // DB::beginTransaction();
+        // try {
 
             $testMethod->update([
                 'name' => $request->name,
@@ -157,20 +157,20 @@ class TestMethodController extends Controller
                         'precision' => $request->precision[$index] ?? null,
                         'lower_range' => $request->lower_range[$index] ?? null,
                         'upper_range' => $request->upper_range[$index] ?? null,
-                        'reportable' => isset($request->reportable[$index]) ? 1 : 0,
+                        'reportable' => isset($request->reportable[$index]) ?? 0,
                     ]);
                 }
             }
 
-            DB::commit();
-            return redirect()->route('admin.test_method')
-                ->with('success', __('general.updated_successfully'));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()
-                ->with('error', __('general.something_went_wrong'))
-                ->withInput();
-        }
+        //     DB::commit();
+        //     return redirect()->route('admin.test_method')
+        //         ->with('success', __('general.updated_successfully'));
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()
+        //         ->with('error', __('general.something_went_wrong'))
+        //         ->withInput();
+        // }
     }
     public function delete_component($id)
     {
