@@ -63,7 +63,7 @@ class ResultController extends Controller
                 $q->Where('result_no', 'like', "%{$value}%")
                     ->orWhere('id', $value);
             }
-        })->where('status', '!=','pending')->orWhere('status', 'result')
+        })->where('status', '!=', 'pending')->orWhere('status', 'result')
             ->latest()->orderBy('created_at', 'asc')->paginate()->appends($query_param);
         if ($request->bulk_action_btn === 'filter') {
             $data         = ['status' => 1];
@@ -93,6 +93,14 @@ class ResultController extends Controller
 
         $result = Result::findOrFail($id);
         return view('part_three.results.result_show', compact('result'));
+    }
+    public function edit($id)
+    {
+        $units = Unit::select('id', 'name')->get(); 
+            $sample = Submission::with('plant', 'master_sample', 'sub_plant', 'sample_main', 'sample', 'submission_test_method_items' , 'result')->findOrFail($id);
+        
+        $recent_results = Result::where('sample_id', $sample->master_sample?->id)->latest()->limit(3)->get();        
+        return view('part_three.results.edit', compact('sample'));
     }
     public function review($id)
     {

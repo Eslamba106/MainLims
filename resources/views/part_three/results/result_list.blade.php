@@ -134,11 +134,11 @@
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
-                                    @can('edit_result')
+                                    {{-- @can('edit_result')
                                         <a href="{{ route('admin.result.edit', $result_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
-                                    @endcan
+                                    @endcan --}}
                                     @if ($result_item->status == 'pending')
                                         
                                    
