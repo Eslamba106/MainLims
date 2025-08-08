@@ -144,7 +144,7 @@
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
                                     {{-- {{ dd($submission_item->result) }} --}}
-                                    @if (isset($submission_item->result))
+                                    @if (!isset($submission_item->result))
                                         @can('create_result')
                                             <a href="{{ route('admin.result.create', [$submission_item->id, 'submission']) }}"
                                                 class="btn btn-outline-warning text-dark btn-sm"
