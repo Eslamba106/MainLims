@@ -70,7 +70,7 @@
                         @endcan
                         @can('create_sample')
                             <a href="{{ route('admin.sample.create') }}" class="btn btn-secondary mt-3 mr-2">
-                                <i class="la la-refresh"></i> {{ __('dashboard.create') }}
+                                <i class="la la-refresh"></i> {{ translate('assign_test_to_the_sample') }}
                             </a>
                         @endcan
                     </div>
