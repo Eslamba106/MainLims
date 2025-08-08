@@ -8,6 +8,8 @@ use App\Models\SamplePlant;
 use App\Models\SampleTestMethod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\part_three\Result;
+
 
 class Submission extends Model
 {
@@ -41,5 +43,9 @@ class Submission extends Model
     public function submission_test_method_items()
     {
         return $this->hasMany(SubmissionItem::class, 'submission_id' , 'id');
+    }
+    public function result()
+    {
+        return $this->hasMany(Result::class, 'submission_id' , 'id');
     }
 }
