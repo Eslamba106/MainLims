@@ -1,18 +1,19 @@
 <?php
 namespace App\Http\Controllers\part_three;
 
-use App\Http\Controllers\Controller;
-use App\Models\COATemplate;
 use App\Models\Sample;
-use Brian2694\Toastr\Facades\Toastr;
+use App\Models\COASettings;
+use App\Models\COATemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class COATemplateController extends Controller
 {
     public function template_designer()
     {
-        $temp = COATemplate::select('id', 'name', 'value')->with('samples' , 'samples.sample_plant')->get();
+        $temp = COASettings::select('id', 'name', 'value')->with('samples' , 'samples.sample_plant')->get();
         $data = [
             'temp' => $temp,
         ];
