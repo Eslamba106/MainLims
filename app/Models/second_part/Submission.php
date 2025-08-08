@@ -44,7 +44,7 @@ class Submission extends Model
     {
         return $this->hasMany(SubmissionItem::class, 'submission_id', 'id');
     }
-    public function result()
+    public function result() 
     {
         return $this->hasOne(Result::class, 'submission_id', 'id');
     }

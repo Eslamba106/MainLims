@@ -143,6 +143,7 @@
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
+                                    {{ dd($submission_item->result) }}
                                     @if ($submission_item->result)
                                         @can('create_result')
                                             <a href="{{ route('admin.result.create', [$submission_item->id, 'submission']) }}"
