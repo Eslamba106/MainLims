@@ -58,9 +58,9 @@ return [
 
     // 'asset_url' => env('ASSET_URL', 'http://localhost/MainLims/'),
 
-    'url' => env('APP_URL', 'https://lims.ozelsoufiaclinic.com/'),
+    'url' => env('APP_URL', 'https://lims.y-codex.org'),
 
-    'asset_url' =>   'https://lims.ozelsoufiaclinic.com/' ,
+    'asset_url' =>   'https://lims.y-codex.org/public/' ,
 
     /*
     |--------------------------------------------------------------------------
