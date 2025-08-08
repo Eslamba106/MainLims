@@ -74,7 +74,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                @if ($route = 'frequency')
+                                @if ($route == 'frequency')
                                     <div class="col-md-6 col-lg-6 col-xl-6">
 
                                         <div class="form-group">
