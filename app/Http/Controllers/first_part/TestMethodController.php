@@ -126,8 +126,8 @@ class TestMethodController extends Controller
 
         ]);
 
-        // DB::beginTransaction();
-        // try {
+        DB::beginTransaction();
+        try {
 
             $testMethod->update([
                 'name' => $request->name,
@@ -162,15 +162,15 @@ class TestMethodController extends Controller
                 }
             }
 
-        //     DB::commit();
-        //     return redirect()->route('admin.test_method')
-        //         ->with('success', __('general.updated_successfully'));
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()
-        //         ->with('error', __('general.something_went_wrong'))
-        //         ->withInput();
-        // }
+            DB::commit();
+            return redirect()->route('admin.test_method')
+                ->with('success', __('general.updated_successfully'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->with('error', __('general.something_went_wrong'))
+                ->withInput();
+        }
     }
     public function delete_component($id)
     {
