@@ -112,10 +112,10 @@
 
 
                                 <td class="text-center">
-                                    @can('delete_sample')
+                                    {{-- @can('delete_sample')
                                         <a href="{{ route('admin.sample.add_test_method', $sample_item->id) }}"
                                             class="btn btn-success btn-sm">{{ translate('add_Component') }}</a>
-                                    @endcan
+                                    @endcan --}}
                                     @can('delete_sample')
                                         <a href="{{ route('admin.sample.add_test_method', $sample_item->id) }}"
                                             class="btn btn-success btn-sm">{{ translate('add_Test_Method') }}</a>
