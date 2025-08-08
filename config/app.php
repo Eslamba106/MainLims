@@ -60,7 +60,7 @@ return [
 
     'url' => env('APP_URL', 'https://lims.y-codex.org'),
 
-    'asset_url' =>   'https://lims.y-codex.org/public/' ,
+    'asset_url' =>   'https://lims.y-codex.org/' ,
 
     /*
     |--------------------------------------------------------------------------
