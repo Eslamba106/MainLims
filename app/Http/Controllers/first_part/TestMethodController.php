@@ -143,7 +143,7 @@ class TestMethodController extends Controller
                     'precision' => $request->input("precision-$item_id") ?? null,
                     'lower_range' => $request->input("lower_range-$item_id") ?? null,
                     'upper_range' => $request->input("upper_range-$item_id") ?? null,
-                    'reportable' => ($request->has("reportable-$item_id")) ?? 0,
+                    'reportable' => ($request->has("reportable-$item_id"))  ? '1' : '0',
                 ]);
             }
 
@@ -157,7 +157,7 @@ class TestMethodController extends Controller
                         'precision' => $request->precision[$index] ?? null,
                         'lower_range' => $request->lower_range[$index] ?? null,
                         'upper_range' => $request->upper_range[$index] ?? null,
-                        'reportable' => isset($request->reportable[$index]) ?? 0,
+                        'reportable' => isset($request->reportable[$index]) ? '1' : '0',
                     ]);
                 }
             }
