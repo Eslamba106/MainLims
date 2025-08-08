@@ -63,7 +63,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.sample') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('all_samples') }}</span>
+                                        <span class="hide-menu">{{ translate('assign_test_to_the_samples')}}</span>
                                     </a>
                                 </li>
                             @endcan
