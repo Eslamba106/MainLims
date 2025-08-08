@@ -7,13 +7,13 @@
     $submission = $segments[count($segments) - 2];
     ?>
 
-    {{ __('roles.submission_managment') }}
+    {{ translate('submission_managment') }}
 @endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">{{ __('roles.submission_managment') }}</h4>
+                <h4 class="page-title">{{ translate('submission_managment') }}</h4>
                 <div class="d-flex align-items-center">
 
                 </div>
@@ -23,9 +23,9 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('dashboard') }}">{{ __('dashboard.home') }} </a>
+                                <a href="{{ route('dashboard') }}">{{ translate('home') }} </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ __('dashboard.dashboard') }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ translate('dashboard') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -38,10 +38,10 @@
 
                 <div class="d-flex justify-content-between align-items-center" style="gap: 20px;">
                     <p class="text-capitalize mb-0">
-                        {{ __('samples.sample_id') }} : {{ $sample->submission_number }}
+                        {{ translate('sample_id') }} : {{ $sample->submission_number }}
                     </p>
                     <p class="text-capitalize mb-0">
-                        {{ __('results.collection_date') }} :
+                        {{ translate('collection_date') }} :
                         {{ \Carbon\Carbon::parse($sample->sampling_date_and_time)->format('M d, Y h:i A') }}
                     </p>
                 </div>
@@ -82,7 +82,7 @@
                                 {{-- @foreach ($item_test_method->sample_test_method as $sample_test_method_item)  --}}
                                 <div class="row">
                                     <div class="col-md-6 col-lg-2 col-xl-3">
-                                        <span class="title-color break-all"> {{ __('test_method.component') }} :
+                                        <span class="title-color break-all"> {{ translate('component') }} :
                                             <strong> </strong></span>
 
                                         <div class="form-group">
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <span class="title-color break-all"> {{ __('results.result') }} :
+                                        <span class="title-color break-all"> {{ translate('result') }} :
                                             <strong> </strong></span>
 
                                         <div class="form-group">
@@ -110,7 +110,7 @@
 
 
                                     <div class="col-md-3 col-lg-2 col-xl-3">
-                                        <span class="title-color break-all"> {{ __('test_method.unit') }} :
+                                        <span class="title-color break-all"> {{ translate('unit') }} :
                                             <strong> </strong></span>
                                         @php
                                             $main_unit = $units->find($sample_test_method_item->test_method_item->unit);
@@ -124,13 +124,13 @@
                                         @enderror
                                     </div>
                                     {{-- <div class="col-md-3 col-lg-2 col-xl-3">
-                                        <span class="title-color break-all"> {{ __('roles.status') }} :
+                                        <span class="title-color break-all"> {{ translate('roles.status') }} :
                                             <strong> </strong></span>
 
                                         <span class="badge bg-success"><i class="fa-solid fa-check-circle me-1"></i>
-                                            {{ __('results.in_range') }}</span>
+                                            {{ translate('results.in_range') }}</span>
                                         {{-- <span class="badge bg-danger"><i class="fa-solid fa-xmark-circle me-1"></i>
-                                        {{ __('results.out_of_range') }}</span> 
+                                        {{ translate('results.out_of_range') }}</span> 
                                     </div> --}}
 
 
@@ -189,7 +189,7 @@
                         @else
                             <div class="card-body">
                                 <div class="media align-items-center">
-                                    <span>{{ __('login.user_not_found') }}</span>
+                                    <span>{{ translate('user_not_found') }}</span>
                                 </div>
                             </div>
                         @endif
@@ -204,23 +204,23 @@
         <div class="row gx-2 gy-3 m-2">
             <div class="col-lg-6 col-xl-6">
                 <div class="from-group">
-                    <label for="">{{ __('results.internal_comment') }}</label>
+                    <label for="">{{ translate('internal_comment') }}</label>
                     <textarea name="internal_comment" class="form-control"
-                        placeholder="{{ __('results.add_internal_notes_visible_only_to_lab_staff') }}"></textarea>
+                        placeholder="{{ translate('add_internal_notes_visible_only_to_lab_staff') }}"></textarea>
                 </div>
             </div>
             <div class="col-lg-6 col-xl-6">
                 <div class="from-group">
-                    <label for="">{{ __('results.external_comment') }}</label>
+                    <label for="">{{ translate('external_comment') }}</label>
                     <textarea name="external_comment" class="form-control"
-                        placeholder="{{ __('results.add_comments_visibley_to_clients') }}"></textarea>
+                        placeholder="{{ translate('add_comments_visibley_to_clients') }}"></textarea>
                 </div>
             </div>
         </div>
         <div>
             <div class="form-group mt-2"
                 @if (session()->get('locale') == 'ar') style="text-align: left;" @else style="text-align: right;" @endif>
-                <button type="submit" class="btn btn-primary mt-2">{{ __('results.add_result') }}</button>
+                <button type="submit" class="btn btn-primary mt-2">{{ translate('add_result') }}</button>
             </div>
         </div>
     </form>
@@ -228,7 +228,7 @@
         <!-- Card -->
         <div class="card">
             <div class="card-header">
-                <h4>{{ __('results.recent_results') }}</h4>
+                <h4>{{ translate('results.recent_results') }}</h4>
             </div>
             <div class="card-body ">
 
@@ -240,7 +240,7 @@
                                 <thead>
                                     <tr>
                                         <th><input class="bulk_check_all" type="checkbox" /></th>
-                                        <th class="text-center" scope="col">{{ __('samples.sample_id') }}</th>
+                                        <th class="text-center" scope="col">{{ translate('samples.sample_id') }}</th>
                                         <th class="text-center" scope="col">@lang('results.collection_date')</th>
                                     </tr>
                                 </thead>
