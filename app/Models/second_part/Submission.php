@@ -18,7 +18,7 @@ class Submission extends Model
     protected $guarded = ['id'];
     public function plant()
     {
-        return $this->belongsTo(Plant::class , 'plant_id');
+        return $this->belongsTo(Plant::class, 'plant_id');
     }
     public function sub_plant()
     {
@@ -42,10 +42,10 @@ class Submission extends Model
     }
     public function submission_test_method_items()
     {
-        return $this->hasMany(SubmissionItem::class, 'submission_id' , 'id');
+        return $this->hasMany(SubmissionItem::class, 'submission_id', 'id');
     }
     public function result()
     {
-        return $this->belongsTo(Result::class, 'submission_id' , 'id');
+        return $this->hasOne(Result::class, 'submission_id', 'id');
     }
 }
