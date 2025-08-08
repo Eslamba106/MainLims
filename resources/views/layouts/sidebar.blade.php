@@ -183,12 +183,12 @@
                                         <span class="hide-menu">{{ translate('template_Designer_List') }}</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
-                                    <a href="{{ route('admin.add_template_designer') }}" class="sidebar-link">
+                                {{-- <li class="sidebar-item">
+                                    <a href="{{ route('admin.template_list') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('add_template_designer') }}</span>
+                                        <span class="hide-menu">{{ translate('master_template_list') }}</span>
                                     </a>
-                                </li>
+                                </li> --}}
                            
                         </ul>
                     </li>

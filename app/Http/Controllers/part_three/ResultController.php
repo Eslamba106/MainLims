@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\part_three;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Models\Client;
+use App\Models\Sample;
 use App\Models\part\Unit;
+use Illuminate\Http\Request;
 use App\Models\part_three\Result;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\second_part\Submission;
 use App\Models\part_three\ResultTestMethod;
 use App\Models\part_three\ResultTestMethodItem;
-use App\Models\Sample;
 use App\Models\second_part\SampleRoutineScheduler;
-use App\Models\second_part\Submission;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ResultController extends Controller
 {
@@ -45,9 +46,12 @@ class ResultController extends Controller
             }
             $results = $report_query->orderBy('created_at', 'desc')->paginate();
         }
+        $clients = Client::select('id', 'name')->get();
+
         $data = [
             'results' => $results,
             'search'  => $search,
+            'clients'  => $clients,
 
         ];
         return view("part_three.results.result_list", $data);
@@ -81,9 +85,11 @@ class ResultController extends Controller
             }
             $results = $report_query->orderBy('created_at', 'desc')->paginate();
         }
+        $clients = Client::select('id', 'name')->get();
         $data = [
             'results' => $results,
             'search'  => $search,
+            'clients'  => $clients,
 
         ];
         return view("part_three.results.result_list", $data);
@@ -96,16 +102,16 @@ class ResultController extends Controller
     }
     public function edit($id)
     {
-        $units = Unit::select('id', 'name')->get(); 
-            $sample = Submission::with('plant', 'master_sample', 'sub_plant', 'sample_main', 'sample', 'submission_test_method_items' , 'result')->findOrFail($id);
-        
-        $recent_results = Result::where('sample_id', $sample->master_sample?->id)->latest()->limit(3)->get();        
+        $units = Unit::select('id', 'name')->get();
+        $sample = Submission::with('plant', 'master_sample', 'sub_plant', 'sample_main', 'sample', 'submission_test_method_items', 'result')->findOrFail($id);
+
+        $recent_results = Result::where('sample_id', $sample->master_sample?->id)->latest()->limit(3)->get();
         return view('part_three.results.edit', compact('sample'));
     }
     public function review($id)
     {
-
         $result = Result::with('result_test_method', 'result_test_method.result_test_method_child')->whereId($id)->first();
+
         return view('part_three.results.review', compact('result'));
     }
     public function destroy($id)

@@ -106,33 +106,28 @@
                         <form action="{{ route('admin.assign_template_designer') }}" method="Post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-<div class="form-group col-6">
-    <label class="form-label">{{ translate('sample') }}</label>
+                            <div class="form-group col-6">
+                                <label class="form-label">{{ translate('sample') }}</label>
 
-    @foreach ($samples as $sample_item)
-        <div class="form-check">
-            <input 
-                class="form-check-input @error('sample_id') is-invalid @enderror"
-                type="checkbox" 
-                name="sample_id[]" 
-                id="sample_{{ $sample_item->id }}"
-                value="{{ $sample_item->id }}"
-                required
-            >
-            <label class="form-check-label" for="sample_{{ $sample_item->id }}">
-                {{ $sample_item->sample_plant->name }}
-            </label>
-        </div>
-    @endforeach
+                                @foreach ($samples as $sample_item)
+                                    <div class="form-check">
+                                        <input class="form-check-input @error('sample_id') is-invalid @enderror"
+                                            type="checkbox" name="sample_id[]" id="sample_{{ $sample_item->id }}"
+                                            value="{{ $sample_item->id }}"  >
+                                        <label class="form-check-label" for="sample_{{ $sample_item->id }}">
+                                            {{ $sample_item->sample_plant->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
 
-    @error('sample_id')
-        <div class="invalid-feedback d-block">
-            {{ $message }}
-        </div>
-    @enderror
+                                @error('sample_id')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
 
-    <input type="hidden" name="coa_temp_id" value="{{ $id }}">
-</div>
+                                <input type="hidden" name="coa_temp_id" value="{{ $id }}">
+                            </div>
 
                             {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

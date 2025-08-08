@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
             $table->integer('result_id');
-            $table->integer('sample_id');
-            $table->string('authorized_id');
-            $table->integer('temp_id');
+            $table->integer('sample_id')->nullable();
+            $table->string('authorized_id')->nullable();
+            $table->integer('temp_id')->nullable();
+            $table->integer('generated_by')->nullable();
             $table->string('client')->nullable();
             $table->date('generated_Date')->nullable();
             $table->string('coa_number')->nullable();

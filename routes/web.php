@@ -17,6 +17,8 @@
     use App\Http\Controllers\part_three\COATemplateController;
     use App\Http\Controllers\second_part\SubmissionController;
     use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
+use App\Models\Certificate;
+use App\Http\Controllers\CertificateController;
 
     /*
     |--------------------------------------------------------------------------
@@ -135,6 +137,7 @@
     Route::group(['prefix' => 'cao'], function () {
 
         Route::get('/', [COATemplateController::class, 'template_designer'])->name('admin.template_designer');
+        Route::get('/template_list', [COATemplateController::class, 'template_list'])->name('admin.template_list');
         Route::post('/coa_settings', [COATemplateController::class, 'coa_settings'])->name('coa_settings.store');
         Route::get('update-default-status', [COATemplateController::class, 'update_default_status'])->name('coa_settings.update-default-status');
         Route::get('edit/{id}', [COATemplateController::class, 'edit_template_designer'])->name('coa_settings.edit');
@@ -247,6 +250,16 @@
         Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
         Route::patch('/update/{id}', [ClientController::class, 'update'])->name('client.update');
         Route::get('/delete/{id}', [ClientController::class, 'delete'])->name('client.delete');
+
+    });
+    // Client Managment
+    Route::group(['prefix' => 'certificate'], function () {
+
+        Route::get('/', [CertificateController::class, 'index'])->name('certificate.list'); 
+        Route::post('/create', [CertificateController::class, 'store'])->name('certificate.store');
+        Route::get('/edit/{id}', [CertificateController::class, 'edit'])->name('certificate.edit');
+        Route::patch('/update/{id}', [CertificateController::class, 'update'])->name('certificate.update');
+        Route::get('/delete/{id}', [CertificateController::class, 'delete'])->name('certificate.delete');
 
     });
 

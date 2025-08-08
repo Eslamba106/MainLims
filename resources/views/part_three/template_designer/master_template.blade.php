@@ -65,7 +65,7 @@
                                 class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
                                 {{ translate('delete') }}</button>
                         @endcan
-                         @can('create_coa')
+                        @can('create_coa')
                             <a href="{{ route('admin.add_template_designer') }}" class="btn btn-secondary mt-3 mr-2">
                                 <i class="la la-refresh"></i> {{ translate('create') }}
                             </a>
@@ -78,9 +78,8 @@
                     <thead>
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
-                            <th class="text-center" scope="col">{{ translate('tamplate_Name') }}</th>
-                            <th class="text-center" scope="col">{{ translate('assigned_Sample_Point') }}</th>
-                            <th class="text-center" scope="col">{{ translate('actions') }}</th>
+                            <th class="text-center" scope="col">{{ translate('tamplate_Name') }}</th> 
+                            <th class="text-center" scope="col">{{ translate('action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,23 +94,9 @@
                                 </th>
 
                                 <td class="text-center">{{ $temp_item->name }} </td>
-                                <td class="text-center">
-                                    @foreach ($temp_item->samples as $sample_item)
-                                        
-                                    {{ $sample_item->sample_plant->name  }} - 
-                                    @endforeach
-                                
-                                </td>
-                                {{-- <td class="text-center">{{ $result_item->priority  }} </td> --}}
+                               
                                 {{-- <td class="text-center"> --}}
-                                   {{-- {{ $temp_item->status ? translate('active') : translate('inactive') }} --}}
-                                    {{-- <form
-                                        action="{{ route('coa_settings.update-default-status' ) }}"
-                                        method="GET" id="language_default_id_{{ $temp_item->id }}_form"
-                                        class="language_default_id_form">
-                                        @csrf
-                                        <input type="hidden" name="temp_id" value="{{ $temp_item->id }}">
-                                        <label class="form-check
+                                    
                                     {{-- <form
                                         action="{{ route('coa_settings.update-default-status' ) }}"
                                         method="GET" id="language_default_id_{{ $temp_item->id }}_form"
@@ -128,7 +113,8 @@
                                                 >
                                             <span class="switcher_control"></span>
                                         </label>
-                                    </form>  --}}
+                                    </form> --}}
+                                    {{-- @endif --}}
                                 {{-- </td> --}}
 
 
@@ -173,31 +159,30 @@
 @endsection
 @section('js')
     <script>
-        
         // Call the dataTables jQuery plugin
-        // $(document).ready(function() {
-        //     $('#dataTable').DataTable();
-        // });
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
 
-        // $('.language_default_id_form').on('click', function(event) {
-        //     event.preventDefault();
-        //     console.log("dfg");
-        //     $.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        //         }
-        //     });
-        //     $.ajax({
-        //         url: "{{ route('coa_settings.update-default-status') }}",
-        //         method: 'GET',
-        //         data: $(this).serialize(),
-        //         success: function(data) {
-        //             toastr.success('{{ translate('status_updated_successfully') }}');
-        //             setTimeout(() => {
-        //                 location.reload();
-        //             }, 1000);
-        //         }
-        //     });
-        // });
+        $('.language_default_id_form').on('click', function(event) {
+            event.preventDefault();
+            console.log("dfg");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('coa_settings.update-default-status') }}",
+                method: 'GET',
+                data: $(this).serialize(),
+                success: function(data) {
+                    toastr.success('{{ translate('status_updated_successfully') }}');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }
+            });
+        });
     </script>
 @endsection

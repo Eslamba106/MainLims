@@ -1,23 +1,30 @@
 <?php
 namespace App\Http\Controllers\part_three;
 
-use App\Models\Sample;
-use App\Models\COASettings;
+use App\Http\Controllers\Controller;
 use App\Models\COATemplate;
+use App\Models\Sample;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Brian2694\Toastr\Facades\Toastr;
 
 class COATemplateController extends Controller
 {
     public function template_designer()
     {
-        $temp = COASettings::select('id', 'name', 'value')->get();
+        $temp = COATemplate::select('id', 'name', 'value')->with('samples' , 'samples.sample_plant')->get();
         $data = [
             'temp' => $temp,
         ];
         return view('part_three.template_designer.template', $data);
+    }
+    public function template_list()
+    {
+        $temp = COATemplate::select('id', 'name', 'value')->with('samples' , 'samples.sample_plant')->get();
+        $data = [
+            'temp' => $temp,
+        ];
+        return view('part_three.template_designer.master_template', $data);
     }
     public function add_template_designer()
     {
@@ -217,6 +224,7 @@ class COATemplateController extends Controller
         ]));
         // dd($data);
         $temp->update($data);
+        
 
         return to_route('admin.template_designer')->with('success', __('general.updated_successfully'));
     }

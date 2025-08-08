@@ -27,9 +27,6 @@
             </div>
         </div>
     </div>
-    {{-- @if (session()->has('locale'))
-    {{ dd(session()->get('locale') ) }}
-@endif --}}
 
     <form action="" method="get">
 
@@ -37,7 +34,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="input-group mb-3 d-flex justify-content-end">
-                      
+
                         @can('change_results_role')
                             <div class="remv_control mr-2">
                                 <select name="role" class="mr-3 mt-3 form-control">
@@ -140,20 +137,21 @@
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan --}}
                                     @if ($result_item->status == 'pending')
-                                        
-                                   
-                                    @can('edit_result')
-                                        <a href="{{ route('admin.result.confirm_results', $result_item->id) }}"
-                                            class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i
-                                                class="mdi mdi-check"></i> </a>
-                                    @endcan
-                                     @endif
+                                        @can('edit_result')
+                                            <a href="{{ route('admin.result.confirm_results', $result_item->id) }}"
+                                                class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i
+                                                    class="mdi mdi-check"></i> </a>
+                                        @endcan
+                                    @endif
                                     @can('edit_result')
                                         <a href="{{ route('admin.result.review', $result_item->id) }}"
                                             class="btn btn-outline-success btn-sm" title="@lang('results.confirm_results')"><i
                                                 class="mdi mdi-file"></i> </a>
                                     @endcan
-
+                                    <a href="" class="btn btn-sm btn-outline-primary mr-2" href="#"
+                                        id="export_result" data-export="" data-toggle="modal"
+                                        data-id="{{ $result_item->id }}"
+                                        data-target="#export">{{ translate('export') }}</a>
                                 </td>
                             </tr>
                         @empty
@@ -166,4 +164,67 @@
         </div>
         </div>
     </form>
+
+    <div class="modal fade" id="export" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ translate('export_certificate') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <form action="{{ route('certificate.store') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-lg-12 col-xl-12">
+                                                    <input type="hidden" name="result_id">
+                                                    <div class="form-group">
+                                                        <label for="">{{ translate('client_name') }} <span
+                                                                class="text-danger">*</span></label>
+                                                        {{-- <input type="text" name="name" class="form-control" /> --}}
+                                                        <select name="client_id" class="form-control">
+                                                            @foreach ($clients as $client_item)
+                                                                <option value="{{ $client_item->id }}">
+                                                                    {{ $client_item->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('name')
+                                                            <span class="error text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group mt-2"
+                                                style="text-align: {{ Session::get('locale') == 'en' ? 'right;margin-right:10px' : 'left;margin-left:10px' }}">
+                                                <button type="submit"
+                                                    class="btn btn-primary mt-2">{{ translate('save') }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('js')
+    <script>
+        $(document).on('click', '#export_result', function() {
+            var result_id = $(this).data('id');
+            $('input[name="result_id"]').val(result_id);
+        });
+    </script>
 @endsection
