@@ -123,7 +123,7 @@ class TestMethodController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            
+
         ]);
 
         DB::beginTransaction();
@@ -135,7 +135,7 @@ class TestMethodController extends Controller
             ]);
 
 
-            foreach($request->item_id as $item_id){
+            foreach ($request->item_id as $item_id) {
                 DB::table('test_method_items')->where('id', $item_id)->update([
                     'name' => $request->input("item_name-$item_id"),
                     'unit' => $request->input("unit-$item_id") ?? null,
@@ -143,11 +143,11 @@ class TestMethodController extends Controller
                     'precision' => $request->input("precision-$item_id") ?? null,
                     'lower_range' => $request->input("lower_range-$item_id") ?? null,
                     'upper_range' => $request->input("upper_range-$item_id") ?? null,
-                    'reportable' => ($request->has("reportable-$item_id")) ? '1' : '0',
+                    'reportable' => ($request->has("reportable-$item_id")) ?? 0,
                 ]);
             }
 
-            if(isset($request->item_name) && count($request->item_name) > 0){
+            if (isset($request->item_name) && count($request->item_name) > 0) {
 
                 foreach ($request->item_name as $index => $name) {
                     $testMethod->test_method_items()->create([
@@ -164,23 +164,21 @@ class TestMethodController extends Controller
 
             DB::commit();
             return redirect()->route('admin.test_method')
-            ->with('success', __('general.updated_successfully'));
+                ->with('success', __('general.updated_successfully'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()
                 ->with('error', __('general.something_went_wrong'))
                 ->withInput();
         }
-
-        
     }
     public function delete_component($id)
     {
         $this->authorize('delete_test_method');
         $test_method_item = TestMethodItem::find($id);
 
-        if($test_method_item->delete()){
-        return redirect()->back()->with('success', __('general.deleted_successfully'));
+        if ($test_method_item->delete()) {
+            return redirect()->back()->with('success', __('general.deleted_successfully'));
         }
     }
     public function destroy($id)
