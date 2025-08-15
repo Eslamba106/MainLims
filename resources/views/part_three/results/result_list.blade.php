@@ -33,7 +33,59 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-3 col-xl-3">
+                            <label for="">
+                                {{ translate('sample_id') }}
+                            </label>
+                            <input type="text" name="sample_id" class="form-control ">
+
+                        </div>
+                        <div class="col-md-12 col-lg-3 col-xl-3">
+                            <label for="">
+                                {{ translate('sample_Name') }}
+                            </label>
+                            <input type="text" name="sample_name" class="form-control ">
+
+                        </div>
+                        <div class="col-md-12 col-lg-3 col-xl-3">
+                            <label for="">
+                                {{ translate('Plant') }}
+                            </label>
+                            <select name="plant_id" class="form-control">
+                                <option value="">{{ translate('select_plant')}}</option>
+                                @foreach ($plants as $plant_item)
+                                    
+                                <option value="{{ $plant_item->id }}">{{ $plant_item->name }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="col-md-12 col-lg-3 col-xl-3">
+                            <label for="">
+                                {{ translate('priority') }}
+                            </label>
+                            <select name="priority" class="form-control">
+                                <option value="">{{ translate('select_priority')}}</option> 
+                                <option value="normal">{{ translate('normal') }}</option> 
+                                <option value="critical">{{ translate('critical') }}</option> 
+                                <option value="high">{{ translate('high') }}</option> 
+                            </select>
+
+                        </div>
+                        <div class="col-md-12 col-lg-3 col-xl-3">
+                            <label for="">
+                                {{ translate('Collection_Date') }}
+                            </label>
+                            <input type="date" name="collection_date" class="form-control ">
+
+                        </div>
+                    </div>
                     <div class="input-group mb-3 d-flex justify-content-end">
+
+
+                        <button type="submit" class="btn btn-primary px-4 m-2" name="bulk_action_btn" value="filter">
+                            {{ translate('filter') }}</button>
 
                         @can('change_results_role')
                             <div class="remv_control mr-2">
@@ -54,11 +106,7 @@
                                 class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
                                 {{ __('dashboard.delete') }}</button>
                         @endcan
-                        {{-- @can('create_result')
-                            <a href="{{ route('admin.result.create') }}" class="btn btn-secondary mt-3 mr-2">
-                                <i class="la la-refresh"></i> {{ __('dashboard.create') }}
-                            </a>
-                        @endcan --}}
+
                     </div>
                 </div>
             </div>

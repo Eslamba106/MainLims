@@ -296,3 +296,8 @@ use App\Http\Controllers\CertificateController;
         Route::post('/{id}/update', [RoleController::class, 'update'])->name('roles.update');
         Route::delete('/delete', [RoleController::class, 'destroy'])->name('roles.delete');
     });
+Route::post('/call-get-status', function (Illuminate\Http\Request $request) {
+    return response()->json([
+        'status' => getStatus($request->value, $request->test_method_item_id)
+    ]);
+})->name('call-get-status');

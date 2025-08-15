@@ -1,19 +1,19 @@
 <?php
-
 namespace App\Http\Controllers\part_three;
 
-use Carbon\Carbon;
-use App\Models\Client;
-use App\Models\Sample;
-use App\Models\part\Unit;
-use Illuminate\Http\Request;
-use App\Models\part_three\Result;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\second_part\Submission;
+use App\Models\Client;
+use App\Models\part\Unit;
+use App\Models\part_three\Result;
 use App\Models\part_three\ResultTestMethod;
 use App\Models\part_three\ResultTestMethodItem;
+use App\Models\Plant;
+use App\Models\Sample;
 use App\Models\second_part\SampleRoutineScheduler;
+use App\Models\second_part\Submission;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResultController extends Controller
 {
@@ -33,26 +33,33 @@ class ResultController extends Controller
         if ($request->bulk_action_btn === 'filter') {
             $data         = ['status' => 1];
             $report_query = Result::query();
-            if ($request->booking_status && $request->booking_status != -1) {
-                $report_query->where('booking_status', $request->booking_status);
+            if ($request->sample_name && !is_null($request->sample_name)) { 
+                $report_query->whereHas('plant_sample' , function($q) use ($request) {
+                    $q->where('name' , 'LIKE' ,'%' . $request->sample_name . '%');
+                }); 
             }
-            if ($request->status && $request->status != -1) {
-                $report_query->where('status', $request->status);
+            if ($request->sample_id && !is_null($request->sample_id)) {
+                $report_query->where('submission_number', $request->sample_id);
             }
-            if ($request->from && $request->to) {
-                $startDate = Carbon::createFromFormat('d/m/Y', $request->from)->startOfDay();
-                $endDate   = Carbon::createFromFormat('d/m/Y', $request->to)->endOfDay();
-                $report_query->whereBetween('created_at', [$startDate, $endDate]);
+            if ($request->plant_id && !is_null($request->plant_id)) {
+                $report_query->where('plant_id', $request->plant_id);
             }
-            $results = $report_query->orderBy('created_at', 'desc')->paginate();
+            if ($request->collection_date && ! is_null($request->collection_date)) {
+                $report_query->whereDate('sampling_date_and_time', $request->collection_date);
+            }
+             if ($request->priority && ! is_null($request->priority)) {
+                $report_query->where('priority', $request->priority);
+            }
+            
+            $results = $report_query->where('status', 'pending')->orderBy('created_at', 'desc')->paginate();
         }
         $clients = Client::select('id', 'name')->get();
-
-        $data = [
+        $plants  = Plant::select('id', 'name')->get();
+        $data    = [
             'results' => $results,
             'search'  => $search,
-            'clients'  => $clients,
-
+            'clients' => $clients,
+            'plants'  => $plants,
         ];
         return view("part_three.results.result_list", $data);
     }
@@ -70,26 +77,35 @@ class ResultController extends Controller
         })->where('status', '!=', 'pending')->orWhere('status', 'result')
             ->latest()->orderBy('created_at', 'asc')->paginate()->appends($query_param);
         if ($request->bulk_action_btn === 'filter') {
-            $data         = ['status' => 1];
-            $report_query = Result::query();
-            if ($request->booking_status && $request->booking_status != -1) {
-                $report_query->where('booking_status', $request->booking_status);
+           $report_query = Result::query();
+          if ($request->sample_name && !is_null($request->sample_name)) { 
+                $report_query->whereHas('plant_sample' , function($q) use ($request) {
+                    $q->where('name' , 'LIKE' ,'%' . $request->sample_name . '%');
+                }); 
             }
-            if ($request->status && $request->status != -1) {
-                $report_query->where('status', $request->status);
+            if ($request->sample_id && !is_null($request->sample_id)) {
+                $report_query->where('submission_number', $request->sample_id);
             }
-            if ($request->from && $request->to) {
-                $startDate = Carbon::createFromFormat('d/m/Y', $request->from)->startOfDay();
-                $endDate   = Carbon::createFromFormat('d/m/Y', $request->to)->endOfDay();
-                $report_query->whereBetween('created_at', [$startDate, $endDate]);
+            if ($request->plant_id && !is_null($request->plant_id)) {
+                $report_query->where('plant_id', $request->plant_id);
             }
-            $results = $report_query->orderBy('created_at', 'desc')->paginate();
+            if ($request->collection_date && ! is_null($request->collection_date)) {
+                $report_query->whereDate('sampling_date_and_time', $request->collection_date);
+            }
+            if ($request->priority && ! is_null($request->priority)) {
+                $report_query->where('priority', $request->priority);
+            }
+            $results = $report_query->where('status', 'completed')->orderBy('created_at', 'desc')->paginate();
         }
+        
         $clients = Client::select('id', 'name')->get();
+        $plants  = Plant::select('id', 'name')->get();
+
         $data = [
             'results' => $results,
             'search'  => $search,
-            'clients'  => $clients,
+            'clients' => $clients,
+            'plants'  => $plants,
 
         ];
         return view("part_three.results.result_list", $data);
@@ -102,7 +118,7 @@ class ResultController extends Controller
     }
     public function edit($id)
     {
-        $units = Unit::select('id', 'name')->get();
+        $units  = Unit::select('id', 'name')->get();
         $sample = Submission::with('plant', 'master_sample', 'sub_plant', 'sample_main', 'sample', 'submission_test_method_items', 'result')->findOrFail($id);
 
         $recent_results = Result::where('sample_id', $sample->master_sample?->id)->latest()->limit(3)->get();
@@ -171,6 +187,7 @@ class ResultController extends Controller
                             'result_test_method_id' => $result_test_methods->id,
                             'result_id'             => $result->id,
                             'result'                => $request->input("result-$component-$main_test_method->test_method_id"),
+                            'status'                => $request->input(key: "status-$component-$main_test_method->test_method_id") ?? "in_range",
                             'test_method_item_id'   => $component,
                         ]);
                     }
@@ -241,7 +258,7 @@ class ResultController extends Controller
                 'acceptance_status' => 'approve',
             ]);
         }
-        $result = Result::findOrFail($test_method->result_id);
+        $result        = Result::findOrFail($test_method->result_id);
         $allNotPending = $result->result_test_method_items->every(function ($item) {
             return $item->status !== 'pending';
         });

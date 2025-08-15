@@ -93,7 +93,7 @@
                                         <span class="text-muted">#{{ $loop->index + 1 }}</span>
                                     </label>
                                 </th>
-                                <td class="text-center">{{ $submission_item->submission_number }} </td>
+                                <td class="text-center"><img src="{{ asset(main_path().'assets/images/flask_first.png') }}" alt=""> {{ $submission_item->submission_number }} </td>
                                 <td class="text-center">
                                     {{ \Carbon\Carbon::parse($submission_item->sampling_date_and_time)->format('M d, Y h:i A') }}
                                 </td>

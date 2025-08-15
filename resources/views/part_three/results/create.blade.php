@@ -101,7 +101,8 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control" style="border-radius: 5%"
                                                 name="result-{{ $sample_test_method_item->test_method_item->id . '-' . $item_test_method->sample_test_method->master_test_method->id }}"
-                                                id="result-{{ $sample_test_method_item->id }}">
+                                                id="result-{{ $sample_test_method_item->id }}"
+                                                onkeyup="get_status(this,{{ $sample_test_method_item->test_method_item_id }})" />
                                         </div>
                                         @error("result-{{ $sample_test_method_item->test_method_item->id }}")
                                             <span class="error text-danger">{{ $message }}</span>
@@ -123,17 +124,17 @@
                                             <span class="error text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    {{-- <div class="col-md-3 col-lg-2 col-xl-3">
-                                        <span class="title-color break-all"> {{ translate('roles.status') }} :
+                                    <div class="col-md-3 col-lg-2 col-xl-3">
+                                        <span class="title-color break-all"> {{ translate('status') }} :
                                             <strong> </strong></span>
 
-                                        <span class="badge bg-success"><i class="fa-solid fa-check-circle me-1"></i>
-                                            {{ translate('results.in_range') }}</span>
-                                        {{-- <span class="badge bg-danger"><i class="fa-solid fa-xmark-circle me-1"></i>
-                                        {{ translate('results.out_of_range') }}</span> 
-                                    </div> --}}
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" readonly  
+                                            name="status-{{ $sample_test_method_item->test_method_item->id . '-' . $item_test_method->sample_test_method->master_test_method->id }}" 
+                                                id="status-{{ $sample_test_method_item->test_method_item->id }}">
+                                        </div>
 
-
+                                    </div>
 
                                 </div>
                             @endforeach
@@ -150,6 +151,7 @@
 
                         <!-- Body -->
                         @if ($sample)
+                            {{-- {{ dd($item_test_method) }} --}}
                             @foreach ($item_test_method->sample_test_method->sample_test_method_items as $sample_test_method_item)
                                 <div class="card-body d-none" id="card-{{ $sample_test_method_item->id }}">
 
@@ -157,7 +159,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="p-3 rounded" style="background-color: #fff8dc;">
-                                                <small class="text-muted d-block">Warning Limit</small>
+                                                <small class="text-muted d-block">{{ translate('Warning_Limit') }}</small>
                                                 <span class="text-warning fw-bold"
                                                     id="warning_limit_type-{{ $sample_test_method_item->id }}">
                                                     @if ($sample_test_method_item->warning_limit_type == '8646')
@@ -170,7 +172,7 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <div class="p-3 rounded" style="background-color: #ffeeee;">
-                                                <small class="text-muted d-block">Action Limit</small>
+                                                <small class="text-muted d-block">{{ translate('Action_Limit') }}</small>
                                                 <span class="text-danger fw-bold"
                                                     id="action_limit_type-{{ $sample_test_method_item->id }}">
                                                     @if ($sample_test_method_item->action_limit_type == '8646')
@@ -183,6 +185,33 @@
                                                 </span>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card-body d-none" id="second_card-{{ $sample_test_method_item->id }}">
+
+                                    @php
+                                        $old_results = App\Models\part_three\ResultItem::where(
+                                            'test_method_item_id',
+                                            $sample_test_method_item->test_method_item_id,
+                                        )
+                                            ->latest('created_at')
+                                            ->take(3)
+                                            ->get();
+                                        // dd($old_results );
+                                    @endphp
+                                    <div class="row">
+                                        <small
+                                            class="text-muted d-block fw-bold ">{{ translate('recent_Results') }}</small>
+                                        @foreach ($old_results as $old_result_item)
+                                            <div class="col-md-12">
+                                                <div class="p-3 rounded" style="background-color: #fff8dc;">
+
+                                                    <span class="text-success fw-bold">
+                                                        {{ $old_result_item->result }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             @endforeach
@@ -277,16 +306,40 @@
 @endsection
 @section('js')
     <script>
+        function get_status(input, test_method_item_id) {
+            let value = input.value;
+
+            fetch("{{ route('call-get-status') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        value: value,
+                        test_method_item_id: test_method_item_id
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById(`status-${test_method_item_id}`).value = data.status;
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
+    <script>
         $(document).ready(function() {
             $('input[id^="result-"]').on('focus', function() {
                 var inputId = $(this).attr('id');
                 var uniqueId = inputId.split('-')[1];
                 $('#card-' + uniqueId).removeClass('d-none');
+                $('#second_card-' + uniqueId).removeClass('d-none');
             });
             $('input[id^="result-"]').on('blur', function() {
                 var inputId = $(this).attr('id');
                 var uniqueId = inputId.split('-')[1];
                 $('#card-' + uniqueId).addClass('d-none');
+                $('#second_card-' + uniqueId).addClass('d-none');
             });
 
         });
