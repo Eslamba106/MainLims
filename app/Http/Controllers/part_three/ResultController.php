@@ -11,7 +11,6 @@ use App\Models\Plant;
 use App\Models\Sample;
 use App\Models\second_part\SampleRoutineScheduler;
 use App\Models\second_part\Submission;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,24 +32,24 @@ class ResultController extends Controller
         if ($request->bulk_action_btn === 'filter') {
             $data         = ['status' => 1];
             $report_query = Result::query();
-            if ($request->sample_name && !is_null($request->sample_name)) { 
-                $report_query->whereHas('plant_sample' , function($q) use ($request) {
-                    $q->where('name' , 'LIKE' ,'%' . $request->sample_name . '%');
-                }); 
+            if ($request->sample_name && ! is_null($request->sample_name)) {
+                $report_query->whereHas('plant_sample', function ($q) use ($request) {
+                    $q->where('name', 'LIKE', '%' . $request->sample_name . '%');
+                });
             }
-            if ($request->sample_id && !is_null($request->sample_id)) {
+            if ($request->sample_id && ! is_null($request->sample_id)) {
                 $report_query->where('submission_number', $request->sample_id);
             }
-            if ($request->plant_id && !is_null($request->plant_id)) {
+            if ($request->plant_id && ! is_null($request->plant_id)) {
                 $report_query->where('plant_id', $request->plant_id);
             }
             if ($request->collection_date && ! is_null($request->collection_date)) {
                 $report_query->whereDate('sampling_date_and_time', $request->collection_date);
             }
-             if ($request->priority && ! is_null($request->priority)) {
+            if ($request->priority && ! is_null($request->priority)) {
                 $report_query->where('priority', $request->priority);
             }
-            
+
             $results = $report_query->where('status', 'pending')->orderBy('created_at', 'desc')->paginate();
         }
         $clients = Client::select('id', 'name')->get();
@@ -77,16 +76,16 @@ class ResultController extends Controller
         })->where('status', '!=', 'pending')->orWhere('status', 'result')
             ->latest()->orderBy('created_at', 'asc')->paginate()->appends($query_param);
         if ($request->bulk_action_btn === 'filter') {
-           $report_query = Result::query();
-          if ($request->sample_name && !is_null($request->sample_name)) { 
-                $report_query->whereHas('plant_sample' , function($q) use ($request) {
-                    $q->where('name' , 'LIKE' ,'%' . $request->sample_name . '%');
-                }); 
+            $report_query = Result::query();
+            if ($request->sample_name && ! is_null($request->sample_name)) {
+                $report_query->whereHas('plant_sample', function ($q) use ($request) {
+                    $q->where('name', 'LIKE', '%' . $request->sample_name . '%');
+                });
             }
-            if ($request->sample_id && !is_null($request->sample_id)) {
+            if ($request->sample_id && ! is_null($request->sample_id)) {
                 $report_query->where('submission_number', $request->sample_id);
             }
-            if ($request->plant_id && !is_null($request->plant_id)) {
+            if ($request->plant_id && ! is_null($request->plant_id)) {
                 $report_query->where('plant_id', $request->plant_id);
             }
             if ($request->collection_date && ! is_null($request->collection_date)) {
@@ -97,7 +96,7 @@ class ResultController extends Controller
             }
             $results = $report_query->where('status', 'completed')->orderBy('created_at', 'desc')->paginate();
         }
-        
+
         $clients = Client::select('id', 'name')->get();
         $plants  = Plant::select('id', 'name')->get();
 
@@ -157,26 +156,28 @@ class ResultController extends Controller
         ]);
         $sample     = Sample::where('id', $request->sample_id)->first();
         $submission = Submission::where('id', $request->submission_id)->first();
-        // dd($request->all());
         DB::beginTransaction();
         try {
-            $result = Result::create([
-                'sample_id'              => $request->sample_id,
-                'submission_id'          => $request->submission_id,
-                'plant_id'               => $sample->plant_id,
-                'sub_plant_id'           => ($sample->sub_plant_id) ? $sample->sub_plant_id : null,
-                'plant_sample_id'        => $sample->plant_sample_id,
-                'priority'               => $submission->priority,
-                'sampling_date_and_time' => $submission->sampling_date_and_time ? $submission->sampling_date_and_time : null,
-                'internal_comment'       => $request->internal_comment,
-                'external_comment'       => $request->external_comment,
-                'submission_number'      => $submission->submission_number,
-                'status'                 => 'pending',
-                'user_id'                => auth()->id() ?? null,
-            ]);
+            $result = Result::where('submission_id', $request->submission_id)->first();
+            if (! $result) {
+                $result = Result::create([
+                    'sample_id'              => $request->sample_id,
+                    'submission_id'          => $request->submission_id,
+                    'plant_id'               => $sample->plant_id,
+                    'sub_plant_id'           => ($sample->sub_plant_id) ? $sample->sub_plant_id : null,
+                    'plant_sample_id'        => $sample->plant_sample_id,
+                    'priority'               => $submission->priority,
+                    'sampling_date_and_time' => $submission->sampling_date_and_time ? $submission->sampling_date_and_time : null,
+                    'internal_comment'       => $request->internal_comment,
+                    'external_comment'       => $request->external_comment,
+                    'submission_number'      => $submission->submission_number,
+                    'status'                 => 'pending',
+                    'user_id'                => auth()->id() ?? null,
+                ]);
+            }
             foreach ($request->sample_test_method_id as $test_method_item) {
                 $main_test_method    = DB::table('sample_test_methods')->whereId($test_method_item)->first();
-                $result_test_methods = ResultTestMethod::create([
+                $result_test_methods = ResultTestMethod::firstOrCreate([
                     'test_method_id' => $main_test_method->test_method_id,
                     'result_id'      => $result->id,
                 ]);
@@ -187,11 +188,26 @@ class ResultController extends Controller
                             'result_test_method_id' => $result_test_methods->id,
                             'result_id'             => $result->id,
                             'result'                => $request->input("result-$component-$main_test_method->test_method_id"),
+                            'submission_item'       => $request->input("submission_item-$component-$main_test_method->test_method_id"),
                             'status'                => $request->input(key: "status-$component-$main_test_method->test_method_id") ?? "in_range",
                             'test_method_item_id'   => $component,
                         ]);
                     }
                 }
+            }
+            
+            $submissionMaster = Submission::find($request->submission_id);
+             $submissionMaster->update([
+                    'status' => 'fourth_step',
+                ]);
+            $allHaveResults   = $submissionMaster->submission_test_method_items->every(function ($item) {
+                return $item->result !== null;
+            });
+
+            if ($allHaveResults) {
+                $submissionMaster->update([
+                    'status' => 'fifth_step',
+                ]);
             }
             DB::commit();
             return redirect()->route('admin.result')->with('success', __('general.created_successfully'));

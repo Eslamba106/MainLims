@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
     <?php $lang = Session::get('locale'); ?>
-
     {{ __('roles.submission_managment') }}
 @endsection
 @section('content')
@@ -77,50 +76,67 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($submissions as $submission_item)
+                        @forelse ($submissions as $submission_master)
                             <tr>
                                 <th scope="row">
                                     <label>
                                         <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
-                                            value="{{ $submission_item->id }}" />
+                                            value="{{ $submission_master->id }}" />
                                         <span class="text-muted">#{{ $loop->index + 1 }}</span>
                                     </label>
                                 </th>
-                                @if ($submission_item->status == 'first_step')
+                                @if ($submission_master->status == 'first_step')
                                     <td class="text-center"><img width="40px"
                                             src="{{ asset(main_path() . 'assets/images/flask_gray.png') }}" alt="">
-                                        {{ $submission_item->submission_number }}
+                                        {{ $submission_master->submission_number }}
                                     </td>
-                                @elseif($submission_item->status == 'second_step')
+                                @elseif($submission_master->status == 'second_step')
                                     <td class="text-center"><img width="40px"
-                                            src="{{ asset(main_path() . 'assets/images/flask_half_gray.png') }}" alt="">
-                                        {{ $submission_item->submission_number }}
+                                            src="{{ asset(main_path() . 'assets/images/flask_half_gray.png') }}"
+                                            alt="">
+                                        {{ $submission_master->submission_number }}
                                     </td>
-                                @elseif($submission_item->status == 'third_step')
+                                @elseif($submission_master->status == 'third_step')
                                     <td class="text-center"><img width="40px"
                                             src="{{ asset(main_path() . 'assets/images/blue_flask.png') }}" alt="">
-                                        {{ $submission_item->submission_number }}
+                                        {{ $submission_master->submission_number }}
+                                    </td>
+                                @elseif($submission_master->status == 'fourth_step')
+                 
+                                    <td class="text-center"><img width="40px"
+                                            src="{{ asset(main_path() . 'assets/images/'.getFlaskImage($submission_master->id)) }}" alt="">
+                                        {{ $submission_master->submission_number }}
+                                    </td>
+                                @elseif($submission_master->status == 'fifth_step')
+                 
+                                    <td class="text-center"><img width="40px"
+                                            src="{{ asset(main_path() . 'assets/images/'.getFlaskImageFifthStatus($submission_master->id)) }}" alt="">
+                                        {{ $submission_master->submission_number }}
                                     </td>
                                 @endif
-                                <td class="text-center" id="barcode-{{ $submission_item->id }}">{!! $submission_item->barcode_image !!}
+                                <td class="text-center" id="barcode-{{ $submission_master->id }}">{!! $submission_master->barcode_image !!}
 
 
                                 </td>
                                 <td class="text-center">
-                                    {{ \Carbon\Carbon::parse($submission_item->sampling_date_and_time)->format('M d, Y h:i A') }}
+                                    {{ \Carbon\Carbon::parse($submission_master->sampling_date_and_time)->format('M d, Y h:i A') }}
                                 </td>
-                                <td class="text-center">{{ $submission_item->plant->name }} </td>
-                                <td class="text-center">{{ optional($submission_item->sample_main)->name }} </td>
+                                <td class="text-center">{{ $submission_master->plant->name }} </td>
+                                <td class="text-center">{{ optional($submission_master->sample_main)->name }} </td>
 
                                 <td class="text-center">
 
                                     <span class="badge bg-warning text-dark">
-                                        @if ($submission_item->status == 'first_step')
+                                        @if ($submission_master->status == 'first_step')
                                             {{ translate('has_not_arrived_yet') }}
-                                        @elseif($submission_item->status == 'second_step')
+                                        @elseif($submission_master->status == 'second_step')
                                             {{ translate('Not_yet_worked_on') }}
-                                        @elseif($submission_item->status == 'third_step')
+                                        @elseif($submission_master->status == 'third_step')
                                             {{ translate('It_is_being_worked_on') }}
+                                        @elseif($submission_master->status == 'fourth_step')
+                                            {{ translate('Some_results_have_been_entered.') }}
+                                        @elseif($submission_master->status == 'fifth_step')
+                                            {{ translate('finished') }}
                                         @endif
                                     </span>
                                 </td>
@@ -134,8 +150,8 @@
                                         ];
                                     @endphp
                                     <span
-                                        class="badge {{ $priorityColors[$submission_item->priority] ?? 'bg-light text-dark' }}">
-                                        {{ $submission_item->priority }}
+                                        class="badge {{ $priorityColors[$submission_master->priority] ?? 'bg-light text-dark' }}">
+                                        {{ $submission_master->priority }}
                                     </span>
                                 </td>
 
@@ -143,30 +159,44 @@
 
                                 <td class="text-center">
                                     @can('delete_submission')
-                                        <a href="{{ route('admin.submission.delete', $submission_item->id) }}"
+                                        <a href="{{ route('admin.submission.delete', $submission_master->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
                                     @can('edit_submission')
-                                        <a href="{{ route('admin.submission.edit', $submission_item->id) }}"
+                                        <a href="{{ route('admin.submission.edit', $submission_master->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
-                                    @endcan 
-                                    @if ($submission_item->status == 'second_step')
+                                    @endcan
+                                    @if ($submission_master->status == 'second_step')
                                         @can('create_result')
-                                            <a href="{{ route('admin.submission.change_status', [$submission_item->id, 'third_step']) }}"
-                                                class="btn btn-outline-warning text-dark  btn-sm" >{{ translate('start_work') }}</a>
+                                            <a href="{{ route('admin.submission.change_status', [$submission_master->id, 'third_step']) }}"
+                                                class="btn btn-outline-warning text-dark  btn-sm">{{ translate('start_work') }}</a>
                                         @endcan
                                     @endif
-                                    @if (!isset($submission_item->result) && $submission_item->status == 'third_step')
+                                    {{-- @if (!isset($submission_master->result) && $submission_master->status == 'third_step') --}}
+                                    @if ($submission_master->status == 'third_step' || $submission_master->status == 'fourth_step')
                                         @can('create_result')
-                                            <a href="{{ route('admin.result.create', [$submission_item->id, 'submission']) }}"
-                                                class="btn btn-outline-warning text-dark btn-sm"
-                                                title="@lang('results.add_result')">@lang('results.add_result')</a>
+                                            @php
+                                                $hasItemWithoutResult = $submission_master->submission_test_method_items->contains(
+                                                    function ($item) {
+                                                        return !$item->result;
+                                                    },
+                                                );
+                                            @endphp
+
+                                            @if ($hasItemWithoutResult)
+                                                <a href="{{ route('admin.result.create', [$submission_master->id, 'submission']) }}"
+                                                    class="btn btn-outline-warning text-dark btn-sm"
+                                                    title="@lang('results.add_result')">
+                                                    @lang('results.add_result')
+                                                </a>
+                                            @endif
                                         @endcan
                                     @endif
+
                                     <button type="button" class="btn btn-sm btn-primary"
-                                        onclick="printBarcode('barcode-{{ $submission_item->id }}', '{{ $submission_item->submission_number }}')">
+                                        onclick="printBarcode('barcode-{{ $submission_master->id }}', '{{ $submission_master->submission_number }}')">
                                         {{ translate('print_barcode') }}
                                     </button>
                                 </td>

@@ -78,66 +78,75 @@
                                 value="{{ $item_test_method->sample_test_method->id }}">
                             <hr>
 
+
                             @foreach ($item_test_method->sample_test_method->sample_test_method_items as $sample_test_method_item)
-                                {{-- @foreach ($item_test_method->sample_test_method as $sample_test_method_item)  --}}
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-2 col-xl-3">
-                                        <span class="title-color break-all"> {{ translate('component') }} :
-                                            <strong> </strong></span>
+                                @if (!isset($item_test_method->result))
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-2 col-xl-3">
+                                            <span class="title-color break-all"> {{ translate('component') }} :
+                                                <strong> </strong></span>
 
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" style="border-radius: 5%" readonly
-                                                value="{{ $sample_test_method_item->test_method_item->name }}">
-                                            <input type="text" class="form-control" style="border-radius: 5%"
-                                                name="test_method_items[]" hidden readonly
-                                                value="{{ $sample_test_method_item->test_method_item->id }}">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" style="border-radius: 5%"
+                                                    readonly
+                                                    value="{{ $sample_test_method_item->test_method_item->name }}">
+                                                <input type="text" class="form-control" style="border-radius: 5%"
+                                                    name="test_method_items[]" hidden readonly
+                                                    value="{{ $sample_test_method_item->test_method_item->id }}">
+                                                <input type="hidden" class="form-control" style="border-radius: 5%"
+                                                    name="submission_item-{{ $sample_test_method_item->test_method_item->id . '-' . $item_test_method->sample_test_method->master_test_method->id }}"
+                                                    readonly value="{{ $item_test_method->id }}">
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <span class="title-color break-all"> {{ translate('result') }} :
-                                            <strong> </strong></span>
+                                        <div class="col-md-6 col-lg-4 col-xl-3">
+                                            <span class="title-color break-all"> {{ translate('result') }} :
+                                                <strong> </strong></span>
 
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" style="border-radius: 5%"
-                                                name="result-{{ $sample_test_method_item->test_method_item->id . '-' . $item_test_method->sample_test_method->master_test_method->id }}"
-                                                id="result-{{ $sample_test_method_item->id }}"
-                                                onkeyup="get_status(this,{{ $sample_test_method_item->test_method_item_id }})" />
-                                        </div>
-                                        @error("result-{{ $sample_test_method_item->test_method_item->id }}")
-                                            <span class="error text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-
-                                    <div class="col-md-3 col-lg-2 col-xl-3">
-                                        <span class="title-color break-all"> {{ translate('unit') }} :
-                                            <strong> </strong></span>
-                                        @php
-                                            $main_unit = $units->find($sample_test_method_item->test_method_item->unit);
-                                        @endphp
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" readonly
-                                                value="{{ optional($main_unit)->name }}">
-                                        </div>
-                                        @error("result-{{ $sample_test_method_item->test_method_item->id }}")
-                                            <span class="error text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-3">
-                                        <span class="title-color break-all"> {{ translate('status') }} :
-                                            <strong> </strong></span>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" readonly  
-                                            name="status-{{ $sample_test_method_item->test_method_item->id . '-' . $item_test_method->sample_test_method->master_test_method->id }}" 
-                                                id="status-{{ $sample_test_method_item->test_method_item->id }}">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" style="border-radius: 5%"
+                                                    name="result-{{ $sample_test_method_item->test_method_item->id . '-' . $item_test_method->sample_test_method->master_test_method->id }}"
+                                                    id="result-{{ $sample_test_method_item->id }}"
+                                                    onkeyup="get_status(this,{{ $sample_test_method_item->test_method_item_id }})" />
+                                            </div>
+                                            @error("result-{{ $sample_test_method_item->test_method_item->id }}")
+                                                <span class="error text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
-                                    </div>
 
-                                </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-3">
+                                            <span class="title-color break-all"> {{ translate('unit') }} :
+                                                <strong> </strong></span>
+                                            @php
+                                                $main_unit = $units->find(
+                                                    $sample_test_method_item->test_method_item->unit,
+                                                );
+                                            @endphp
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" readonly
+                                                    value="{{ optional($main_unit)->name }}">
+                                            </div>
+                                            @error("result-{{ $sample_test_method_item->test_method_item->id }}")
+                                                <span class="error text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-3">
+                                            <span class="title-color break-all"> {{ translate('status') }} :
+                                                <strong> </strong></span>
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" readonly
+                                                    name="status-{{ $sample_test_method_item->test_method_item->id . '-' . $item_test_method->sample_test_method->master_test_method->id }}"
+                                                    id="status-{{ $sample_test_method_item->test_method_item->id }}">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                @endif
                             @endforeach
+
 
                         </div>
                         <!-- End Body -->

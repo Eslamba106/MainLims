@@ -2,6 +2,7 @@
 
 use App\Models\part_three\ResultTestMethodItem;
 use App\Models\SampleTestMethodItem;
+use App\Models\second_part\Submission;
 use App\Models\Tenant;
 
 if (! function_exists("uploadImage")) {
@@ -326,6 +327,58 @@ if (! function_exists('action_warning_less_than')) {
     }
 }
 
+if (! function_exists('getFlaskImage')) {
+    function getFlaskImage($submission_id)
+    {
+        $submissionMaster = Submission::find($submission_id);
+        $allHaveResults   = $submissionMaster->submission_test_method_items->map(function ($item) {
+            return $item->result ? $item->result->status : null;
+        });
+        $priority = [
+            'normal'  => 1,
+            'warning' => 2,
+            'danger'  => 3,
+        ];
+        $highest = $allHaveResults
+            ->filter()
+            ->sortByDesc(fn($status) => $priority[$status] ?? 0)
+            ->first();
+        if ($highest == 'normal') {
+            return 'half_flask_green.png';
+        } elseif ($highest == 'warning') {
+            return 'half_flask_yellow.png';
+        } elseif ($highest == 'danger') {
+            return 'half_flask_red.png';
+        }
+    }
+
+}
+if (! function_exists('getFlaskImageFifthStatus')) {
+    function getFlaskImageFifthStatus($submission_id)
+    {
+        $submissionMaster = Submission::find($submission_id);
+        $allHaveResults   = $submissionMaster->submission_test_method_items->map(function ($item) {
+            return $item->result ? $item->result->status : null;
+        });
+        $priority = [
+            'normal'  => 1,
+            'warning' => 2,
+            'danger'  => 3,
+        ];
+        $highest = $allHaveResults
+            ->filter()
+            ->sortByDesc(fn($status) => $priority[$status] ?? 0)
+            ->first();
+        if ($highest == 'normal') {
+            return 'green_flask.png';
+        } elseif ($highest == 'warning') {
+            return 'yellow_flask.png';
+        } elseif ($highest == 'danger') {
+            return 'red_flask.png';
+        }
+    }
+
+}
 if (! function_exists('getStatus')) {
     function getStatus($value, $test_method_item_id)
     {
@@ -334,41 +387,40 @@ if (! function_exists('getStatus')) {
         $actionType   = get_action_type($test_method_item_id);
         $warningType  = get_warning_type($test_method_item_id);
         return getStatusFromLimits($value, $warningLimit, $warningType, $actionLimit, $actionType);
-      
+
     }
 }
 
- 
 /**
- * 
  *
- * @param mixed $value  
- * @param mixed $warningLimit  
- * @param string $warningType  
- * @param mixed $actionLimit  
- * @param string $actionType  
- * @return string  
+ *
+ * @param mixed $value
+ * @param mixed $warningLimit
+ * @param string $warningType
+ * @param mixed $actionLimit
+ * @param string $actionType
+ * @return string
  */
 function getStatusFromLimits($value, $warningLimit, $warningType, $actionLimit, $actionType)
-{ 
+{
     if (compare($value, $actionType, $actionLimit)) {
         return 'danger';
     }
- 
+
     if (compare($value, $warningType, $warningLimit)) {
         return 'warning';
     }
- 
+
     return 'normal';
 }
 
 /**
- *  
  *
- * @param mixed $value  
- * @param string $operator  
- * @param mixed $limit 
- * @return bool 
+ *
+ * @param mixed $value
+ * @param string $operator
+ * @param mixed $limit
+ * @return bool
  */
 function compare($value, $operator, $limit)
 {
@@ -382,11 +434,9 @@ function compare($value, $operator, $limit)
         case '<':
             return $value < $limit;
         case '=':
-        case '==':  
+        case '==':
             return $value == $limit;
         default:
             return false;
     }
 }
-
- 
