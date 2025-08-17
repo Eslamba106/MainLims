@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2025 at 08:57 PM
+-- Generation Time: Aug 17, 2025 at 07:46 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -55,27 +55,27 @@ CREATE TABLE `business_settings` (
 --
 
 INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_at`) VALUES
-(1, 'system_default_currency', '8', '2020-10-11 01:43:44', '2025-06-01 05:15:14'),
-(2, 'language', '[{\"id\":\"1\",\"name\":\"english\",\"direction\":\"ltr\",\"code\":\"en\",\"status\":1,\"default\":true},{\"id\":2,\"name\":\"Arabic\",\"code\":\"sa\",\"direction\":\"rtl\",\"status\":1,\"default\":false}]', '2020-10-11 01:53:02', '2025-07-11 12:39:33'),
-(3, 'mail_config', '{\"status\":0,\"name\":\"demo\",\"host\":\"mail.demo.com\",\"driver\":\"SMTP\",\"port\":\"587\",\"username\":\"info@demo.com\",\"email_id\":\"info@demo.com\",\"encryption\":\"TLS\",\"password\":\"demo\"}', '2020-10-12 04:29:18', '2021-07-06 06:32:01'),
-(4, 'cash_on_delivery', '{\"status\":\"1\"}', NULL, '2021-05-25 15:21:15'),
-(6, 'ssl_commerz_payment', '{\"status\":\"0\",\"environment\":\"sandbox\",\"store_id\":\"\",\"store_password\":\"\"}', '2020-11-09 04:36:51', '2023-01-10 01:51:56'),
-(7, 'paypal', '{\"status\":\"0\",\"environment\":\"sandbox\",\"paypal_client_id\":\"\",\"paypal_secret\":\"\"}', '2020-11-09 04:51:39', '2023-01-10 01:51:56'),
-(8, 'stripe', '{\"status\":\"0\",\"api_key\":null,\"published_key\":null}', '2020-11-09 05:01:47', '2021-07-06 06:30:05'),
-(10, 'company_phone', '01150099801', NULL, '2020-12-08 10:15:01'),
-(11, 'company_name', 'Tally', NULL, '2021-02-27 14:11:53'),
-(12, 'company_web_logo', '2021-05-25-60ad1b313a9d4.png', NULL, '2021-05-25 15:43:45'),
-(13, 'company_mobile_logo', '2021-02-20-6030c88c91911.png', NULL, '2021-02-20 10:30:04'),
-(14, 'terms_condition', '<p>terms and conditions</p>', NULL, '2021-06-10 19:51:36'),
-(15, 'about_us', '<h1><strong>Our Work</strong></h1>\r\n\r\n<h3>We&nbsp;develop simple, reliable,&nbsp; &nbsp; flexible and cost effective solutions which are adaptable to the client&rsquo;s environment. Our team are always equipped with the global technology updates; we evaluate and review our processes and knowledge base to implement the best available solutions that can bring value addition to our customers.</h3>\r\n\r\n<h1><strong>Environment, Employment, and Growth</strong></h1>\r\n\r\n<p>As a company and as individuals, we take great pride in contributing to the growth of our clients, employees, and communities where we live and work.</p>\r\n\r\n<p>Our persistent efforts to improve on our employee skills in a good work environment continue to pay off. We have always been recruiting with great employment opportunities with very high potential to learn, work and earn.</p>\r\n\r\n<h1><strong>Mission</strong></h1>\r\n\r\n<h3>Providing best and reliable IT solutions leveraging global opportunities for quality and cost effective services to our customers and helping them to achieve maximum efficiency and profitability in their business objectives.</h3>\r\n\r\n<h1><strong>Vision</strong></h1>\r\n\r\n<h3>To be an innovative IT &amp; ITES Solution provider and advisor for the enterprise consulting and systems integration in the emerging networked global economy.</h3>', NULL, '2025-06-01 02:30:26'),
+(1, 'system_default_currency', '8', '2020-10-11 04:43:44', '2025-06-01 08:15:14'),
+(2, 'language', '[{\"id\":\"1\",\"name\":\"english\",\"direction\":\"ltr\",\"code\":\"en\",\"status\":1,\"default\":true},{\"id\":2,\"name\":\"Arabic\",\"code\":\"sa\",\"direction\":\"rtl\",\"status\":1,\"default\":false}]', '2020-10-11 04:53:02', '2025-07-11 15:39:33'),
+(3, 'mail_config', '{\"status\":0,\"name\":\"demo\",\"host\":\"mail.demo.com\",\"driver\":\"SMTP\",\"port\":\"587\",\"username\":\"info@demo.com\",\"email_id\":\"info@demo.com\",\"encryption\":\"TLS\",\"password\":\"demo\"}', '2020-10-12 07:29:18', '2021-07-06 09:32:01'),
+(4, 'cash_on_delivery', '{\"status\":\"1\"}', NULL, '2021-05-25 18:21:15'),
+(6, 'ssl_commerz_payment', '{\"status\":\"0\",\"environment\":\"sandbox\",\"store_id\":\"\",\"store_password\":\"\"}', '2020-11-09 06:36:51', '2023-01-10 03:51:56'),
+(7, 'paypal', '{\"status\":\"0\",\"environment\":\"sandbox\",\"paypal_client_id\":\"\",\"paypal_secret\":\"\"}', '2020-11-09 06:51:39', '2023-01-10 03:51:56'),
+(8, 'stripe', '{\"status\":\"0\",\"api_key\":null,\"published_key\":null}', '2020-11-09 07:01:47', '2021-07-06 09:30:05'),
+(10, 'company_phone', '01150099801', NULL, '2020-12-08 12:15:01'),
+(11, 'company_name', 'Tally', NULL, '2021-02-27 16:11:53'),
+(12, 'company_web_logo', '2021-05-25-60ad1b313a9d4.png', NULL, '2021-05-25 18:43:45'),
+(13, 'company_mobile_logo', '2021-02-20-6030c88c91911.png', NULL, '2021-02-20 12:30:04'),
+(14, 'terms_condition', '<p>terms and conditions</p>', NULL, '2021-06-10 22:51:36'),
+(15, 'about_us', '<h1><strong>Our Work</strong></h1>\r\n\r\n<h3>We&nbsp;develop simple, reliable,&nbsp; &nbsp; flexible and cost effective solutions which are adaptable to the client&rsquo;s environment. Our team are always equipped with the global technology updates; we evaluate and review our processes and knowledge base to implement the best available solutions that can bring value addition to our customers.</h3>\r\n\r\n<h1><strong>Environment, Employment, and Growth</strong></h1>\r\n\r\n<p>As a company and as individuals, we take great pride in contributing to the growth of our clients, employees, and communities where we live and work.</p>\r\n\r\n<p>Our persistent efforts to improve on our employee skills in a good work environment continue to pay off. We have always been recruiting with great employment opportunities with very high potential to learn, work and earn.</p>\r\n\r\n<h1><strong>Mission</strong></h1>\r\n\r\n<h3>Providing best and reliable IT solutions leveraging global opportunities for quality and cost effective services to our customers and helping them to achieve maximum efficiency and profitability in their business objectives.</h3>\r\n\r\n<h1><strong>Vision</strong></h1>\r\n\r\n<h3>To be an innovative IT &amp; ITES Solution provider and advisor for the enterprise consulting and systems integration in the emerging networked global economy.</h3>', NULL, '2025-06-01 05:30:26'),
 (16, 'sms_nexmo', '{\"status\":\"0\",\"nexmo_key\":\"custo5cc042f7abf4c\",\"nexmo_secret\":\"custo5cc042f7abf4c@ssl\"}', NULL, NULL),
-(17, 'company_email', 'support@tallybahrain.com', NULL, '2021-03-15 08:29:51'),
-(18, 'colors', '{\"primary\":\"#1b7fed\",\"secondary\":\"#000000\",\"primary_light\":\"#CFDFFB\"}', '2020-10-11 07:53:02', '2023-10-12 23:34:53'),
-(19, 'company_footer_logo', '2021-02-20-6030c8a02a5f9.png', NULL, '2021-02-20 10:30:24'),
-(20, 'company_copyright_text', 'CopyRight Tally@2021', NULL, '2021-03-15 08:30:47'),
-(21, 'download_app_apple_stroe', '{\"status\":\"1\",\"link\":\"https:\\/\\/www.target.com\\/s\\/apple+store++now?ref=tgt_adv_XS000000&AFID=msn&fndsrc=tgtao&DFA=71700000012505188&CPNG=Electronics_Portable+Computers&adgroup=Portable+Computers&LID=700000001176246&LNM=apple+store+near+me+now&MT=b&network=s&device=c&location=12&targetid=kwd-81913773633608:loc-12&ds_rl=1246978&ds_rl=1248099&gclsrc=ds\"}', NULL, '2020-12-08 08:54:53'),
-(22, 'download_app_google_stroe', '{\"status\":\"1\",\"link\":\"https:\\/\\/play.google.com\\/store?hl=en_US&gl=US\"}', NULL, '2020-12-08 08:54:48'),
-(23, 'company_fav_icon', '2021-03-02-603df1634614f.png', '2020-10-11 07:53:02', '2021-03-02 10:03:48'),
+(17, 'company_email', 'support@tallybahrain.com', NULL, '2021-03-15 10:29:51'),
+(18, 'colors', '{\"primary\":\"#1b7fed\",\"secondary\":\"#000000\",\"primary_light\":\"#CFDFFB\"}', '2020-10-11 10:53:02', '2023-10-13 02:34:53'),
+(19, 'company_footer_logo', '2021-02-20-6030c8a02a5f9.png', NULL, '2021-02-20 12:30:24'),
+(20, 'company_copyright_text', 'CopyRight Tally@2021', NULL, '2021-03-15 10:30:47'),
+(21, 'download_app_apple_stroe', '{\"status\":\"1\",\"link\":\"https:\\/\\/www.target.com\\/s\\/apple+store++now?ref=tgt_adv_XS000000&AFID=msn&fndsrc=tgtao&DFA=71700000012505188&CPNG=Electronics_Portable+Computers&adgroup=Portable+Computers&LID=700000001176246&LNM=apple+store+near+me+now&MT=b&network=s&device=c&location=12&targetid=kwd-81913773633608:loc-12&ds_rl=1246978&ds_rl=1248099&gclsrc=ds\"}', NULL, '2020-12-08 10:54:53'),
+(22, 'download_app_google_stroe', '{\"status\":\"1\",\"link\":\"https:\\/\\/play.google.com\\/store?hl=en_US&gl=US\"}', NULL, '2020-12-08 10:54:48'),
+(23, 'company_fav_icon', '2021-03-02-603df1634614f.png', '2020-10-11 10:53:02', '2021-03-02 12:03:48'),
 (24, 'fcm_topic', '', NULL, NULL),
 (25, 'fcm_project_id', '', NULL, NULL),
 (26, 'push_notification_key', 'Put your firebase server key here.', NULL, NULL),
@@ -84,9 +84,9 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 (29, 'order_processing_message', '{\"status\":\"1\",\"message\":\"Order pro Message\"}', NULL, NULL),
 (30, 'out_for_delivery_message', '{\"status\":\"1\",\"message\":\"Order ouut Message\"}', NULL, NULL),
 (31, 'order_delivered_message', '{\"status\":\"1\",\"message\":\"Order del Message\"}', NULL, NULL),
-(32, 'razor_pay', '{\"status\":\"0\",\"razor_key\":null,\"razor_secret\":null}', NULL, '2021-07-06 06:30:14'),
-(33, 'sales_commission', '0', NULL, '2025-06-26 03:05:17'),
-(34, 'seller_registration', '1', NULL, '2025-06-26 03:04:32'),
+(32, 'razor_pay', '{\"status\":\"0\",\"razor_key\":null,\"razor_secret\":null}', NULL, '2021-07-06 09:30:14'),
+(33, 'sales_commission', '0', NULL, '2025-06-26 06:05:17'),
+(34, 'seller_registration', '1', NULL, '2025-06-26 06:04:32'),
 (35, 'pnc_language', '[\"en\",\"sa\"]', NULL, NULL),
 (36, 'order_returned_message', '{\"status\":\"1\",\"message\":\"Order hh Message\"}', NULL, NULL),
 (37, 'order_failed_message', '{\"status\":null,\"message\":\"Order fa Message\"}', NULL, NULL),
@@ -95,9 +95,9 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 (42, 'delivery_boy_delivered_message', '{\"status\":0,\"message\":\"\"}', NULL, NULL),
 (43, 'terms_and_conditions', '', NULL, NULL),
 (44, 'minimum_order_value', '1', NULL, NULL),
-(45, 'privacy_policy', '<p>my privacy policy</p>\r\n\r\n<p>&nbsp;</p>', NULL, '2021-07-06 05:09:07'),
-(46, 'paystack', '{\"status\":\"0\",\"publicKey\":null,\"secretKey\":null,\"paymentUrl\":\"https:\\/\\/api.paystack.co\",\"merchantEmail\":null}', NULL, '2021-07-06 06:30:35'),
-(47, 'senang_pay', '{\"status\":\"0\",\"secret_key\":null,\"merchant_id\":null}', NULL, '2021-07-06 06:30:23'),
+(45, 'privacy_policy', '<p>my privacy policy</p>\r\n\r\n<p>&nbsp;</p>', NULL, '2021-07-06 08:09:07'),
+(46, 'paystack', '{\"status\":\"0\",\"publicKey\":null,\"secretKey\":null,\"paymentUrl\":\"https:\\/\\/api.paystack.co\",\"merchantEmail\":null}', NULL, '2021-07-06 09:30:35'),
+(47, 'senang_pay', '{\"status\":\"0\",\"secret_key\":null,\"merchant_id\":null}', NULL, '2021-07-06 09:30:23'),
 (48, 'currency_model', 'single_currency', NULL, NULL),
 (49, 'social_login', '[{\"login_medium\":\"google\",\"client_id\":\"\",\"client_secret\":\"\",\"status\":\"\"},{\"login_medium\":\"facebook\",\"client_id\":\"\",\"client_secret\":\"\",\"status\":\"\"}]', NULL, NULL),
 (50, 'digital_payment', '{\"status\":\"1\"}', NULL, NULL),
@@ -108,18 +108,18 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 (55, 'pagination_limit', '10', NULL, NULL),
 (56, 'shipping_method', 'inhouse_shipping', NULL, NULL),
 (57, 'paymob_accept', '{\"status\":\"0\",\"api_key\":\"\",\"iframe_id\":\"\",\"integration_id\":\"\",\"hmac\":\"\"}', NULL, NULL),
-(58, 'bkash', '{\"status\":\"0\",\"environment\":\"sandbox\",\"api_key\":\"\",\"api_secret\":\"\",\"username\":\"\",\"password\":\"\"}', NULL, '2023-01-10 01:51:56'),
+(58, 'bkash', '{\"status\":\"0\",\"environment\":\"sandbox\",\"api_key\":\"\",\"api_secret\":\"\",\"username\":\"\",\"password\":\"\"}', NULL, '2023-01-10 03:51:56'),
 (59, 'forgot_password_verification', 'email', NULL, NULL),
-(60, 'paytabs', '{\"status\":0,\"profile_id\":\"\",\"server_key\":\"\",\"base_url\":\"https:\\/\\/secure-egypt.paytabs.com\\/\"}', NULL, '2021-11-20 23:01:40'),
+(60, 'paytabs', '{\"status\":0,\"profile_id\":\"\",\"server_key\":\"\",\"base_url\":\"https:\\/\\/secure-egypt.paytabs.com\\/\"}', NULL, '2021-11-21 01:01:40'),
 (61, 'stock_limit', '10', NULL, NULL),
 (62, 'flutterwave', '{\"status\":0,\"public_key\":\"\",\"secret_key\":\"\",\"hash\":\"\"}', NULL, NULL),
 (63, 'mercadopago', '{\"status\":0,\"public_key\":\"\",\"access_token\":\"\"}', NULL, NULL),
 (64, 'announcement', '{\"status\":null,\"color\":null,\"text_color\":null,\"announcement\":null}', NULL, NULL),
-(65, 'fawry_pay', '{\"status\":0,\"merchant_code\":\"\",\"security_key\":\"\"}', NULL, '2022-01-18 05:46:30'),
-(66, 'recaptcha', '{\"status\":0,\"site_key\":\"\",\"secret_key\":\"\"}', NULL, '2022-01-18 05:46:30'),
-(67, 'seller_pos', '1', NULL, '2025-06-26 03:05:17'),
+(65, 'fawry_pay', '{\"status\":0,\"merchant_code\":\"\",\"security_key\":\"\"}', NULL, '2022-01-18 07:46:30'),
+(66, 'recaptcha', '{\"status\":0,\"site_key\":\"\",\"secret_key\":\"\"}', NULL, '2022-01-18 07:46:30'),
+(67, 'seller_pos', '1', NULL, '2025-06-26 06:05:17'),
 (68, 'liqpay', '{\"status\":0,\"public_key\":\"\",\"private_key\":\"\"}', NULL, NULL),
-(69, 'paytm', '{\"status\":0,\"environment\":\"sandbox\",\"paytm_merchant_key\":\"\",\"paytm_merchant_mid\":\"\",\"paytm_merchant_website\":\"\",\"paytm_refund_url\":\"\"}', NULL, '2023-01-10 01:51:56'),
+(69, 'paytm', '{\"status\":0,\"environment\":\"sandbox\",\"paytm_merchant_key\":\"\",\"paytm_merchant_mid\":\"\",\"paytm_merchant_website\":\"\",\"paytm_refund_url\":\"\"}', NULL, '2023-01-10 03:51:56'),
 (70, 'refund_day_limit', '0', NULL, NULL),
 (71, 'business_mode', 'multi', NULL, NULL),
 (72, 'mail_config_sendgrid', '{\"status\":0,\"name\":\"\",\"host\":\"\",\"driver\":\"\",\"port\":\"\",\"username\":\"\",\"email_id\":\"\",\"encryption\":\"\",\"password\":\"\"}', NULL, NULL),
@@ -137,49 +137,49 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 (84, 'digital_product', '1', NULL, NULL),
 (85, 'delivery_boy_expected_delivery_date_message', '{\"status\":0,\"message\":\"\"}', NULL, NULL),
 (86, 'order_canceled', '{\"status\":0,\"message\":\"\"}', NULL, NULL),
-(87, 'refund-policy', '{\"status\":1,\"content\":\"\"}', NULL, '2023-03-04 02:25:36'),
-(88, 'return-policy', '{\"status\":1,\"content\":\"\"}', NULL, '2023-03-04 02:25:36'),
-(89, 'cancellation-policy', '{\"status\":1,\"content\":\"\"}', NULL, '2023-03-04 02:25:36'),
-(90, 'offline_payment', '{\"status\":0}', NULL, '2023-03-04 02:25:36'),
-(91, 'temporary_close', '{\"status\":0}', NULL, '2023-03-04 02:25:36'),
-(92, 'vacation_add', '{\"status\":0,\"vacation_start_date\":null,\"vacation_end_date\":null,\"vacation_note\":null}', NULL, '2023-03-04 02:25:36'),
-(93, 'cookie_setting', '{\"status\":0,\"cookie_text\":null}', NULL, '2023-03-04 02:25:36'),
-(94, 'maximum_otp_hit', '0', NULL, '2023-06-13 07:04:49'),
-(95, 'otp_resend_time', '0', NULL, '2023-06-13 07:04:49'),
-(96, 'temporary_block_time', '0', NULL, '2023-06-13 07:04:49'),
-(97, 'maximum_login_hit', '0', NULL, '2023-06-13 07:04:49'),
-(98, 'temporary_login_block_time', '0', NULL, '2023-06-13 07:04:49'),
-(99, 'maximum_otp_hit', '0', NULL, '2023-10-12 23:34:53'),
-(100, 'otp_resend_time', '0', NULL, '2023-10-12 23:34:53'),
-(101, 'temporary_block_time', '0', NULL, '2023-10-12 23:34:53'),
-(102, 'maximum_login_hit', '0', NULL, '2023-10-12 23:34:53'),
-(103, 'temporary_login_block_time', '0', NULL, '2023-10-12 23:34:53'),
-(104, 'apple_login', '[{\"login_medium\":\"apple\",\"client_id\":\"\",\"client_secret\":\"\",\"status\":0,\"team_id\":\"\",\"key_id\":\"\",\"service_file\":\"\",\"redirect_url\":\"\"}]', NULL, '2023-10-12 23:34:53'),
-(105, 'ref_earning_status', '0', NULL, '2023-10-12 23:34:53'),
-(106, 'ref_earning_exchange_rate', '0', NULL, '2023-10-12 23:34:53'),
-(107, 'guest_checkout', '0', NULL, '2023-10-13 05:34:53'),
-(108, 'minimum_order_amount', '0', NULL, '2023-10-13 05:34:53'),
-(109, 'minimum_order_amount_by_seller', '0', NULL, '2025-06-26 03:04:32'),
-(110, 'minimum_order_amount_status', '0', NULL, '2023-10-13 05:34:53'),
-(111, 'admin_login_url', 'admin', NULL, '2023-10-13 05:34:53'),
-(112, 'employee_login_url', 'employee', NULL, '2023-10-13 05:34:53'),
-(113, 'free_delivery_status', '0', NULL, '2023-10-13 05:34:53'),
-(114, 'free_delivery_responsibility', 'admin', NULL, '2023-10-13 05:34:53'),
-(115, 'free_delivery_over_amount', '0', NULL, '2023-10-13 05:34:53'),
-(116, 'free_delivery_over_amount_seller', '0', NULL, '2023-10-13 05:34:53'),
-(117, 'add_funds_to_wallet', '0', NULL, '2023-10-13 05:34:53'),
-(118, 'minimum_add_fund_amount', '0', NULL, '2023-10-13 05:34:53'),
-(119, 'maximum_add_fund_amount', '0', NULL, '2023-10-13 05:34:53'),
-(120, 'user_app_version_control', '{\"for_android\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"},\"for_ios\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"}}', NULL, '2023-10-13 05:34:53'),
-(121, 'seller_app_version_control', '{\"for_android\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"},\"for_ios\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"}}', NULL, '2023-10-13 05:34:53'),
-(122, 'delivery_man_app_version_control', '{\"for_android\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"},\"for_ios\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"}}', NULL, '2023-10-13 05:34:53'),
-(123, 'whatsapp', '{\"status\":\"1\",\"phone\":\"+201150099801\"}', '2025-06-01 07:38:24', '2025-06-01 07:38:24'),
-(124, 'currency_symbol_position', 'left', NULL, '2023-10-13 05:34:53'),
+(87, 'refund-policy', '{\"status\":1,\"content\":\"\"}', NULL, '2023-03-04 04:25:36'),
+(88, 'return-policy', '{\"status\":1,\"content\":\"\"}', NULL, '2023-03-04 04:25:36'),
+(89, 'cancellation-policy', '{\"status\":1,\"content\":\"\"}', NULL, '2023-03-04 04:25:36'),
+(90, 'offline_payment', '{\"status\":0}', NULL, '2023-03-04 04:25:36'),
+(91, 'temporary_close', '{\"status\":0}', NULL, '2023-03-04 04:25:36'),
+(92, 'vacation_add', '{\"status\":0,\"vacation_start_date\":null,\"vacation_end_date\":null,\"vacation_note\":null}', NULL, '2023-03-04 04:25:36'),
+(93, 'cookie_setting', '{\"status\":0,\"cookie_text\":null}', NULL, '2023-03-04 04:25:36'),
+(94, 'maximum_otp_hit', '0', NULL, '2023-06-13 10:04:49'),
+(95, 'otp_resend_time', '0', NULL, '2023-06-13 10:04:49'),
+(96, 'temporary_block_time', '0', NULL, '2023-06-13 10:04:49'),
+(97, 'maximum_login_hit', '0', NULL, '2023-06-13 10:04:49'),
+(98, 'temporary_login_block_time', '0', NULL, '2023-06-13 10:04:49'),
+(99, 'maximum_otp_hit', '0', NULL, '2023-10-13 02:34:53'),
+(100, 'otp_resend_time', '0', NULL, '2023-10-13 02:34:53'),
+(101, 'temporary_block_time', '0', NULL, '2023-10-13 02:34:53'),
+(102, 'maximum_login_hit', '0', NULL, '2023-10-13 02:34:53'),
+(103, 'temporary_login_block_time', '0', NULL, '2023-10-13 02:34:53'),
+(104, 'apple_login', '[{\"login_medium\":\"apple\",\"client_id\":\"\",\"client_secret\":\"\",\"status\":0,\"team_id\":\"\",\"key_id\":\"\",\"service_file\":\"\",\"redirect_url\":\"\"}]', NULL, '2023-10-13 02:34:53'),
+(105, 'ref_earning_status', '0', NULL, '2023-10-13 02:34:53'),
+(106, 'ref_earning_exchange_rate', '0', NULL, '2023-10-13 02:34:53'),
+(107, 'guest_checkout', '0', NULL, '2023-10-13 08:34:53'),
+(108, 'minimum_order_amount', '0', NULL, '2023-10-13 08:34:53'),
+(109, 'minimum_order_amount_by_seller', '0', NULL, '2025-06-26 06:04:32'),
+(110, 'minimum_order_amount_status', '0', NULL, '2023-10-13 08:34:53'),
+(111, 'admin_login_url', 'admin', NULL, '2023-10-13 08:34:53'),
+(112, 'employee_login_url', 'employee', NULL, '2023-10-13 08:34:53'),
+(113, 'free_delivery_status', '0', NULL, '2023-10-13 08:34:53'),
+(114, 'free_delivery_responsibility', 'admin', NULL, '2023-10-13 08:34:53'),
+(115, 'free_delivery_over_amount', '0', NULL, '2023-10-13 08:34:53'),
+(116, 'free_delivery_over_amount_seller', '0', NULL, '2023-10-13 08:34:53'),
+(117, 'add_funds_to_wallet', '0', NULL, '2023-10-13 08:34:53'),
+(118, 'minimum_add_fund_amount', '0', NULL, '2023-10-13 08:34:53'),
+(119, 'maximum_add_fund_amount', '0', NULL, '2023-10-13 08:34:53'),
+(120, 'user_app_version_control', '{\"for_android\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"},\"for_ios\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"}}', NULL, '2023-10-13 08:34:53'),
+(121, 'seller_app_version_control', '{\"for_android\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"},\"for_ios\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"}}', NULL, '2023-10-13 08:34:53'),
+(122, 'delivery_man_app_version_control', '{\"for_android\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"},\"for_ios\":{\"status\":1,\"version\":\"14.1\",\"link\":\"\"}}', NULL, '2023-10-13 08:34:53'),
+(123, 'whatsapp', '{\"status\":\"1\",\"phone\":\"+201150099801\"}', '2025-06-01 10:38:24', '2025-06-01 10:38:24'),
+(124, 'currency_symbol_position', 'left', NULL, '2023-10-13 08:34:53'),
 (125, 'cancellation-policy', '{\"status\":1,\"content\":\"\"}', NULL, NULL),
 (126, 'timezone', 'Asia/Kuwait', NULL, NULL),
 (127, 'default_location', '{\"lat\":null,\"lng\":null}', NULL, NULL),
-(128, 'new_product_approval', '0', NULL, '2025-06-26 03:04:32'),
-(129, 'product_wise_shipping_cost_approval', '0', NULL, '2025-06-26 03:04:32');
+(128, 'new_product_approval', '0', NULL, '2025-06-26 06:04:32'),
+(129, 'product_wise_shipping_cost_approval', '0', NULL, '2025-06-26 06:04:32');
 
 -- --------------------------------------------------------
 
@@ -190,9 +190,10 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 CREATE TABLE `certificates` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `result_id` int(11) NOT NULL,
-  `sample_id` int(11) NOT NULL,
-  `authorized_id` varchar(255) NOT NULL,
-  `temp_id` int(11) NOT NULL,
+  `sample_id` int(11) DEFAULT NULL,
+  `authorized_id` varchar(255) DEFAULT NULL,
+  `temp_id` int(11) DEFAULT NULL,
+  `generated_by` int(11) DEFAULT NULL,
   `client` varchar(255) DEFAULT NULL,
   `generated_Date` date DEFAULT NULL,
   `coa_number` varchar(255) DEFAULT NULL,
@@ -221,7 +222,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `phone`, `email`, `created_at`, `updated_at`) VALUES
-(2, 'Eslam', '01150099801', 'eslam@gmail.com', '2025-07-14 19:39:15', '2025-07-14 19:39:15');
+(1, 'Eslam', '01150099801', 'eslam@gmail.com', '2025-08-08 12:35:01', '2025-08-08 12:35:01');
 
 -- --------------------------------------------------------
 
@@ -261,7 +262,7 @@ CREATE TABLE `coa_template_samples` (
 --
 
 INSERT INTO `coa_template_samples` (`id`, `coa_temp_id`, `sample_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 23, '2025-07-18 13:35:43', '2025-07-18 13:35:43');
+(1, 1, 24, '2025-08-08 11:58:17', '2025-08-08 11:58:17');
 
 -- --------------------------------------------------------
 
@@ -315,7 +316,7 @@ CREATE TABLE `c_o_a_settings` (
 --
 
 INSERT INTO `c_o_a_settings` (`id`, `name`, `value`, `header_information`, `company_logo`, `company_name`, `laboratory_accreditation`, `coa_number`, `lims_number`, `report_date`, `sample_information`, `sample_plant`, `sample_subplant`, `sample_point`, `sample_description`, `batch_lot_number`, `date_received`, `date_analyzed`, `date_authorized`, `test_results`, `component_name`, `specification`, `test_method`, `pass_fail_status`, `results`, `analyst`, `unit`, `authorization`, `analyzed_by`, `authorized_by`, `digital_signature`, `comments`, `footer_information`, `disclaimer_text`, `laboratory_contact_information`, `page_numbers`, `created_at`, `updated_at`) VALUES
-(1, 'Default', '1', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, '2025-06-28 23:52:11', '2025-06-28 23:52:11');
+(1, 'Default', '1', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, '2025-06-29 02:52:11', '2025-06-29 02:52:11');
 
 -- --------------------------------------------------------
 
@@ -369,7 +370,8 @@ CREATE TABLE `c_o_a_templates` (
 --
 
 INSERT INTO `c_o_a_templates` (`id`, `name`, `value`, `header_information`, `company_logo`, `company_name`, `laboratory_accreditation`, `coa_number`, `lims_number`, `report_date`, `sample_information`, `sample_plant`, `sample_subplant`, `sample_point`, `sample_description`, `batch_lot_number`, `date_received`, `date_analyzed`, `date_authorized`, `test_results`, `component_name`, `specification`, `test_method`, `pass_fail_status`, `results`, `analyst`, `unit`, `authorization`, `analyzed_by`, `authorized_by`, `digital_signature`, `comments`, `footer_information`, `disclaimer_text`, `laboratory_contact_information`, `page_numbers`, `created_at`, `updated_at`) VALUES
-(1, 'Default', NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2025-07-18 13:35:02', '2025-07-18 13:37:08');
+(1, 'Default', NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2025-08-08 11:56:49', '2025-08-08 11:56:49'),
+(2, 'Owned', NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-08-08 12:07:01', '2025-08-08 12:07:01');
 
 -- --------------------------------------------------------
 
@@ -420,8 +422,8 @@ CREATE TABLE `frequencies` (
 --
 
 INSERT INTO `frequencies` (`id`, `name`, `time_by_hours`, `created_at`, `updated_at`) VALUES
-(1, 'Every Day', '24', '2025-06-04 07:29:40', '2025-06-04 07:29:40'),
-(2, 'Every 12 h', '12', '2025-06-04 07:29:55', '2025-06-04 07:29:55');
+(1, 'Every Day', '24', '2025-06-04 10:29:40', '2025-06-04 10:29:40'),
+(2, 'Every 12 h', '12', '2025-06-04 10:29:55', '2025-06-04 10:29:55');
 
 -- --------------------------------------------------------
 
@@ -476,7 +478,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (116, '2025_07_13_152418_create_coa_template_samples_table', 20),
 (117, '2025_07_13_202727_create_coa_settings_table', 20),
 (118, '2025_07_14_221340_create_clients_table', 20),
-(119, '2025_07_15_154018_create_certificates_table', 20);
+(120, '2025_07_15_154018_create_certificates_table', 21);
 
 -- --------------------------------------------------------
 
@@ -633,9 +635,9 @@ CREATE TABLE `plants` (
 --
 
 INSERT INTO `plants` (`id`, `name`, `plant_id`, `created_at`, `updated_at`) VALUES
-(22, 'Plant A', NULL, '2025-06-01 12:13:10', '2025-06-01 12:13:10'),
-(23, 'Plant B', 22, '2025-06-01 12:13:40', '2025-06-01 12:13:40'),
-(24, 'Plant C', NULL, '2025-06-01 12:13:48', '2025-06-01 12:13:48');
+(22, 'Plant A', NULL, '2025-06-01 15:13:10', '2025-06-01 15:13:10'),
+(23, 'Plant B', 22, '2025-06-01 15:13:40', '2025-06-01 15:13:40'),
+(24, 'Plant C', NULL, '2025-06-01 15:13:48', '2025-06-01 15:13:48');
 
 -- --------------------------------------------------------
 
@@ -656,9 +658,9 @@ CREATE TABLE `plant_samples` (
 --
 
 INSERT INTO `plant_samples` (`id`, `name`, `plant_id`, `created_at`, `updated_at`) VALUES
-(7, 'Sample A', 22, '2025-06-01 12:58:37', '2025-06-01 12:58:37'),
-(8, 'Sample B', 23, '2025-06-01 12:58:50', '2025-06-01 12:58:50'),
-(9, 'Sample C', 24, '2025-06-01 13:01:02', '2025-06-01 13:11:09');
+(7, 'Sample A', 22, '2025-06-01 15:58:37', '2025-06-01 15:58:37'),
+(8, 'Sample B', 23, '2025-06-01 15:58:50', '2025-06-01 15:58:50'),
+(9, 'Sample C', 24, '2025-06-01 16:01:02', '2025-06-01 16:11:09');
 
 -- --------------------------------------------------------
 
@@ -689,7 +691,7 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`id`, `submission_id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `sample_id`, `user_id`, `priority`, `sampling_date_and_time`, `internal_comment`, `external_comment`, `submission_number`, `status`, `created_at`, `updated_at`) VALUES
-(8, 11, 24, NULL, 9, 23, 6, 'normal', '2025-06-24 10:22:00', 'new comment', 'first comment', 'SUB-000011', 'pending', '2025-06-25 08:00:55', '2025-06-25 08:00:55');
+(17, 16, 24, NULL, 9, 26, 6, 'high', '2025-08-17 08:36:00', NULL, NULL, 'SUB-000016', 'pending', '2025-08-17 02:39:25', '2025-08-17 02:39:25');
 
 -- --------------------------------------------------------
 
@@ -711,8 +713,8 @@ CREATE TABLE `result_test_methods` (
 --
 
 INSERT INTO `result_test_methods` (`id`, `result_id`, `test_method_id`, `status`, `created_at`, `updated_at`) VALUES
-(8, 8, 8, 'in_range', '2025-06-25 08:00:56', '2025-06-25 08:00:56'),
-(9, 8, 11, 'in_range', '2025-06-25 08:00:56', '2025-06-25 08:00:56');
+(21, 17, 8, 'in_range', '2025-08-17 02:39:25', '2025-08-17 02:39:25'),
+(22, 17, 11, 'in_range', '2025-08-17 02:39:25', '2025-08-17 02:39:25');
 
 -- --------------------------------------------------------
 
@@ -737,9 +739,7 @@ CREATE TABLE `result_test_method_items` (
 --
 
 INSERT INTO `result_test_method_items` (`id`, `result_test_method_id`, `result_id`, `test_method_item_id`, `result`, `status`, `acceptance_status`, `created_at`, `updated_at`) VALUES
-(13, 8, 8, 5, '5476456', 'in_range', 'approve', '2025-06-25 08:00:56', '2025-07-17 14:16:12'),
-(14, 8, 8, 6, '456456', 'in_range', 'approve', '2025-06-25 08:00:56', '2025-07-17 14:16:12'),
-(15, 9, 8, 9, '645654', 'in_range', 'approve', '2025-06-25 08:00:56', '2025-07-17 14:16:12');
+(24, 21, 17, 4, '453', 'normal', 'pending', '2025-08-17 02:39:25', '2025-08-17 02:39:25');
 
 -- --------------------------------------------------------
 
@@ -759,8 +759,8 @@ CREATE TABLE `result_types` (
 --
 
 INSERT INTO `result_types` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'number', '2025-05-05 14:12:47', '2025-05-05 14:12:47'),
-(2, 'text2', '2025-05-05 14:12:59', '2025-05-21 04:34:40');
+(1, 'number', '2025-05-05 17:12:47', '2025-05-05 17:12:47'),
+(2, 'text2', '2025-05-05 17:12:59', '2025-05-21 07:34:40');
 
 -- --------------------------------------------------------
 
@@ -783,8 +783,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `caption`, `users_count`, `is_admin`, `created_at`, `updated_at`) VALUES
-(1, 'user', 'User role', 0, 0, '2025-06-28 22:50:03', '2025-06-28 22:50:03'),
-(2, 'admin', 'Admin role', 0, 1, '2025-06-28 22:50:03', '2025-07-12 07:13:20');
+(1, 'user', 'User role', 0, 0, '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
+(2, 'admin', 'Admin role', 0, 1, '2025-06-29 01:50:03', '2025-07-12 10:13:20');
 
 -- --------------------------------------------------------
 
@@ -807,7 +807,8 @@ CREATE TABLE `samples` (
 --
 
 INSERT INTO `samples` (`id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `toxic`, `created_at`, `updated_at`) VALUES
-(23, 24, 23, 8, NULL, '2025-06-24 01:21:58', '2025-07-13 08:58:04');
+(24, 22, NULL, 7, NULL, '2025-07-20 19:16:18', '2025-07-20 19:16:18'),
+(26, 24, NULL, 9, NULL, '2025-07-22 14:41:49', '2025-07-22 14:41:49');
 
 -- --------------------------------------------------------
 
@@ -864,7 +865,11 @@ CREATE TABLE `sample_test_methods` (
 --
 
 INSERT INTO `sample_test_methods` (`id`, `sample_id`, `test_method_id`, `created_at`, `updated_at`) VALUES
-(24, 23, 8, '2025-06-24 01:21:59', '2025-06-24 01:21:59');
+(26, 24, 8, '2025-07-20 19:16:18', '2025-07-20 19:16:18'),
+(27, 24, 9, '2025-07-20 19:16:18', '2025-07-22 12:57:40'),
+(30, 26, 8, '2025-07-22 14:41:49', '2025-07-22 14:41:49'),
+(31, 26, 11, '2025-07-22 14:41:49', '2025-07-22 14:41:49'),
+(32, 26, 9, '2025-07-22 14:41:49', '2025-07-22 14:41:49');
 
 -- --------------------------------------------------------
 
@@ -887,6 +892,16 @@ CREATE TABLE `sample_test_method_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sample_test_method_items`
+--
+
+INSERT INTO `sample_test_method_items` (`id`, `sample_id`, `test_method_id`, `test_method_item_id`, `warning_limit`, `warning_limit_end`, `action_limit`, `action_limit_end`, `action_limit_type`, `warning_limit_type`, `created_at`, `updated_at`) VALUES
+(29, 24, 26, 4, '245', NULL, '646', '54645', '8646', '<', NULL, NULL),
+(33, 26, 30, 4, '5345', NULL, '6776', NULL, '>', '<', NULL, NULL),
+(34, 26, 31, 9, '7657', NULL, '8778', NULL, '=', '>=', NULL, NULL),
+(35, 26, 32, 7, '7587', NULL, '7888', NULL, '>', '>', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -907,91 +922,91 @@ CREATE TABLE `sections` (
 --
 
 INSERT INTO `sections` (`id`, `name`, `section_group_id`, `caption`, `created_at`, `updated_at`) VALUES
-(1, 'admin_general_dashboard', NULL, 'admin_general_dashboard', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(2, 'admin_general_dashboard_show', 1, 'general_dashboard_page', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(3, 'admin_roles', NULL, 'admin_roles', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(4, 'show_admin_roles', 3, 'show_admin_roles', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(5, 'create_admin_roles', 3, 'create_admin_roles', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(6, 'edit_admin_roles', 3, 'edit_admin_roles', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(7, 'update_admin_roles', 3, 'update_admin_roles', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(8, 'delete_admin_roles', 3, 'delete_admin_roles', '2025-04-28 20:29:38', '2025-04-28 20:29:38'),
-(9, 'user_management', NULL, 'user_management', '2025-04-28 20:29:39', '2025-04-28 20:29:39'),
-(10, 'all_users', 9, 'show_all_users', '2025-04-28 20:29:39', '2025-04-28 20:29:39'),
-(11, 'change_users_role', 9, 'change_users_role', '2025-04-28 20:29:39', '2025-04-28 20:29:39'),
-(12, 'change_users_status', 9, 'change_users_status', '2025-04-28 20:29:39', '2025-04-28 20:29:39'),
-(13, 'delete_user', 9, 'delete_user', '2025-04-28 20:29:39', '2025-04-28 20:29:39'),
-(14, 'edit_user', 9, 'edit_user', '2025-04-28 20:29:39', '2025-04-28 20:29:39'),
-(15, 'create_user', 9, 'create_user', '2025-04-28 20:29:39', '2025-04-28 20:29:39'),
-(16, 'test_method_management', NULL, 'test_method_management', '2025-04-28 20:29:39', '2025-05-01 14:00:49'),
-(17, 'all_test_methods', 16, 'show_all_test_methods', '2025-04-28 20:29:39', '2025-05-01 14:00:49'),
-(18, 'create_test_method', 16, 'create_test_method', '2025-04-28 20:29:39', '2025-05-05 14:24:44'),
-(19, 'change_test_methods_role', 16, 'change_test_methods_role', '2025-04-28 20:29:39', '2025-05-05 14:24:44'),
-(20, 'change_test_methods_status', 16, 'change_test_methods_status', '2025-04-28 20:29:39', '2025-05-05 14:24:44'),
-(21, 'delete_test_method', 16, 'delete_test_method', '2025-04-28 20:29:39', '2025-05-05 14:24:44'),
-(22, 'edit_test_method', 16, 'edit_test_method', '2025-04-28 20:29:39', '2025-05-05 14:24:44'),
-(23, 'unit_management', NULL, 'unit_management', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(24, 'change_units_role', 23, 'change_units_role', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(25, 'change_units_status', 23, 'change_units_status', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(26, 'delete_unit', 23, 'delete_unit', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(27, 'edit_unit', 23, 'edit_unit', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(28, 'create_unit', 23, 'create_unit', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(29, 'all_units', 23, 'show_all_units', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(30, 'result_type_management', NULL, 'result_type_management', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(31, 'change_result_types_status', 30, 'change_result_types_status', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(32, 'delete_result_type', 30, 'delete_result_type', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(33, 'edit_result_type', 30, 'edit_result_type', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(34, 'create_result_type', 30, 'create_result_type', '2025-05-05 13:40:34', '2025-05-05 13:46:31'),
-(35, 'change_result_types_role', 30, 'change_result_types_role', '2025-05-05 13:46:31', '2025-05-05 13:46:31'),
-(36, 'all_result_types', 30, 'show_all_result_types', '2025-05-05 13:46:31', '2025-05-05 13:46:31'),
-(37, 'sample_management', NULL, 'sample_management', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(38, 'change_samples_status', 37, 'change_samples_status', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(39, 'delete_sample', 37, 'delete_sample', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(40, 'edit_sample', 37, 'edit_sample', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(41, 'create_sample', 37, 'create_sample', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(42, 'all_samples', 37, 'show_all_samples', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(43, 'plant_management', NULL, 'plant_management', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(44, 'change_plants_status', 43, 'change_plants_status', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(45, 'delete_plant', 43, 'delete_plant', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(46, 'edit_plant', 43, 'edit_plant', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(47, 'create_plant', 43, 'create_plant', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(48, 'all_plants', 43, 'show_all_plants', '2025-05-08 04:24:02', '2025-05-08 04:24:02'),
-(49, 'toxic_degree_management', NULL, 'toxic_degree_management', '2025-05-21 04:47:35', '2025-05-21 04:47:35'),
-(50, 'change_toxic_degrees_status', 49, 'change_toxic_degrees_status', '2025-05-21 04:47:35', '2025-05-21 04:47:35'),
-(51, 'delete_toxic_degree', 49, 'delete_toxic_degree', '2025-05-21 04:47:35', '2025-05-21 04:47:35'),
-(52, 'edit_toxic_degree', 49, 'edit_toxic_degree', '2025-05-21 04:47:35', '2025-05-21 04:47:35'),
-(53, 'create_toxic_degree', 49, 'create_toxic_degree', '2025-05-21 04:47:35', '2025-05-21 04:47:35'),
-(54, 'all_toxic_degrees', 49, 'show_all_toxic_degrees', '2025-05-21 04:47:35', '2025-05-21 04:47:35'),
-(55, 'submission_management', NULL, 'submission_management', '2025-05-21 12:53:56', '2025-05-21 12:53:56'),
-(56, 'change_submissions_status', 55, 'change_submissions_status', '2025-05-21 12:53:56', '2025-05-21 12:53:56'),
-(57, 'delete_submission', 55, 'delete_submission', '2025-05-21 12:53:56', '2025-05-21 12:53:56'),
-(58, 'edit_submission', 55, 'edit_submission', '2025-05-21 12:53:56', '2025-05-21 12:53:56'),
-(59, 'create_submission', 55, 'create_submission', '2025-05-21 12:53:56', '2025-05-21 12:53:56'),
-(60, 'all_submissions', 55, 'show_all_submissions', '2025-05-21 12:53:56', '2025-05-21 12:53:56'),
-(61, 'sample_routine_scheduler', NULL, 'sample_routine_scheduler', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(62, 'change_sample_routine_scheduler_status', 61, 'change_sample_routine_scheduler_status', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(63, 'delete_sample_routine_scheduler', 61, 'delete_sample_routine_scheduler', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(64, 'edit_sample_routine_scheduler', 61, 'edit_sample_routine_scheduler', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(65, 'create_sample_routine_scheduler', 61, 'create_sample_routine_scheduler', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(66, 'all_sample_routine_scheduler', 61, 'show_all_sample_routine_scheduler', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(67, 'frequency_management', NULL, 'frequency_management', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(68, 'change_frequencies_status', 67, 'change_frequencies_status', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(69, 'delete_frequency', 67, 'delete_frequency', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(70, 'edit_frequency', 67, 'edit_frequency', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(71, 'create_frequency', 67, 'create_frequency', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(72, 'all_frequencies', 67, 'show_all_frequencies', '2025-05-25 14:32:19', '2025-05-25 14:32:19'),
-(73, 'result_management', NULL, 'result_management', '2025-06-04 09:32:06', '2025-06-04 09:32:06'),
-(74, 'change_results_status', 73, 'change_results_status', '2025-06-04 09:32:06', '2025-06-04 09:32:06'),
-(75, 'delete_result', 73, 'delete_result', '2025-06-04 09:32:06', '2025-06-04 09:32:06'),
-(76, 'edit_result', 73, 'edit_result', '2025-06-04 09:32:06', '2025-06-04 09:32:06'),
-(77, 'create_result', 73, 'create_result', '2025-06-04 09:32:06', '2025-06-04 09:32:06'),
-(78, 'all_results', 73, 'show_all_results', '2025-06-04 09:32:06', '2025-06-04 09:32:06'),
-(79, 'coa_management', NULL, 'coa_management', '2025-06-28 22:50:03', '2025-06-28 22:50:03'),
-(80, 'change_coas_status', 73, 'change_coas_status', '2025-06-28 22:50:03', '2025-06-28 22:50:03'),
-(81, 'delete_coa', 73, 'delete_coa', '2025-06-28 22:50:03', '2025-06-28 22:50:03'),
-(82, 'edit_coa', 73, 'edit_coa', '2025-06-28 22:50:03', '2025-06-28 22:50:03'),
-(83, 'create_coa', 73, 'create_coa', '2025-06-28 22:50:03', '2025-06-28 22:50:03'),
-(84, 'all_coas', 73, 'show_all_coas', '2025-06-28 22:50:03', '2025-06-28 22:50:03'),
-(85, 'coa_settings', 73, 'coa_settings', '2025-06-28 22:50:03', '2025-06-28 22:50:03');
+(1, 'admin_general_dashboard', NULL, 'admin_general_dashboard', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(2, 'admin_general_dashboard_show', 1, 'general_dashboard_page', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(3, 'admin_roles', NULL, 'admin_roles', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(4, 'show_admin_roles', 3, 'show_admin_roles', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(5, 'create_admin_roles', 3, 'create_admin_roles', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(6, 'edit_admin_roles', 3, 'edit_admin_roles', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(7, 'update_admin_roles', 3, 'update_admin_roles', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(8, 'delete_admin_roles', 3, 'delete_admin_roles', '2025-04-28 23:29:38', '2025-04-28 23:29:38'),
+(9, 'user_management', NULL, 'user_management', '2025-04-28 23:29:39', '2025-04-28 23:29:39'),
+(10, 'all_users', 9, 'show_all_users', '2025-04-28 23:29:39', '2025-04-28 23:29:39'),
+(11, 'change_users_role', 9, 'change_users_role', '2025-04-28 23:29:39', '2025-04-28 23:29:39'),
+(12, 'change_users_status', 9, 'change_users_status', '2025-04-28 23:29:39', '2025-04-28 23:29:39'),
+(13, 'delete_user', 9, 'delete_user', '2025-04-28 23:29:39', '2025-04-28 23:29:39'),
+(14, 'edit_user', 9, 'edit_user', '2025-04-28 23:29:39', '2025-04-28 23:29:39'),
+(15, 'create_user', 9, 'create_user', '2025-04-28 23:29:39', '2025-04-28 23:29:39'),
+(16, 'test_method_management', NULL, 'test_method_management', '2025-04-28 23:29:39', '2025-05-01 17:00:49'),
+(17, 'all_test_methods', 16, 'show_all_test_methods', '2025-04-28 23:29:39', '2025-05-01 17:00:49'),
+(18, 'create_test_method', 16, 'create_test_method', '2025-04-28 23:29:39', '2025-05-05 17:24:44'),
+(19, 'change_test_methods_role', 16, 'change_test_methods_role', '2025-04-28 23:29:39', '2025-05-05 17:24:44'),
+(20, 'change_test_methods_status', 16, 'change_test_methods_status', '2025-04-28 23:29:39', '2025-05-05 17:24:44'),
+(21, 'delete_test_method', 16, 'delete_test_method', '2025-04-28 23:29:39', '2025-05-05 17:24:44'),
+(22, 'edit_test_method', 16, 'edit_test_method', '2025-04-28 23:29:39', '2025-05-05 17:24:44'),
+(23, 'unit_management', NULL, 'unit_management', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(24, 'change_units_role', 23, 'change_units_role', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(25, 'change_units_status', 23, 'change_units_status', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(26, 'delete_unit', 23, 'delete_unit', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(27, 'edit_unit', 23, 'edit_unit', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(28, 'create_unit', 23, 'create_unit', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(29, 'all_units', 23, 'show_all_units', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(30, 'result_type_management', NULL, 'result_type_management', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(31, 'change_result_types_status', 30, 'change_result_types_status', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(32, 'delete_result_type', 30, 'delete_result_type', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(33, 'edit_result_type', 30, 'edit_result_type', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(34, 'create_result_type', 30, 'create_result_type', '2025-05-05 16:40:34', '2025-05-05 16:46:31'),
+(35, 'change_result_types_role', 30, 'change_result_types_role', '2025-05-05 16:46:31', '2025-05-05 16:46:31'),
+(36, 'all_result_types', 30, 'show_all_result_types', '2025-05-05 16:46:31', '2025-05-05 16:46:31'),
+(37, 'sample_management', NULL, 'sample_management', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(38, 'change_samples_status', 37, 'change_samples_status', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(39, 'delete_sample', 37, 'delete_sample', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(40, 'edit_sample', 37, 'edit_sample', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(41, 'create_sample', 37, 'create_sample', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(42, 'all_samples', 37, 'show_all_samples', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(43, 'plant_management', NULL, 'plant_management', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(44, 'change_plants_status', 43, 'change_plants_status', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(45, 'delete_plant', 43, 'delete_plant', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(46, 'edit_plant', 43, 'edit_plant', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(47, 'create_plant', 43, 'create_plant', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(48, 'all_plants', 43, 'show_all_plants', '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
+(49, 'toxic_degree_management', NULL, 'toxic_degree_management', '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
+(50, 'change_toxic_degrees_status', 49, 'change_toxic_degrees_status', '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
+(51, 'delete_toxic_degree', 49, 'delete_toxic_degree', '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
+(52, 'edit_toxic_degree', 49, 'edit_toxic_degree', '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
+(53, 'create_toxic_degree', 49, 'create_toxic_degree', '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
+(54, 'all_toxic_degrees', 49, 'show_all_toxic_degrees', '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
+(55, 'submission_management', NULL, 'submission_management', '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
+(56, 'change_submissions_status', 55, 'change_submissions_status', '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
+(57, 'delete_submission', 55, 'delete_submission', '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
+(58, 'edit_submission', 55, 'edit_submission', '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
+(59, 'create_submission', 55, 'create_submission', '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
+(60, 'all_submissions', 55, 'show_all_submissions', '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
+(61, 'sample_routine_scheduler', NULL, 'sample_routine_scheduler', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(62, 'change_sample_routine_scheduler_status', 61, 'change_sample_routine_scheduler_status', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(63, 'delete_sample_routine_scheduler', 61, 'delete_sample_routine_scheduler', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(64, 'edit_sample_routine_scheduler', 61, 'edit_sample_routine_scheduler', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(65, 'create_sample_routine_scheduler', 61, 'create_sample_routine_scheduler', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(66, 'all_sample_routine_scheduler', 61, 'show_all_sample_routine_scheduler', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(67, 'frequency_management', NULL, 'frequency_management', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(68, 'change_frequencies_status', 67, 'change_frequencies_status', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(69, 'delete_frequency', 67, 'delete_frequency', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(70, 'edit_frequency', 67, 'edit_frequency', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(71, 'create_frequency', 67, 'create_frequency', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(72, 'all_frequencies', 67, 'show_all_frequencies', '2025-05-25 17:32:19', '2025-05-25 17:32:19'),
+(73, 'result_management', NULL, 'result_management', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
+(74, 'change_results_status', 73, 'change_results_status', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
+(75, 'delete_result', 73, 'delete_result', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
+(76, 'edit_result', 73, 'edit_result', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
+(77, 'create_result', 73, 'create_result', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
+(78, 'all_results', 73, 'show_all_results', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
+(79, 'coa_management', NULL, 'coa_management', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
+(80, 'change_coas_status', 73, 'change_coas_status', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
+(81, 'delete_coa', 73, 'delete_coa', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
+(82, 'edit_coa', 73, 'edit_coa', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
+(83, 'create_coa', 73, 'create_coa', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
+(84, 'all_coas', 73, 'show_all_coas', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
+(85, 'coa_settings', 73, 'coa_settings', '2025-06-29 01:50:03', '2025-06-29 01:50:03');
 
 -- --------------------------------------------------------
 
@@ -1009,7 +1024,7 @@ CREATE TABLE `submissions` (
   `sampling_date_and_time` datetime DEFAULT NULL,
   `comment` text DEFAULT NULL,
   `submission_number` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'pending',
+  `status` varchar(255) NOT NULL DEFAULT 'first_step',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1019,8 +1034,7 @@ CREATE TABLE `submissions` (
 --
 
 INSERT INTO `submissions` (`id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `sample_id`, `priority`, `sampling_date_and_time`, `comment`, `submission_number`, `status`, `created_at`, `updated_at`) VALUES
-(11, 24, NULL, 9, 23, 'normal', '2025-06-24 10:22:00', NULL, 'SUB-000011', 'pending', '2025-06-24 01:22:33', '2025-06-24 01:22:33'),
-(12, 24, NULL, 9, 23, 'high', '2025-06-25 17:04:00', NULL, 'SUB-000012', 'pending', '2025-06-25 08:04:22', '2025-06-25 08:04:22');
+(16, 24, NULL, 9, 26, 'high', '2025-08-17 08:36:00', NULL, 'SUB-000016', 'third_step', '2025-08-17 02:36:33', '2025-08-17 02:37:32');
 
 -- --------------------------------------------------------
 
@@ -1041,8 +1055,8 @@ CREATE TABLE `submission_items` (
 --
 
 INSERT INTO `submission_items` (`id`, `submission_id`, `sample_test_method_item_id`, `created_at`, `updated_at`) VALUES
-(14, 11, 24, NULL, NULL),
-(16, 12, 24, NULL, NULL);
+(24, 16, 30, NULL, NULL),
+(25, 16, 31, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1087,7 +1101,7 @@ CREATE TABLE `tenants` (
 --
 
 INSERT INTO `tenants` (`id`, `name`, `phone`, `logo`, `domain`, `database_options`, `my_name`, `tenant_id`, `user_count`, `setup_cost`, `monthly_subscription_user`, `status`, `email`, `applicable_date`, `creation_date`, `created_at`, `updated_at`) VALUES
-(6, 'eslam badawy', '115009801', NULL, '3.localhost', '{\"dbname\":\"lims_6\"}', NULL, '3', 5, '0', NULL, 'active', 'e@badawy.e', NULL, NULL, '2025-04-28 20:43:47', '2025-04-28 20:43:48');
+(6, 'eslam badawy', '115009801', NULL, '3.localhost', '{\"dbname\":\"lims_6\"}', NULL, '3', 5, '0', NULL, 'active', 'e@badawy.e', NULL, NULL, '2025-04-28 23:43:47', '2025-04-28 23:43:48');
 
 -- --------------------------------------------------------
 
@@ -1109,9 +1123,9 @@ CREATE TABLE `test_methods` (
 --
 
 INSERT INTO `test_methods` (`id`, `name`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(8, 'ICP Analysis', 'ASTM D1976', 'added', '2025-05-01 16:18:35', '2025-05-01 16:48:10'),
-(9, 'PH', 'any', 'added', '2025-05-04 15:24:45', '2025-05-04 15:24:45'),
-(11, 'New Test Method', NULL, 'added', '2025-05-21 05:00:22', '2025-05-21 05:00:22');
+(8, 'ICP Analysis', 'ASTM D1976', 'added', '2025-05-01 19:18:35', '2025-05-01 19:48:10'),
+(9, 'PH', 'any', 'added', '2025-05-04 18:24:45', '2025-05-04 18:24:45'),
+(11, 'New Test Method', NULL, 'added', '2025-05-21 08:00:22', '2025-05-21 08:00:22');
 
 -- --------------------------------------------------------
 
@@ -1138,12 +1152,13 @@ CREATE TABLE `test_method_items` (
 --
 
 INSERT INTO `test_method_items` (`id`, `test_method_id`, `name`, `unit`, `result_type`, `precision`, `lower_range`, `upper_range`, `reportable`, `created_at`, `updated_at`) VALUES
-(4, 8, 'Soduim (Na)', 3, 1, '2', '0.1', '1000', '1', '2025-05-01 16:18:35', '2025-05-01 16:18:35'),
-(5, 8, 'Potassium (K)', 3, 2, NULL, '0.1', '1000', NULL, '2025-05-01 16:18:35', '2025-05-01 16:18:35'),
-(6, 8, 'Iron (Fe)', 3, 1, NULL, '0.1', '100', NULL, '2025-05-01 16:18:35', '2025-05-01 16:18:35'),
-(7, 9, 'ph', 3, 2, '2', '0', '14', '1', '2025-05-04 15:24:45', '2025-05-04 15:24:45'),
-(9, 11, 'n', 3, 1, '32', '432', '43234', '1', '2025-05-21 05:00:22', '2025-05-21 05:00:22'),
-(10, 11, 'n1', 4, 2, '423', '34545', '435563', NULL, '2025-05-21 05:00:22', '2025-05-21 05:00:22');
+(4, 8, 'Soduim (Na)', 3, 1, '2', '0.1', '1000', '1', '2025-05-01 19:18:35', '2025-05-01 19:18:35'),
+(5, 8, 'Potassium (K)', 3, 2, NULL, '0.1', '1000', NULL, '2025-05-01 19:18:35', '2025-05-01 19:18:35'),
+(6, 8, 'Iron (Fe)', 3, 1, NULL, '0.1', '100', NULL, '2025-05-01 19:18:35', '2025-05-01 19:18:35'),
+(7, 9, 'ph', 3, 2, '2', '0', '14', '1', '2025-05-04 18:24:45', '2025-05-04 18:24:45'),
+(9, 11, 'n', 3, 1, '32', '432', '43234', '1', '2025-05-21 08:00:22', '2025-05-21 08:00:22'),
+(10, 11, 'n1', 4, 2, '423', '34545', '435563', '0', '2025-05-21 08:00:22', '2025-05-21 08:00:22'),
+(11, 11, 'wrg', 4, 1, '2', '345', '4343', '0', '2025-07-22 14:32:44', '2025-07-22 14:32:44');
 
 -- --------------------------------------------------------
 
@@ -1176,8 +1191,8 @@ CREATE TABLE `units` (
 --
 
 INSERT INTO `units` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(3, 'ppm', '2025-05-05 13:59:06', '2025-05-05 13:59:06'),
-(4, 'ppb', '2025-05-05 13:59:47', '2025-05-05 13:59:47');
+(3, 'ppm', '2025-05-05 16:59:06', '2025-05-05 16:59:06'),
+(4, 'ppb', '2025-05-05 16:59:47', '2025-05-05 16:59:47');
 
 -- --------------------------------------------------------
 
@@ -1207,8 +1222,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `user_name`, `phone`, `password`, `role_name`, `role_id`, `my_name`, `slug`, `signature`, `remember_token`, `created_at`, `updated_at`) VALUES
-(6, 'eslam badawy', 'e@badawy.e', 'admin22', '115009801', '$2y$10$ftlzU0f6t3hfwXY1rwn/iOC3tm8Evz0jBJPnRjvmDER5Hq1BwOi1.', 'admin', 2, '12345', 'eslam-lims', 'sign_68725ef5676ea.png', '2dqt9FMTnuW1NNtnS2C5yDj3ccDNZJgkgFsSJv0vKVFUmsKEMg2LZATHv7ov', '2025-04-28 20:43:48', '2025-07-12 07:11:17'),
-(8, 'eslam badawy', 'e@badawy.eew', 'admin', '115009801', '$2y$10$nLRYUHvFJOPNBEkuqsextOJuNJ6sPJ3/MjlHgOU2xZkhZW7Ff5BOq', 'user', 1, NULL, NULL, NULL, 'Wh7F3zVlX3ML5ZDjNaWgJw1JDNnaRWYLmYueL2vFazIQsROv7V7DMKZcmtiZ', '2025-04-30 18:02:38', '2025-04-30 18:03:30');
+(6, 'eslam badawy', 'e@badawy.e', 'admin22', '115009801', '$2y$10$ftlzU0f6t3hfwXY1rwn/iOC3tm8Evz0jBJPnRjvmDER5Hq1BwOi1.', 'admin', 2, '12345', 'eslam-lims', 'sign_68725ef5676ea.png', '2dqt9FMTnuW1NNtnS2C5yDj3ccDNZJgkgFsSJv0vKVFUmsKEMg2LZATHv7ov', '2025-04-28 23:43:48', '2025-07-12 10:11:17'),
+(8, 'eslam badawy', 'e@badawy.eew', 'admin', '115009801', '$2y$10$nLRYUHvFJOPNBEkuqsextOJuNJ6sPJ3/MjlHgOU2xZkhZW7Ff5BOq', 'user', 1, NULL, NULL, NULL, 'Wh7F3zVlX3ML5ZDjNaWgJw1JDNnaRWYLmYueL2vFazIQsROv7V7DMKZcmtiZ', '2025-04-30 21:02:38', '2025-04-30 21:03:30');
 
 --
 -- Indexes for dumped tables
@@ -1523,7 +1538,7 @@ ALTER TABLE `certificates`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `coa_settings`
@@ -1547,7 +1562,7 @@ ALTER TABLE `c_o_a_settings`
 -- AUTO_INCREMENT for table `c_o_a_templates`
 --
 ALTER TABLE `c_o_a_templates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1571,7 +1586,7 @@ ALTER TABLE `frequencies`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1601,19 +1616,19 @@ ALTER TABLE `plant_samples`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `result_test_methods`
 --
 ALTER TABLE `result_test_methods`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `result_test_method_items`
 --
 ALTER TABLE `result_test_method_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `result_types`
@@ -1631,7 +1646,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `samples`
 --
 ALTER TABLE `samples`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `sample_routine_schedulers`
@@ -1649,13 +1664,13 @@ ALTER TABLE `sample_routine_scheduler_items`
 -- AUTO_INCREMENT for table `sample_test_methods`
 --
 ALTER TABLE `sample_test_methods`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `sample_test_method_items`
 --
 ALTER TABLE `sample_test_method_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -1667,13 +1682,13 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `submissions`
 --
 ALTER TABLE `submissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `submission_items`
 --
 ALTER TABLE `submission_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `subscriptions`
@@ -1697,7 +1712,7 @@ ALTER TABLE `test_methods`
 -- AUTO_INCREMENT for table `test_method_items`
 --
 ALTER TABLE `test_method_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `toxic_degrees`

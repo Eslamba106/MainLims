@@ -1,15 +1,13 @@
 <?php
-
 namespace App\Models\second_part;
 
+use App\Models\part_three\Result;
 use App\Models\Plant;
 use App\Models\Sample;
 use App\Models\SamplePlant;
-use App\Models\SampleTestMethod;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\part_three\Result;
-
+use Illuminate\Database\Eloquent\Model;
+use Milon\Barcode\DNS1D;
 
 class Submission extends Model
 {
@@ -44,8 +42,26 @@ class Submission extends Model
     {
         return $this->hasMany(SubmissionItem::class, 'submission_id', 'id');
     }
-    public function result() 
+    public function result()
     {
         return $this->hasOne(Result::class, 'submission_id', 'id');
     }
+
+    public function getBarcodeAttribute()
+    {
+        $barcode = new DNS1D();
+        $barcode->setStorPath(storage_path('framework/barcodes/'));
+        return $barcode->getBarcodeHTML($this->submission_number, 'C39', 1, 40);
+    }
+
+    public function getBarcodeImageAttribute()
+    {
+        $barcode = new DNS1D();
+        $barcode->setStorPath(__DIR__ . "/cache/");
+
+        return '<img src="data:image/png;base64,'
+        . $barcode->getBarcodePNG($this->submission_number, 'C39', 1, 50)
+            . '" alt="barcode" />';
+    }
+
 }

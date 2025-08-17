@@ -33,15 +33,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="input-group mb-3 d-flex justify-content-end">
-                        {{-- @can('change_submissions_status')
-                            <div class="remv_control mr-2">
-                                <select name="status" class="mr-3 mt-3 form-control ">
-                                    <option value="">{{ __('dashboard.set_status') }}</option>
-                                    <option value="1">{{ __('dashboard.active') }}</option>
-                                    <option value="2">{{ __('dashboard.disactive') }}</option>
-                                </select>
-                            </div>
-                        @endcan --}}
+
                         @can('change_submissions_role')
                             <div class="remv_control mr-2">
                                 <select name="role" class="mr-3 mt-3 form-control">
@@ -75,6 +67,7 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ __('samples.sample_id') }}</th>
+                            <th class="text-center" scope="col">{{ translate('barcode') }}</th>
                             <th class="text-center" scope="col">@lang('submissions.collection_date')</th>
                             <th class="text-center" scope="col">@lang('samples.plant')</th>
                             <th class="text-center" scope="col">@lang('submissions.sample_point')</th>
@@ -93,26 +86,42 @@
                                         <span class="text-muted">#{{ $loop->index + 1 }}</span>
                                     </label>
                                 </th>
-                                <td class="text-center"><img src="{{ asset(main_path().'assets/images/flask_first.png') }}" alt=""> {{ $submission_item->submission_number }} </td>
+                                @if ($submission_item->status == 'first_step')
+                                    <td class="text-center"><img width="40px"
+                                            src="{{ asset(main_path() . 'assets/images/flask_gray.png') }}" alt="">
+                                        {{ $submission_item->submission_number }}
+                                    </td>
+                                @elseif($submission_item->status == 'second_step')
+                                    <td class="text-center"><img width="40px"
+                                            src="{{ asset(main_path() . 'assets/images/flask_half_gray.png') }}" alt="">
+                                        {{ $submission_item->submission_number }}
+                                    </td>
+                                @elseif($submission_item->status == 'third_step')
+                                    <td class="text-center"><img width="40px"
+                                            src="{{ asset(main_path() . 'assets/images/blue_flask.png') }}" alt="">
+                                        {{ $submission_item->submission_number }}
+                                    </td>
+                                @endif
+                                <td class="text-center" id="barcode-{{ $submission_item->id }}">{!! $submission_item->barcode_image !!}
+
+
+                                </td>
                                 <td class="text-center">
                                     {{ \Carbon\Carbon::parse($submission_item->sampling_date_and_time)->format('M d, Y h:i A') }}
                                 </td>
-                                {{-- {{ dd($submission_item->new_sample_main) }} --}}
                                 <td class="text-center">{{ $submission_item->plant->name }} </td>
                                 <td class="text-center">{{ optional($submission_item->sample_main)->name }} </td>
-                                {{-- <td class="text-center">{{ $submission_item->status  }} </td>
-                                <td class="text-center">{{ $submission_item->priority  }} </td> --}}
+
                                 <td class="text-center">
-                                    @php
-                                        $statusColors = [
-                                            'in progress' => 'bg-warning text-dark',
-                                            'pending' => 'bg-secondary text-white',
-                                            'completed' => 'bg-success text-white',
-                                        ];
-                                    @endphp
-                                    <span
-                                        class="badge {{ $statusColors[$submission_item->status] ?? 'bg-yellow text-dark' }}">
-                                        {{ $submission_item->status }}
+
+                                    <span class="badge bg-warning text-dark">
+                                        @if ($submission_item->status == 'first_step')
+                                            {{ translate('has_not_arrived_yet') }}
+                                        @elseif($submission_item->status == 'second_step')
+                                            {{ translate('Not_yet_worked_on') }}
+                                        @elseif($submission_item->status == 'third_step')
+                                            {{ translate('It_is_being_worked_on') }}
+                                        @endif
                                     </span>
                                 </td>
 
@@ -142,15 +151,24 @@
                                         <a href="{{ route('admin.submission.edit', $submission_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
-                                    @endcan
-                                    {{-- {{ dd($submission_item->result) }} --}}
-                                    @if (!isset($submission_item->result))
+                                    @endcan 
+                                    @if ($submission_item->status == 'second_step')
+                                        @can('create_result')
+                                            <a href="{{ route('admin.submission.change_status', [$submission_item->id, 'third_step']) }}"
+                                                class="btn btn-outline-warning text-dark  btn-sm" >{{ translate('start_work') }}</a>
+                                        @endcan
+                                    @endif
+                                    @if (!isset($submission_item->result) && $submission_item->status == 'third_step')
                                         @can('create_result')
                                             <a href="{{ route('admin.result.create', [$submission_item->id, 'submission']) }}"
                                                 class="btn btn-outline-warning text-dark btn-sm"
                                                 title="@lang('results.add_result')">@lang('results.add_result')</a>
                                         @endcan
                                     @endif
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        onclick="printBarcode('barcode-{{ $submission_item->id }}', '{{ $submission_item->submission_number }}')">
+                                        {{ translate('print_barcode') }}
+                                    </button>
                                 </td>
                             </tr>
                         @empty
@@ -163,4 +181,7 @@
         </div>
         </div>
     </form>
+@endsection
+@section('js')
+    
 @endsection

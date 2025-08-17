@@ -8,7 +8,14 @@
             <ul id="sidebarnav">
 
 
+                <li class="sidebar-item">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{{ route('scan_page') }}"
+                        aria-expanded="false">
+                        <i class="fa fa-barcode"></i>
 
+                        <span class="hide-menu">{{ translate('scan_Barcode') }} </span>
+                    </a>
+                </li>
                 @can('test_method_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -49,7 +56,7 @@
                 <!--  Test Method Management End-->
 
 
-                   <!--  Sample Management Start-->
+                <!--  Sample Management Start-->
                 @can('sample_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -63,7 +70,7 @@
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.sample') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('assign_test_to_the_samples')}}</span>
+                                        <span class="hide-menu">{{ translate('assign_test_to_the_samples') }}</span>
                                     </a>
                                 </li>
                             @endcan
@@ -83,7 +90,7 @@
                                     </a>
                                 </li>
                             @endcan
-                           
+
                             @can('toxic_degree_management')
                                 <li class="sidebar-item">
                                     <a href="{{ route('admin.toxic_degree') }}" class="sidebar-link">
@@ -92,13 +99,13 @@
                                     </a>
                                 </li>
                             @endcan
-                           
+
                         </ul>
                     </li>
                 @endcan
 
-                   <!--  Sample Management End-->
-                   <!--  Submission Management Start-->
+                <!--  Sample Management End-->
+                <!--  Submission Management Start-->
                 @can('submission_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -132,8 +139,8 @@
                                     </a>
                                 </li>
                             @endcan
-                            
-                           
+
+
                         </ul>
                     </li>
                 @endcan
@@ -160,36 +167,37 @@
                                     </a>
                                 </li>
                             @endcan
-                            
-                            
-                            
-                           
+
+
+
+
                         </ul>
                     </li>
                 @endcan
-                
+
                 @can('coa_settings')
-                   <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false">
                             <i class="fas fa-microscope"></i>
 
                             <span class="hide-menu">{{ translate('coa_Template_Designer') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                             
-                                <li class="sidebar-item">
-                                    <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('template_Designer_List') }}</span>
-                                    </a>
-                                </li>
-                                {{-- <li class="sidebar-item">
+
+                            <li class="sidebar-item">
+                                <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
+                                    <i class="mdi mdi-email"></i>
+                                    <span class="hide-menu">{{ translate('template_Designer_List') }}</span>
+                                </a>
+                            </li>
+                            {{-- <li class="sidebar-item">
                                     <a href="{{ route('admin.template_list') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
                                         <span class="hide-menu">{{ translate('master_template_list') }}</span>
                                     </a>
                                 </li> --}}
-                           
+
                         </ul>
                     </li>
                     {{-- <li class="sidebar-item">
@@ -212,7 +220,7 @@
                     </li> --}}
                 @endcan
 
-                   <!--  Submission Management End-->
+                <!--  Submission Management End-->
 
                 @can('user_management')
                     <li class="sidebar-item">
@@ -223,25 +231,23 @@
                             <span class="hide-menu">{{ translate('user_management') }} </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                        @can('all_users')
+                            @can('all_users')
                                 <li class="sidebar-item">
                                     <a href="{{ route('user_managment') }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
                                         <span class="hide-menu">{{ translate('all_users') }}</span>
                                     </a>
                                 </li>
+                            @endcan
+                            {{-- @can('all_users') --}}
+                            <li class="sidebar-item">
+                                <a href="{{ route('client.list') }}" class="sidebar-link">
+                                    <i class="mdi mdi-email"></i>
+                                    <span class="hide-menu">{{ translate('clients_List') }}</span>
+                                </a>
+                            </li>
 
-                           
-                        @endcan
-                        {{-- @can('all_users') --}} 
-                                <li class="sidebar-item">
-                                    <a href="{{ route('client.list') }}" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('clients_List') }}</span>
-                                    </a>
-                                </li>
-
-                            </ul>
+                        </ul>
                         {{-- @endcan --}}
                     </li>
                 @endcan
@@ -295,7 +301,7 @@
                             @endcan
                             @can('show_admin_roles')
                                 <li class="sidebar-item">
-                                    <a href="{{ route('profile.update' , auth()->id()) }}" class="sidebar-link">
+                                    <a href="{{ route('profile.update', auth()->id()) }}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
                                         <span class="hide-menu">{{ translate('profile') }}</span>
                                     </a>
