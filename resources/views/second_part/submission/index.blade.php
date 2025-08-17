@@ -183,5 +183,63 @@
     </form>
 @endsection
 @section('js')
-    
+    <script>
+        function printBarcode(barcodeId, submissionNumber) {
+            let barcodeDiv = document.getElementById(barcodeId);
+
+            if (!barcodeDiv) {
+                alert("لم يتم العثور على عنصر الباركود!");
+                return;
+            }
+
+            let barcodeHtml = barcodeDiv.innerHTML;
+
+            let printWindow = window.open('', '', 'width=400,height=300');
+            printWindow.document.write(`
+        <html>
+        <head>
+            <title>Print Barcode</title>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 10px;
+                    text-align: center;
+                    font-family: Arial, sans-serif;
+                }
+                .barcode-container {
+                    display: inline-block;
+                    padding: 5px;
+                }
+                h3 {
+                    margin-bottom: 10px;
+                    font-size: 14px; 
+                }
+                img {
+                    width: 700px;  /* ←   barcode width */
+                    height: 100px;  /* ←  barcode height  */
+                }
+ 
+                @page {
+                    size: 80mm 40mm; /* ← vol page */
+                    margin: 2mm;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="barcode-container">
+                <h3>${submissionNumber}</h3>
+                <div>${barcodeHtml}</div>
+            </div>
+            <script>
+                window.onload = function() {
+                    window.print();
+                    window.close();
+                }
+            <\/script>
+        </body>
+        </html>
+    `);
+            printWindow.document.close();
+        }
+    </script>
 @endsection
