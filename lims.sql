@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2025 at 07:46 AM
+-- Generation Time: Aug 17, 2025 at 02:09 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -691,7 +691,7 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`id`, `submission_id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `sample_id`, `user_id`, `priority`, `sampling_date_and_time`, `internal_comment`, `external_comment`, `submission_number`, `status`, `created_at`, `updated_at`) VALUES
-(17, 16, 24, NULL, 9, 26, 6, 'high', '2025-08-17 08:36:00', NULL, NULL, 'SUB-000016', 'pending', '2025-08-17 02:39:25', '2025-08-17 02:39:25');
+(23, 18, 24, NULL, 9, 26, 6, 'high', '2025-08-17 14:33:00', NULL, NULL, 'SUB-000018', 'pending', '2025-08-17 08:33:52', '2025-08-17 08:33:52');
 
 -- --------------------------------------------------------
 
@@ -713,8 +713,9 @@ CREATE TABLE `result_test_methods` (
 --
 
 INSERT INTO `result_test_methods` (`id`, `result_id`, `test_method_id`, `status`, `created_at`, `updated_at`) VALUES
-(21, 17, 8, 'in_range', '2025-08-17 02:39:25', '2025-08-17 02:39:25'),
-(22, 17, 11, 'in_range', '2025-08-17 02:39:25', '2025-08-17 02:39:25');
+(35, 23, 8, 'in_range', '2025-08-17 08:33:52', '2025-08-17 08:33:52'),
+(36, 23, 11, 'in_range', '2025-08-17 08:33:52', '2025-08-17 08:33:52'),
+(37, 23, 9, 'in_range', '2025-08-17 08:33:52', '2025-08-17 08:33:52');
 
 -- --------------------------------------------------------
 
@@ -727,6 +728,7 @@ CREATE TABLE `result_test_method_items` (
   `result_test_method_id` bigint(20) UNSIGNED NOT NULL,
   `result_id` bigint(20) UNSIGNED NOT NULL,
   `test_method_item_id` bigint(20) UNSIGNED NOT NULL,
+  `submission_item` int(255) DEFAULT NULL,
   `result` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'in_range',
   `acceptance_status` varchar(255) NOT NULL DEFAULT 'pending',
@@ -738,8 +740,10 @@ CREATE TABLE `result_test_method_items` (
 -- Dumping data for table `result_test_method_items`
 --
 
-INSERT INTO `result_test_method_items` (`id`, `result_test_method_id`, `result_id`, `test_method_item_id`, `result`, `status`, `acceptance_status`, `created_at`, `updated_at`) VALUES
-(24, 21, 17, 4, '453', 'normal', 'pending', '2025-08-17 02:39:25', '2025-08-17 02:39:25');
+INSERT INTO `result_test_method_items` (`id`, `result_test_method_id`, `result_id`, `test_method_item_id`, `submission_item`, `result`, `status`, `acceptance_status`, `created_at`, `updated_at`) VALUES
+(31, 35, 23, 4, 29, '453', 'normal', 'pending', '2025-08-17 08:33:52', '2025-08-17 08:33:52'),
+(32, 36, 23, 9, 30, '7657', 'warning', 'pending', '2025-08-17 09:04:46', '2025-08-17 09:04:46'),
+(33, 37, 23, 7, 31, '564', 'normal', 'pending', '2025-08-17 09:04:46', '2025-08-17 09:04:46');
 
 -- --------------------------------------------------------
 
@@ -1034,7 +1038,7 @@ CREATE TABLE `submissions` (
 --
 
 INSERT INTO `submissions` (`id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `sample_id`, `priority`, `sampling_date_and_time`, `comment`, `submission_number`, `status`, `created_at`, `updated_at`) VALUES
-(16, 24, NULL, 9, 26, 'high', '2025-08-17 08:36:00', NULL, 'SUB-000016', 'third_step', '2025-08-17 02:36:33', '2025-08-17 02:37:32');
+(18, 24, NULL, 9, 26, 'high', '2025-08-17 14:33:00', NULL, 'SUB-000018', 'fifth_step', '2025-08-17 08:33:09', '2025-08-17 09:04:46');
 
 -- --------------------------------------------------------
 
@@ -1055,8 +1059,9 @@ CREATE TABLE `submission_items` (
 --
 
 INSERT INTO `submission_items` (`id`, `submission_id`, `sample_test_method_item_id`, `created_at`, `updated_at`) VALUES
-(24, 16, 30, NULL, NULL),
-(25, 16, 31, NULL, NULL);
+(29, 18, 30, NULL, NULL),
+(30, 18, 31, NULL, NULL),
+(31, 18, 32, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1616,19 +1621,19 @@ ALTER TABLE `plant_samples`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `result_test_methods`
 --
 ALTER TABLE `result_test_methods`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `result_test_method_items`
 --
 ALTER TABLE `result_test_method_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `result_types`
@@ -1682,13 +1687,13 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `submissions`
 --
 ALTER TABLE `submissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `submission_items`
 --
 ALTER TABLE `submission_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `subscriptions`
