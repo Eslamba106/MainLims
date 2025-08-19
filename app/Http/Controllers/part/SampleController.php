@@ -290,6 +290,18 @@ class SampleController extends Controller
             "samples" => $samples,
         ]);
     }
+    public function get_master_sample_from_plant($id)
+    { 
+        $samples = Sample::select('id', 'plant_sample_id', 'plant_id', 'sub_plant_id')
+            ->with('sample_plant:id,name')
+            ->where('plant_id', $id)
+            ->orWhere('sub_plant_id', $id)
+            ->get(); 
+            return response()->json([
+            'status'  => 200,
+            "samples" => $samples,
+        ]);
+    }
     public function get_components_by_test_method($id)
     {
         $this->authorize('create_sample');
@@ -330,20 +342,22 @@ class SampleController extends Controller
         }
     }
 
-    public function add_test_method($id){
-        $sample = Sample::where('id' ,$id)->findOrFail($id);
+    public function add_test_method($id)
+    {
+        $sample               = Sample::where('id', $id)->findOrFail($id);
         $used_test_method_ids = $sample->test_methods()->pluck('test_method_id')->toArray();
 
-        $test_methods  = TestMethod::whereNotIn('id', $used_test_method_ids)->select('id', 'name')->get();
-        $data = [
-            'sample'            => $sample,
-            'test_methods'      => $test_methods 
+        $test_methods = TestMethod::whereNotIn('id', $used_test_method_ids)->select('id', 'name')->get();
+        $data         = [
+            'sample'       => $sample,
+            'test_methods' => $test_methods,
         ];
-        return view('samples.add_test_method' , $data);
+        return view('samples.add_test_method', $data);
     }
 
-    public function store_test_method(Request $request){
-          $inputs  = $request->all();
+    public function store_test_method(Request $request)
+    {
+        $inputs  = $request->all();
         $numbers = [];
 
         foreach ($inputs as $key => $value) {
@@ -353,7 +367,7 @@ class SampleController extends Controller
             }
         }
         // dd($request->all());
-          $test_method = TestMethod::select('id')->where('id', $request->test_method)->first();
+        $test_method = TestMethod::select('id')->where('id', $request->test_method)->first();
         if (isset($request->main_components) && $request->main_components == -1) {
             $test_method_items  = TestMethodItem::select('id', 'test_method_id')->where('test_method_id', $request->test_method)->get();
             $sample_test_method = SampleTestMethod::create([
@@ -397,7 +411,7 @@ class SampleController extends Controller
                 ]);
             }
         }
-      if (! empty($numbers)) {
+        if (! empty($numbers)) {
             foreach ($numbers as $index => $number) {
                 $test_method = TestMethod::select('id')->where('id', $request->input("test_method-$number"))->first();
 
@@ -455,5 +469,4 @@ class SampleController extends Controller
         return redirect()->route('admin.sample')->with('success', __('general.created_successfully'));
     }
 
-    
 }

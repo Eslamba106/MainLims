@@ -19,6 +19,7 @@
     use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
 use App\Models\Certificate;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CoaGenerationSettingController;
 
     /*
     |--------------------------------------------------------------------------
@@ -83,6 +84,7 @@ use App\Http\Controllers\CertificateController;
         Route::get('/delete/{id}', [SampleController::class, 'destroy'])->name('admin.sample.delete');
         Route::get('/get_sub_from_plant/{id}', [SampleController::class, 'get_sub_from_plant'])->name('admin.sample.get_sub_from_plant');
         Route::get('/get_sample_from_plant/{id}', [SampleController::class, 'get_sample_from_plant'])->name('admin.sample.get_sample_from_plant');
+        Route::get('/get_master_sample_from_plant/{id}', [SampleController::class, 'get_master_sample_from_plant'])->name('admin.sample.get_master_sample_from_plant');
         Route::get('/get_components_by_test_method/{id}', [SampleController::class, 'get_components_by_test_method'])->name('admin.sample.get_components_by_test_method');
         Route::get('/get_one_component_by_test_method/{id}', [SampleController::class, 'get_one_component_by_test_method'])->name('admin.sample.get_one_component_by_test_method');
         Route::get('/delete_test_method_from_sample/{id}', [SampleController::class, 'delete_test_method_from_sample'])->name('admin.sample.delete_test_method_from_sample');
@@ -174,6 +176,17 @@ use App\Http\Controllers\CertificateController;
 
     });
     // Unit Managment
+    Route::group(['prefix' => 'email'], function () {
+
+        Route::get('/', [GeneralController::class, 'email_index'])->name('admin.email');
+        Route::get('/create', [GeneralController::class, 'email_create'])->name('admin.email.create');
+        Route::post('/create', [GeneralController::class, 'email_store'])->name('admin.email.store');
+        Route::get('/edit/{id}', [GeneralController::class, 'email_edit'])->name('admin.email.edit');
+        Route::patch('/update/{id}', [GeneralController::class, 'email_update'])->name('admin.email.update');
+        Route::get('/delete/{id}', [GeneralController::class, 'email_destroy'])->name('admin.email.delete');
+
+    });
+    // Unit Managment
     Route::group(['prefix' => 'toxic_degree'], function () {
 
         Route::get('/', [GeneralController::class, 'toxic_degree_index'])->name('admin.toxic_degree');
@@ -257,6 +270,21 @@ use App\Http\Controllers\CertificateController;
         Route::get('/delete/{id}', [ClientController::class, 'delete'])->name('client.delete');
 
     });
+
+
+    // Client Managment
+    Route::group(['prefix' => 'coa_generation_setting'], function () {
+
+        Route::get('/', [CoaGenerationSettingController::class, 'index'])->name('coa_generation_setting.list');
+        Route::get('/create', [CoaGenerationSettingController::class, 'create'])->name('coa_generation_setting.create');
+        Route::post('/create', [CoaGenerationSettingController::class, 'store'])->name('coa_generation_setting.store');
+        Route::get('/edit/{id}', [CoaGenerationSettingController::class, 'edit'])->name('coa_generation_setting.edit');
+        Route::patch('/update/{id}', [CoaGenerationSettingController::class, 'update'])->name('coa_generation_setting.update');
+        Route::get('/delete/{id}', [CoaGenerationSettingController::class, 'delete'])->name('coa_generation_setting.delete');
+
+    });
+
+
     // Client Managment
     Route::group(['prefix' => 'certificate'], function () {
 

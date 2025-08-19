@@ -190,34 +190,34 @@
                                     <i class="mdi mdi-email"></i>
                                     <span class="hide-menu">{{ translate('template_Designer_List') }}</span>
                                 </a>
-                            </li>
-                            {{-- <li class="sidebar-item">
-                                    <a href="{{ route('admin.template_list') }}" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('master_template_list') }}</span>
-                                    </a>
-                                </li> --}}
-
+                            </li> 
                         </ul>
-                    </li>
-                    {{-- <li class="sidebar-item">
-                         <a href="{{ route('admin.template_designer') }}" class="sidebar-link"> 
-                            <i class="fa fa-users"></i>
+                    </li> 
+                @endcan
+                @can('coa_generation_settings')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false">
+                            <i class="fas fa-microscope"></i>
 
-                            <span class="hide-menu">{{ translate('coa_settings') }} </span>
+                            <span class="hide-menu">{{ translate('coa_Generation_Settings') }} </span>
                         </a>
-                        @can('all_users')
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item">
-                                    <a href="{{ route('admin.template_designer') }}" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('all_users') }}</span>
-                                    </a>
-                                </li>
+                        <ul aria-expanded="false" class="collapse  first-level">
 
-                            </ul>
-                        @endcan
-                    </li> --}}
+                            <li class="sidebar-item">
+                                <a href="{{ route('coa_generation_setting.list') }}" class="sidebar-link">
+                                    <i class="mdi mdi-email"></i>
+                                    <span class="hide-menu">{{ translate('coa_Generation_Settings_List') }}</span>
+                                </a>
+                            </li> 
+                            <li class="sidebar-item">
+                                <a href="{{ route('admin.email') }}" class="sidebar-link">
+                                    <i class="mdi mdi-email"></i>
+                                    <span class="hide-menu">{{ translate('email_List') }}</span>
+                                </a>
+                            </li> 
+                        </ul>
+                    </li> 
                 @endcan
 
                 <!--  Submission Management End-->

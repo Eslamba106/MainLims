@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\part;
 
+use App\Models\WebEmail;
 use App\Models\part\Unit;
 use Illuminate\Http\Request;
 use App\Models\part\ResultType;
@@ -176,6 +177,61 @@ class GeneralController extends Controller
         $unit = Unit::findOrFail($id);
         $unit->delete();
         return redirect()->route('admin.unit')->with('success', __('general.deleted_successfully'));
+    }
+    public function email_index(Request $request)
+    {
+        $emails = WebEmail::select('id', 'email' )->orderBy("created_at", "desc")->paginate(10);
+        $data = [
+            'main' => $emails,
+            'route' => 'email',
+        ];
+        return view('general_part.index' , $data);
+    }
+
+    public function email_create()
+    {
+        $data = [
+            'route' => 'email',
+        ];
+        return view('general_part.create' , $data);
+    }
+
+    public function email_store(Request $request)
+    { 
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $email = WebEmail::create([
+            'email' => $request->name,
+        ]);
+        return redirect()->route('admin.email')->with('success', __('general.added_successfully'));
+    }
+    public function email_edit($id)
+    {
+        $email = WebEmail::findOrFail($id); 
+        $data = [
+            'main' => $email,
+            'route' => 'email',
+        ];
+        return view('general_part.edit', $data);
+    }
+    public function email_update(Request $request, $id)
+    {
+        $email = WebEmail::findOrFail($id);
+       
+        $request->validate([
+            'name' => 'required|string|max:255|unique:emails,name,'.$id.',id',
+        ]);
+        $email->update([
+            'email' => $request->name,
+        ]);
+        return redirect()->route('admin.email')->with('success', __('general.updated_successfully'));
+    }
+    public function email_destroy($id)
+    {
+        $email = WebEmail::findOrFail($id);
+        $email->delete();
+        return redirect()->route('admin.email')->with('success', __('general.deleted_successfully'));
     }
     public function result_type_index(Request $request)
     {
