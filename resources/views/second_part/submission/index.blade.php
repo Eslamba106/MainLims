@@ -66,7 +66,7 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ __('samples.sample_id') }}</th>
-                            <th class="text-center" scope="col">{{ translate('barcode') }}</th>
+                            {{-- <th class="text-center" scope="col">{{ translate('barcode') }}</th> --}}
                             <th class="text-center" scope="col">@lang('submissions.collection_date')</th>
                             <th class="text-center" scope="col">@lang('samples.plant')</th>
                             <th class="text-center" scope="col">@lang('submissions.sample_point')</th>
@@ -102,19 +102,25 @@
                                         {{ $submission_master->submission_number }}
                                     </td>
                                 @elseif($submission_master->status == 'fourth_step')
-                 
                                     <td class="text-center"><img width="40px"
-                                            src="{{ asset(main_path() . 'assets/images/'.getFlaskImage($submission_master->id)) }}" alt="">
+                                            src="{{ asset(main_path() . 'assets/images/' . getFlaskImage($submission_master->id)) }}"
+                                            alt="">
                                         {{ $submission_master->submission_number }}
                                     </td>
                                 @elseif($submission_master->status == 'fifth_step')
-                 
-                                    <td class="text-center"><img width="40px"
-                                            src="{{ asset(main_path() . 'assets/images/'.getFlaskImageFifthStatus($submission_master->id)) }}" alt="">
+                                    <td class="text-center">
+                                        {{-- <i class="fas fa-check text-success"></i>
+                                        <i class="fas fa-flask text-warning"></i> --}}
+                                        {{-- <i class="fas fa-flask text-success"></i> --}}
+                                        {{-- <i class="fas fa-flask-vial text-primary"></i> --}}
+
+                                        <img width="40px"
+                                            src="{{ asset(main_path() . 'assets/images/' . getFlaskImageFifthStatus($submission_master->id)) }}"
+                                            alt="">
                                         {{ $submission_master->submission_number }}
                                     </td>
                                 @endif
-                                <td class="text-center" id="barcode-{{ $submission_master->id }}">{!! $submission_master->barcode_image !!}
+                                {{-- <td class="text-center" id="barcode-{{ $submission_master->id }}">{!! $submission_master->barcode_image !!} --}}
 
 
                                 </td>

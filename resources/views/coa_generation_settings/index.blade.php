@@ -2,13 +2,17 @@
 @section('title')
     <?php $lang = Session::get('locale'); ?>
 
-    {{ translate($route) }}
+    {{ translate('coa_generation_settings') }}
+@endsection
+@section('css')
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
 @endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">{{ translate($route) }}</h4>
+                <h4 class="page-title">{{ translate('coa_generation_settings') }}</h4>
                 <div class="d-flex align-items-center">
 
                 </div>
@@ -18,7 +22,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('dashboard') }}">{{ translate('home') }}</a>
+                                <a href="{{ route('dashboard') }}">{{ translate('home') }} </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">{{ translate('dashboard') }}</li>
                         </ol>
@@ -28,7 +32,6 @@
         </div>
     </div>
 
-
     <form action="" method="get">
 
         <div class="col-12">
@@ -36,14 +39,10 @@
                 <div class="card-body">
                     <div class="input-group mb-3 d-flex justify-content-end">
 
-
-
-
-                        @can('create_unit')
-                            <div class="m-2">
-                                <a href="" class="btn btn-sm btn-outline-primary mr-2" href="#" data-add_unit=""
-                                    data-toggle="modal" data-target="#add_unit">{{ translate('create_' . $route) }}</a>
-                            </div>
+                        @can('coa_generation_settings')
+                            <a href="{{ route('coa_generation_setting.create') }}" class="btn btn-secondary mt-3 mr-2">
+                                <i class="la la-refresh"></i> {{ translate('create') }}
+                            </a>
                         @endcan
                     </div>
                 </div>
@@ -53,56 +52,53 @@
                     <thead>
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
-                            <th class="text-center" scope="col">
-                                @if ($route = 'email')
-                                    {{ translate('email') }}
-                                @else
-                                    {{ translate('name') }}
-                                @endif
-                            </th>
-                            @if ($route == 'frequency')
-                                <th class="text-center" scope="col">{{ translate('time_by_hours') }} </th>
-                            @endif
+                            <th class="text-center" scope="col">{{ translate('setting_Name') }}</th>
+                            <th class="text-center" scope="col">{{ translate('Frequency') }}</th>
+                            <th class="text-center" scope="col">{{ translate('Execution_Time') }}</th>
+                            {{-- <th class="text-center" scope="col">{{ translate('Generation_Conditions') }}</th> --}}
+                            <th class="text-center" scope="col">{{ translate('Sample') }}</th>
                             <th class="text-center" scope="col">{{ translate('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($main as $main_item)
+                        @forelse ($coa_generation_settings as $coa_generation_settings_item)
                             <tr>
                                 <th scope="row">
                                     <label>
                                         <input class="check_bulk_item" name="bulk_ids[]" type="checkbox"
-                                            value="{{ $main_item->id }}" />
+                                            value="{{ $coa_generation_settings_item->id }}" />
                                         <span class="text-muted">#{{ $loop->index + 1 }}</span>
                                     </label>
                                 </th>
+                                <td class="text-center">{{ $coa_generation_settings_item->name }} </td>
 
-                                <td class="text-center">   @if ($route = 'email')
-                                    {{ $main_item->email }}
-                                @else
-                                    {{ $main_item->name }}
-                                @endif</td>
-                                @if ($route == 'frequency')
-                                    <td class="text-center">{{ $main_item->time_by_hours }} H</td>
-                                @endif
+                                <td class="text-center">{{ $coa_generation_settings_item->frequency_master?->name }} </td>
+                                <td class="text-center">{{ $coa_generation_settings_item->execution_time }} </td>
+                                {{-- <td class="text-center">{{ $coa_generation_settings_item->execution_time }} </td> --}}
                                 <td class="text-center">
-                                    @can('delete_' . $route  )
-                                        <a href="{{ route('admin.' . $route . '.delete', $main_item->id) }}"
+                                    @foreach ($coa_generation_settings_item->sample as $sample)
+                                        {{ $sample->sample_plant?->name }}<br>
+                                    @endforeach
+                                </td>
+
+
+
+
+
+                                <td class="text-center">
+                                    @can('delete_coa_generation_setting')
+                                        <a href="{{ route('coa_generation_setting.delete', $coa_generation_settings_item->id) }}"
                                             class="btn btn-danger btn-sm" title="{{ translate('delete') }}"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
-                                    @can('edit_' . $route  )
-                                        <a href="{{ route('admin.' . $route . '.edit', $main_item->id) }}"
+                                    @can('edit_coa_generation_setting')
+                                        <a href="{{ route('coa_generation_setting.edit', $coa_generation_settings_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="{{ translate('edit') }}"><i
                                                 class="mdi mdi-pencil"></i> </a>
                                     @endcan
                                 </td>
-
                             </tr>
                         @empty
-                            <tr>
-                                <td colspan="8" class="text-center">{{ translate('No_data_found') }}</td>
-                            </tr>
                         @endforelse
 
 
@@ -112,73 +108,43 @@
         </div>
         </div>
     </form>
+@endsection
+@section('js')
+    <script>
+        // $('#statusSwitch').on('change', function() {
+        //     if ($(this).is(':checked')) {
+        //         console.log('Status: ON');
+        //     } else {
+        //         console.log('Status: OFF');
+        //     }
+        // });
+    </script>
+    <script>
+        $('.status_form').on('submit', function(event) {
+            event.preventDefault();
 
-    <div class="modal fade" id="add_unit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ translate('create_' . $route) }} </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <form action="{{ route('admin.' . $route . '.store') }}" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-
-                                                <div class="col-md-6 col-lg-12 col-xl-12">
-
-                                                    <div class="form-group">
-                                                        <label for="">@if ($route = 'email')
-                                    {{ translate('email') }}
-                                @else
-                                    {{ translate('name') }}
-                                @endif  <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="name" class="form-control" />
-
-                                                        @error('name')
-                                                            <span class="error text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                @if ($route == 'frequency')
-                                                    <div class="col-md-6 col-lg-12 col-xl-12">
-
-                                                        <div class="form-group">
-                                                            <label for="">{{ translate('time_by_hours') }} <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input type="number" name="time_by_hours"
-                                                                class="form-control" />
-
-                                                            @error('time_by_hours')
-                                                                <span class="error text-danger">{{ $error }}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="form-group mt-2"
-                                                style="text-align: {{ Session::get('locale') == 'en' ? 'right;margin-right:10px' : 'left;margin-left:10px' }}">
-                                                <button type="submit"
-                                                    class="btn btn-primary mt-2">{{ translate('save') }}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "",
+                method: 'POST',
+                data: $(this).serialize(),
+                success: function(data) {
+                    if (data.success == true) {
+                        toastr.success('{{ translate('updated_successfully') }}');
+                    } else if (data.success == false) {
+                        toastr.error(
+                            '{{ translate('Status_updated_failed.') }} {{ translate('Product_must_be_approved') }}'
+                        );
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    }
+                }
+            });
+        });
+    </script>
 @endsection
