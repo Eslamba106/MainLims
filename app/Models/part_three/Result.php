@@ -46,5 +46,16 @@ class Result extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+    public function result_items()
+{
+    return $this->hasManyThrough(
+        ResultTestMethodItem::class,  
+        ResultTestMethod::class,      
+        'result_id',                  
+        'result_test_method_id',      
+        'id',                         
+        'id'                         
+    );
+}
+
 }

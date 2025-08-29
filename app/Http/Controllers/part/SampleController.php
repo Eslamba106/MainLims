@@ -105,6 +105,7 @@ class SampleController extends Controller
             'sub_plant_id'    => $request->sub_plant_item ?? null,
             'plant_sample_id' => $request->sample_name,
             'toxic'           => $request->toxic ?? null,
+            'coa'               => ($request->coa == 'on') ? 1 : null,
         ]);
         $test_method_old = SampleTestMethod::where('sample_id', $sample->id)->get();
         foreach ($test_method_old as $old_test_method) {
@@ -154,6 +155,7 @@ class SampleController extends Controller
             'sub_plant_id'    => $request->sub_plant_item ?? null,
             'plant_sample_id' => $request->sample_name,
             'toxic'           => $request->toxic ?? null,
+            'coa'               =>  ($request->coa == 'on') ? 1 : null,
         ]);
         $test_method = TestMethod::select('id')->where('id', $request->test_method)->first();
         if (isset($request->main_components) && $request->main_components == -1) {

@@ -100,7 +100,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6   col-lg-6">
+                                <div class="col-md-4   col-lg-4">
                                     <div class="form-group">
                                         <label for="">{{ __('samples.toxic') }} <span class="text-danger ms-1"
                                                 style="font-size: 18px;">☠</span></label>
@@ -115,6 +115,18 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-2 col-lg-2">
+                                    <div class="form-group">
+                                        <label for="coa" class="form-label">{{ translate('coa') }}</label>
+                                        <div class="form-check form-switch m-2">
+                                            <input class="form-check-input" type="checkbox" id="coa" name="coa">
+                                        </div>
+                                        @error('coa')
+                                            <span class="error text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
 
                             </div>
 
@@ -521,14 +533,14 @@
     </script>
     <script>
         function change_action_limit_type(id) {
-            
+
             var action_limit_type = document.querySelector('select[name=action_limit_type-' + id + ']').value;
             var action_limit = document.querySelector('input[name=action_limit-' + id + ']').value;
             let elements = document.getElementsByName('action_limit_end-' + id);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + action_limit;
-                    elements[0].classList.add('d-none');
-                }
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + action_limit;
+                elements[0].classList.add('d-none');
+            }
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -554,11 +566,11 @@
         function change_warning_limit_type(id) {
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + id + ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + id + ']').value;
-  let elements = document.getElementsByName('warning_limit_end-' + id);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + warning_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('warning_limit_end-' + id);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + warning_limit;
+                elements[0].classList.add('d-none');
+            }
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + id).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -584,11 +596,11 @@
             var action_limit_type = document.querySelector('select[name=action_limit_type-' + id + ']').value;
             var action_limit = document.querySelector('input[name=action_limit-' + id + ']').value;
             var action_limit_end = document.querySelector('input[name=action_limit_end-' + id + ']').value;
-let elements = document.getElementsByName('action_limit_end-' + id);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + action_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('action_limit_end-' + id);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + action_limit;
+                elements[0].classList.add('d-none');
+            }
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -616,11 +628,11 @@ let elements = document.getElementsByName('action_limit_end-' + id);
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + id + ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + id + ']').value;
             var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + id + ']').value;
-let elements = document.getElementsByName('warning_limit_end-' + id);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + warning_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('warning_limit_end-' + id);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + warning_limit;
+                elements[0].classList.add('d-none');
+            }
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + id).innerHTML = '= ' + warning_limit;
             } else if (warning_limit_type == '>=') {
@@ -648,11 +660,11 @@ let elements = document.getElementsByName('warning_limit_end-' + id);
             var action_limit = document.querySelector('input[name=action_limit-' + test_method_id + '-' + id + ']').value;
             var action_limit_end = document.querySelector('input[name=action_limit_end-' + test_method_id + '-' + id + ']')
                 .value;
-let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + id);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + action_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + id);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + action_limit;
+                elements[0].classList.add('d-none');
+            }
             if (action_limit_type == '=') {
                 document.getElementById('action_limit_type-' + test_method_id + '-' + id).innerHTML = '= ' + action_limit;
             } else if (action_limit_type == '>=') {
@@ -687,7 +699,7 @@ let elements = document.getElementsByName('action_limit_end-' + test_method_id +
                 elements[0].innerHTML = '> ' + warning_limit;
                 elements[0].classList.add('d-none');
             }
-            
+
             var warning_limit_type = document.querySelector('select[name=warning_limit_type-' + test_method_id + '-' + id +
                 ']').value;
             var warning_limit = document.querySelector('input[name=warning_limit-' + test_method_id + '-' + id + ']').value;
@@ -726,11 +738,11 @@ let elements = document.getElementsByName('action_limit_end-' + test_method_id +
             var action_limit_end = document.querySelector('input[name=action_limit_end-' + compnent_id + '-' + index + ']')
                 .value;
 
-                 let elements = document.getElementsByName('action_limit_end-' + compnent_id + '-' + index);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + action_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('action_limit_end-' + compnent_id + '-' + index);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + action_limit;
+                elements[0].classList.add('d-none');
+            }
 
 
             if (action_limit_type == '=') {
@@ -766,11 +778,11 @@ let elements = document.getElementsByName('action_limit_end-' + test_method_id +
             var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + compnent_id + '-' + index +
                 ']').value;
 
-                let elements = document.getElementsByName('warning_limit_end-' + compnent_id + '-' + index);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + warning_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('warning_limit_end-' + compnent_id + '-' + index);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + warning_limit;
+                elements[0].classList.add('d-none');
+            }
 
 
             if (warning_limit_type == '=') {
@@ -810,12 +822,12 @@ let elements = document.getElementsByName('action_limit_end-' + test_method_id +
                 '-' + index + ']').value;
 
 
-                 let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + compnent_id + '-' +
-                    index);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + action_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('action_limit_end-' + test_method_id + '-' + compnent_id + '-' +
+                index);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + action_limit;
+                elements[0].classList.add('d-none');
+            }
 
 
             if (action_limit_type == '=') {
@@ -860,12 +872,12 @@ let elements = document.getElementsByName('action_limit_end-' + test_method_id +
                 '-' + index + ']').value;
 
 
-                 let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + compnent_id + '-' +
-                    index);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + warning_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('warning_limit_end-' + test_method_id + '-' + compnent_id + '-' +
+                index);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + warning_limit;
+                elements[0].classList.add('d-none');
+            }
 
 
             if (warning_limit_type == '=') {
@@ -907,10 +919,10 @@ let elements = document.getElementsByName('action_limit_end-' + test_method_id +
 
 
             let elements = document.getElementsByName('action_limit_end-' + compnent_id);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + action_limit;
-                    elements[0].classList.add('d-none');
-                }
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + action_limit;
+                elements[0].classList.add('d-none');
+            }
 
 
             if (action_limit_type == '=') {
@@ -940,11 +952,11 @@ let elements = document.getElementsByName('action_limit_end-' + test_method_id +
             var warning_limit_end = document.querySelector('input[name=warning_limit_end-' + compnent_id + ']').value;
 
 
-              let elements = document.getElementsByName('warning_limit_end-' + compnent_id);
-                if (elements.length > 0) {
-                    elements[0].innerHTML = '> ' + warning_limit;
-                    elements[0].classList.add('d-none');
-                }
+            let elements = document.getElementsByName('warning_limit_end-' + compnent_id);
+            if (elements.length > 0) {
+                elements[0].innerHTML = '> ' + warning_limit;
+                elements[0].classList.add('d-none');
+            }
 
             if (warning_limit_type == '=') {
                 document.getElementById('warning_limit_type-' + compnent_id).innerHTML = '= ' + warning_limit;

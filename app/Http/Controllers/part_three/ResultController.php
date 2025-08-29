@@ -1,18 +1,23 @@
 <?php
 namespace App\Http\Controllers\part_three;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Models\Plant;
 use App\Models\Client;
+use App\Models\Sample;
 use App\Models\part\Unit;
+use App\Models\Certificate;
+use Illuminate\Http\Request;
+use App\Models\CertificateItem;
 use App\Models\part_three\Result;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\second_part\Submission;
 use App\Models\part_three\ResultTestMethod;
 use App\Models\part_three\ResultTestMethodItem;
-use App\Models\Plant;
-use App\Models\Sample;
 use App\Models\second_part\SampleRoutineScheduler;
-use App\Models\second_part\Submission;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ResultController extends Controller
 {
@@ -195,12 +200,12 @@ class ResultController extends Controller
                     }
                 }
             }
-            
+
             $submissionMaster = Submission::find($request->submission_id);
-             $submissionMaster->update([
-                    'status' => 'fourth_step',
-                ]);
-            $allHaveResults   = $submissionMaster->submission_test_method_items->every(function ($item) {
+            $submissionMaster->update([
+                'status' => 'fourth_step',
+            ]);
+            $allHaveResults = $submissionMaster->submission_test_method_items->every(function ($item) {
                 return $item->result !== null;
             });
 
@@ -248,6 +253,30 @@ class ResultController extends Controller
         $result->update([
             'status' => 'approve',
         ]);
+
+        $certificate = Certificate::create([
+            'result_id'      => $result->id,
+            'sample_id'      => $result->sample_id ?? null,
+            'authorized_id'  => Auth::id() ?? null,
+            'generated_by'   => Auth::id() ?? null,
+            'client'         => null,
+            'generated_Date' => Carbon::now(),
+            'coa_number'     => 'COA-' . strtoupper(uniqid()),
+            'status'         => 'issued',
+        ]);
+
+        foreach ($result->result_test_method_items as $test_method) {
+            foreach ($test_method->result_test_method_items as $result_item) {
+                CertificateItem::create([
+                    'certificate_id'        => $certificate->id,
+                    'result_test_method_id' => $test_method->id,
+                    'result_id'             => $result->id,
+                    'test_method_item_id'   => $result_item->test_method_item_id,
+                    'result'                => $result_item->value ?? null,
+                    'status'                => $result_item->status ?? 'in_range',
+                ]);
+            }
+        }
         return redirect()->route('admin.result')->with('success', __('results.approve_confirmed_successfully'));
     }
     public function cancel_confirm_results($id)
@@ -265,28 +294,91 @@ class ResultController extends Controller
         ]);
         return redirect()->route('admin.result')->with('success', __('results.cancel_confirmed_successfully'));
     }
-    public function approve_confirm_results_by_item($id)
-    {
-        $test_method = ResultTestMethod::findOrFail($id);
-
-        foreach ($test_method->result_test_method_items as $result_item) {
-            $result_item->update([
-                'acceptance_status' => 'approve',
-            ]);
-        }
-        $result        = Result::findOrFail($test_method->result_id);
-        $allNotPending = $result->result_test_method_items->every(function ($item) {
-            return $item->status !== 'pending';
-        });
-
-        if ($allNotPending) {
-            $result = Result::findOrFail($test_method->result_id);
-            $result->update([
-                'status' => 'completed',
-            ]);
-        }
-        return redirect()->back()->with('success', __('results.approve_confirmed_successfully'));
+  public function approve_confirm_results_by_item($id)
+{
+    $test_method = ResultTestMethod::findOrFail($id); 
+    foreach ($test_method->result_test_method_items as $result_item) {
+        $result_item->update([
+            'acceptance_status' => 'approve',
+        ]);
     }
+
+    $result = Result::findOrFail($test_method->result_id);
+ 
+    $certificate = Certificate::where('result_id', $result->id)->first();
+
+    if (!$certificate) {
+        $certificate = Certificate::create([
+            'result_id'      => $result->id,
+            'sample_id'      => $result->sample_id ?? null,
+            'authorized_id'  => auth()->id(),
+            'generated_by'   => auth()->id(),
+            'client'         => $result->client->name ?? null,
+            'generated_Date' => now(),
+            'coa_number'     => 'COA-' . strtoupper(uniqid()),
+            'status'         => 'in_progress',  
+        ]);
+    } 
+    foreach ($test_method->result_test_method_items as $result_item) { 
+        $exists = CertificateItem::where('certificate_id', $certificate->id)
+            ->where('test_method_item_id', $result_item->test_method_item_id)
+            ->exists();
+
+        if (!$exists) {
+            CertificateItem::create([
+                'certificate_id'        => $certificate->id,
+                'result_test_method_id' => $test_method->id,
+                'result_id'             => $result->id,
+                'test_method_item_id'   => $result_item->test_method_item_id,
+                'result'                => $result_item->value ?? null,
+                'status'                => $result_item->status ?? 'in_range',
+            ]);
+        }
+    }
+
+ 
+    $allApproved = $result->result_items->every(function ($item) {
+    return $item->acceptance_status === 'approve';
+});
+
+
+    if ($allApproved) {
+        $result->update([
+            'status' => 'completed',
+        ]);
+
+        $certificate->update([
+            'status' => 'issued',  
+        ]);
+    }
+
+    return redirect()->back()->with('success', __('results.approve_confirmed_successfully'));
+}
+
+
+    // public function approve_confirm_results_by_item($id)
+    // {
+    //     $test_method = ResultTestMethod::findOrFail($id);
+
+    //     foreach ($test_method->result_test_method_items as $result_item) {
+    //         $result_item->update([
+    //             'acceptance_status' => 'approve',
+    //         ]);
+    //     }
+    //     $result        = Result::findOrFail($test_method->result_id);
+    //     $allNotPending = $result->result_test_method_items->every(function ($item) {
+    //         return $item->status !== 'pending';
+    //     });
+
+    //     if ($allNotPending) {
+    //         $result = Result::findOrFail($test_method->result_id);
+    //         $result->update([
+    //             'status' => 'completed',
+    //         ]);
+    //     }
+
+    //     return redirect()->back()->with('success', __('results.approve_confirmed_successfully'));
+    // }
     public function cancel_confirm_results_by_item($id)
     {
         $test_method = ResultTestMethod::findOrFail($id);

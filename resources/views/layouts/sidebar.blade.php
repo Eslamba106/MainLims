@@ -219,6 +219,26 @@
                         </ul>
                     </li> 
                 @endcan
+                @can('coa_generation_settings')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                            aria-expanded="false">
+                            <i class="fas fa-microscope"></i>
+
+                            <span class="hide-menu">{{ translate('certificate_Management') }} </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+
+                            <li class="sidebar-item">
+                                <a href="{{ route('admin.certificate') }}" class="sidebar-link">
+                                    <i class="mdi mdi-email"></i>
+                                    <span class="hide-menu">{{ translate('certificate_List') }}</span>
+                                </a>
+                            </li> 
+                           
+                        </ul>
+                    </li> 
+                @endcan
 
                 <!--  Submission Management End-->
 

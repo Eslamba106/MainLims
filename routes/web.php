@@ -139,6 +139,16 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/approve_confirm_results_by_item/{id}', [ResultController::class, 'approve_confirm_results_by_item'])->name('admin.result.approve_confirm_results_by_item');
         Route::get('/cancel_confirm_results_by_item/{id}', [ResultController::class, 'cancel_confirm_results_by_item'])->name('admin.result.cancel_confirm_results_by_item');
     });
+    // Certificate Management
+    Route::group(['prefix' => 'certificates'], function () {
+
+        Route::get('/', [CertificateController::class, 'index'])->name('admin.certificate');
+        Route::get('/edit/{id}', [CertificateController::class, 'edit'])->name('admin.certificate.edit');
+        Route::get('/review/{id}', [CertificateController::class, 'review'])->name('admin.certificate.review');
+        Route::patch('/update/{id}', [CertificateController::class, 'update'])->name('admin.certificate.update');
+        Route::get('/delete/{id}', [CertificateController::class, 'destroy'])->name('admin.certificate.delete');
+ 
+    });
 
     // CAO Management
     Route::group(['prefix' => 'cao'], function () {

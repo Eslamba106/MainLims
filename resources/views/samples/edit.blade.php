@@ -109,10 +109,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6   col-lg-6">
+                                <div class="col-md-4   col-lg-4">
                                     <div class="form-group">
                                         <label for="">{{ __('samples.toxic') }} <span class="text-danger ms-1"
-                                                style="font-size: 18px;">☠</span></label>
+                                                style="font-size: 18px;" >☠</span></label>
                                         <select name="toxic" class="form-control">
                                             @foreach ($toxic_degrees as $toxic_degree_item)
                                                 <option value="{{ $toxic_degree_item->id }}"
@@ -121,6 +121,19 @@
                                             @endforeach
                                         </select>
                                         @error('toxic')
+                                            <span class="error text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                 <div class="col-md-2 col-lg-2">
+                                    <div class="form-group">
+                                        <label for="coa" class="form-label">{{ translate('coa') }}</label>
+                                        <div class="form-check form-switch m-2">
+                                            <input class="form-check-input" type="checkbox" id="coa" name="coa" @if(isset($sample->coa))
+                                                checked
+                                            @endif>
+                                        </div>
+                                        @error('coa')
                                             <span class="error text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>

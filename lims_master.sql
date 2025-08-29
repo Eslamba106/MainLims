@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2025 at 10:10 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Aug 29, 2025 at 06:06 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -184,6 +184,170 @@ INSERT INTO `business_settings` (`id`, `type`, `value`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `certificates`
+--
+
+CREATE TABLE `certificates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `result_id` int(11) NOT NULL,
+  `sample_id` int(11) DEFAULT NULL,
+  `authorized_id` varchar(255) DEFAULT NULL,
+  `temp_id` int(11) DEFAULT NULL,
+  `generated_by` int(11) DEFAULT NULL,
+  `client` varchar(255) DEFAULT NULL,
+  `generated_Date` date DEFAULT NULL,
+  `coa_number` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `certificates`
+--
+
+INSERT INTO `certificates` (`id`, `result_id`, `sample_id`, `authorized_id`, `temp_id`, `generated_by`, `client`, `generated_Date`, `coa_number`, `status`, `created_at`, `updated_at`) VALUES
+(1, 23, 26, '6', NULL, 6, NULL, '2025-08-29', 'COA-68B1C45CB3884', 'issued', '2025-08-29 15:16:44', '2025-08-29 15:16:44'),
+(3, 27, 26, '6', NULL, 6, NULL, '2025-08-29', 'COA-68B1CAA88D60A', 'issued', '2025-08-29 15:43:36', '2025-08-29 15:43:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `certificate_items`
+--
+
+CREATE TABLE `certificate_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `certificate_id` bigint(20) UNSIGNED NOT NULL,
+  `result_test_method_id` bigint(20) UNSIGNED NOT NULL,
+  `result_id` bigint(20) UNSIGNED NOT NULL,
+  `test_method_item_id` bigint(20) UNSIGNED NOT NULL,
+  `result` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'in_range',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `certificate_items`
+--
+
+INSERT INTO `certificate_items` (`id`, `certificate_id`, `result_test_method_id`, `result_id`, `test_method_item_id`, `result`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 35, 23, 4, NULL, 'normal', '2025-08-29 15:16:44', '2025-08-29 15:16:44'),
+(2, 1, 36, 23, 9, NULL, 'warning', '2025-08-29 15:16:44', '2025-08-29 15:16:44'),
+(3, 1, 37, 23, 7, NULL, 'normal', '2025-08-29 15:16:44', '2025-08-29 15:16:44'),
+(6, 3, 45, 27, 7, NULL, 'normal', '2025-08-29 15:43:36', '2025-08-29 15:43:36'),
+(7, 3, 44, 27, 4, NULL, 'normal', '2025-08-29 15:43:40', '2025-08-29 15:43:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clients`
+--
+
+CREATE TABLE `clients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `name`, `phone`, `email`, `created_at`, `updated_at`) VALUES
+(1, 'Eslam', '01150099801', 'eslam@gmail.com', '2025-08-08 12:35:01', '2025-08-08 12:35:01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coa_generation_settings`
+--
+
+CREATE TABLE `coa_generation_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `frequency` tinyint(4) NOT NULL,
+  `execution_time` time NOT NULL,
+  `generation_condition` tinyint(4) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coa_generation_settings_emails`
+--
+
+CREATE TABLE `coa_generation_settings_emails` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email_id` int(11) NOT NULL,
+  `coa_generation_setting_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coa_generation_settings_samples`
+--
+
+CREATE TABLE `coa_generation_settings_samples` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `coa_generation_setting_id` int(11) NOT NULL,
+  `sample_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coa_settings`
+--
+
+CREATE TABLE `coa_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `frequency` varchar(255) NOT NULL,
+  `day` varchar(255) NOT NULL,
+  `execution_time` time NOT NULL,
+  `condition` varchar(255) NOT NULL,
+  `sample_points` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`sample_points`)),
+  `email_recipients` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coa_template_samples`
+--
+
+CREATE TABLE `coa_template_samples` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `coa_temp_id` bigint(20) UNSIGNED NOT NULL,
+  `sample_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coa_template_samples`
+--
+
+INSERT INTO `coa_template_samples` (`id`, `coa_temp_id`, `sample_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 24, '2025-08-08 11:58:17', '2025-08-08 11:58:17');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `c_o_a_settings`
 --
 
@@ -234,6 +398,61 @@ CREATE TABLE `c_o_a_settings` (
 
 INSERT INTO `c_o_a_settings` (`id`, `name`, `value`, `header_information`, `company_logo`, `company_name`, `laboratory_accreditation`, `coa_number`, `lims_number`, `report_date`, `sample_information`, `sample_plant`, `sample_subplant`, `sample_point`, `sample_description`, `batch_lot_number`, `date_received`, `date_analyzed`, `date_authorized`, `test_results`, `component_name`, `specification`, `test_method`, `pass_fail_status`, `results`, `analyst`, `unit`, `authorization`, `analyzed_by`, `authorized_by`, `digital_signature`, `comments`, `footer_information`, `disclaimer_text`, `laboratory_contact_information`, `page_numbers`, `created_at`, `updated_at`) VALUES
 (1, 'Default', '1', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, '2025-06-29 02:52:11', '2025-06-29 02:52:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `c_o_a_templates`
+--
+
+CREATE TABLE `c_o_a_templates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `header_information` tinyint(4) NOT NULL DEFAULT 0,
+  `company_logo` tinyint(4) NOT NULL DEFAULT 0,
+  `company_name` tinyint(4) NOT NULL DEFAULT 0,
+  `laboratory_accreditation` tinyint(4) NOT NULL DEFAULT 0,
+  `coa_number` tinyint(4) NOT NULL DEFAULT 0,
+  `lims_number` tinyint(4) NOT NULL DEFAULT 0,
+  `report_date` tinyint(4) NOT NULL DEFAULT 0,
+  `sample_information` tinyint(4) NOT NULL DEFAULT 0,
+  `sample_plant` tinyint(4) NOT NULL DEFAULT 0,
+  `sample_subplant` tinyint(4) NOT NULL DEFAULT 0,
+  `sample_point` tinyint(4) NOT NULL DEFAULT 0,
+  `sample_description` tinyint(4) NOT NULL DEFAULT 0,
+  `batch_lot_number` tinyint(4) NOT NULL DEFAULT 0,
+  `date_received` tinyint(4) NOT NULL DEFAULT 0,
+  `date_analyzed` tinyint(4) NOT NULL DEFAULT 0,
+  `date_authorized` tinyint(4) NOT NULL DEFAULT 0,
+  `test_results` tinyint(4) NOT NULL DEFAULT 0,
+  `component_name` tinyint(4) NOT NULL DEFAULT 0,
+  `specification` tinyint(4) NOT NULL DEFAULT 0,
+  `test_method` tinyint(4) NOT NULL DEFAULT 0,
+  `pass_fail_status` tinyint(4) NOT NULL DEFAULT 0,
+  `results` tinyint(4) NOT NULL DEFAULT 0,
+  `analyst` tinyint(4) NOT NULL DEFAULT 0,
+  `unit` tinyint(4) NOT NULL DEFAULT 0,
+  `authorization` tinyint(4) NOT NULL DEFAULT 0,
+  `analyzed_by` tinyint(4) NOT NULL DEFAULT 0,
+  `authorized_by` tinyint(4) NOT NULL DEFAULT 0,
+  `digital_signature` tinyint(4) NOT NULL DEFAULT 0,
+  `comments` tinyint(4) NOT NULL DEFAULT 0,
+  `footer_information` tinyint(4) NOT NULL DEFAULT 0,
+  `disclaimer_text` tinyint(4) NOT NULL DEFAULT 0,
+  `laboratory_contact_information` tinyint(4) NOT NULL DEFAULT 0,
+  `page_numbers` tinyint(4) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `c_o_a_templates`
+--
+
+INSERT INTO `c_o_a_templates` (`id`, `name`, `value`, `header_information`, `company_logo`, `company_name`, `laboratory_accreditation`, `coa_number`, `lims_number`, `report_date`, `sample_information`, `sample_plant`, `sample_subplant`, `sample_point`, `sample_description`, `batch_lot_number`, `date_received`, `date_analyzed`, `date_authorized`, `test_results`, `component_name`, `specification`, `test_method`, `pass_fail_status`, `results`, `analyst`, `unit`, `authorization`, `analyzed_by`, `authorized_by`, `digital_signature`, `comments`, `footer_information`, `disclaimer_text`, `laboratory_contact_information`, `page_numbers`, `created_at`, `updated_at`) VALUES
+(1, 'Default', NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '2025-08-08 11:56:49', '2025-08-08 11:56:49'),
+(2, 'Owned', NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2025-08-08 12:07:01', '2025-08-08 12:07:01');
 
 -- --------------------------------------------------------
 
@@ -335,7 +554,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (109, '2025_06_04_155440_create_result_test_method_items_table', 16),
 (110, '2025_06_25_142809_add_colmun_user_id_to_results_table', 17),
 (113, '2025_06_27_223116_create_c_o_a_settings_table', 18),
-(114, '2025_07_11_163949_create_business_settings_table', 19);
+(114, '2025_07_11_163949_create_business_settings_table', 19),
+(115, '2025_06_27_223116_create_c_o_a_templates_table', 20),
+(116, '2025_07_13_152418_create_coa_template_samples_table', 20),
+(117, '2025_07_13_202727_create_coa_settings_table', 20),
+(118, '2025_07_14_221340_create_clients_table', 20),
+(120, '2025_07_15_154018_create_certificates_table', 21),
+(123, '2025_08_18_051201_create_web_emails_table', 22),
+(127, '2025_08_18_054959_create_coa_generation_settings_table', 23),
+(128, '2025_08_18_055636_create_coa_generation_settings_emails_table', 23),
+(129, '2025_08_18_055654_create_coa_generation_settings_samples_table', 23),
+(131, '2025_08_29_150618_create_certificate_items_table', 24);
 
 -- --------------------------------------------------------
 
@@ -369,120 +598,185 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `role_id`, `section_id`, `allow`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(2, 2, 2, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(3, 2, 3, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(4, 2, 4, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(5, 2, 5, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(6, 2, 6, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(7, 2, 7, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(8, 2, 8, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(9, 2, 9, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(10, 2, 10, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(11, 2, 11, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(12, 2, 12, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(13, 2, 13, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(14, 2, 14, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(15, 2, 15, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(16, 2, 16, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(17, 2, 17, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(18, 2, 18, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(19, 2, 19, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(20, 2, 20, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(21, 2, 21, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(22, 2, 22, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(23, 2, 23, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(24, 2, 24, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(25, 2, 25, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(26, 2, 26, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(27, 2, 27, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(28, 2, 28, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(29, 2, 29, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(30, 2, 30, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(31, 2, 31, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(32, 2, 32, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(33, 2, 33, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(34, 2, 34, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(35, 2, 35, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(36, 2, 36, 1, '2025-05-08 07:24:02', '2025-05-08 07:24:02'),
-(37, 2, 37, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(38, 2, 38, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(39, 2, 39, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(40, 2, 40, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(41, 2, 41, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(42, 2, 42, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(43, 2, 43, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(44, 2, 44, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(45, 2, 45, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(46, 2, 46, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(47, 2, 47, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(48, 2, 48, 1, '2025-05-08 07:25:03', '2025-05-08 07:25:03'),
-(49, 2, 49, 1, '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
-(50, 2, 50, 1, '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
-(51, 2, 51, 1, '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
-(52, 2, 52, 1, '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
-(53, 2, 53, 1, '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
-(54, 2, 54, 1, '2025-05-21 07:47:35', '2025-05-21 07:47:35'),
-(55, 2, 55, 1, '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
-(56, 2, 56, 1, '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
-(57, 2, 57, 1, '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
-(58, 2, 58, 1, '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
-(59, 2, 59, 1, '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
-(60, 2, 60, 1, '2025-05-21 15:53:56', '2025-05-21 15:53:56'),
-(61, 2, 61, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(62, 2, 62, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(63, 2, 63, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(64, 2, 64, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(65, 2, 65, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(66, 2, 66, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(67, 2, 67, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(68, 2, 68, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(69, 2, 69, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(70, 2, 70, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(71, 2, 71, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(72, 2, 72, 1, '2025-05-25 17:32:20', '2025-05-25 17:32:20'),
-(73, 2, 73, 1, '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
-(74, 2, 74, 1, '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
-(75, 2, 75, 1, '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
-(76, 2, 76, 1, '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
-(77, 2, 77, 1, '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
-(78, 2, 85, 1, '2025-06-04 12:32:07', '2025-06-29 01:50:03'),
-(108, 2, 1, 1, NULL, NULL),
-(109, 2, 2, 1, NULL, NULL),
-(110, 2, 3, 1, NULL, NULL),
-(111, 2, 4, 1, NULL, NULL),
-(112, 2, 5, 1, NULL, NULL),
-(113, 2, 6, 1, NULL, NULL),
-(114, 2, 7, 1, NULL, NULL),
-(115, 2, 8, 1, NULL, NULL),
-(116, 2, 9, 1, NULL, NULL),
-(117, 2, 10, 1, NULL, NULL),
-(118, 2, 11, 1, NULL, NULL),
-(119, 2, 12, 1, NULL, NULL),
-(120, 2, 13, 1, NULL, NULL),
-(121, 2, 14, 1, NULL, NULL),
-(122, 2, 15, 1, NULL, NULL),
-(123, 2, 16, 1, NULL, NULL),
-(124, 2, 17, 1, NULL, NULL),
-(125, 2, 18, 1, NULL, NULL),
-(126, 2, 19, 1, NULL, NULL),
-(127, 2, 20, 1, NULL, NULL),
-(128, 2, 21, 1, NULL, NULL),
-(129, 2, 22, 1, NULL, NULL),
-(130, 2, 23, 1, NULL, NULL),
-(131, 2, 24, 1, NULL, NULL),
-(132, 2, 25, 1, NULL, NULL),
-(133, 2, 26, 1, NULL, NULL),
-(134, 2, 27, 1, NULL, NULL),
-(135, 2, 28, 1, NULL, NULL),
-(136, 2, 29, 1, NULL, NULL),
-(137, 2, 30, 1, NULL, NULL),
-(138, 2, 31, 1, NULL, NULL),
-(139, 2, 32, 1, NULL, NULL),
-(140, 2, 33, 1, NULL, NULL),
-(141, 2, 34, 1, NULL, NULL),
-(142, 2, 35, 1, NULL, NULL),
-(143, 2, 36, 1, NULL, NULL);
+(1, 2, 1, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(2, 2, 2, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(3, 2, 3, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(4, 2, 4, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(5, 2, 5, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(6, 2, 6, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(7, 2, 7, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(8, 2, 8, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(9, 2, 9, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(10, 2, 10, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(11, 2, 11, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(12, 2, 12, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(13, 2, 13, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(14, 2, 14, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(15, 2, 15, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(16, 2, 16, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(17, 2, 17, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(18, 2, 18, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(19, 2, 19, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(20, 2, 20, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(21, 2, 21, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(22, 2, 22, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(23, 2, 23, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(24, 2, 24, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(25, 2, 25, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(26, 2, 26, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(27, 2, 27, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(28, 2, 28, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(29, 2, 29, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(30, 2, 30, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(31, 2, 31, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(32, 2, 32, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(33, 2, 33, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(34, 2, 34, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(35, 2, 35, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(36, 2, 36, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(37, 2, 37, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(38, 2, 38, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(39, 2, 39, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(40, 2, 40, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(41, 2, 41, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(42, 2, 42, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(43, 2, 43, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(44, 2, 44, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(45, 2, 45, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(46, 2, 46, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(47, 2, 47, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(48, 2, 48, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(49, 2, 49, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(50, 2, 50, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(51, 2, 51, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(52, 2, 52, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(53, 2, 53, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(54, 2, 54, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(55, 2, 55, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(56, 2, 56, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(57, 2, 57, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(58, 2, 58, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(59, 2, 59, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(60, 2, 60, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(61, 2, 61, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(62, 2, 62, 1, '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(63, 2, 63, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(64, 2, 64, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(65, 2, 65, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(66, 2, 66, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(67, 2, 67, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(68, 2, 68, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(69, 2, 69, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(70, 2, 70, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(71, 2, 71, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(72, 2, 72, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(73, 2, 73, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(74, 2, 74, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(75, 2, 75, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(76, 2, 76, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(77, 2, 77, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(78, 2, 78, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(79, 2, 79, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(80, 2, 80, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(81, 2, 81, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(82, 2, 82, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(83, 2, 83, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(84, 2, 84, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(85, 2, 85, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(86, 2, 86, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(87, 2, 87, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(88, 2, 88, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(89, 2, 89, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(90, 2, 90, 1, '2025-08-18 02:39:17', '2025-08-18 02:39:17'),
+(91, 2, 91, 1, '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(92, 2, 92, 1, '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(93, 2, 93, 1, '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(94, 2, 94, 1, '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(95, 2, 95, 1, '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(144, 2, 1, 1, NULL, NULL),
+(145, 2, 2, 1, NULL, NULL),
+(146, 2, 3, 1, NULL, NULL),
+(147, 2, 4, 1, NULL, NULL),
+(148, 2, 5, 1, NULL, NULL),
+(149, 2, 6, 1, NULL, NULL),
+(150, 2, 7, 1, NULL, NULL),
+(151, 2, 8, 1, NULL, NULL),
+(152, 2, 9, 1, NULL, NULL),
+(153, 2, 10, 1, NULL, NULL),
+(154, 2, 11, 1, NULL, NULL),
+(155, 2, 12, 1, NULL, NULL),
+(156, 2, 13, 1, NULL, NULL),
+(157, 2, 14, 1, NULL, NULL),
+(158, 2, 15, 1, NULL, NULL),
+(159, 2, 16, 1, NULL, NULL),
+(160, 2, 17, 1, NULL, NULL),
+(161, 2, 18, 1, NULL, NULL),
+(162, 2, 19, 1, NULL, NULL),
+(163, 2, 20, 1, NULL, NULL),
+(164, 2, 21, 1, NULL, NULL),
+(165, 2, 22, 1, NULL, NULL),
+(166, 2, 23, 1, NULL, NULL),
+(167, 2, 24, 1, NULL, NULL),
+(168, 2, 25, 1, NULL, NULL),
+(169, 2, 26, 1, NULL, NULL),
+(170, 2, 27, 1, NULL, NULL),
+(171, 2, 28, 1, NULL, NULL),
+(172, 2, 29, 1, NULL, NULL),
+(173, 2, 30, 1, NULL, NULL),
+(174, 2, 31, 1, NULL, NULL),
+(175, 2, 32, 1, NULL, NULL),
+(176, 2, 33, 1, NULL, NULL),
+(177, 2, 34, 1, NULL, NULL),
+(178, 2, 35, 1, NULL, NULL),
+(179, 2, 36, 1, NULL, NULL),
+(180, 2, 37, 1, NULL, NULL),
+(181, 2, 38, 1, NULL, NULL),
+(182, 2, 39, 1, NULL, NULL),
+(183, 2, 40, 1, NULL, NULL),
+(184, 2, 41, 1, NULL, NULL),
+(185, 2, 42, 1, NULL, NULL),
+(186, 2, 43, 1, NULL, NULL),
+(187, 2, 44, 1, NULL, NULL),
+(188, 2, 45, 1, NULL, NULL),
+(189, 2, 46, 1, NULL, NULL),
+(190, 2, 47, 1, NULL, NULL),
+(191, 2, 48, 1, NULL, NULL),
+(192, 2, 49, 1, NULL, NULL),
+(193, 2, 50, 1, NULL, NULL),
+(194, 2, 51, 1, NULL, NULL),
+(195, 2, 52, 1, NULL, NULL),
+(196, 2, 53, 1, NULL, NULL),
+(197, 2, 54, 1, NULL, NULL),
+(198, 2, 55, 1, NULL, NULL),
+(199, 2, 56, 1, NULL, NULL),
+(200, 2, 57, 1, NULL, NULL),
+(201, 2, 58, 1, NULL, NULL),
+(202, 2, 59, 1, NULL, NULL),
+(203, 2, 60, 1, NULL, NULL),
+(204, 2, 61, 1, NULL, NULL),
+(205, 2, 62, 1, NULL, NULL),
+(206, 2, 63, 1, NULL, NULL),
+(207, 2, 64, 1, NULL, NULL),
+(208, 2, 65, 1, NULL, NULL),
+(209, 2, 66, 1, NULL, NULL),
+(210, 2, 67, 1, NULL, NULL),
+(211, 2, 68, 1, NULL, NULL),
+(212, 2, 69, 1, NULL, NULL),
+(213, 2, 70, 1, NULL, NULL),
+(214, 2, 71, 1, NULL, NULL),
+(215, 2, 72, 1, NULL, NULL),
+(216, 2, 73, 1, NULL, NULL),
+(217, 2, 74, 1, NULL, NULL),
+(218, 2, 75, 1, NULL, NULL),
+(219, 2, 76, 1, NULL, NULL),
+(220, 2, 77, 1, NULL, NULL),
+(221, 2, 78, 1, NULL, NULL),
+(222, 2, 80, 1, NULL, NULL),
+(223, 2, 81, 1, NULL, NULL),
+(224, 2, 82, 1, NULL, NULL),
+(225, 2, 83, 1, NULL, NULL),
+(226, 2, 84, 1, NULL, NULL),
+(227, 2, 85, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -578,7 +872,8 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`id`, `submission_id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `sample_id`, `user_id`, `priority`, `sampling_date_and_time`, `internal_comment`, `external_comment`, `submission_number`, `status`, `created_at`, `updated_at`) VALUES
-(8, 11, 24, NULL, 9, 23, 6, 'normal', '2025-06-24 10:22:00', 'new comment', 'first comment', 'SUB-000011', 'pending', '2025-06-25 11:00:55', '2025-06-25 11:00:55');
+(23, 18, 24, NULL, 9, 26, 6, 'high', '2025-08-17 14:33:00', NULL, NULL, 'SUB-000018', 'approve', '2025-08-17 08:33:52', '2025-08-29 15:16:44'),
+(27, 19, 24, NULL, 9, 26, 6, 'normal', '2025-08-29 18:21:00', NULL, NULL, 'SUB-000019', 'completed', '2025-08-29 15:43:26', '2025-08-29 15:43:40');
 
 -- --------------------------------------------------------
 
@@ -600,8 +895,11 @@ CREATE TABLE `result_test_methods` (
 --
 
 INSERT INTO `result_test_methods` (`id`, `result_id`, `test_method_id`, `status`, `created_at`, `updated_at`) VALUES
-(8, 8, 8, 'in_range', '2025-06-25 11:00:56', '2025-06-25 11:00:56'),
-(9, 8, 11, 'in_range', '2025-06-25 11:00:56', '2025-06-25 11:00:56');
+(35, 23, 8, 'in_range', '2025-08-17 08:33:52', '2025-08-17 08:33:52'),
+(36, 23, 11, 'in_range', '2025-08-17 08:33:52', '2025-08-17 08:33:52'),
+(37, 23, 9, 'in_range', '2025-08-17 08:33:52', '2025-08-17 08:33:52'),
+(44, 27, 8, 'in_range', '2025-08-29 15:43:26', '2025-08-29 15:43:26'),
+(45, 27, 9, 'in_range', '2025-08-29 15:43:26', '2025-08-29 15:43:26');
 
 -- --------------------------------------------------------
 
@@ -614,6 +912,7 @@ CREATE TABLE `result_test_method_items` (
   `result_test_method_id` bigint(20) UNSIGNED NOT NULL,
   `result_id` bigint(20) UNSIGNED NOT NULL,
   `test_method_item_id` bigint(20) UNSIGNED NOT NULL,
+  `submission_item` int(255) DEFAULT NULL,
   `result` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'in_range',
   `acceptance_status` varchar(255) NOT NULL DEFAULT 'pending',
@@ -625,10 +924,12 @@ CREATE TABLE `result_test_method_items` (
 -- Dumping data for table `result_test_method_items`
 --
 
-INSERT INTO `result_test_method_items` (`id`, `result_test_method_id`, `result_id`, `test_method_item_id`, `result`, `status`, `acceptance_status`, `created_at`, `updated_at`) VALUES
-(13, 8, 8, 5, '5476456', 'in_range', 'cancel', '2025-06-25 11:00:56', '2025-06-27 12:25:33'),
-(14, 8, 8, 6, '456456', 'in_range', 'cancel', '2025-06-25 11:00:56', '2025-06-27 12:25:33'),
-(15, 9, 8, 9, '645654', 'in_range', 'cancel', '2025-06-25 11:00:56', '2025-06-27 12:17:48');
+INSERT INTO `result_test_method_items` (`id`, `result_test_method_id`, `result_id`, `test_method_item_id`, `submission_item`, `result`, `status`, `acceptance_status`, `created_at`, `updated_at`) VALUES
+(31, 35, 23, 4, 29, '453', 'normal', 'approve', '2025-08-17 08:33:52', '2025-08-29 15:16:44'),
+(32, 36, 23, 9, 30, '7657', 'warning', 'approve', '2025-08-17 09:04:46', '2025-08-29 15:16:44'),
+(33, 37, 23, 7, 31, '564', 'normal', 'approve', '2025-08-17 09:04:46', '2025-08-29 15:16:44'),
+(40, 44, 27, 4, 32, '453', 'normal', 'approve', '2025-08-29 15:43:26', '2025-08-29 15:43:40'),
+(41, 45, 27, 7, 33, '564', 'normal', 'approve', '2025-08-29 15:43:26', '2025-08-29 15:43:36');
 
 -- --------------------------------------------------------
 
@@ -672,8 +973,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `caption`, `users_count`, `is_admin`, `created_at`, `updated_at`) VALUES
-(1, 'user', 'User role', 0, 0, '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
-(2, 'admin', 'Admin role', 0, 1, '2025-06-29 01:50:03', '2025-06-29 01:50:03');
+(1, 'user', 'User role', 0, 0, '2025-08-18 02:45:27', '2025-08-18 02:45:28'),
+(2, 'admin', 'Admin role', 0, 1, '2025-08-18 02:45:28', '2025-08-18 02:45:28');
 
 -- --------------------------------------------------------
 
@@ -687,6 +988,7 @@ CREATE TABLE `samples` (
   `sub_plant_id` bigint(20) UNSIGNED DEFAULT NULL,
   `plant_sample_id` bigint(20) UNSIGNED DEFAULT NULL,
   `toxic` tinyint(4) DEFAULT NULL,
+  `coa` tinyint(4) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -695,8 +997,9 @@ CREATE TABLE `samples` (
 -- Dumping data for table `samples`
 --
 
-INSERT INTO `samples` (`id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `toxic`, `created_at`, `updated_at`) VALUES
-(23, 24, NULL, 9, NULL, '2025-06-24 04:21:58', '2025-06-24 04:21:58');
+INSERT INTO `samples` (`id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `toxic`, `coa`, `created_at`, `updated_at`) VALUES
+(24, 22, NULL, 7, NULL, NULL, '2025-07-20 19:16:18', '2025-07-20 19:16:18'),
+(26, 24, NULL, 9, NULL, NULL, '2025-07-22 14:41:49', '2025-08-29 15:02:29');
 
 -- --------------------------------------------------------
 
@@ -714,6 +1017,13 @@ CREATE TABLE `sample_routine_schedulers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sample_routine_schedulers`
+--
+
+INSERT INTO `sample_routine_schedulers` (`id`, `sample_id`, `plant_id`, `sub_plant_id`, `submission_number`, `status`, `created_at`, `updated_at`) VALUES
+(2, 26, 24, NULL, 'SUB-000002', 'pending', '2025-08-17 11:20:36', '2025-08-17 11:20:36');
 
 -- --------------------------------------------------------
 
@@ -734,6 +1044,14 @@ CREATE TABLE `sample_routine_scheduler_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sample_routine_scheduler_items`
+--
+
+INSERT INTO `sample_routine_scheduler_items` (`id`, `sample_scheduler_id`, `sample_id`, `plant_id`, `sub_plant_id`, `frequency_id`, `schedule_hour`, `test_method_ids`, `created_at`, `updated_at`) VALUES
+(2, 2, 26, 24, NULL, 2, '2', 8, '2025-08-17 11:20:37', '2025-08-17 11:20:37'),
+(3, 2, 26, 24, NULL, 2, '2', 11, '2025-08-17 11:20:37', '2025-08-17 11:20:37');
+
 -- --------------------------------------------------------
 
 --
@@ -753,8 +1071,11 @@ CREATE TABLE `sample_test_methods` (
 --
 
 INSERT INTO `sample_test_methods` (`id`, `sample_id`, `test_method_id`, `created_at`, `updated_at`) VALUES
-(24, 23, 8, '2025-06-24 04:21:59', '2025-06-24 04:21:59'),
-(25, 23, 11, '2025-06-24 04:21:59', '2025-06-24 04:21:59');
+(26, 24, 8, '2025-07-20 19:16:18', '2025-07-20 19:16:18'),
+(27, 24, 9, '2025-07-20 19:16:18', '2025-07-22 12:57:40'),
+(30, 26, 8, '2025-07-22 14:41:49', '2025-07-22 14:41:49'),
+(31, 26, 11, '2025-07-22 14:41:49', '2025-07-22 14:41:49'),
+(32, 26, 9, '2025-07-22 14:41:49', '2025-07-22 14:41:49');
 
 -- --------------------------------------------------------
 
@@ -782,9 +1103,10 @@ CREATE TABLE `sample_test_method_items` (
 --
 
 INSERT INTO `sample_test_method_items` (`id`, `sample_id`, `test_method_id`, `test_method_item_id`, `warning_limit`, `warning_limit_end`, `action_limit`, `action_limit_end`, `action_limit_type`, `warning_limit_type`, `created_at`, `updated_at`) VALUES
-(23, 23, 24, 5, '56654', NULL, '65765', NULL, '>=', '=', NULL, NULL),
-(24, 23, 24, 6, '46764', NULL, '6576', NULL, '>=', '<', NULL, NULL),
-(25, 23, 25, 9, '6456', '7656', '64545', NULL, '<=', '8646', NULL, NULL);
+(29, 24, 26, 4, '245', NULL, '646', '54645', '8646', '<', NULL, NULL),
+(33, 26, 30, 4, '5345', NULL, '6776', NULL, '>', '<', NULL, NULL),
+(34, 26, 31, 9, '7657', NULL, '8778', NULL, '=', '>=', NULL, NULL),
+(35, 26, 32, 7, '7587', NULL, '7888', NULL, '>', '>', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -885,12 +1207,22 @@ INSERT INTO `sections` (`id`, `name`, `section_group_id`, `caption`, `created_at
 (77, 'create_result', 73, 'create_result', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
 (78, 'all_results', 73, 'show_all_results', '2025-06-04 12:32:06', '2025-06-04 12:32:06'),
 (79, 'coa_management', NULL, 'coa_management', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
-(80, 'change_coas_status', 73, 'change_coas_status', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
-(81, 'delete_coa', 73, 'delete_coa', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
-(82, 'edit_coa', 73, 'edit_coa', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
-(83, 'create_coa', 73, 'create_coa', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
-(84, 'all_coas', 73, 'show_all_coas', '2025-06-29 01:50:03', '2025-06-29 01:50:03'),
-(85, 'coa_settings', 73, 'coa_settings', '2025-06-29 01:50:03', '2025-06-29 01:50:03');
+(80, 'change_coas_status', 79, 'change_coas_status', '2025-06-29 01:50:03', '2025-08-18 02:45:28'),
+(81, 'delete_coa', 79, 'delete_coa', '2025-06-29 01:50:03', '2025-08-18 02:45:28'),
+(82, 'edit_coa', 79, 'edit_coa', '2025-06-29 01:50:03', '2025-08-18 02:45:28'),
+(83, 'create_coa', 79, 'create_coa', '2025-06-29 01:50:03', '2025-08-18 02:45:28'),
+(84, 'all_coas', 79, 'show_all_coas', '2025-06-29 01:50:03', '2025-08-18 02:45:28'),
+(85, 'coa_settings', 79, 'coa_settings', '2025-06-29 01:50:03', '2025-08-18 02:45:28'),
+(86, 'emails', NULL, 'emails', '2025-08-18 02:39:16', '2025-08-18 02:39:16'),
+(87, 'delete_email', 86, 'delete_email', '2025-08-18 02:39:16', '2025-08-18 02:45:28'),
+(88, 'edit_email', 86, 'edit_email', '2025-08-18 02:39:16', '2025-08-18 02:45:28'),
+(89, 'create_email', 86, 'create_email', '2025-08-18 02:39:16', '2025-08-18 02:45:28'),
+(90, 'all_emails', 86, 'show_all_emails', '2025-08-18 02:39:16', '2025-08-18 02:45:28'),
+(91, 'coa_generation_settings', NULL, 'coa_generation_settings', '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(92, 'delete_coa_generation_setting', 91, 'delete_coa_generation_setting', '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(93, 'edit_coa_generation_setting', 91, 'edit_coa_generation_setting', '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(94, 'create_coa_generation_setting', 91, 'create_coa_generation_setting', '2025-08-18 02:45:28', '2025-08-18 02:45:28'),
+(95, 'all_coa_generation_settings', 91, 'show_all_emails', '2025-08-18 02:45:28', '2025-08-18 02:45:28');
 
 -- --------------------------------------------------------
 
@@ -908,7 +1240,7 @@ CREATE TABLE `submissions` (
   `sampling_date_and_time` datetime DEFAULT NULL,
   `comment` text DEFAULT NULL,
   `submission_number` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'pending',
+  `status` varchar(255) NOT NULL DEFAULT 'first_step',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -918,8 +1250,8 @@ CREATE TABLE `submissions` (
 --
 
 INSERT INTO `submissions` (`id`, `plant_id`, `sub_plant_id`, `plant_sample_id`, `sample_id`, `priority`, `sampling_date_and_time`, `comment`, `submission_number`, `status`, `created_at`, `updated_at`) VALUES
-(11, 24, NULL, 9, 23, 'normal', '2025-06-24 10:22:00', NULL, 'SUB-000011', 'pending', '2025-06-24 04:22:33', '2025-06-24 04:22:33'),
-(12, 24, NULL, 9, 23, 'high', '2025-06-25 17:04:00', NULL, 'SUB-000012', 'pending', '2025-06-25 11:04:22', '2025-06-25 11:04:22');
+(18, 24, NULL, 9, 26, 'high', '2025-08-17 14:33:00', NULL, 'SUB-000018', 'fifth_step', '2025-08-17 08:33:09', '2025-08-17 09:04:46'),
+(19, 24, NULL, 9, 26, 'normal', '2025-08-29 18:21:00', NULL, 'SUB-000019', 'fifth_step', '2025-08-29 15:21:42', '2025-08-29 15:43:26');
 
 -- --------------------------------------------------------
 
@@ -940,10 +1272,11 @@ CREATE TABLE `submission_items` (
 --
 
 INSERT INTO `submission_items` (`id`, `submission_id`, `sample_test_method_item_id`, `created_at`, `updated_at`) VALUES
-(14, 11, 24, NULL, NULL),
-(15, 11, 25, NULL, NULL),
-(16, 12, 24, NULL, NULL),
-(17, 12, 25, NULL, NULL);
+(29, 18, 30, NULL, NULL),
+(30, 18, 31, NULL, NULL),
+(31, 18, 32, NULL, NULL),
+(32, 19, 30, NULL, NULL),
+(33, 19, 32, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1044,7 +1377,8 @@ INSERT INTO `test_method_items` (`id`, `test_method_id`, `name`, `unit`, `result
 (6, 8, 'Iron (Fe)', 3, 1, NULL, '0.1', '100', NULL, '2025-05-01 19:18:35', '2025-05-01 19:18:35'),
 (7, 9, 'ph', 3, 2, '2', '0', '14', '1', '2025-05-04 18:24:45', '2025-05-04 18:24:45'),
 (9, 11, 'n', 3, 1, '32', '432', '43234', '1', '2025-05-21 08:00:22', '2025-05-21 08:00:22'),
-(10, 11, 'n1', 4, 2, '423', '34545', '435563', NULL, '2025-05-21 08:00:22', '2025-05-21 08:00:22');
+(10, 11, 'n1', 4, 2, '423', '34545', '435563', '0', '2025-05-21 08:00:22', '2025-05-21 08:00:22'),
+(11, 11, 'wrg', 4, 1, '2', '345', '4343', '0', '2025-07-22 14:32:44', '2025-07-22 14:32:44');
 
 -- --------------------------------------------------------
 
@@ -1108,8 +1442,28 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `user_name`, `phone`, `password`, `role_name`, `role_id`, `my_name`, `slug`, `signature`, `remember_token`, `created_at`, `updated_at`) VALUES
-(6, 'eslam badawy', 'e@badawy.e', 'admin22', '115009801', '$2y$10$ftlzU0f6t3hfwXY1rwn/iOC3tm8Evz0jBJPnRjvmDER5Hq1BwOi1.', 'admin', 2, '12345', 'eslam-lims', 'sign_68716fabd5b75.png', '2dqt9FMTnuW1NNtnS2C5yDj3ccDNZJgkgFsSJv0vKVFUmsKEMg2LZATHv7ov', '2025-04-28 23:43:48', '2025-07-11 17:10:19'),
+(6, 'eslam badawy', 'e@badawy.e', 'admin22', '115009801', '$2y$10$ftlzU0f6t3hfwXY1rwn/iOC3tm8Evz0jBJPnRjvmDER5Hq1BwOi1.', 'admin', 2, '12345', 'eslam-lims', 'sign_68725ef5676ea.png', '2dqt9FMTnuW1NNtnS2C5yDj3ccDNZJgkgFsSJv0vKVFUmsKEMg2LZATHv7ov', '2025-04-28 23:43:48', '2025-07-12 10:11:17'),
 (8, 'eslam badawy', 'e@badawy.eew', 'admin', '115009801', '$2y$10$nLRYUHvFJOPNBEkuqsextOJuNJ6sPJ3/MjlHgOU2xZkhZW7Ff5BOq', 'user', 1, NULL, NULL, NULL, 'Wh7F3zVlX3ML5ZDjNaWgJw1JDNnaRWYLmYueL2vFazIQsROv7V7DMKZcmtiZ', '2025-04-30 21:02:38', '2025-04-30 21:03:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `web_emails`
+--
+
+CREATE TABLE `web_emails` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `web_emails`
+--
+
+INSERT INTO `web_emails` (`id`, `email`, `created_at`, `updated_at`) VALUES
+(1, 'eslam@gmail.com', '2025-08-18 02:33:21', '2025-08-18 02:33:21');
 
 --
 -- Indexes for dumped tables
@@ -1129,11 +1483,73 @@ ALTER TABLE `business_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `certificates`
+--
+ALTER TABLE `certificates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `certificate_items`
+--
+ALTER TABLE `certificate_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `certificate_items_certificate_id_foreign` (`certificate_id`),
+  ADD KEY `certificate_items_result_test_method_id_foreign` (`result_test_method_id`),
+  ADD KEY `certificate_items_result_id_foreign` (`result_id`),
+  ADD KEY `certificate_items_test_method_item_id_foreign` (`test_method_item_id`);
+
+--
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coa_generation_settings`
+--
+ALTER TABLE `coa_generation_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coa_generation_settings_emails`
+--
+ALTER TABLE `coa_generation_settings_emails`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coa_generation_settings_samples`
+--
+ALTER TABLE `coa_generation_settings_samples`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `coa_generation_settings_samples_sample_id_foreign` (`sample_id`);
+
+--
+-- Indexes for table `coa_settings`
+--
+ALTER TABLE `coa_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coa_template_samples`
+--
+ALTER TABLE `coa_template_samples`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `coa_template_samples_coa_temp_id_foreign` (`coa_temp_id`),
+  ADD KEY `coa_template_samples_sample_id_foreign` (`sample_id`);
+
+--
 -- Indexes for table `c_o_a_settings`
 --
 ALTER TABLE `c_o_a_settings`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `c_o_a_settings_name_unique` (`name`);
+
+--
+-- Indexes for table `c_o_a_templates`
+--
+ALTER TABLE `c_o_a_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `c_o_a_templates_name_unique` (`name`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -1366,6 +1782,13 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
+-- Indexes for table `web_emails`
+--
+ALTER TABLE `web_emails`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `web_emails_email_unique` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1382,10 +1805,64 @@ ALTER TABLE `business_settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
+-- AUTO_INCREMENT for table `certificates`
+--
+ALTER TABLE `certificates`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `certificate_items`
+--
+ALTER TABLE `certificate_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `coa_generation_settings`
+--
+ALTER TABLE `coa_generation_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `coa_generation_settings_emails`
+--
+ALTER TABLE `coa_generation_settings_emails`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `coa_generation_settings_samples`
+--
+ALTER TABLE `coa_generation_settings_samples`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `coa_settings`
+--
+ALTER TABLE `coa_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `coa_template_samples`
+--
+ALTER TABLE `coa_template_samples`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `c_o_a_settings`
 --
 ALTER TABLE `c_o_a_settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `c_o_a_templates`
+--
+ALTER TABLE `c_o_a_templates`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1409,13 +1886,13 @@ ALTER TABLE `frequencies`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1439,19 +1916,19 @@ ALTER TABLE `plant_samples`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `result_test_methods`
 --
 ALTER TABLE `result_test_methods`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `result_test_method_items`
 --
 ALTER TABLE `result_test_method_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `result_types`
@@ -1469,49 +1946,49 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `samples`
 --
 ALTER TABLE `samples`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `sample_routine_schedulers`
 --
 ALTER TABLE `sample_routine_schedulers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sample_routine_scheduler_items`
 --
 ALTER TABLE `sample_routine_scheduler_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sample_test_methods`
 --
 ALTER TABLE `sample_test_methods`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `sample_test_method_items`
 --
 ALTER TABLE `sample_test_method_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `submissions`
 --
 ALTER TABLE `submissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `submission_items`
 --
 ALTER TABLE `submission_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `subscriptions`
@@ -1535,7 +2012,7 @@ ALTER TABLE `test_methods`
 -- AUTO_INCREMENT for table `test_method_items`
 --
 ALTER TABLE `test_method_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `toxic_degrees`
@@ -1556,8 +2033,36 @@ ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `web_emails`
+--
+ALTER TABLE `web_emails`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `certificate_items`
+--
+ALTER TABLE `certificate_items`
+  ADD CONSTRAINT `certificate_items_certificate_id_foreign` FOREIGN KEY (`certificate_id`) REFERENCES `certificates` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `certificate_items_result_id_foreign` FOREIGN KEY (`result_id`) REFERENCES `results` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `certificate_items_result_test_method_id_foreign` FOREIGN KEY (`result_test_method_id`) REFERENCES `result_test_methods` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `certificate_items_test_method_item_id_foreign` FOREIGN KEY (`test_method_item_id`) REFERENCES `test_method_items` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `coa_generation_settings_samples`
+--
+ALTER TABLE `coa_generation_settings_samples`
+  ADD CONSTRAINT `coa_generation_settings_samples_sample_id_foreign` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `coa_template_samples`
+--
+ALTER TABLE `coa_template_samples`
+  ADD CONSTRAINT `coa_template_samples_coa_temp_id_foreign` FOREIGN KEY (`coa_temp_id`) REFERENCES `c_o_a_settings` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `coa_template_samples_sample_id_foreign` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `permissions`
