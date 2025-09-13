@@ -50,18 +50,18 @@
                                 <a class="nav-link type_link active" href="#"
                                     id="company-link">{{ __('tenants.tenant') }}</a>
                             </li>
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link type_link " href="#"
-                                    id="admin-link">{{ __('general.admin') }}</a>
-                            </li> --}}
+                                    id="admin-link">{{ translate('admin') }}</a>
+                            </li>
                         </ul>
                         <div class="col-12">
-                            {{-- <div class="col-md-12 admin_form d-none admin-form" id="admin-form">
+                            <div class="col-md-12 admin_form d-none admin-form" id="admin-form">
                                 <form action="{{ route('admin.login') }}" method="post">
                                     @csrf
                                     @include('includes.auth.admin_login') 
                                 </form>
-                            </div> --}}
+                            </div>
                             <div class="col-md-12 admin_form company-form" id="company-form">
                                 <form action="{{ route('login') }}" method="post">
                                     @csrf

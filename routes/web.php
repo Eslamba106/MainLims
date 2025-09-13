@@ -33,6 +33,9 @@ use App\Http\Controllers\CoaGenerationSettingController;
     */
 
     Route::get('/', function () {
+        return view('web.landing_page');
+    })->name('login-page');
+    Route::get('/login-page', function () {
         return view('auth.login-page');
     })->name('login-page');
 
