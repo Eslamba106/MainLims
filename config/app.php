@@ -58,9 +58,9 @@ return [
 
     // 'asset_url' => env('ASSET_URL', 'http://localhost/MainLims/'),
 
-    'url' => env('APP_URL', 'https://lims.y-codex.org'),
+    'url' => env('APP_URL', 'https://limsstage.com'),
 
-    'asset_url' =>   'https://lims.y-codex.org/' ,
+    'asset_url' =>   'https://limsstage.com/' ,
 
     /*
     |--------------------------------------------------------------------------
