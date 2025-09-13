@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\admin\TenantController;
+use App\Http\Controllers\Admin\TenantController;
 
 /*
 |--------------------------------------------------------------------------
