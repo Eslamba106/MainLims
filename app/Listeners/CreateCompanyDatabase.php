@@ -32,8 +32,8 @@ class CreateCompanyDatabase
         DB::statement("CREATE DATABASE `{$db}`");
 
         Config::set('database.connections.tenant.database', $db);
-        Log::info('Tenant database created: ' . $db);
-        $dir = new DirectoryIterator(database_path('migrations\tenants'));
+        // Log::info('Tenant database created: ' . $db);
+        $dir = new DirectoryIterator(database_path('migrations/tenants'));
         foreach ($dir as $file) {
             if ($file->isFile()) {
                 Artisan::call('migrate', [
