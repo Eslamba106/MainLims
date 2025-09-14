@@ -195,4 +195,6 @@
   'export' => 'Export',
   'add_New_Client' => 'Add New Client',
   'client_added_successfully' => 'Client added successfully',
+  'login' => 'Login',
+  'admin' => 'Admin',
 );

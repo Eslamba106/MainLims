@@ -34,7 +34,7 @@ Route::group(["prefix" => "admin"], function () {
     })->name('admin.lang');
     Route::group(["prefix" => "tenant"], function () {
         Route::get("/", [TenantController::class, "index"])->name("admin.tenant_management")->middleware('auth:admins');
-        Route::post("store", [TenantController::class, "store"])->name("admin.tenant_management.store")->middleware('auth:admins');
+        Route::post("store_tenant", [TenantController::class, "store"])->name("admin.tenant_management.store_tenant")->middleware('auth:admins');
         Route::get("create", [TenantController::class, "create"])->name("admin.tenant_management.create")->middleware('auth:admins');
         Route::get("edit/{id}", [TenantController::class, "edit"])->name("admin.tenant_management.edit")->middleware('auth:admins');
         Route::post("update/{id}", [TenantController::class, "update"])->name("admin.tenant_management.update")->middleware('auth:admins');

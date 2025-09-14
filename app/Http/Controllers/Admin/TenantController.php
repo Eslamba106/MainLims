@@ -58,14 +58,14 @@ class TenantController extends Controller
         // dd($request->all());
         $validatedData = $request->validate([
             'name'             => 'required|string|max:255', 
-            'tenant_id'         => 'required|integer|unique:tenants,tenant_id',  
-            'phone'            => 'nullable|string|max:15', 
-            'user_name'        => 'required|string|max:50|unique:users',
+            'tenant_id'         => 'required|unique:tenants,tenant_id',  
+            // 'phone'            => 'nullable|string|max:15', 
+            'user_name'        => 'required|string|max:50',
             'password'         => 'nullable|string|min:5',  
         ]);
         
-        DB::beginTransaction();
-        try {
+        // DB::beginTransaction();
+        // try {
 
            
             $tenant                                             = Tenant::create([
@@ -94,10 +94,10 @@ class TenantController extends Controller
           
             DB::commit();
             event(new CompanyCreated($tenant));
-            return redirect()->route('admin.tenant_management')->with("success", __('general.added_successfully'));
-        } catch (Throwable $th) {
-            DB::rollBack();
-            return redirect()->back()->with('error', $th->getMessage());
-        }
+        //     return redirect()->route('admin.tenant_management')->with("success", __('general.added_successfully'));
+        // } catch (Throwable $th) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', $th->getMessage());
+        // }
     }
 }

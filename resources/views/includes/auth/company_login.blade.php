@@ -24,7 +24,7 @@
 
 </div>
 </div>
-@php
+{{-- @php
     $host = request()->getHost();
 @endphp
 <script>
@@ -34,7 +34,7 @@
     companyInput.addEventListener('input', function() {
         domainInput.value = companyInput.value ? companyInput.value + '.' + '{{ $host }}' : '';
     });
-</script>
+</script> --}}
 <div class="form-group text-center mt-2">
     <div class="col-xs-12 p-b-20">
         <button type="submit" class="btn btn-block btn-lg btn-info">{{ __('general.submit') }}</button>

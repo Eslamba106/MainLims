@@ -48,7 +48,7 @@
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
-        <form action="{{ route('admin.tenant_management.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.tenant_management.store_tenant') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-12">
@@ -61,7 +61,7 @@
                                     <div class="form-group">
                                         <label for="">{{ __('roles.name') }} <span
                                                 class="text-danger">*</span></label>
-                                                <input type="text" name="name" class="form-control" id="clientName"  style="text-transform:uppercase;" />
+                                                <input type="text" name="name" class="form-control" required />
                                          
                                         @error('name')
                                             <span class="error text-danger">{{ $message }}</span>
@@ -71,12 +71,13 @@
                              
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
-                                        <label for="company_id" class="title-color">{{ __('tenants.company_id') }} <span
+                                        <label for="tenant_id" class="title-color">{{ __('tenants.company_id') }} <span
                                                 class="text-danger"> *</span></label>
-                                        <input type="text" class="form-control" readonly name="tenant_id" value="{{ company_id() }}" >
+                                        <input type="text" class="form-control" required name="tenant_id"   >
+                                        {{-- <input type="text" class="form-control"  name="tenant_id" value="{{ company_id() }}" > --}}
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                {{-- <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
                                         <label for="name" class="title-color">{{ __('tenants.user_count') }}<span
                                                 class="text-danger"> *</span>
@@ -129,7 +130,7 @@
                                         <input type="date" class="form-control company_applicable_date"
                                             name="tenant_applicable_date">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
                                         <label class="title-color">{{ __('tenants.user_name') }}<span class="text-danger">
@@ -137,13 +138,13 @@
                                         <input type="text" class="form-control" name="user_name">
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                {{-- <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
                                         <label class="title-color">{{ __('tenants.email') }}<span class="text-danger">
                                                 *</span></label>
                                         <input type="text" class="form-control" name="email">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <label class="title-color">{{ __('tenants.password') }}<span class="text-danger">
                                             *</span></label>

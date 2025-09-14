@@ -18,6 +18,7 @@ class Helpers
             $data      = Helpers::get_business_settings('language');
             $code      = 'en';
             $direction = 'ltr';
+            if(isset($data) && is_array($data)){
             foreach ($data as $ln) {
                 if (array_key_exists('default', $ln) && $ln['default']) {
                     $code = $ln['code'];
@@ -25,7 +26,7 @@ class Helpers
                         $direction = $ln['direction'];
                     }
                 }
-            }
+            }}
             session()->put('local', $code);
             Session::put('direction', $direction);
             $lang = $code;
