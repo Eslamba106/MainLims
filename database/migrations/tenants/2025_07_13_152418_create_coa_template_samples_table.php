@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('coa_template_samples', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('coa_temp_id')->constrained('coa_settings')->cascadeOnDelete();
-            $table->foreignId('sample_id')->constrained('samples')->cascadeOnDelete();
+            $table->integer('coa_temp_id') ;
+            $table->integer('sample_id') ;
             $table->timestamps();
         });
     }

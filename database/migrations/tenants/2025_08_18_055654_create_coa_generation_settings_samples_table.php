@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('coa_generation_settings_samples', function (Blueprint $table) {
             $table->id();
             $table->integer('coa_generation_setting_id');
-            $table->foreignId('sample_id')->nullable()->constrained('samples')->onDelete('cascade');
+            $table->integer('sample_id')->nullable() ;
 
             $table->timestamps();
         });
