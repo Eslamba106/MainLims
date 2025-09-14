@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('test_method_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('test_method_id')->constrained('test_methods')->onDelete('cascade');
+            $table->integer('test_method_id');
             $table->string('name')->nullable();
             $table->integer('unit')->nullable();
             $table->integer('result_type')->nullable();

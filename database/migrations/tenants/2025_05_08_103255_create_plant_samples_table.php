@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('plant_samples', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('plant_id')->constrained('plants')->onDelete('cascade');
+            $table->integer('plant_id');
             $table->timestamps();
         });
     }

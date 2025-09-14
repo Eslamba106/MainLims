@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('sample_test_method_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sample_id')->constrained('samples')->onDelete('cascade');
-            $table->foreignId('test_method_id')->constrained('sample_test_methods')->onDelete('cascade');
-            $table->foreignId('test_method_item_id')->constrained('test_method_items')->onDelete('cascade');
+            $table->integer('sample_id') ;
+            $table->integer('test_method_id') ;
+            $table->integer('test_method_item_id') ;
             $table->string('warning_limit')->nullable();
             $table->string('warning_limit_end')->nullable();
             $table->string('action_limit')->nullable();

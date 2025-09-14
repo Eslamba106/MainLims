@@ -13,24 +13,19 @@ return new class extends Migration
     {
         Schema::create('sample_routine_scheduler_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sample_scheduler_id')
-                ->constrained('sample_routine_schedulers')
-                ->onDelete('cascade');
-            $table->foreignId('sample_id')
-                ->constrained('samples')
-                ->onDelete('cascade');
-            $table->foreignId('plant_id')
-                ->constrained('plants')
-                ->onDelete('cascade');
-            $table->foreignId('sub_plant_id')
+            $table->integer('sample_scheduler_id')
+                ;
+            $table->integer('sample_id')
+               ;
+            $table->integer('plant_id')
+              ;
+            $table->integer('sub_plant_id')
                 ->nullable()
-                ->constrained('plants')
-                ->onDelete('cascade');
-            $table->foreignId('frequency_id')
-                ->constrained('frequencies')
-                ->onDelete('cascade');
+                 ;
+            $table->integer('frequency_id')
+                 ;
             $table->string('schedule_hour')->nullable();
-            $table->foreignId('test_method_ids')->nullable()->constrained('test_methods')->onDelete('cascade');
+            $table->integer('test_method_ids')->nullable()->constrained('test_methods')->onDelete('cascade');
             $table->timestamps();
         });
     }

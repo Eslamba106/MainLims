@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('sample_test_methods', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sample_id')->constrained('samples')->onDelete('cascade');
-            $table->foreignId('test_method_id')->constrained('test_methods')->onDelete('cascade');
+            $table->integer('sample_id') ;
+            $table->integer('test_method_id') ;
             $table->timestamps();
         });
     }

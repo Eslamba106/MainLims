@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('samples', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('plant_id')->constrained('plants')->onDelete('cascade');
-            $table->foreignId('sub_plant_id')->nullable()->constrained('plants')->onDelete('cascade');
-            $table->foreignId('plant_sample_id')->nullable()->constrained('plant_samples')->onDelete('cascade');
+            $table->integer('plant_id');
+            $table->integer('sub_plant_id')->nullable();
+            $table->integer('plant_sample_id')->nullable();
             $table->tinyInteger('toxic')->nullable(); 
             $table->tinyInteger('coa')->nullable(); 
             $table->timestamps();
