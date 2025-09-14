@@ -94,7 +94,7 @@ class TenantController extends Controller
           
             DB::commit();
             event(new CompanyCreated($tenant));
-        //     return redirect()->route('admin.tenant_management')->with("success", __('general.added_successfully'));
+            return redirect()->route('admin.tenant_management')->with("success", __('general.added_successfully'));
         // } catch (Throwable $th) {
         //     DB::rollBack();
         //     return redirect()->back()->with('error', $th->getMessage());
