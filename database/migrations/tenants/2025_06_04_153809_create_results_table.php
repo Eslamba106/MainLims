@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('submission_id')->constrained('submissions')->onDelete('cascade');
-            $table->foreignId('plant_id')->constrained('plants')->onDelete('cascade');
-            $table->foreignId('sub_plant_id')->nullable()->constrained('plants')->onDelete('cascade');
-            $table->foreignId('plant_sample_id')->nullable()->constrained('plant_samples')->onDelete('cascade');
-            $table->foreignId('sample_id')->nullable()->constrained('samples')->onDelete('cascade');
+            $table->integer('submission_id');
+            $table->integer('plant_id');
+            $table->integer('sub_plant_id')->nullable() ;
+            $table->integer('plant_sample_id')->nullable() ;
+            $table->integer('sample_id')->nullable() ;
             $table->enum('priority', ['high', 'normal', 'critical'])->default('normal');
             $table->dateTime('sampling_date_and_time')->nullable();
             $table->text('internal_comment')->nullable();
