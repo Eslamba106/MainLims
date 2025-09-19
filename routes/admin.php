@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\SchemaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\TenantController;
+use App\Http\Controllers\part\PlantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +37,15 @@ Route::group(["prefix" => "admin"], function () {
     Route::group(["prefix" => "tenant"], function () {
         Route::get("/", [TenantController::class, "index"])->name("admin.tenant_management")->middleware('auth:admins');
         Route::post("store_tenant", [TenantController::class, "store"])->name("admin.tenant_management.store_tenant")->middleware('auth:admins');
+        Route::post("register_tenant", [TenantController::class, "register"])->name("admin.tenant_management.register_tenant");
         Route::get("create", [TenantController::class, "create"])->name("admin.tenant_management.create")->middleware('auth:admins');
         Route::get("edit/{id}", [TenantController::class, "edit"])->name("admin.tenant_management.edit")->middleware('auth:admins');
         Route::post("update/{id}", [TenantController::class, "update"])->name("admin.tenant_management.update")->middleware('auth:admins');
         Route::get("delete", [TenantController::class, "delete"])->name("admin.tenant_management.delete")->middleware('auth:admins');
+    });
+    Route::group(["prefix" => "plans"], function () {
+        Route::get("/", [SchemaController::class, "list"])->name("admin.schema")->middleware('auth:admins');
+        Route::get("/create", [SchemaController::class, "create"])->name("admin.schema.create")->middleware('auth:admins');
+        Route::post("/store", [SchemaController::class, "store"])->name("admin.schema.store")->middleware('auth:admins');
     });
 });

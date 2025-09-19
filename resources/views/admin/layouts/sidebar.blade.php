@@ -14,19 +14,23 @@
 
                         <span class="hide-menu">{{ __('roles.tenant_management') }} </span>
                     </a>
-                    
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="{{ route('admin.tenant_management') }}" class="sidebar-link">
-                                    <i class="mdi mdi-email"></i>
-                                    <span class="hide-menu">{{ __('roles.all_tenants') }}</span>
-                                </a>
-                            </li>
 
-                        </ul>
-                     
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ route('admin.tenant_management') }}" class="sidebar-link">
+                                <i class="mdi mdi-email"></i>
+                                <span class="hide-menu">{{ __('roles.all_tenants') }}</span>
+                            </a>
+                        </li>
+
+                    </ul> 
                 </li>
-
+                   <li class="sidebar-item">
+                            <a href="{{ route('admin.schema') }}" class="sidebar-link">
+                                <i class="fas fa-project-diagram"></i>
+                                <span class="hide-menu">{{ translate('Plans') }}</span>
+                            </a>
+                        </li>
                 {{-- @can('user_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"

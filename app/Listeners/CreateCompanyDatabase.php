@@ -53,7 +53,7 @@ class CreateCompanyDatabase
         DB::purge('tenant');
         Config::set('database.connections.tenant.database', $db);
         DB::reconnect('tenant');
-        $tablesToCopy = ['roles', 'sections', 'permissions'];
+        $tablesToCopy = ['roles', 'sections', 'permissions','business_settings'];
         foreach ($tablesToCopy as $table) {
             $data = DB::table($table)->get();
             if ($data->isNotEmpty()) {

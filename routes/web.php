@@ -7,7 +7,8 @@
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\Admin\RoleController;
-    use App\Http\Controllers\part\PlantController;
+use App\Http\Controllers\Admin\TenantController;
+use App\Http\Controllers\part\PlantController;
     use App\Http\Controllers\CoaSettingsController;
     use App\Http\Controllers\part\SampleController;
     use App\Http\Controllers\part\GeneralController;
@@ -17,9 +18,9 @@
     use App\Http\Controllers\part_three\COATemplateController;
     use App\Http\Controllers\second_part\SubmissionController;
     use App\Http\Controllers\second_part\SampleRoutineSchedulerController;
-use App\Models\Certificate;
-use App\Http\Controllers\CertificateController;
-use App\Http\Controllers\CoaGenerationSettingController;
+    use App\Models\Certificate;
+    use App\Http\Controllers\CertificateController;
+    use App\Http\Controllers\CoaGenerationSettingController;
 
     /*
     |--------------------------------------------------------------------------
@@ -33,8 +34,8 @@ use App\Http\Controllers\CoaGenerationSettingController;
     */
 
     Route::get('/', function () {
-        return view('web.landing_page');
-    })->name('login-page');
+        return view('welcome');
+    })->name('landing-page');
     Route::get('/login-page', function () {
         return view('auth.login-page');
     })->name('login-page');
@@ -42,7 +43,7 @@ use App\Http\Controllers\CoaGenerationSettingController;
     Route::get('/login', function () {
         return view('first_part.auth.login-page');
     })->name('web.login-page');
-    Route::get('/scan-barcode' , [SubmissionController::class,'scanPage'])->name('scan_page');
+    Route::get('/scan-barcode', [SubmissionController::class, 'scanPage'])->name('scan_page');
     // Route::get('/', [AuthController::class, 'loginPage'])->name('login-page');
     // // Translation
 
@@ -73,7 +74,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::patch('/update/{id}', [TestMethodController::class, 'update'])->name('admin.test_method.update');
         Route::get('/delete/{id}', [TestMethodController::class, 'destroy'])->name('admin.test_method.delete');
         Route::get('/delete_component/{id}', [TestMethodController::class, 'delete_component'])->name('admin.test_method.delete_component');
-
     });
 
     // Sample Managment
@@ -94,7 +94,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/delete_test_method_item_from_sample/{id}', [SampleController::class, 'delete_test_method_item_from_sample'])->name('admin.sample.delete_test_method_item_from_sample');
         Route::get('/add_test_method/{id}', [SampleController::class, 'add_test_method'])->name('admin.sample.add_test_method');
         Route::post('/store_test_method', [SampleController::class, 'store_test_method'])->name('admin.sample.store_test_method');
-
     });
     // Submission Managment
     Route::group(['prefix' => 'submission'], function () {
@@ -122,7 +121,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/schedule/edit/{id}', [SampleRoutineSchedulerController::class, 'edit'])->name('admin.submission.schedule.edit');
         Route::patch('/schedule/update/{id}', [SampleRoutineSchedulerController::class, 'update'])->name('admin.submission.schedule.update');
         Route::get('/schedule/get_sample_by_plant_id/{id}', [SampleRoutineSchedulerController::class, 'get_sample_by_plant_id'])->name('admin.submission.schedule.get_sample_by_plant_id');
-
     });
 
     // Result Management
@@ -150,7 +148,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/review/{id}', [CertificateController::class, 'review'])->name('admin.certificate.review');
         Route::patch('/update/{id}', [CertificateController::class, 'update'])->name('admin.certificate.update');
         Route::get('/delete/{id}', [CertificateController::class, 'destroy'])->name('admin.certificate.delete');
- 
     });
 
     // CAO Management
@@ -165,16 +162,13 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('add-new', [COATemplateController::class, 'add_template_designer'])->name('admin.add_template_designer');
         Route::get('assign/{id}', [COATemplateController::class, 'assign_page'])->name('admin.assign_template_designer_page');
         Route::post('assign_to_sample', [COATemplateController::class, 'assign'])->name('admin.assign_template_designer');
-
     });
     // CAO Management
     Route::group(['prefix' => 'coa-settings'], function () {
 
-    Route::get('/', [CoaSettingsController::class, 'create'])->name('coa-settings.create');
-    Route::post('/store', [CoaSettingsController::class, 'store'])->name('coa-settings.store');
-    Route::get('/delete/{id}', [CoaSettingsController::class, 'delete'])->name('coa-settings.delete');  
-
-
+        Route::get('/', [CoaSettingsController::class, 'create'])->name('coa-settings.create');
+        Route::post('/store', [CoaSettingsController::class, 'store'])->name('coa-settings.store');
+        Route::get('/delete/{id}', [CoaSettingsController::class, 'delete'])->name('coa-settings.delete');
     });
 
     // Unit Managment
@@ -186,7 +180,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [GeneralController::class, 'unit_edit'])->name('admin.unit.edit');
         Route::patch('/update/{id}', [GeneralController::class, 'unit_update'])->name('admin.unit.update');
         Route::get('/delete/{id}', [GeneralController::class, 'unit_destroy'])->name('admin.unit.delete');
-
     });
     // Unit Managment
     Route::group(['prefix' => 'email'], function () {
@@ -197,7 +190,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [GeneralController::class, 'email_edit'])->name('admin.email.edit');
         Route::patch('/update/{id}', [GeneralController::class, 'email_update'])->name('admin.email.update');
         Route::get('/delete/{id}', [GeneralController::class, 'email_destroy'])->name('admin.email.delete');
-
     });
     // Unit Managment
     Route::group(['prefix' => 'toxic_degree'], function () {
@@ -208,7 +200,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [GeneralController::class, 'toxic_degree_edit'])->name('admin.toxic_degree.edit');
         Route::patch('/update/{id}', [GeneralController::class, 'toxic_degree_update'])->name('admin.toxic_degree.update');
         Route::get('/delete/{id}', [GeneralController::class, 'toxic_degree_destroy'])->name('admin.toxic_degree.delete');
-
     });
     // Frequency Managment
     Route::group(['prefix' => 'frequency'], function () {
@@ -219,7 +210,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [GeneralController::class, 'frequency_edit'])->name('admin.frequency.edit');
         Route::patch('/update/{id}', [GeneralController::class, 'frequency_update'])->name('admin.frequency.update');
         Route::get('/delete/{id}', [GeneralController::class, 'frequency_destroy'])->name('admin.frequency.delete');
-
     });
 
     // Result Type Managment
@@ -231,7 +221,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [GeneralController::class, 'result_type_edit'])->name('admin.result_type.edit');
         Route::patch('/update/{id}', [GeneralController::class, 'result_type_update'])->name('admin.result_type.update');
         Route::get('/delete/{id}', [GeneralController::class, 'result_type_destroy'])->name('admin.result_type.delete');
-
     });
     // Plant Managment
     Route::group(['prefix' => 'plant'], function () {
@@ -245,7 +234,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/delete_sample_from_plant/{id}', [PlantController::class, 'delete_sample_from_plant'])->name('plant.delete_sample_from_plant');
         Route::get('/delete_sub_plant_from_plant/{id}', [PlantController::class, 'delete_sub_plant_from_plant'])->name('plant.delete_sub_plant_from_plant');
         Route::get('/get_sub_plants', [PlantController::class, 'get_sub_plants'])->name('admin.plant.get_sub_plants');
-
     });
     // Sample Master Managment
     Route::group(['prefix' => 'master_sample'], function () {
@@ -258,7 +246,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/delete/{id}', [PlantController::class, 'master_sample_destroy'])->name('admin.master_sample.delete');
         Route::get('/delete_sample_from_master_sample/{id}', [PlantController::class, 'delete_sample_from_master_sample'])->name('master_sample.delete_sample_from_master_sample');
         Route::get('/delete_sub_master_sample_from_master_sample/{id}', [PlantController::class, 'delete_sub_master_sample_from_master_sample'])->name('master_sample.delete_sub_master_sample_from_plant');
-
     });
 
     // User Managment
@@ -270,7 +257,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [UserManagmentController::class, 'edit'])->name('user_managment.edit');
         Route::patch('/update/{id}', [UserManagmentController::class, 'update'])->name('user_managment.update');
         Route::get('/delete/{id}', [UserManagmentController::class, 'destroy'])->name('user_managment.delete');
-
     });
     // Client Managment
     Route::group(['prefix' => 'client'], function () {
@@ -281,7 +267,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
         Route::patch('/update/{id}', [ClientController::class, 'update'])->name('client.update');
         Route::get('/delete/{id}', [ClientController::class, 'delete'])->name('client.delete');
-
     });
 
 
@@ -294,19 +279,17 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::get('/edit/{id}', [CoaGenerationSettingController::class, 'edit'])->name('coa_generation_setting.edit');
         Route::patch('/update/{id}', [CoaGenerationSettingController::class, 'update'])->name('coa_generation_setting.update');
         Route::get('/delete/{id}', [CoaGenerationSettingController::class, 'delete'])->name('coa_generation_setting.delete');
-
     });
 
 
     // Client Managment
     Route::group(['prefix' => 'certificate'], function () {
 
-        Route::get('/', [CertificateController::class, 'index'])->name('certificate.list'); 
+        Route::get('/', [CertificateController::class, 'index'])->name('certificate.list');
         Route::post('/create', [CertificateController::class, 'store'])->name('certificate.store');
         Route::get('/edit/{id}', [CertificateController::class, 'edit'])->name('certificate.edit');
         Route::patch('/update/{id}', [CertificateController::class, 'update'])->name('certificate.update');
         Route::get('/delete/{id}', [CertificateController::class, 'delete'])->name('certificate.delete');
-
     });
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
@@ -317,7 +300,6 @@ use App\Http\Controllers\CoaGenerationSettingController;
 
         Route::get('bank-edit/{id}', [ProfileController::class, 'bank_edit'])->name('bankInfo');
         Route::post('bank-update/{id}', [ProfileController::class, 'bank_update'])->name('bank_update');
-
     });
 
     Route::group(['prefix' => 'language', 'as' => 'language.'], function () {
@@ -342,8 +324,9 @@ use App\Http\Controllers\CoaGenerationSettingController;
         Route::post('/{id}/update', [RoleController::class, 'update'])->name('roles.update');
         Route::delete('/delete', [RoleController::class, 'destroy'])->name('roles.delete');
     });
-Route::post('/call-get-status', function (Illuminate\Http\Request $request) {
-    return response()->json([
-        'status' => getStatus($request->value, $request->test_method_item_id)
-    ]);
-})->name('call-get-status');
+    Route::post('/call-get-status', function (Illuminate\Http\Request $request) {
+        return response()->json([
+            'status' => getStatus($request->value, $request->test_method_item_id)
+        ]);
+    })->name('call-get-status');
+    Route::get('register-page/{id}', [TenantController::class, 'registerPage'])->name('register.page');

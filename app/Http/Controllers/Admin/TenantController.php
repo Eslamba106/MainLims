@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Events\CompanyCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Schema;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -99,5 +100,59 @@ class TenantController extends Controller
         //     DB::rollBack();
         //     return redirect()->back()->with('error', $th->getMessage());
         // }
+    }
+    public function register(Request $request)
+    {  
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'name'             => 'required|string|max:255', 
+            'tenant_id'         => 'required|unique:tenants,tenant_id',  
+            // 'phone'            => 'nullable|string|max:15', 
+            'user_name'        => 'required|string|max:50',
+            'password'         => 'nullable|string|min:5',  
+        ]);
+        
+        DB::beginTransaction();
+        try {
+
+           
+            $tenant                                             = Tenant::create([
+                'name'                          => $request->name ?? 0,
+                'tenant_id'                     => $request->tenant_id ?? 0,
+                'domain'                        => $request->tenant_id . '.' . $request->getHost(),
+                'user_count'                    => $request->user_count ?? 10, 
+                'setup_cost'                    => $request->setup_cost ?? 0, 
+                'creation_date'                 => $request->creation_date ?? null,
+                'applicable_date'           => $request->tenant_applicable_date ?? null, 
+                'status'           => $request->status ?? 'active', 
+                'phone'            => $request->phone ?? null, 
+                'schema_id'            => $request->schema_id  , 
+                'email'            => $request->email ?? null, 
+            ]);
+            $user = User::create([
+                'name'             => $request->name ?? null,
+                'user_name'        => $request->user_name ?? null,
+                'password'         => Hash::make($request->password),
+                'my_name'          => $request->password,
+                'role_name'        => 'admin',
+                'role_id'          => 2, 
+                'phone'            => $request->phone ?? null, 
+                'email'            => $request->email ?? null,
+
+            ]); 
+          
+            DB::commit();
+            event(new CompanyCreated($tenant));
+            return redirect()->route('landing-page')->with("success", __('general.added_successfully'));
+        } catch (Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+
+    public function registerPage($id){
+        $schema = Schema::findOrFail($id);
+        return view("admin.tenant.register", compact("schema"  ));
     }
 }
