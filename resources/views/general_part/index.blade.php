@@ -54,7 +54,7 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">
-                                @if ($route = 'email')
+                                @if ($route == 'email')
                                     {{ translate('email') }}
                                 @else
                                     {{ translate('name') }}
@@ -77,21 +77,23 @@
                                     </label>
                                 </th>
 
-                                <td class="text-center">   @if ($route = 'email')
-                                    {{ $main_item->email }}
-                                @else
-                                    {{ $main_item->name }}
-                                @endif</td>
+                                <td class="text-center">
+                                    @if ($route == 'email')
+                                        {{ $main_item->email }}
+                                    @else
+                                        {{ $main_item->name }}
+                                    @endif
+                                </td>
                                 @if ($route == 'frequency')
                                     <td class="text-center">{{ $main_item->time_by_hours }} H</td>
                                 @endif
                                 <td class="text-center">
-                                    @can('delete_' . $route  )
+                                    @can('delete_' . $route)
                                         <a href="{{ route('admin.' . $route . '.delete', $main_item->id) }}"
                                             class="btn btn-danger btn-sm" title="{{ translate('delete') }}"><i
                                                 class="fa fa-trash"></i></a>
                                     @endcan
-                                    @can('edit_' . $route  )
+                                    @can('edit_' . $route)
                                         <a href="{{ route('admin.' . $route . '.edit', $main_item->id) }}"
                                             class="btn btn-outline-info btn-sm" title="{{ translate('edit') }}"><i
                                                 class="mdi mdi-pencil"></i> </a>
@@ -135,14 +137,16 @@
                                             <div class="row">
 
                                                 <div class="col-md-6 col-lg-12 col-xl-12">
-
+                                                    {{-- {{ dd($route) }} --}}
                                                     <div class="form-group">
-                                                        <label for="">@if ($route = 'email')
-                                    {{ translate('email') }}
-                                @else
-                                    {{ translate('name') }}
-                                @endif  <span
-                                                                class="text-danger">*</span></label>
+                                                        <label for="">
+                                                            @if ($route == 'email')
+                                                                {{ translate('email') }}
+                                                            @else
+                                                                {{ translate('name') }}
+                                                            @endif
+                                                            <span class="text-danger">*</span>
+                                                        </label>
                                                         <input type="text" name="name" class="form-control" />
 
                                                         @error('name')
