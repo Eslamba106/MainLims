@@ -3,6 +3,7 @@
 namespace App\helper;
 
 use App\Models\BusinessSetting;
+use App\Models\Schema;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
@@ -74,11 +75,10 @@ class Helpers
 
     public static function module_check($mod_name)
     {
-        $currentTenant = app('current_tenant');
-        dd($currentTenant);
-        $module = $currentTenant->schema;
+        $currentTenant = app('current_tenant'); 
+        $module = Schema::where('id' , $currentTenant->schema_id)->first(); 
         dd($module);
-        if (isset($permissimoduleon) && in_array($mod_name, (array)json_decode($module)) == true) {
+        if (isset($module) && in_array($mod_name, (array)json_decode($module)) == true) {
             return true;
         }
 
