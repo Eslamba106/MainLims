@@ -10,4 +10,6 @@ class Schema extends Model
     use HasFactory;
 
     protected $guarded = [ 'id' ];
+
+    protected $connection = 'mysql';
 }
