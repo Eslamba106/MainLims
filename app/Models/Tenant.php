@@ -16,5 +16,10 @@ class Tenant extends Model
     {
         return $query->where('status', 'active');
     }
+
+    public function schema()
+    {
+        return $this->belongsTo(Schema::class, 'schema_id' );
+    }
     
 }

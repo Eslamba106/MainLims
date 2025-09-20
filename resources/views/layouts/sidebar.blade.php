@@ -16,6 +16,9 @@
                         <span class="hide-menu">{{ translate('scan_Barcode') }} </span>
                     </a>
                 </li>
+                @if (\App\helper\Helpers::module_check('test_method_management'))
+                    
+                
                 @can('test_method_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
@@ -52,7 +55,7 @@
                         </ul>
                     </li>
                 @endcan
-
+@endif
                 <!--  Test Method Management End-->
 
 

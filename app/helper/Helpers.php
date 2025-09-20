@@ -1,4 +1,5 @@
 <?php
+
 namespace App\helper;
 
 use App\Models\BusinessSetting;
@@ -18,22 +19,23 @@ class Helpers
             $data      = Helpers::get_business_settings('language');
             $code      = 'en';
             $direction = 'ltr';
-            if(isset($data) && is_array($data)){
-            foreach ($data as $ln) {
-                if (array_key_exists('default', $ln) && $ln['default']) {
-                    $code = $ln['code'];
-                    if (array_key_exists('direction', $ln)) {
-                        $direction = $ln['direction'];
+            if (isset($data) && is_array($data)) {
+                foreach ($data as $ln) {
+                    if (array_key_exists('default', $ln) && $ln['default']) {
+                        $code = $ln['code'];
+                        if (array_key_exists('direction', $ln)) {
+                            $direction = $ln['direction'];
+                        }
                     }
                 }
-            }}
+            }
             session()->put('local', $code);
             Session::put('direction', $direction);
             $lang = $code;
         }
         return $lang;
     }
-  public static function pagination_limit()
+    public static function pagination_limit()
     {
         $pagination_limit = BusinessSetting::where('type', 'pagination_limit')->first();
         if ($pagination_limit != null) {
@@ -70,6 +72,20 @@ class Helpers
         return str_ireplace(['\'', '"', ',', ';', '<', '>', '?'], ' ', preg_replace('/\s\s+/', ' ', $str));
     }
 
+    public static function module_check($mod_name)
+    {
+        $currentTenant = app('current_tenant');
+        $module = $currentTenant->schema;
+        dd($module);
+        if (isset($permissimoduleon) && in_array($mod_name, (array)json_decode($module)) == true) {
+            return true;
+        }
+
+        if (auth('admin')->user()->admin_role_id == 1) {
+            return true;
+        }
+        return false;
+    }
 }
 
 function auto_translator($q, $sl, $tl)
@@ -81,7 +97,8 @@ function auto_translator($q, $sl, $tl)
 
 function getLanguageCode(string $country_code): string
 {
-    $locales = ['af-ZA',
+    $locales = [
+        'af-ZA',
         'am-ET',
         'ar-AE',
         'ar-BH',
@@ -228,7 +245,8 @@ function getLanguageCode(string $country_code): string
         'zh-HK',
         'zh-MO',
         'zh-SG',
-        'zh-TW'];
+        'zh-TW'
+    ];
 
     foreach ($locales as $locale) {
         $locale_region = explode('-', $locale);
