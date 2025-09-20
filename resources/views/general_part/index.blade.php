@@ -169,6 +169,7 @@
                                                         </div>
                                                     </div>
                                                 @endif
+                                            {{-- متعة لا تخلو من الازعاج لانه المتعه وحدها بدون وتنبيه للعقل هي تخدير  --}}
                                             </div>
                                             <div class="form-group mt-2"
                                                 style="text-align: {{ Session::get('locale') == 'en' ? 'right;margin-right:10px' : 'left;margin-left:10px' }}">
