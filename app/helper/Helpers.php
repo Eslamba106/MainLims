@@ -75,6 +75,7 @@ class Helpers
     public static function module_check($mod_name)
     {
         $currentTenant = app('current_tenant');
+        dd($currentTenant);
         $module = $currentTenant->schema;
         dd($module);
         if (isset($permissimoduleon) && in_array($mod_name, (array)json_decode($module)) == true) {

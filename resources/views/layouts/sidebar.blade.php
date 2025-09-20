@@ -9,53 +9,52 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link  waves-effect waves-dark" href="{{ route('scan_page') }}"
-                        aria-expanded="false">
+                    <a class="sidebar-link  waves-effect waves-dark" href="{{ route('scan_page') }}" aria-expanded="false">
                         <i class="fa fa-barcode"></i>
 
                         <span class="hide-menu">{{ translate('scan_Barcode') }} </span>
                     </a>
                 </li>
                 @if (\App\helper\Helpers::module_check('test_method_management'))
-                    
-                
-                @can('test_method_management')
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                            aria-expanded="false">
-                            <i class="fa fa-flask"></i>
 
-                            <span class="hide-menu">{{ translate('test_method_management') }} </span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            @can('all_test_methods')
-                                <li class="sidebar-item">
-                                    <a href="{{ route('admin.test_method') }}" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('all_test_methods') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('all_units')
-                                <li class="sidebar-item">
-                                    <a href="{{ route('admin.unit') }}" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('all_units') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('all_result_types')
-                                <li class="sidebar-item">
-                                    <a href="{{ route('admin.result_type') }}" class="sidebar-link">
-                                        <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">{{ translate('all_result_types') }}</span>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
-@endif
+
+                    @can('test_method_management')
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                                aria-expanded="false">
+                                <i class="fa fa-flask"></i>
+
+                                <span class="hide-menu">{{ translate('test_method_management') }} </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                @can('all_test_methods')
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('admin.test_method') }}" class="sidebar-link">
+                                            <i class="mdi mdi-email"></i>
+                                            <span class="hide-menu">{{ translate('all_test_methods') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('all_units')
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('admin.unit') }}" class="sidebar-link">
+                                            <i class="mdi mdi-email"></i>
+                                            <span class="hide-menu">{{ translate('all_units') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('all_result_types')
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('admin.result_type') }}" class="sidebar-link">
+                                            <i class="mdi mdi-email"></i>
+                                            <span class="hide-menu">{{ translate('all_result_types') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
+                @endif
                 <!--  Test Method Management End-->
 
 
@@ -193,9 +192,9 @@
                                     <i class="mdi mdi-email"></i>
                                     <span class="hide-menu">{{ translate('template_Designer_List') }}</span>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
-                    </li> 
+                    </li>
                 @endcan
                 @can('coa_generation_settings')
                     <li class="sidebar-item">
@@ -212,15 +211,15 @@
                                     <i class="mdi mdi-email"></i>
                                     <span class="hide-menu">{{ translate('coa_Generation_Settings_List') }}</span>
                                 </a>
-                            </li> 
+                            </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('admin.email') }}" class="sidebar-link">
                                     <i class="mdi mdi-email"></i>
                                     <span class="hide-menu">{{ translate('email_List') }}</span>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
-                    </li> 
+                    </li>
                 @endcan
                 @can('coa_generation_settings')
                     <li class="sidebar-item">
@@ -237,10 +236,10 @@
                                     <i class="mdi mdi-email"></i>
                                     <span class="hide-menu">{{ translate('certificate_List') }}</span>
                                 </a>
-                            </li> 
-                           
+                            </li>
+
                         </ul>
-                    </li> 
+                    </li>
                 @endcan
 
                 <!--  Submission Management End-->
