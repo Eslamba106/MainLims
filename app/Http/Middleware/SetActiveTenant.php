@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use App\Models\Tenant;
@@ -18,24 +19,44 @@ class SetActiveTenant
     public function handle(Request $request, Closure $next): Response
     {
         $host       = $request->getHost();
-        // $mainDomain = 'localhost';
-        $mainDomain = 'limsstage.com';
-        // dd($host);
+        $mainDomain = 'localhost';
+        // if ($host != $mainDomain) {
+        //     $tenant = Tenant::where('domain', $host)->first();
+
+        //     if ($tenant) {
+        //         app()->instance('current_tenant', $tenant);
+        //         $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
+        //         Config::set('database.connections.tenant.database', $db);
+        //         DB::purge('tenant');
+        //         DB::reconnect('tenant');
+        //         DB::setDefaultConnection('tenant');
+        //     } else {
+        //         return abort(404);
+        //     }
+
+        // }
         if ($host != $mainDomain) {
-            $tenant = Tenant::where('domain', $host)->first();
+            if (!session()->has('tenant_id')) {
+                $tenant = Tenant::where('domain', $host)->first();
 
-            if ($tenant) {
-                app()->instance('current_tenant', $tenant);
-                $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
-                Config::set('database.connections.tenant.database', $db);
-                DB::purge('tenant');
-                DB::reconnect('tenant');
-                DB::setDefaultConnection('tenant');
+                if ($tenant) {
+                    session(['tenant_id' => $tenant->id]);
+                    $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
+                    Config::set('database.connections.tenant.database', $db);
+                    DB::purge('tenant');
+                    DB::reconnect('tenant');
+                    DB::setDefaultConnection('tenant');
+                } else {
+                    return abort(404);
+                }
             } else {
-                return abort(404);
+                $tenant = Tenant::find(session('tenant_id'));
+                app()->instance('current_tenant', $tenant);
             }
-
         }
+
+        // $mainDomain = 'limsstage.com';
+        // dd($host);
         // $tenant = Tenant::active()->where('domain', $request->getHost())->first();
         // if ($tenant) {
         //     $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
