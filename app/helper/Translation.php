@@ -11,7 +11,6 @@ if(!function_exists('translate')) {
 
         try {
             $lang_array = include(base_path('lang/' . $local . '/messages.php'));
-            dd(base_path('lang/' . $local . '/messages.php'));
             $processed_key = ucfirst(str_replace('_', ' ', Helpers::remove_invalid_charcaters($key)));
             $key = Helpers::remove_invalid_charcaters($key);
             if (!array_key_exists($key, $lang_array)) {
