@@ -268,4 +268,8 @@
   'high' => 'High',
   'Collection_Date' => 'Collection Date',
   'filter' => 'Filter',
+  'certificate_List' => 'Certificate List',
+  'certificate_Management' => 'Certificate Management',
+  'email_List' => 'Email List',
+  'coa_Generation_Settings_List' => 'Coa Generation Settings List',
 );
