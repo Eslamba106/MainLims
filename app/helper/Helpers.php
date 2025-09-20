@@ -72,21 +72,23 @@ class Helpers
     {
         return str_ireplace(['\'', '"', ',', ';', '<', '>', '?'], ' ', preg_replace('/\s\s+/', ' ', $str));
     }
+public static function module_check($mod_name)
+{
+    $currentTenant = app('current_tenant'); 
+ 
+    $module = Schema::find($currentTenant->schema_id);
 
-    public static function module_check($mod_name)
-    {
-        $currentTenant = app('current_tenant'); 
-        $module = Schema::where('id' , $currentTenant->schema_id)->first(); 
-        dd($module);
-        if (isset($module) && in_array($mod_name, (array)json_decode($module)) == true) {
-            return true;
-        }
-
-        if (auth('admin')->user()->admin_role_id == 1) {
-            return true;
-        }
-        return false;
+    if ($module && isset($module->$mod_name) && $module->$mod_name == 1) {
+        return true;
     }
+ 
+    // if (auth('admin')->user()->admin_role_id == 1) {
+    //     return true;
+    // }
+
+    return false;
+}
+
 }
 
 function auto_translator($q, $sl, $tl)
