@@ -950,7 +950,7 @@
                             </h2>
                         </div>
                         <div class="ud-contact-info-wrapper">
-                            <div class="ud-single-info">
+                           {{-- <div class="ud-single-info">
                                 <div class="ud-info-icon">
                                     <i class="lni lni-map-marker"></i>
                                 </div>
@@ -958,7 +958,7 @@
                                     <h5>Our Location</h5>
                                     <p>401 Broadway, 24th Floor, Orchard Cloud View, London</p>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="ud-single-info">
                                 <div class="ud-info-icon">
                                     <i class="lni lni-envelope"></i>
