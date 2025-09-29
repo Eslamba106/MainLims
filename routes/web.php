@@ -36,6 +36,11 @@ use App\Http\Controllers\part\PlantController;
     Route::get('/', function () {
         return view('welcome');
     })->name('landing-page');
+
+  Route::get('/policy_page', function () {
+        return view('policy');
+    })->name('policy_page');
+
     Route::get('/login-page', function () {
         return view('auth.login-page');
     })->name('login-page');
