@@ -138,7 +138,7 @@
             </div>
         </div>
     </header>
-        <section class="ud-hero" id="home"><section/>
+        <section class="ud-hero" id="home"></section> 
         <section class="mt-4 " >
         <div class="container">
             <div class="row">
