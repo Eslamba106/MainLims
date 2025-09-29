@@ -138,6 +138,11 @@
             </div>
         </div>
     </header>
+
+        <section class="ud-hero" id="home">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
 سياسة الخصوصية
 يدرك موقع (منصة الكيمياء) أهمية خصوصية وحماية بياناتك، وبالتالي نلتزم بالحفاظ على سرية المعلومات الحساسة وحماية حقوق جميع زوار هذا الموقع، وقد أعددنا هذه السياسة وبشكل محدد لتوضيح جميع ما يلي:
 
@@ -217,7 +222,10 @@
 
 التغييرات التي قد تطرأ على سياسة الخصوصية  
 
-
+  </div>
+            </div>
+        </div>
+    </section>
     <a href="javascript:void(0)" class="back-to-top">
         <i class="lni lni-chevron-up"> </i>
     </a>
