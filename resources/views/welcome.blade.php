@@ -201,13 +201,8 @@
 
 
 
-                            LabWare’s industry leading platform can be deployed in the cloud with multiple deployment
-                            options to best meet your specific needs.
-
-                            LabWare Cloud has the highest standards of security, both at the infrastructure level as
-                            well as within the application. LabWare’s infrastructure facilities are SOC2 compliant, and
-                            supports advanced security features such as Active Directory integration, end-to-end
-                            encryption and role-based permissions.
+                         
+Limsstage’s industry leading platform can be deployed in the cloud with multiple deployment options to best meet your specific needs. Limsstage Cloud has the highest standards of security, both at the infrastructure level as well as within the application. Limsstage’s infrastructure facilities are SOC2 compliant, and supports advanced security features such as Active Directory integration, end-to-end encryption and role-based permissions.
                         </p>
                     </div>
                 </div>
