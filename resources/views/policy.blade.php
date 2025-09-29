@@ -139,11 +139,10 @@
         </div>
     </header>
 
-        <section class=" " id="home">
+        <section class="mt-4 " id="home">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                     <div class="ud-section-title">
+                <div class="col-lg-12"> 
                     <p>
 سياسة الخصوصية
 يدرك موقع (منصة الكيمياء) أهمية خصوصية وحماية بياناتك، وبالتالي نلتزم بالحفاظ على سرية المعلومات الحساسة وحماية حقوق جميع زوار هذا الموقع، وقد أعددنا هذه السياسة وبشكل محدد لتوضيح جميع ما يلي:
