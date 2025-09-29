@@ -79,7 +79,7 @@
                                     <a class="ud-menu-scroll" href="#pricing">Pricing</a>
                                 </li>
                                  <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="{{ route('policy_page') }} ">Policy</a>
+                                    <a  href="{{ route('policy_page') }} ">Policy</a>
                                 </li>
                                 {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#team">Team</a>
