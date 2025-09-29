@@ -66,7 +66,7 @@
                         <div class="navbar-collapse">
                             <ul id="nav" class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#home">Home</a>
+                                    <a class=" " href="{{ route('landing-page') }}">Home</a>
                                 </li>
 
                                 <li class="nav-item">
@@ -81,12 +81,13 @@
                                 {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#team">Team</a>
                                 </li> --}}
+                                 <li class="nav-item">
+                                    <a  href="{{ route('policy_page') }} ">Policy</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#contact">Contact</a>
                                 </li>
-                                   <li class="nav-item">
-                                    <a  href="{{ route('policy_page') }} ">Policy</a>
-                                </li>
+                                  
                                 {{-- <li class="nav-item nav-item-has-children">
                                     <a href="javascript:void(0)"> Pages </a>
                                     <ul class="ud-submenu">
