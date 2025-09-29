@@ -84,6 +84,9 @@
                                 <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#contact">Contact</a>
                                 </li>
+                                   <li class="nav-item">
+                                    <a  href="{{ route('policy_page') }} ">Policy</a>
+                                </li>
                                 {{-- <li class="nav-item nav-item-has-children">
                                     <a href="javascript:void(0)"> Pages </a>
                                     <ul class="ud-submenu">
