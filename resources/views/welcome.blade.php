@@ -965,8 +965,7 @@
                                 </div>
                                 <div class="ud-info-meta">
                                     <h5>How Can We Help?</h5>
-                                    <p>info@yourdomain.com</p>
-                                    <p>contact@yourdomain.com</p>
+                                    <p>care@chemstage.com</p> 
                                 </div>
                             </div>
                         </div>
@@ -1037,7 +1036,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com">
+                                    <a href="https://x.com/chemstage">
                                         <i class="lni lni-twitter-filled"></i>
                                     </a>
                                 </li>
@@ -1047,7 +1046,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com">
+                                    <a href="https://www.linkedin.com/company/chemstage/">
                                         <i class="lni lni-linkedin-original"></i>
                                     </a>
                                 </li>
