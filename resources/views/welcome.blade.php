@@ -37,6 +37,7 @@
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/svg" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     <!-- ===== All CSS files ===== -->
     <link rel="stylesheet" href="{{ asset(main_path() . 'landing/assets/css/bootstrap.min.css') }}" />
@@ -66,27 +67,32 @@
                         <div class="navbar-collapse">
                             <ul id="nav" class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#home">Home</a>
+                                    <a class="ud-menu-scroll" href="#home">{{ translate('Home') }}</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#features">Features</a>
+                                    <a class="ud-menu-scroll" href="#features">{{ translate('Features') }}</a>
                                 </li>
                                 {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#about">About</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#pricing">Pricing</a>
+                                    <a class="ud-menu-scroll" href="#pricing">{{ translate('Pricing') }}</a>
                                 </li>
-                                 <li class="nav-item">
-                                    <a  href="{{ route('policy_page') }} ">Policy</a>
+                                <li class="nav-item">
+                                    <a href="{{ route('policy_page') }} ">{{ translate('Policy') }}</a>
                                 </li>
                                 {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#team">Team</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#contact">Contact</a>
+                                    <a class="ud-menu-scroll" href="#contact">{{ translate('Contact') }}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('login-page') }}"
+                                        class="nav-item nav-link">{{ translate('login') }}</a>
+                                </li>
+
                                 {{-- <li class="nav-item nav-item-has-children">
                                     <a href="javascript:void(0)"> Pages </a>
                                     <ul class="ud-submenu">
@@ -197,18 +203,18 @@
                         <span>Features</span>
                         <h2>Highly Secure Cloud LIMS</h2>
                         <p>
-
-
-
-
-                         
-Limsstage’s industry leading platform can be deployed in the cloud with multiple deployment options to best meet your specific needs. Limsstage Cloud has the highest standards of security, both at the infrastructure level as well as within the application. Limsstage’s infrastructure facilities are SOC2 compliant, and supports advanced security features such as Active Directory integration, end-to-end encryption and role-based permissions.
+                            Limsstage’s industry leading platform can be deployed in the cloud with multiple deployment
+                            options to best meet your specific needs. Limsstage Cloud has the highest standards of
+                            security, both at the infrastructure level as well as within the application. Limsstage’s
+                            infrastructure facilities are SOC2 compliant, and supports advanced security features such
+                            as Active Directory integration, end-to-end encryption and role-based permissions.
                         </p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="ud-section-title">
-                        <img src="{{ asset(main_path().'landing/assets/images/brands/cloude.webp') }}" alt="">
+                        <img src="{{ asset(main_path() . 'landing/assets/images/brands/cloude.webp') }}"
+                            alt="">
                     </div>
                 </div>
             </div>
@@ -322,13 +328,12 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
                         <span>Pricing</span>
                         <h2>Our Pricing Plans</h2>
                         <p>
-                            There are many variations of passages of Lorem Ipsum available
-                            but the majority have suffered alteration in some form.
+                            Choose a LIMS System Pricing Plan That’s Right for Your Lab!
                         </p>
                     </div>
                 </div>
             </div>
-@php
+            @php
                 $schemas = \App\Models\Schema::where('status', 'active')->get();
 
                 $countFields = [
@@ -383,7 +388,7 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
                             <div class="card-body text-center">
                                 {{-- Title + Price --}}
                                 <h2 class="pricing--primary">{{ $schema->name }}</h2>
-                                <h1>{{ number_format($schema->price, 2) . ' ' . $schema->currency }}</h1>
+                                <h1>{{ number_format($schema->price ?? 0, 2) . ' ' . $schema->currency }}</h1>
                                 <p class="text-muted">
                                     {{ translate('Per_Month') }}
                                 </p>
@@ -393,7 +398,7 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
                                 <div class="text-start">
                                     <div class="mt-2">
                                         <i class="far text--primary fa-check-circle"></i>
-                                        {{ translate('user_charge') . ' : ' . number_format($schema->user_charge, 3) }}
+                                        {{ translate('user_charge') . ' : ' . $schema->user_charge }}
                                     </div>
 
                                     {{-- Counts --}}
@@ -417,13 +422,12 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
                                         @endif
                                     @endforeach
                                 </div>
-                                   <div class="mt-4">
-                    {{-- <a href=""  --}}
-                    <a href="{{ route('register.page',  $schema->id ) }}" 
-                       class="btn btn-primary">
-                        {{ translate('Register_Now') }}
-                    </a>
-                </div>
+                                <div class="mt-4">
+                                    {{-- <a href=""  --}}
+                                    <a href="{{ route('register.page', $schema->id) }}" class="btn btn-primary">
+                                        {{ translate('Register_Now') }}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -948,7 +952,7 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
                             </h2>
                         </div>
                         <div class="ud-contact-info-wrapper">
-                           {{-- <div class="ud-single-info">
+                            {{-- <div class="ud-single-info">
                                 <div class="ud-info-icon">
                                     <i class="lni lni-map-marker"></i>
                                 </div>
@@ -963,7 +967,7 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
                                 </div>
                                 <div class="ud-info-meta">
                                     <h5>How Can We Help?</h5>
-                                    <p>care@chemstage.com</p> 
+                                    <p>care@chemstage.com</p>
                                 </div>
                             </div>
                         </div>
@@ -971,27 +975,29 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
                 </div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="ud-contact-form-wrapper wow fadeInUp" data-wow-delay=".2s">
-                        <h3 class="ud-contact-form-title">Send us a Message</h3>
-                        <form class="ud-contact-form">
+                        <h3 class="ud-contact-form-title">{{ translate('Send us a Message') }}</h3>
+                        <form class="ud-contact-form" action="{{ route('send.conversation.request') }}"
+                            method="POST">
+                            @csrf
                             <div class="ud-form-group">
-                                <label for="fullName">Full Name*</label>
-                                <input type="text" name="fullName" placeholder="Adam Gelius" />
+                                <label for="fullName">{{ translate('Full Name') }}*</label>
+                                <input type="text" name="name" placeholder="Mohamed" />
                             </div>
                             <div class="ud-form-group">
-                                <label for="email">Email*</label>
+                                <label for="email">{{ translate('Email') }}*</label>
                                 <input type="email" name="email" placeholder="example@yourmail.com" />
                             </div>
                             <div class="ud-form-group">
-                                <label for="phone">Phone*</label>
-                                <input type="text" name="phone" placeholder="+885 1254 5211 552" />
+                                <label for="phone">{{ translate('Phone') }}*</label>
+                                <input type="text" name="phone" placeholder="+966 1254 5211 552" />
                             </div>
                             <div class="ud-form-group">
-                                <label for="message">Message*</label>
+                                <label for="message">{{ translate('Message') }}*</label>
                                 <textarea name="message" rows="1" placeholder="type your message here"></textarea>
                             </div>
                             <div class="ud-form-group mb-0">
                                 <button type="submit" class="ud-main-btn">
-                                    Send Message
+                                    {{ translate('Send Message') }}
                                 </button>
                             </div>
                         </form>
@@ -1188,6 +1194,34 @@ Limsstage’s industry leading platform can be deployed in the cloud with multip
         <i class="lni lni-chevron-up"> </i>
     </a>
     <!-- ====== Back To Top End ====== -->
+
+    @if (Session::has('success'))
+        <script>
+            swal("Message", "{{ Session::get('success') }}", 'success', {
+                button: true,
+                button: "Ok",
+                timer: 3000,
+            })
+        </script>
+    @endif
+    @if (Session::has('info'))
+        <script>
+            swal("Message", "{{ Session::get('info') }}", 'info', {
+                button: true,
+                button: "Ok",
+                timer: 3000,
+            })
+        </script>
+    @endif
+    @if (Session::has('error'))
+        <script>
+            swal("Message", "{{ Session::get('error') }}", 'error', {
+                button: true,
+                button: "Ok",
+                timer: 3000,
+            })
+        </script>
+    @endif
 
     <!-- ====== All Javascript Files ====== -->
     <script src="{{ asset(main_path() . 'landing/assets/js/bootstrap.bundle.min.js') }}"></script>

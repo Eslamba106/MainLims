@@ -23,14 +23,20 @@
                             </a>
                         </li>
 
-                    </ul> 
+                    </ul>
                 </li>
-                   <li class="sidebar-item">
-                            <a href="{{ route('admin.schema') }}" class="sidebar-link">
-                                <i class="fas fa-project-diagram"></i>
-                                <span class="hide-menu">{{ translate('Plans') }}</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('admin.schema') }}" class="sidebar-link">
+                        <i class="fas fa-project-diagram"></i>
+                        <span class="hide-menu">{{ translate('Plans') }}</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('admin.conversation_requests') }}" class="sidebar-link">
+                        <i class="fas fa-project-diagram"></i>
+                        <span class="hide-menu">{{ translate('conversation_requests') }}</span>
+                    </a>
+                </li>
                 {{-- @can('user_management')
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"

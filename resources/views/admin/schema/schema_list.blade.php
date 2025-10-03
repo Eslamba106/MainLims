@@ -90,7 +90,17 @@
                                 <td class="text-center"> <span
                                         class="badge badge-pill {{ $schema_items->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $schema_items->status }}</span>
                                 </td>
-                                
+                                 <td class="text-center"  >
+                                            {{-- @can('delete_test_method')
+                                                <a href="{{ route('admin.test_method.delete', $test_method->id) }}"
+                                                    class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
+                                                        class="fa fa-trash"></i></a>
+                                            @endcan --}} 
+                                                <a href="{{ route('admin.schema.edit', $schema_items->id) }}"
+                                                    class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
+                                                        class="mdi mdi-pencil"></i> </a>
+                                             
+                                        </td>
                             </tr>
                         @empty
                         @endforelse

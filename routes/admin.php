@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\SchemaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\part\PlantController;
+use App\Http\Controllers\Admin\SchemaController;
+use App\Http\Controllers\Admin\TenantController;
+use App\Http\Controllers\ConversationRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,5 +48,11 @@ Route::group(["prefix" => "admin"], function () {
         Route::get("/", [SchemaController::class, "list"])->name("admin.schema")->middleware('auth:admins');
         Route::get("/create", [SchemaController::class, "create"])->name("admin.schema.create")->middleware('auth:admins');
         Route::post("/store", [SchemaController::class, "store"])->name("admin.schema.store")->middleware('auth:admins');
+        Route::get("/edit/{id}", [SchemaController::class, "edit"])->name("admin.schema.edit")->middleware('auth:admins');
+        Route::patch("/update/{id}", [SchemaController::class, "update"])->name("admin.schema.update")->middleware('auth:admins');
+    });
+    Route::group(["prefix" => "conversation-requests"], function () {
+        Route::get("/", [ConversationRequestController::class, "list"])->name("admin.conversation_requests")->middleware('auth:admins'); 
+        Route::get("/delete/{id}", [ConversationRequestController::class, "delete"])->name("admin.conversation_requests.delete")->middleware('auth:admins'); 
     });
 });

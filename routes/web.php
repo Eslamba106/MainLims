@@ -7,8 +7,9 @@
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\part\PlantController;
+use App\Http\Controllers\Admin\TenantController;
+use App\Http\Controllers\ConversationRequestController;
     use App\Http\Controllers\CoaSettingsController;
     use App\Http\Controllers\part\SampleController;
     use App\Http\Controllers\part\GeneralController;
@@ -335,3 +336,6 @@ use App\Http\Controllers\part\PlantController;
         ]);
     })->name('call-get-status');
     Route::get('register-page/{id}', [TenantController::class, 'registerPage'])->name('register.page');
+
+
+    Route::post('send-conversation-request', [ConversationRequestController::class, 'store'])->name('send.conversation.request');

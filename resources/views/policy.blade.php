@@ -66,26 +66,26 @@
                         <div class="navbar-collapse">
                             <ul id="nav" class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class=" " href="{{ route('landing-page') }}">Home</a>
+                                    <a class=" " href="{{ route('landing-page') }}">{{ translate('Home') }}</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#features">Features</a>
+                                    <a class=" " href="{{ route('landing-page') }}">{{ translate('Features') }}</a>
                                 </li>
                                 {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#about">About</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#pricing">Pricing</a>
+                                    <a class=" " href="{{ route('landing-page') }}">{{ translate('Pricing') }}</a>
                                 </li>
                                 {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#team">Team</a>
                                 </li> --}}
                                  <li class="nav-item">
-                                    <a  href="{{ route('policy_page') }} ">Policy</a>
+                                    <a  href="{{ route('policy_page') }} ">{{ translate('Policy') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="ud-menu-scroll" href="#contact">Contact</a>
+                                    <a class=" " href="{{ route('landing-page') }}">{{ translate('Contact') }}</a>
                                 </li>
                                   
                                 {{-- <li class="nav-item nav-item-has-children">
