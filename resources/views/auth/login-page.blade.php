@@ -41,14 +41,14 @@
                     <div class="logo">
                         <span class="db"><img width="50px" src="{{ asset(main_path() . 'assets/images/logo.png') }}"
                                 alt="logo" /></span>
-                        <h5 class="font-medium m-b-20">{{ __('login.sign_in') }}</h5>
+                        <h5 class="font-medium m-b-20">{{ translate('sign_in') }}</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
                         <ul class="nav nav-tabs w-fit-content mb-4">
                             <li class="nav-item">
                                 <a class="nav-link type_link active" href="#"
-                                    id="company-link">{{ __('tenants.tenant') }}</a>
+                                    id="company-link">{{ translate('tenant') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link type_link " href="#"

@@ -259,9 +259,10 @@
                     <label for="">{{ __('test_method.result_type') }} <span class="text-danger">*</span></label>
                     <select name="result_type[]" class="form-control">
                         <option value="">{{ __('test_method.select_result_type') }}</option>
-                        <option value="1">{{ __('test_method.number') }}</option>
-                        <option value="2">{{ __('test_method.text') }}</option>
-                        <option value="3">{{ __('test_method.list') }}</option>
+                           @foreach ($result_types as $result_type_item)
+                                                
+                                            <option value="{{ $result_type_item->id }}">{{ $result_type_item->name }}</option> 
+                                            @endforeach
                     </select>
                     @error('role')
                         <span class="error text-danger">{{ $message }}</span>

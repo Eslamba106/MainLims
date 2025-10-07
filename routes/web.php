@@ -35,7 +35,7 @@ use App\Http\Controllers\ConversationRequestController;
     */
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('landing');
     })->name('landing-page');
 
   Route::get('/policy_page', function () {

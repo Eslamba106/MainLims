@@ -65,14 +65,14 @@
                     <thead>
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
-                            <th class="text-center" scope="col">{{ __('samples.sample_id') }}</th>
+                            <th class="text-center" scope="col">{{ translate('sample_id') }}</th>
                             {{-- <th class="text-center" scope="col">{{ translate('barcode') }}</th> --}}
-                            <th class="text-center" scope="col">@lang('submissions.collection_date')</th>
-                            <th class="text-center" scope="col">@lang('samples.plant')</th>
-                            <th class="text-center" scope="col">@lang('submissions.sample_point')</th>
-                            <th class="text-center" scope="col">@lang('roles.status')</th>
-                            <th class="text-center" scope="col">@lang('submissions.priority')</th>
-                            <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
+                            <th class="text-center" scope="col">{{ translate('collection_date') }}</th>
+                            <th class="text-center" scope="col">{{ translate('plant') }}</th>
+                            <th class="text-center" scope="col">{{ translate('sample_point') }}</th>
+                            <th class="text-center" scope="col">{{ translate('status') }}</th>
+                            <th class="text-center" scope="col">{{ translate('priority') }}</th>
+                            <th class="text-center" scope="col">{{ translate('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,6 +119,8 @@
                                             alt="">
                                         {{ $submission_master->submission_number }}
                                     </td>
+                                    @else
+                                    <td class="text-center">{{ $submission_master->submission_number }}</td>
                                 @endif
                                 {{-- <td class="text-center" id="barcode-{{ $submission_master->id }}">{!! $submission_master->barcode_image !!} --}}
 
