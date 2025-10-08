@@ -1,16 +1,17 @@
 <?php
-
 namespace App\Models\second_part;
 
 use App\Models\Plant;
 use App\Models\Sample;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class SampleRoutineScheduler extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $guarded    = ['id'];
+    protected $connection = 'tenant';
+
     public function sample()
     {
         return $this->belongsTo(Sample::class, 'sample_id', 'id');

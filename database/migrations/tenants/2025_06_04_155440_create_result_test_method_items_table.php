@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('result_test_method_id');
             $table->integer('result_id'); 
             $table->integer('test_method_item_id');
+            $table->integer('submission_item')->nullable();
             $table->string('result')->nullable();
             $table->string('status')->default('in_range'); 
             $table->string('acceptance_status')->default('pending'); 

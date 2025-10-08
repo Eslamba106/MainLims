@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('result_test_method_id')->constrained('result_test_methods')->onDelete('cascade');
             $table->foreignId('result_id')->constrained('results')->onDelete('cascade'); 
             $table->foreignId('test_method_item_id')->constrained('test_method_items')->onDelete('cascade');
+            $table->integer('submission_item')->nullable();
             $table->string('result')->nullable();
             $table->string('status')->default('in_range'); 
             $table->string('acceptance_status')->default('pending'); 

@@ -14,6 +14,7 @@ class Submission extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $connection = 'tenant';
     public function plant()
     {
         return $this->belongsTo(Plant::class, 'plant_id');

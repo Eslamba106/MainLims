@@ -1,17 +1,18 @@
 <?php
-
 namespace App\Models\second_part;
 
 use App\Models\first_part\TestMethod;
 use App\Models\Plant;
 use App\Models\Sample;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class SampleRoutineSchedulerItem extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $guarded    = ['id'];
+    protected $connection = 'tenant';
+
     public function sample_routine_scheduler()
     {
         return $this->belongsTo(SampleRoutineScheduler::class, 'sample_scheduler_id', 'id');
@@ -26,10 +27,11 @@ class SampleRoutineSchedulerItem extends Model
     }
     public function sub_plant()
     {
-        return $this->belongsTo(Plant::class, 'sub_plant_id', 'id');    
+        return $this->belongsTo(Plant::class, 'sub_plant_id', 'id');
     }
 
-    public function test_method(){
-        return $this->belongsTo(TestMethod::class ,'test_method_ids');
+    public function test_method()
+    {
+        return $this->belongsTo(TestMethod::class, 'test_method_ids');
     }
 }

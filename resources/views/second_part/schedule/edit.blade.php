@@ -139,12 +139,10 @@
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        @php
-                                            Log::info($test_method_item->id)
-                                        @endphp
+                                        
                                         <input class="form-control"
                                             name="schedule_hour[{{ $test_method_item->id }}]"
-                                            type="time" value="{{ $test_method_item->schedule_hour }}">
+                                            type="time"  step="60" value="{{ $test_method_item->schedule_hour }}">
                                     </div>
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="  me-2">

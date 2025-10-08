@@ -232,7 +232,7 @@
                                     </select>
                                 </div>
                                 <div class="col-3">
-                                    <input class="form-control" name="schedule_hour-${sample.id}-${test_method_item.master_test_method.id}" type="time">
+                                    <input class="form-control" name="schedule_hour-${sample.id}-${test_method_item.master_test_method.id}" type="time"  step="60">
                                 </div>
                                 <div class="col-3 d-flex align-items-center">
                                     <div class="  me-2">
@@ -316,7 +316,7 @@
                                     </select>
                                 </div>
                                 <div class="col-3">
-                                    <input class="form-control" name="schedule_hour-${test_method_item.master_test_method.id}-${sample.id}" type="time">
+                                    <input class="form-control" name="schedule_hour-${test_method_item.master_test_method.id}-${sample.id}" type="time"  step="60">
                                 </div>
                                 <div class="col-3 d-flex align-items-center">
                                     <div class=" me-2 m-1">
