@@ -19,7 +19,8 @@ class SetActiveTenant
     public function handle(Request $request, Closure $next): Response
     {
         $host       = $request->getHost();
-        $mainDomain = 'localhost';
+        // $mainDomain = 'localhost';
+	$mainDomain = 'limsstage.com';
         // if ($host != $mainDomain) {
         //     $tenant = Tenant::where('domain', $host)->first();
 
@@ -46,6 +47,7 @@ class SetActiveTenant
                     DB::purge('tenant');
                     DB::reconnect('tenant');
                     DB::setDefaultConnection('tenant');
+app()->instance('current_tenant', $tenant);
                 } else {
                     return abort(404);
                 }
@@ -65,7 +67,7 @@ class SetActiveTenant
         //     DB::reconnect('tenant');
         //     DB::setDefaultConnection('tenant');
 
-        //     app()->instance('tenant', $tenant);
+        //     app()->instance('current_tenant', $tenant);
         // }
         return $next($request);
     }
