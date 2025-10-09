@@ -18,9 +18,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class TenantController extends Controller
 {
     use AuthorizesRequests;
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
-    // $this->authorize('tenant_management');
+        // $this->authorize('tenant_management');
 
 
         $ids = $request->bulk_ids;
@@ -28,10 +29,10 @@ class TenantController extends Controller
         if ($request->bulk_action_btn === 'update_status' && $request->status && is_array($ids) && count($ids)) {
             $data = ['status' => $request->status];
             $this->authorize('change_tenants_status');
-          
+
             Tenant::whereIn('id', $ids)->update($data);
             return back()->with('success', __('general.updated_successfully'));
-        }  
+        }
         if ($request->bulk_action_btn === 'delete' &&  is_array($ids) && count($ids)) {
 
 
@@ -39,8 +40,8 @@ class TenantController extends Controller
             return back()->with('success', __('general.deleted_successfully'));
         }
 
-        $tenants = Tenant::orderBy("created_at","desc")->paginate(10);
-        return view("admin.tenant.tenant_list", compact("tenants"  ));
+        $tenants = Tenant::orderBy("created_at", "desc")->paginate(10);
+        return view("admin.tenant.tenant_list", compact("tenants"));
     }
     // public function edit($id){
     //     $this->authorize('edit_driver');
@@ -50,84 +51,85 @@ class TenantController extends Controller
     //     return view("general.drivers.edit", compact("driver", "countries" ,'dail_code_main'));
     // }
 
-    public function create(){  
+    public function create()
+    {
 
-        return view("admin.tenant.create"  );
+        return view("admin.tenant.create");
     }
     public function store(Request $request)
-    {  
+    {
         // dd($request->all());
         $validatedData = $request->validate([
-            'name'             => 'required|string|max:255', 
-            'tenant_id'         => 'required|unique:tenants,tenant_id',  
+            'name'             => 'required|string|max:255',
+            'tenant_id'         => 'required|unique:tenants,tenant_id',
             // 'phone'            => 'nullable|string|max:15', 
             'user_name'        => 'required|string|max:50',
-            'password'         => 'nullable|string|min:5',  
+            'password'         => 'nullable|string|min:5',
         ]);
-        
+
         // DB::beginTransaction();
         // try {
 
-           
-            $tenant                                             = Tenant::create([
-                'name'                          => $request->name ?? 0,
-                'tenant_id'                     => $request->tenant_id ?? 0,
-                'domain'                        => $request->tenant_id . '.' . $request->getHost(),
-                'user_count'                    => $request->user_count ?? 10, 
-                'setup_cost'                    => $request->setup_cost ?? 0, 
-                'creation_date'                 => $request->creation_date ?? null,
-                'applicable_date'           => $request->tenant_applicable_date ?? null, 
-                'status'           => $request->status ?? 'active', 
-                'phone'            => $request->phone ?? null, 
-                'email'            => $request->email ?? null, 
-            ]);
-            $user = User::create([
-                'name'             => $request->name ?? null,
-                'user_name'        => $request->user_name ?? null,
-                'password'         => Hash::make($request->password),
-                'my_name'          => $request->password,
-                'role_name'        => 'admin',
-                'role_id'          => 2, 
-                'phone'            => $request->phone ?? null, 
-                'email'            => $request->email ?? null,
 
-            ]); 
-          
-            DB::commit();
-            event(new CompanyCreated($tenant));
-            return redirect()->route('admin.tenant_management')->with("success", __('general.added_successfully'));
+        $tenant                                             = Tenant::create([
+            'name'                          => $request->name ?? 0,
+            'tenant_id'                     => $request->tenant_id ?? 0,
+            'domain'                        => $request->tenant_id . '.' . $request->getHost(),
+            'user_count'                    => $request->user_count ?? 10,
+            'setup_cost'                    => $request->setup_cost ?? 0,
+            'creation_date'                 => $request->creation_date ?? null,
+            'applicable_date'           => $request->tenant_applicable_date ?? null,
+            'status'           => $request->status ?? 'active',
+            'phone'            => $request->phone ?? null,
+            'email'            => $request->email ?? null,
+        ]);
+        $user = User::create([
+            'name'             => $request->name ?? null,
+            'user_name'        => $request->user_name ?? null,
+            'password'         => Hash::make($request->password),
+            'my_name'          => $request->password,
+            'role_name'        => 'admin',
+            'role_id'          => 2,
+            'phone'            => $request->phone ?? null,
+            'email'            => $request->email ?? null,
+
+        ]);
+
+        DB::commit();
+        event(new CompanyCreated($tenant));
+        return redirect()->route('admin.tenant_management')->with("success", __('general.added_successfully'));
         // } catch (Throwable $th) {
         //     DB::rollBack();
         //     return redirect()->back()->with('error', $th->getMessage());
         // }
     }
     public function register(Request $request)
-    {  
+    {
         // dd($request->all());
         $validatedData = $request->validate([
-            'name'             => 'required|string|max:255', 
-            'tenant_id'         => 'required|unique:tenants,tenant_id',  
+            'name'             => 'required|string|max:255',
+            'tenant_id'         => 'required|unique:tenants,tenant_id',
             // 'phone'            => 'nullable|string|max:15', 
             'user_name'        => 'required|string|max:50',
-            'password'         => 'nullable|string|min:5',  
+            'password'         => 'nullable|string|min:5',
         ]);
-        
+
         DB::beginTransaction();
         try {
 
-           
+
             $tenant                                             = Tenant::create([
                 'name'                          => $request->name ?? 0,
                 'tenant_id'                     => $request->tenant_id ?? 0,
                 'domain'                        => $request->tenant_id . '.' . $request->getHost(),
-                'user_count'                    => $request->user_count ?? 10, 
-                'setup_cost'                    => $request->setup_cost ?? 0, 
+                'user_count'                    => $request->user_count ?? 10,
+                'setup_cost'                    => $request->setup_cost ?? 0,
                 'creation_date'                 => $request->creation_date ?? null,
-                'applicable_date'           => $request->tenant_applicable_date ?? null, 
-                'status'           => $request->status ?? 'active', 
-                'phone'            => $request->phone ?? null, 
-                'schema_id'            => $request->schema_id  , 
-                'email'            => $request->email ?? null, 
+                'applicable_date'           => $request->tenant_applicable_date ?? null,
+                'status'           => $request->status ?? 'active',
+                'phone'            => $request->phone ?? null,
+                'schema_id'            => $request->schema_id,
+                'email'            => $request->email ?? null,
             ]);
             $user = User::create([
                 'name'             => $request->name ?? null,
@@ -135,14 +137,18 @@ class TenantController extends Controller
                 'password'         => Hash::make($request->password),
                 'my_name'          => $request->password,
                 'role_name'        => 'admin',
-                'role_id'          => 2, 
-                'phone'            => $request->phone ?? null, 
+                'role_id'          => 2,
+                'phone'            => $request->phone ?? null,
                 'email'            => $request->email ?? null,
 
-            ]); 
-          
+            ]);
+
             DB::commit();
             event(new CompanyCreated($tenant));
+            if ($request->outside_register) {
+                return redirect()->away("http://{$request->tenant_id}.limsstage.com")
+                    ->with("success", __('general.added_successfully'));
+            }
             return redirect()->route('landing-page')->with("success", __('general.added_successfully'));
         } catch (Throwable $th) {
             DB::rollBack();
@@ -151,8 +157,9 @@ class TenantController extends Controller
     }
 
 
-    public function registerPage($id){
+    public function registerPage($id)
+    {
         $schema = Schema::findOrFail($id);
-        return view("admin.tenant.register", compact("schema"  ));
+        return view("admin.tenant.register", compact("schema"));
     }
 }
