@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\first_part;
 
 use Carbon\Carbon;
+use App\helper\Helpers;
 use App\Models\part\Unit;
 use Illuminate\Http\Request;
 use App\Models\part\ResultType;
@@ -18,8 +19,11 @@ class TestMethodController extends Controller
     public function index(Request $request)
     {
 
-        $this->authorize('test_method_management');
+        if (Helpers::module_check('test_method_management')) {
+            return response()->view('errors.custom_403', [], 403);
+        }
 
+        $this->authorize('test_method_management');
 
         $ids = $request->bulk_ids;
         $now = Carbon::now()->toDateTimeString();
@@ -28,13 +32,13 @@ class TestMethodController extends Controller
             $this->authorize('change_test_methods_status');
 
             TestMethod::whereIn('id', $ids)->update($data);
-            return back()->with('success', __('general.updated_successfully'));
+            return back()->with('success', translate('updated_successfully'));
         }
         if ($request->bulk_action_btn === 'delete' &&  is_array($ids) && count($ids)) {
 
 
             TestMethod::whereIn('id', $ids)->delete();
-            return back()->with('success', __('general.deleted_successfully'));
+            return back()->with('success', translate('deleted_successfully'));
         }
 
         $test_methods = TestMethod::select('id', 'name', 'status', 'description')->with('test_method_items')->orderBy("created_at", "desc")->paginate(10);
@@ -43,6 +47,9 @@ class TestMethodController extends Controller
 
     public function create()
     {
+            if (Helpers::module_check('test_method_management')) {
+            return response()->view('errors.custom_403', [], 403);
+        }
         $this->authorize('create_test_method');
         $units = Unit::select('id', 'name')->get();
         $result_types = ResultType::select('id', 'name')->get();
@@ -90,10 +97,10 @@ class TestMethodController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', __('general.something_went_wrong'));
+            return redirect()->back()->with('error', translate('something_went_wrong'));
         }
 
-        return redirect()->route('admin.test_method')->with('success', __('general.created_successfully'));
+        return redirect()->route('admin.test_method')->with('success', translate('created_successfully'));
     }
     public function edit($id)
     {
@@ -164,11 +171,11 @@ class TestMethodController extends Controller
 
             DB::commit();
             return redirect()->route('admin.test_method')
-                ->with('success', __('general.updated_successfully'));
+                ->with('success', translate('updated_successfully'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()
-                ->with('error', __('general.something_went_wrong'))
+                ->with('error', translate('something_went_wrong'))
                 ->withInput();
         }
     }
@@ -178,7 +185,7 @@ class TestMethodController extends Controller
         $test_method_item = TestMethodItem::find($id);
 
         if ($test_method_item->delete()) {
-            return redirect()->back()->with('success', __('general.deleted_successfully'));
+            return redirect()->back()->with('success', translate('deleted_successfully'));
         }
     }
     public function destroy($id)
@@ -186,6 +193,6 @@ class TestMethodController extends Controller
         $this->authorize('delete_test_method');
         $test_method = TestMethod::findOrFail($id);
         $test_method->delete();
-        return redirect()->route('admin.test_method')->with('success', __('general.deleted_successfully'));
+        return redirect()->route('admin.test_method')->with('success', translate('deleted_successfully'));
     }
 }

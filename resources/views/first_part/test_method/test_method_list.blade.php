@@ -2,13 +2,13 @@
 @section('title')
     <?php $lang = Session::get('locale'); ?>
 
-    {{ __('roles.test_method_management') }}
+    {{ translate('test_method_management') }}
 @endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">{{ __('roles.test_method_management') }}</h4>
+                <h4 class="page-title">{{ translate('test_method_management') }}</h4>
                 <div class="d-flex align-items-center">
 
                 </div>
@@ -18,9 +18,9 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('dashboard') }}">{{ __('dashboard.home') }} </a>
+                                <a href="{{ route('dashboard') }}">{{ translate('home') }} </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ __('dashboard.dashboard') }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ translate('dashboard') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -38,9 +38,9 @@
                         @can('change_test_methods_status')
                             <div class="remv_control mr-2">
                                 <select name="status" class="mr-3 mt-3 form-control ">
-                                    <option value="">{{ __('dashboard.set_status') }}</option>
-                                    <option value="1">{{ __('test_method.added') }}</option>
-                                    <option value="2">{{ __('test_method.not_added') }}</option>
+                                    <option value="">{{ translate('set_status') }}</option>
+                                    <option value="1">{{ translate('added') }}</option>
+                                    <option value="2">{{ translate('not_added') }}</option>
                                 </select>
                             </div>
                         @endcan
@@ -48,16 +48,16 @@
 
                         <button type="submit" name="bulk_action_btn" value="update_status"
                             class="btn btn-primary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{ __('dashboard.update') }}
+                            <i class="la la-refresh"></i> {{ translate('update') }}
                         </button>
                         @can('delete_test_method')
                             <button type="submit" name="bulk_action_btn" value="delete"
                                 class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
-                                {{ __('dashboard.delete') }}</button>
+                                {{ translate('delete') }}</button>
                         @endcan
                         @can('create_test_method')
                             <a href="{{ route('admin.test_method.create') }}" class="btn btn-secondary mt-3 mr-2">
-                                <i class="la la-refresh"></i> {{ __('dashboard.create') }}
+                                <i class="la la-refresh"></i> {{ translate('create') }}
                             </a>
                         @endcan
                     </div>
@@ -68,13 +68,13 @@
                     <thead>
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
-                            <th class="text-center" scope="col">{{ __('roles.name') }}</th>
-                            <th class="text-center" scope="col">{{ __('test_method.component') }}</th>
-                            <th class="text-center" scope="col">@lang('test_method.unit')</th>
-                            <th class="text-center" scope="col">@lang('test_method.lower_range')</th>
-                            <th class="text-center" scope="col">@lang('test_method.upper_range')</th>
-                            <th class="text-center" scope="col">@lang('roles.status')</th>
-                            <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
+                            <th class="text-center" scope="col">{{ translate('name') }}</th>
+                            <th class="text-center" scope="col">{{ translate('component') }}</th>
+                            <th class="text-center" scope="col">{{ translate('unit') }}</th>
+                            <th class="text-center" scope="col">{{ translate('lower_range') }}</th>
+                            <th class="text-center" scope="col">{{ translate('upper_range') }}</th>
+                            <th class="text-center" scope="col">{{ translate('status') }}</th>
+                            <th class="text-center" scope="col">{{ translate('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,18 +105,18 @@
                                         <td class="text-center" rowspan="{{ $itemCount }}">
                                             <span
                                                 class="badge badge-pill {{ $test_method->status == 'added' ? 'badge-success' : 'badge-secondary' }}">
-                                                {{ __('test_method.' . $test_method->status) }}
+                                                {{ translate( $test_method->status) }}
                                             </span>
                                         </td>
                                         <td class="text-center" rowspan="{{ $itemCount }}">
                                             @can('delete_test_method')
                                                 <a href="{{ route('admin.test_method.delete', $test_method->id) }}"
-                                                    class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
+                                                    class="btn btn-danger btn-sm" title="{{ translate('delete') }}"><i
                                                         class="fa fa-trash"></i></a>
                                             @endcan
                                             @can('edit_test_method')
                                                 <a href="{{ route('admin.test_method.edit', $test_method->id) }}"
-                                                    class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
+                                                    class="btn btn-outline-info btn-sm" title="{{ translate('edit') }}"><i
                                                         class="mdi mdi-pencil"></i> </a>
                                             @endcan
                                         </td>
@@ -129,7 +129,7 @@
                          @php $counter++; @endphp
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center">@lang('No data found')</td>
+                            <td colspan="8" class="text-center">{{ translate('No_data_found') }}</td>
                         </tr>
                         @endforelse
 

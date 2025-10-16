@@ -2,13 +2,13 @@
 @section('title')
 <?php $lang = Session::get('locale'); ?>
 
-    {{ __('roles.tenant_management') }}
+    {{ translate('tenant_management') }}
 @endsection
 @section('content')
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">{{ __('roles.tenant_management') }}</h4>
+                <h4 class="page-title">{{ translate('tenant_management') }}</h4>
                 <div class="d-flex align-items-center">
 
                 </div>
@@ -18,9 +18,9 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.dashboard') }}">{{ __('dashboard.home') }} </a>
+                                <a href="{{ route('admin.dashboard') }}">{{ translate('home') }} </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ __('dashboard.dashboard') }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ translate('dashboard') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -38,9 +38,9 @@
                         {{-- @can('change_tenants_status') --}}
                             <div class="remv_control mr-2">
                                 <select name="status" class="mr-3 mt-3 form-control ">
-                                    <option value="">{{ __('dashboard.set_status') }}</option>
-                                    <option value="1">{{ __('dashboard.active') }}</option>
-                                    <option value="2">{{ __('dashboard.disactive') }}</option>
+                                    <option value="">{{ translate('set_status') }}</option>
+                                    <option value="1">{{ translate('active') }}</option>
+                                    <option value="2">{{ translate('disactive') }}</option>
                                 </select>
                             </div>
                         
@@ -48,17 +48,17 @@
                         
                         <button type="submit" name="bulk_action_btn" value="update_status"
                             class="btn btn-primary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{ __('dashboard.update') }}
+                            <i class="la la-refresh"></i> {{ translate('update') }}
                         </button>
                         {{-- @endcan --}}
                         {{-- @can('delete_tenant_items')  --}}
                         <button type="submit" name="bulk_action_btn" value="delete"
                             class="btn btn-danger delete_confirm mt-3 mr-2"> <i class="la la-trash"></i>
-                            {{ __('dashboard.delete') }}</button>
+                            {{ translate('delete') }}</button>
                             {{-- @endcan --}}
                         {{-- @can('create_tenant_items') --}}
                         <a href="{{ route('admin.tenant_management.create') }}" class="btn btn-secondary mt-3 mr-2">
-                            <i class="la la-refresh"></i> {{ __('dashboard.create') }}
+                            <i class="la la-refresh"></i> {{ translate('create') }}
                         </a> 
                         {{-- @endcan --}}
                     </div>
@@ -69,10 +69,10 @@
                     <thead>
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
-                            <th class="text-center" scope="col">{{ __('roles.name') }}</th> 
-                            <th class="text-center" scope="col">@lang('tenants.company_id')</th> 
-                            <th class="text-center" scope="col">@lang('roles.status')</th>
-                            <th class="text-center" scope="col">{{ __('roles.Actions') }}</th>
+                            <th class="text-center" scope="col">{{ translate('name') }}</th> 
+                            <th class="text-center" scope="col">{{ translate('company_id')  }}</th> 
+                            <th class="text-center" scope="col">{{ translate ('status') }}</th>
+                            <th class="text-center" scope="col">{{ translate('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>

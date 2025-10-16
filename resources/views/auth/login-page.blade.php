@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset(main_path() . 'assets/images/main_logo.jpg') }}">
-    <title>{{ __('login.login') }}</title>
+    <title>{{ translate('login') }}</title>
     <!-- Custom CSS -->
     <link href="{{ asset(main_path() . 'dist/css/style.min.css') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
@@ -34,40 +34,62 @@
         <!-- ============================================================== -->
         <!-- Login box.scss -->
         <!-- ============================================================== -->
+       @php
+    $host = request()->getHost(); // مثلا ts.localhost أو localhost
+    $isSubdomain = false;
+
+    // لو الـ host فيه نقطة ومش مجرد localhost
+    if ($host !== 'localhost' && str_contains($host, '.')) {
+        $isSubdomain = true;
+    } 
+@endphp
+
+ 
+
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
             style="background:url({{ asset(main_path() . 'assets/images/big/auth-bg.jpg') }}) no-repeat center center;background-size: cover;    width: 100vw;height: 100vh;">
             <div class="auth-box">
                 <div id="loginform">
                     <div class="logo">
-                        <span class="db"><img width="50px" src="{{ asset(main_path() . 'assets/images/logo.png') }}"
-                                alt="logo" /></span>
+                        <span class="db"><img width="50px"
+                                src="{{ asset(main_path() . 'assets/images/logo.png') }}" alt="logo" /></span>
                         <h5 class="font-medium m-b-20">{{ translate('sign_in') }}</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
                         <ul class="nav nav-tabs w-fit-content mb-4">
                             <li class="nav-item">
-                                <a class="nav-link type_link active" href="#"
+                                <a class="nav-link type_link  @if ($isSubdomain) active @endif " href="#"
                                     id="company-link">{{ translate('tenant') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link type_link " href="#"
+                                <a class="nav-link type_link @if (!$isSubdomain) active @endif " href="#"
                                     id="admin-link">{{ translate('admin') }}</a>
                             </li>
                         </ul>
                         <div class="col-12">
-                            <div class="col-md-12 admin_form d-none admin-form" id="admin-form">
+                            <div class="col-md-12 admin_form @if ($isSubdomain) d-none @endif admin-form" id="admin-form">
                                 <form action="{{ route('admin.login') }}" method="post">
                                     @csrf
-                                    @include('includes.auth.admin_login') 
+                                    @include('includes.auth.admin_login')
                                 </form>
                             </div>
-                            <div class="col-md-12 admin_form company-form" id="company-form">
-                                <form action="{{ route('login') }}" method="post">
-                                    @csrf
-                                    @include('includes.auth.company_login')
-                                </form>
-                            </div>
+                            {{-- <div class="col-md-12 admin_form company-form" id="company-form">
+                                    <form action="{{ route('login') }}" method="post">
+                                        @csrf
+                                        @include('includes.auth.company_login')
+                                    </form>
+                                </div>  --}}
+
+
+                            @if ($isSubdomain)
+                                <div class="col-md-12 admin_form company-form" id="company-form">
+                                    <form action="{{ route('login') }}" method="post">
+                                        @csrf
+                                        @include('includes.auth.company_login')
+                                    </form>
+                                </div>
+                            @endif
 
 
 

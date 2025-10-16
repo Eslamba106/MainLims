@@ -317,4 +317,5 @@
   'time_by_hours' => 'Time by hours',
   'updated_successfully' => 'Updated successfully',
   'It_is_being_worked_on' => 'It is being worked on',
+  '8+_characters_required' => '8+ characters required',
 );

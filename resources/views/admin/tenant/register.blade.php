@@ -13,7 +13,7 @@
                         <input type="hidden" name="schema_id" value="{{ $schema->id }}">
 
                         <div class="form-group mb-3">
-                            <label for="">{{ __('roles.name') }} <span class="text-danger">*</span></label>
+                            <label for="">{{ translate('name') }} <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" required>
                             @error('name')
                                 <span class="error text-danger">{{ $message }}</span>
@@ -28,23 +28,23 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="title-color">{{ __('tenants.user_name') }}
+                            <label class="title-color">{{ translate('user_name') }}
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" name="user_name">
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="title-color">{{ __('tenants.password') }}
+                            <label class="title-color">{{ translate('password') }}
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="password" class="form-control" name="password" id="signupSrPassword"
-                                placeholder="{{ __('8+_characters_required') }}" required>
+                                placeholder="{{ translate('8+_characters_required') }}" required>
                         </div>
 
                         <div class="text-center mt-4">
                             <button type="submit" class="btn btn-primary px-4">
-                                {{ __('dashboard.save') }}
+                                {{ translate('save') }}
                             </button>
                         </div>
                     </form>
