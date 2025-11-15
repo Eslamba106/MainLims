@@ -51,7 +51,7 @@
     } else {
         $tenant_id = null;  
     } 
-    dd($tenant_id , $isSubdomain);
+    // dd($tenant_id , $isSubdomain);
 @endphp
  
 
