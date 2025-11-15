@@ -70,7 +70,16 @@ class CreateCompanyDatabase
 
         $latestCompany = DB::table('tenants')->orderBy('id', 'desc')->first();
         if ($latestCompany) {
-            DB::connection("tenant")->table('tenants')->insert((array) $latestCompany);
+              $companyArray = (array) $latestCompany;
+ 
+    $columnsToIgnore = ['expire'];  
+    foreach ($columnsToIgnore as $col) {
+        unset($companyArray[$col]);
+    }
+
+    DB::connection("tenant")->table('tenants')->insert($companyArray);
+            
+            // DB::connection("tenant")->table('tenants')->insert((array) $latestCompany);
         }
     
     }
