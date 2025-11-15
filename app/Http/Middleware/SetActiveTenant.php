@@ -63,7 +63,7 @@ class SetActiveTenant
         }
 
         // $mainDomain = 'limsstage.com';
-        // dd($host);
+         
         // $tenant = Tenant::active()->where('domain', $request->getHost())->first();
         // if ($tenant) {
         //     $db = $tenant->database_options['dbname'] ?? 'lims_' . $tenant->id;
