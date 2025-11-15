@@ -189,5 +189,13 @@ class SubmissionController extends Controller
         $submission->save();
         return redirect()->back()->with('success' , translate('updated_successfully'));
     }
+    public function change_status_without_qr($id ){
+        
+        $submission = Submission::findOrFail($id); 
+
+        $submission->status = 'second_step';
+        $submission->save();
+        return redirect()->back()->with('success' , translate('updated_successfully'));
+    }
 
 }

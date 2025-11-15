@@ -117,6 +117,7 @@ use App\Models\Tenant;
         Route::get('/get_sample_from_plant/{id}', [SubmissionController::class, 'get_sample_from_plant'])->name('admin.submission.get_sample_from_plant');
         Route::get('/get_test_method_by_sample_id/{id}', [SubmissionController::class, 'get_test_method_by_sample_id'])->name('admin.submission.get_test_method_by_sample_id');
         Route::get('/change_status/{id}/{status}', [SubmissionController::class, 'change_status'])->name('admin.submission.change_status');
+        Route::get('/change_status_without_qr/{id}', [SubmissionController::class, 'change_status_without_qr'])->name('admin.submission.change_status_without_qr');
 
 
         // Barcode

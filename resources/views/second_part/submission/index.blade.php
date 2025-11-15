@@ -182,6 +182,12 @@
                                                 class="btn btn-outline-warning text-dark  btn-sm">{{ translate('start_work') }}</a>
                                         @endcan
                                     @endif
+                                    @if ($submission_master->status == 'first_step')
+                                        @can('create_result')
+                                            <a href="{{ route('admin.submission.change_status_without_qr', [$submission_master->id ]) }}"
+                                                class="btn btn-outline-warning text-dark  btn-sm">{{ translate('start_work_without_qr_code') }}</a>
+                                        @endcan
+                                    @endif
                                     {{-- @if (!isset($submission_master->result) && $submission_master->status == 'third_step') --}}
                                     @if ($submission_master->status == 'third_step' || $submission_master->status == 'fourth_step')
                                         @can('create_result')

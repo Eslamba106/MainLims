@@ -35,7 +35,7 @@
         <!-- Login box.scss -->
         <!-- ============================================================== -->
        @php
-    $host = request()->getHost(); // مثلا ts.localhost أو localhost
+    $host = request()->getHost(); 
     $isSubdomain = false;
  
     if (($host !== 'localhost' || $host !== 'limsstage.com' ) && str_contains($host, '.')) {
