@@ -19,6 +19,9 @@ use App\Http\Controllers\ConversationRequestController;
 |
 */
 
+ Route::get('admin-login-page', function () {
+        return view('auth.login-page');
+    })->name('admin.login-page');
 Route::group(["prefix" => "auth/admin"], function () {
     Route::post("login", [AuthController::class, "admin_login"])->name("admin.login")->withoutMiddleware('auth');
     Route::get("logout", [AuthController::class, "admin_logout"])->name("admin.logout")->middleware('auth:admins');

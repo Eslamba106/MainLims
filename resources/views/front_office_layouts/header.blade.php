@@ -1,3 +1,22 @@
+           @php
+    $host = request()->getHost(); 
+    $isSubdomain = false;
+ 
+    if (($host != 'limsstage') && str_contains($host, '.')) {
+        $isSubdomain = true;
+    } 
+ 
+    $host = request()->getHost();  
+    $parts = explode('.', $host);
+
+    // if (count($parts) > 1 && $parts[0] != 'limsstage.com') {
+    if ( count($parts) > 1 &&  $parts[0] != 'limsstage'  ) {
+        $tenant_id = $parts[0];
+    } else {
+        $tenant_id = null;  
+    } 
+    // dd($tenant_id , $isSubdomain);
+@endphp
     <header class="ud-header">
         <div class="container">
             <div class="row">
@@ -37,10 +56,12 @@
                                 <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#contact">{{ translate('Contact') }}</a>
                                 </li>
+                                @if($isSubdomain )
                                 <li class="nav-item">
                                     <a href="{{ route('login-page') }}"
                                         class="nav-item nav-link">{{ translate('login') }}</a>
                                 </li>
+                                @endif
 
                                 {{-- <li class="nav-item nav-item-has-children">
                                     <a href="javascript:void(0)"> Pages </a>

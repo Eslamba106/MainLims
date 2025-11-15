@@ -1,6 +1,7 @@
 @extends('front_office_layouts.main')
 @section('title',   translate('Lims_Stage')  )
 @section('content')
+
     <!-- ====== Hero Start ====== -->
     <section class="ud-hero" id="home">
         <div class="container">
