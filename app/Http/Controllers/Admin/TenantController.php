@@ -145,10 +145,10 @@ class TenantController extends Controller
 
             DB::commit();
             event(new CompanyCreated($tenant));
-            if ($request->outside_register) {
-                return redirect()->away("http://{$request->tenant_id}.limsstage.com")
-                    ->with("success", __('general.added_successfully'));
-            }
+            // if ($request->outside_register) {
+            //     return redirect()->away("http://{$request->tenant_id}.limsstage.com")
+            //         ->with("success", __('general.added_successfully'));
+            // }
             return redirect()->route('landing-page')->with("success", __('general.added_successfully'));
         } catch (Throwable $th) {
             DB::rollBack();
