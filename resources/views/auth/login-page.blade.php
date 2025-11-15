@@ -37,13 +37,22 @@
        @php
     $host = request()->getHost(); // مثلا ts.localhost أو localhost
     $isSubdomain = false;
-
-    // لو الـ host فيه نقطة ومش مجرد localhost
-    if ($host !== 'localhost' && str_contains($host, '.')) {
+ 
+    if (($host !== 'localhost' || $host !== 'limsstage.com' ) && str_contains($host, '.')) {
         $isSubdomain = true;
     } 
 @endphp
+@php
+    $host = request()->getHost();  
+    $parts = explode('.', $host);
 
+    // if (count($parts) > 1 && $parts[0] != 'limsstage.com') {
+    if (count($parts) > 1 && ($parts[0] != 'localhost:8080' || $parts[0] != 'limsstage.com') ) {
+        $tenant_id = $parts[0];
+    } else {
+        $tenant_id = null;  
+    } 
+@endphp
  
 
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
@@ -58,22 +67,29 @@
                     <!-- Form -->
                     <div class="row">
                         <ul class="nav nav-tabs w-fit-content mb-4">
+                               @if($tenant_id != null)
                             <li class="nav-item">
                                 <a class="nav-link type_link  @if ($isSubdomain) active @endif " href="#"
                                     id="company-link">{{ translate('tenant') }}</a>
                             </li>
+                            @endif
+                               @if($tenant_id == null)
+
                             <li class="nav-item">
                                 <a class="nav-link type_link @if (!$isSubdomain) active @endif " href="#"
                                     id="admin-link">{{ translate('admin') }}</a>
                             </li>
+                            @endif
                         </ul>
                         <div class="col-12">
+                            @if($tenant_id == null)
                             <div class="col-md-12 admin_form @if ($isSubdomain) d-none @endif admin-form" id="admin-form">
                                 <form action="{{ route('admin.login') }}" method="post">
                                     @csrf
                                     @include('includes.auth.admin_login')
                                 </form>
                             </div>
+                             @endif
                             {{-- <div class="col-md-12 admin_form company-form" id="company-form">
                                     <form action="{{ route('login') }}" method="post">
                                         @csrf

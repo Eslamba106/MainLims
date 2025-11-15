@@ -1,12 +1,12 @@
 <div class="form-group">
     <label for="company_id">{{ translate('domain_prefix') }}</label>
-    <input type="text" class="form-control form-control-lg" id="company_id" name="tenant_id"
+    <input type="text" class="form-control form-control-lg" id="company_id" name="tenant_id"  value="{{ $tenant_id }}"
         placeholder="{{ translate('enter_your_tenant_id') }}" required>
 </div>
 <div class="form-group">
 
     <label for="company_id">{{ translate('full_domain') }}</label>
-    <input type="text" class="form-control form-control-lg" id="domain" name="domain"
+    <input type="text" class="form-control form-control-lg" id="domain" name="domain"    value="{{ $host }}"
         placeholder="{{ translate('enter_your domain') }}" required>
 </div>
 

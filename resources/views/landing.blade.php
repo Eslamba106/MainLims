@@ -276,6 +276,9 @@
                                 </div>
                                 <div class="mt-4">
                                     {{-- <a href=""  --}}
+                                    {{-- <a href="{{ route('payment.page', $schema->id) }}" class="btn btn-primary">
+                                        {{ translate('Register_Now') }}
+                                    </a> --}}
                                     <a href="{{ route('register.page', $schema->id) }}" class="btn btn-primary">
                                         {{ translate('Register_Now') }}
                                     </a>

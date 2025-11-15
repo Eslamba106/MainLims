@@ -7,6 +7,7 @@
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\part\PlantController;
 use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\ConversationRequestController;
@@ -22,6 +23,8 @@ use App\Http\Controllers\ConversationRequestController;
     use App\Models\Certificate;
     use App\Http\Controllers\CertificateController;
     use App\Http\Controllers\CoaGenerationSettingController;
+use App\Models\Schema;
+use App\Models\Tenant;
 
     /*
     |--------------------------------------------------------------------------
@@ -339,3 +342,10 @@ use App\Http\Controllers\ConversationRequestController;
 
 
     Route::post('send-conversation-request', [ConversationRequestController::class, 'store'])->name('send.conversation.request');
+
+    Route::get('/schema/{schema}/payment/callback', [PaymentsController::class , 'callback'])->name('payment.callback');
+    Route::get('/schema/{id}/{tenant_id}', function(){
+        $schema = Schema::findOrFail(request()->id);
+        $tenant = Tenant::findOrFail(request()->tenant_id);
+        return view('admin.tenant.payment' , compact('schema' ,'tenant'));
+    })->name('payment.page');
