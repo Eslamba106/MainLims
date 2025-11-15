@@ -31,6 +31,8 @@ class CreateTenantsTable extends Migration
             $table->string('email', 255)->nullable()->unique(); 
             $table->date('applicable_date')->nullable(); 
             $table->date('creation_date')->nullable(); 
+            $table->date('expire')->nullable() ;
+
             $table->timestamps(); 
         });
     }
