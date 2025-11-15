@@ -149,7 +149,7 @@ class TenantController extends Controller
             //     return redirect()->away("http://{$request->tenant_id}.limsstage.com")
             //         ->with("success", __('general.added_successfully'));
             // }
-            return redirect()->route('landing-page')->with("success", __('general.added_successfully'));
+            return redirect()->route('payment.page')->with("success", __('general.added_successfully'));
         } catch (Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
