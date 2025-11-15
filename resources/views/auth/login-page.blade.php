@@ -47,7 +47,7 @@
     $parts = explode('.', $host);
 
     // if (count($parts) > 1 && $parts[0] != 'limsstage.com') {
-    if (count($parts) > 1 && (  $parts[0] != 'limsstage.com'  ) ) {
+    if ( ( $parts[0] != 'limsstage.com'  ) ) {
         $tenant_id = $parts[0];
     } else {
         $tenant_id = null;  
