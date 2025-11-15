@@ -41,8 +41,7 @@
     if (($host != 'limsstage.com') && str_contains($host, '.')) {
         $isSubdomain = true;
     } 
-@endphp
-@php
+ 
     $host = request()->getHost();  
     $parts = explode('.', $host);
 
@@ -52,6 +51,7 @@
     } else {
         $tenant_id = null;  
     } 
+    dd($tenant_id , $isSubdomain);
 @endphp
  
 
