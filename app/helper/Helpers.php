@@ -72,23 +72,22 @@ class Helpers
     {
         return str_ireplace(['\'', '"', ',', ';', '<', '>', '?'], ' ', preg_replace('/\s\s+/', ' ', $str));
     }
-public static function module_check($mod_name)
-{
-    $currentTenant = app('current_tenant'); 
- 
-    $module = Schema::find($currentTenant->schema_id);
+    public static function module_check($mod_name)
+    {
+        $currentTenant = app('current_tenant');
 
-    if ($module && isset($module->$mod_name) && $module->$mod_name == 1) {
-        return true;
+        $module = Schema::find($currentTenant->schema_id);
+
+        if ($module && isset($module->$mod_name) && $module->$mod_name == 1) {
+            return true;
+        }
+
+        if (auth()->user()->role_id == 2) {
+            return true;
+        }
+
+        return false;
     }
- 
-    if (auth()->user()->role_id == 2) {
-        return true;
-    }
-
-    return false;
-}
-
 }
 
 function auto_translator($q, $sl, $tl)

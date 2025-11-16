@@ -19,7 +19,7 @@ class TestMethodController extends Controller
     public function index(Request $request)
     {
 
-        if (Helpers::module_check('test_method_management')) {
+        if (!Helpers::module_check('test_method_management')) {
             return response()->view('errors.403', [], 403);
         }
 
