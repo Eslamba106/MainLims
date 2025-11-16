@@ -11,9 +11,8 @@ class COATemplate extends Model
 
     protected $guarded = [];
 
-public function samples()
-{
-    return $this->belongsToMany(Sample::class, 'coa_template_samples', 'coa_temp_id', 'sample_id');
-}
-
+    public function samples()
+    {
+        return $this->belongsToMany(Sample::class, 'coa_template_samples', 'coa_temp_id', 'sample_id');
+    }
 }

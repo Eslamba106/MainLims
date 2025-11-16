@@ -318,4 +318,11 @@
   'updated_successfully' => 'Updated successfully',
   'It_is_being_worked_on' => 'It is being worked on',
   '8+_characters_required' => '8+ characters required',
+  'coa_generation_settings' => 'Coa generation settings',
+  'setting_Name' => 'Setting Name',
+  'Frequency' => 'Frequency',
+  'Execution_Time' => 'Execution Time',
+  'Sample' => 'Sample',
+  'Status_updated_failed.' => 'Status updated failed.',
+  'Product_must_be_approved' => 'Product must be approved',
 );

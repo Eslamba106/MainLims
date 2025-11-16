@@ -20,7 +20,7 @@ class TestMethodController extends Controller
     {
 
         if (Helpers::module_check('test_method_management')) {
-            return response()->view('errors.custom_403', [], 403);
+            return response()->view('errors.403', [], 403);
         }
 
         $this->authorize('test_method_management');
@@ -48,7 +48,7 @@ class TestMethodController extends Controller
     public function create()
     {
             if (Helpers::module_check('test_method_management')) {
-            return response()->view('errors.custom_403', [], 403);
+            return response()->view('errors.403', [], 403);
         }
         $this->authorize('create_test_method');
         $units = Unit::select('id', 'name')->get();
