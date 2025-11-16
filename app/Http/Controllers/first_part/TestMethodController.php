@@ -47,7 +47,7 @@ class TestMethodController extends Controller
 
     public function create()
     {
-            if (Helpers::module_check('test_method_management')) {
+            if (!Helpers::module_check('test_method_management')) {
             return response()->view('errors.403', [], 403);
         }
         $this->authorize('create_test_method');
