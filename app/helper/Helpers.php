@@ -82,7 +82,7 @@ public static function module_check($mod_name)
         return true;
     }
  
-    if (auth()->user()->admin_role_id == 2) {
+    if (auth()->user()->role_id == 2) {
         return true;
     }
 
