@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CompanyCreated;
 use App\Models\Order;
 use App\Models\Schema;
 use App\Models\Tenant;
@@ -18,27 +19,7 @@ class PaymentsController extends Controller
     }*/
 
     public function callback(Schema $schema)
-    {
-        /*$text = 'line 1
-line 2 with numbers
-0566546621
-0598124545
-email@domnain.com';
-
-        $lines = explode("\n", $text);
-        foreach ($lines as $i => $line) {
-            if (preg_match('/^[a-z-A-Z0-9\._]+@[a-z-A-Z0-9\._]+$/', $line)) {
-                echo ($i+1) . ': ' .$line;
-            }
-
-            if (preg_match('/^05(6|9)[0-9]{7}$/', $line)) {
-                echo ($i+1) . ': ' .$line;
-            }
-        }
-
-        exit;*/
-
-        // dd(request()->all());
+    { 
         $id = request()->query('id');
 
         $token = base64_encode(config('services.moyasar.secret') . ':');
@@ -61,7 +42,7 @@ email@domnain.com';
             $tenant = Tenant::where('id', request()->tenant_id)->first();
             $tenant->expire = now()->addMonth();
             $tenant->save();
-
+            event(new CompanyCreated($tenant));
             $capture = Http::baseUrl('https://api.moyasar.com/v1')
                 ->withHeaders([
                     'Authorization' => "Basic {$token}",

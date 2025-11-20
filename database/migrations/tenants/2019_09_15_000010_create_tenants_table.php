@@ -19,21 +19,23 @@ class CreateTenantsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
-            $table->string('logo')->nullable(); 
+            $table->string('logo')->nullable();
             $table->string('domain', 255)->unique();
             $table->json('database_options')->nullable();
             $table->string('my_name', 255)->nullable();
-            $table->string('tenant_id', 255)->unique()->index(); 
-            $table->unsignedInteger('user_count')->default(1); 
+            $table->string('tenant_id', 255)->unique()->index();
+            $table->unsignedInteger('user_count')->default(1);
             $table->string('setup_cost')->nullable();
             $table->string('monthly_subscription_user')->nullable();
-            $table->enum('status' ,  ['active' , 'inactive' ])->default('active');     
-            $table->string('email', 255)->nullable()->unique(); 
-            $table->date('applicable_date')->nullable(); 
-            $table->date('creation_date')->nullable(); 
-            $table->date('expire')->nullable() ;
+            $table->enum('status',  ['active', 'inactive'])->default('active');
+            $table->string('email', 255)->nullable()->unique();
+            $table->date('applicable_date')->nullable();
+            $table->date('creation_date')->nullable();
+            $table->date('expire')->nullable();
+            $table->tinyInteger('schema_id')->nullable();
 
-            $table->timestamps(); 
+
+            $table->timestamps();
         });
     }
 

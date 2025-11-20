@@ -1,4 +1,15 @@
-    
+@php
+        $tenant_main = false;
+            $host       = $request->getHost(); 
+        $mainDomain = 'limsstage.com';
+     
+        if ($host != $mainDomain) {
+            if (!session()->has('tenant_id')) {
+                $tenant = \App\Models\Tenant::where('domain', $host)->first();
+                $tenant_main = true;
+            }
+        }
+@endphp  
     
     <div class="container-fluid sticky-top">
         <div class="container">
@@ -16,16 +27,9 @@
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Services</a>
                         <a href="project.html" class="nav-item nav-link">Projects</a>
+                        @if($tenant_main)
                         <a href="{{ route('login-page') }}" class="nav-item nav-link">{{ translate('login') }}</a>
-                        {{-- <div class="nav-item dropdown">
-                            <a href="#!" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu bg-light mt-2">
-                                <a href="feature.html" class="dropdown-item">Features</a>
-                                <a href="team.html" class="dropdown-item">Our Team</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
-                            </div>
-                        </div> --}}
+                        @endif
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>

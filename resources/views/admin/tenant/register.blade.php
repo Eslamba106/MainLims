@@ -25,6 +25,9 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" required name="tenant_id">
+                            @error('tenant_id')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group mb-3">
@@ -32,6 +35,9 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" name="user_name">
+                            @error('user_name')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group mb-3">
@@ -40,6 +46,9 @@
                             </label>
                             <input type="password" class="form-control" name="password" id="signupSrPassword"
                                 placeholder="{{ translate('8+_characters_required') }}" required>
+                                @error('password')
+                                <span class="error text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="text-center mt-4">

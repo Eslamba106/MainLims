@@ -325,4 +325,9 @@
   'Sample' => 'Sample',
   'Status_updated_failed.' => 'Status updated failed.',
   'Product_must_be_approved' => 'Product must be approved',
+  'please_go_back_to_the_homepage' => 'Please go back to the homepage',
+  'the_page_you_requested_could_not_be_found' => 'The page you requested could not be found',
+  'we_are_sorry' => 'We are sorry',
+  'page_Not_found' => 'Page Not found',
+  'company_id' => 'Company id',
 );

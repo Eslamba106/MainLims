@@ -91,7 +91,17 @@
             })
         </script>
     @endif
-
+@if ($errors->any())
+    <script>
+        let errorMessages = @json($errors->all());
+        errorMessages.forEach(msg => {
+            swal("Error", msg, 'error', {
+                button: "Ok",
+                timer: 4000
+            });
+        });
+    </script>
+@endif
     <!-- ====== All Javascript Files ====== -->
     <script src="{{ asset(main_path() . 'landing/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset(main_path() . 'landing/assets/js/wow.min.js') }}"></script>

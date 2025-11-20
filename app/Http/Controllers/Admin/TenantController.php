@@ -106,10 +106,9 @@ class TenantController extends Controller
     public function register(Request $request)
     {
         // dd($request->all());
-        $validatedData = $request->validate([
+         $request->validate([
             'name'             => 'required|string|max:255',
-            'tenant_id'         => 'required|unique:tenants,tenant_id',
-            // 'phone'            => 'nullable|string|max:15', 
+            'tenant_id'         => 'required|unique:tenants,tenant_id', 
             'user_name'        => 'required|string|max:50',
             'password'         => 'nullable|string|min:5',
         ]);
@@ -144,12 +143,12 @@ class TenantController extends Controller
             ]);
 
             DB::commit();
-            event(new CompanyCreated($tenant));
+            // event(new CompanyCreated($tenant));
             // if ($request->outside_register) {
             //     return redirect()->away("http://{$request->tenant_id}.limsstage.com")
             //         ->with("success", __('general.added_successfully'));
             // }
-            return redirect()->route('payment.page' , [$request->schema_id ,'tenant_id'=>$tenant->id ])->with("success", __('general.added_successfully'));
+            return redirect()->route('payment.page' , [$request->schema_id ,'tenant_id'=>$tenant->id ])->with("success", translate('general.added_successfully'));
         } catch (Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

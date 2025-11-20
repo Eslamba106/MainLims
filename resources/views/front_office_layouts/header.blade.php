@@ -1,69 +1,66 @@
-           @php
-               $host = request()->getHost();
-               $isSubdomain = false;
+@php
+    $host = request()->getHost();
+    $mainDomain = 'limsstage.com';
+    $subdomain = null;
+    $isSubdomain = false;
 
-               if ($host != 'limsstage' && str_contains($host, '.')) {
-                   $isSubdomain = true;
-               }
+    if ($host !== $mainDomain) {
+        $parts = explode('.', $host);
+        $lastTwo = implode('.', array_slice($parts, -2));
+        if ($lastTwo === $mainDomain) {
+            $subdomain = implode('.', array_slice($parts, 0, -2));
+            $isSubdomain = true;
+        }
+    }
+@endphp
 
-               $host = request()->getHost();
-               $parts = explode('.', $host);
+<header class="ud-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="{{ asset(main_path() . 'assets/images/logo.png') }}" alt="Logo" width="50px"
+                            height="50px" />
+                    </a>
+                    <button class="navbar-toggler">
+                        <span class="toggler-icon"> </span>
+                        <span class="toggler-icon"> </span>
+                        <span class="toggler-icon"> </span>
+                    </button>
 
-               // if (count($parts) > 1 && $parts[0] != 'limsstage.com') {
-               if (count($parts) > 1 && $parts[0] != 'limsstage') {
-                   $tenant_id = $parts[0];
-               } else {
-                   $tenant_id = null;
-               }
-               // dd($tenant_id , $isSubdomain);
-           @endphp
-           <header class="ud-header">
-               <div class="container">
-                   <div class="row">
-                       <div class="col-lg-12">
-                           <nav class="navbar navbar-expand-lg">
-                               <a class="navbar-brand" href="index.html">
-                                   <img src="{{ asset(main_path() . 'assets/images/logo.png') }}" alt="Logo"
-                                       width="50px" height="50px" />
-                               </a>
-                               <button class="navbar-toggler">
-                                   <span class="toggler-icon"> </span>
-                                   <span class="toggler-icon"> </span>
-                                   <span class="toggler-icon"> </span>
-                               </button>
+                    <div class="navbar-collapse">
+                        <ul id="nav" class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="ud-menu-scroll" href="#home">{{ translate('Home') }}</a>
+                            </li>
 
-                               <div class="navbar-collapse">
-                                   <ul id="nav" class="navbar-nav mx-auto">
-                                       <li class="nav-item">
-                                           <a class="ud-menu-scroll" href="#home">{{ translate('Home') }}</a>
-                                       </li>
-
-                                       <li class="nav-item">
-                                           <a class="ud-menu-scroll" href="#features">{{ translate('Features') }}</a>
-                                       </li>
-                                       {{-- <li class="nav-item">
+                            <li class="nav-item">
+                                <a class="ud-menu-scroll" href="#features">{{ translate('Features') }}</a>
+                            </li>
+                            {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#about">About</a>
                                 </li> --}}
-                                       <li class="nav-item">
-                                           <a class="ud-menu-scroll" href="#pricing">{{ translate('Pricing') }}</a>
-                                       </li>
-                                       <li class="nav-item">
-                                           <a href="{{ route('policy_page') }} ">{{ translate('Policy') }}</a>
-                                       </li>
-                                       {{-- <li class="nav-item">
+                            <li class="nav-item">
+                                <a class="ud-menu-scroll" href="#pricing">{{ translate('Pricing') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('policy_page') }} ">{{ translate('Policy') }}</a>
+                            </li>
+                            {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#team">Team</a>
                                 </li> --}}
-                                       <li class="nav-item">
-                                           <a class="ud-menu-scroll" href="#contact">{{ translate('Contact') }}</a>
-                                       </li>
-                                       @if ($isSubdomain)
-                                           <li class="nav-item">
-                                               <a href="{{ route('login-page') }}"
-                                                   class="nav-item nav-link">{{ translate('login') }}</a>
-                                           </li>
-                                       @endif
+                            <li class="nav-item">
+                                <a class="ud-menu-scroll" href="#contact">{{ translate('Contact') }}</a>
+                            </li>
+                            @if ($isSubdomain)
+                                <li class="nav-item">
+                                    <a href="{{ route('login-page') }}"
+                                        class="nav-item nav-link">{{ translate('login') }}</a>
+                                </li>
+                            @endif
 
-                                       {{-- <li class="nav-item nav-item-has-children">
+                            {{-- <li class="nav-item nav-item-has-children">
                                     <a href="javascript:void(0)"> Pages </a>
                                     <ul class="ud-submenu">
                                         <li class="ud-submenu-item">
@@ -101,10 +98,10 @@
                                         </li>
                                     </ul>
                                 </li> --}}
-                                   </ul>
-                               </div>
+                        </ul>
+                    </div>
 
-                               {{-- <div class="navbar-btn d-none d-sm-inline-block">
+                    {{-- <div class="navbar-btn d-none d-sm-inline-block">
                             <a href="login.html" class="ud-main-btn ud-login-btn">
                                 Sign In
                             </a>
@@ -112,8 +109,8 @@
                                 Sign Up
                             </a>
                         </div> --}}
-                           </nav>
-                       </div>
-                   </div>
-               </div>
-           </header>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
