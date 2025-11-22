@@ -7,6 +7,7 @@ use App\Http\Controllers\part\PlantController;
 use App\Http\Controllers\Admin\SchemaController;
 use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\ConversationRequestController;
+use App\Http\Controllers\LandingPageSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,15 @@ Route::group(["prefix" => "admin"], function () {
         Route::post("/store", [SchemaController::class, "store"])->name("admin.schema.store")->middleware('auth:admins');
         Route::get("/edit/{id}", [SchemaController::class, "edit"])->name("admin.schema.edit")->middleware('auth:admins');
         Route::patch("/update/{id}", [SchemaController::class, "update"])->name("admin.schema.update")->middleware('auth:admins');
+    });
+    Route::group(["prefix" => "landing_page_settings"], function () {
+        Route::get("/", [LandingPageSettingsController::class, "list"])->name("admin.landing_page_settings")->middleware('auth:admins');
+        Route::get("/header", [LandingPageSettingsController::class, "header"])->name("admin.landing_page_settings.header")->middleware('auth:admins');
+        Route::patch("header/update", [LandingPageSettingsController::class, "header_update"])->name("admin.landing_page_settings.header.update")->middleware('auth:admins');
+        Route::get("/home", [LandingPageSettingsController::class, "home"])->name("admin.landing_page_settings.home")->middleware('auth:admins');
+        Route::patch("home/update", [LandingPageSettingsController::class, "home_update"])->name("admin.landing_page_settings.home.update")->middleware('auth:admins');
+        Route::get("/feature", [LandingPageSettingsController::class, "feature"])->name("admin.landing_page_settings.feature")->middleware('auth:admins');
+        Route::patch("feature/update", [LandingPageSettingsController::class, "feature_update"])->name("admin.landing_page_settings.feature.update")->middleware('auth:admins');
     });
     Route::group(["prefix" => "conversation-requests"], function () {
         Route::get("/", [ConversationRequestController::class, "list"])->name("admin.conversation_requests")->middleware('auth:admins'); 

@@ -9,13 +9,10 @@
                 <div class="col-lg-12">
                     <div class="ud-hero-content wow fadeInUp" data-wow-delay=".2s">
                         <h1 class="ud-hero-title">
-                            Save hours per week managing your quality control laboratory
+                            {{ $home_title->value }}
                         </h1>
                         <p class="ud-hero-desc">
-                            Increase throughput, stay compliant, and manage all your quality and lab data using our
-                            Laboratory Information Management System (LIMS). LIMS Stage is a cloud-based LIMS software
-                            to run your entire lab on. We can set it up for you in just 1 month.
-
+                          {{ $home_subtitle->value }}
                         </p>
                         {{-- <ul class="ud-hero-buttons">
                 <li>
@@ -34,7 +31,7 @@
                         <img src="{{ asset(main_path() . 'landing/assets/images/hero/brand.svg') }}" alt="brand" />
                     </div> --}}
                     <div class="ud-hero-image wow fadeInUp" data-wow-delay=".25s">
-                        <img src="{{ asset(main_path() . 'landing/assets/images/hero/hero-image.png') }}"
+                        <img src="{{ asset(main_path().$home_image->value) }}"
                             alt="hero-image" />
                         <img src="{{ asset(main_path() . 'landing/assets/images/hero/dotted-shape.svg') }}"
                             alt="shape" class="shape shape-1" />
@@ -54,19 +51,13 @@
                 <div class="col-lg-9">
                     <div class="ud-section-title">
                         <span>Features</span>
-                        <h2>Highly Secure Cloud LIMS</h2>
-                        <p>
-                            Limsstage’s industry leading platform can be deployed in the cloud with multiple deployment
-                            options to best meet your specific needs. Limsstage Cloud has the highest standards of
-                            security, both at the infrastructure level as well as within the application. Limsstage’s
-                            infrastructure facilities are SOC2 compliant, and supports advanced security features such
-                            as Active Directory integration, end-to-end encryption and role-based permissions.
-                        </p>
+                        <h2>{{ $feature_title->value }}</h2>
+                        <p>{{ $feature_subtitle->value }}</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="ud-section-title">
-                        <img src="{{ asset(main_path() . 'landing/assets/images/brands/cloude.webp') }}"
+                        <img src="{{ asset(main_path().$feature_image->value) }}"
                             alt="">
                     </div>
                 </div>

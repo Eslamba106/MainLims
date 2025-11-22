@@ -19,8 +19,8 @@ class SetActiveTenant
     public function handle(Request $request, Closure $next): Response
     {
         $host       = $request->getHost();
-        // $mainDomain = 'localhost';
-        $mainDomain = 'limsstage.com';
+        $mainDomain = 'localhost';
+        // $mainDomain = 'limsstage.com';
         // if ($host != $mainDomain) {
         //     $tenant = Tenant::where('domain', $host)->first();
 

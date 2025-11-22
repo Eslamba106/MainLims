@@ -26,7 +26,8 @@
     
     <link href="{{ asset(main_path().'dist/css/style.min.css') }}" rel="stylesheet">
 
-    
+        <link rel="stylesheet" href="{{ asset(main_path().'css/dropify.css') }}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -140,6 +141,12 @@
         });
     </script>
     
+
+      
+    <script src="{{ asset(main_path().'js/dropify.js') }}"></script>
+    <script src="{{ asset(main_path().'js/dropify.min.js') }}"></script>
+   
+    <script>$('.dropify').dropify();</script>
     @yield('js')
 </body>
 

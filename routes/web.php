@@ -23,6 +23,7 @@ use App\Http\Controllers\ConversationRequestController;
     use App\Models\Certificate;
     use App\Http\Controllers\CertificateController;
     use App\Http\Controllers\CoaGenerationSettingController;
+use App\Http\Controllers\LandingPageController;
 use App\Models\Schema;
 use App\Models\Tenant;
 
@@ -37,9 +38,10 @@ use App\Models\Tenant;
     |
     */
 
-    Route::get('/', function () {
-        return view('landing');
-    })->name('landing-page');
+    Route::get('/',  [LandingPageController::class , 'index'])->name('landing-page');
+    // Route::get('/', function () {
+    //     return view('landing');
+    // })->name('landing-page');
 
   Route::get('/policy_page', function () {
         return view('policy');

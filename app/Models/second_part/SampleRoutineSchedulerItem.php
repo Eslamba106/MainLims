@@ -1,11 +1,14 @@
 <?php
 namespace App\Models\second_part;
 
-use App\Models\first_part\TestMethod;
 use App\Models\Plant;
 use App\Models\Sample;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Tenant;
+use App\Models\first_part\TestMethod;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SampleRoutineSchedulerItem extends Model
 {
@@ -13,6 +16,14 @@ class SampleRoutineSchedulerItem extends Model
     protected $guarded    = ['id'];
     protected $connection = 'tenant';
 
+   use SoftDeletes;
+    use Prunable;
+   public function prunable()
+    {
+        $days = Tenant::first()->tenant_delete_days ?? 30;
+
+        return static::where('created_at', '<=', now()->subDays($days));
+    } 
     public function sample_routine_scheduler()
     {
         return $this->belongsTo(SampleRoutineScheduler::class, 'sample_scheduler_id', 'id');

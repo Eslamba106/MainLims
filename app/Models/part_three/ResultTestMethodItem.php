@@ -2,15 +2,23 @@
 
 namespace App\Models\part_three;
 
-use App\Models\first_part\TestMethodItem;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\first_part\TestMethodItem;
+use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ResultTestMethodItem extends Model
 {
     use HasFactory;
 
-    protected $guarded =[];
+    use Prunable;
+    public function prunable()
+    {
+        $days = Tenant::first()->tenant_delete_days ?? 30;
+
+        return static::where('created_at', '<=', now()->subDays($days));
+    }    protected $guarded =[];
     
 
     public function main_result(){

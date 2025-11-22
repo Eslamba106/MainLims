@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
- 
 
 class Tenant extends Model
 {
     use HasFactory;
+  
 
     protected $guarded = [];
 
+ 
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
@@ -19,7 +21,6 @@ class Tenant extends Model
 
     public function schema()
     {
-        return $this->belongsTo(Schema::class, 'schema_id' );
+        return $this->belongsTo(Schema::class, 'schema_id');
     }
-    
 }

@@ -5,14 +5,23 @@ namespace App\Models\part_three;
 use App\Models\User;
 use App\Models\Plant;
 use App\Models\Sample;
+use App\Models\Tenant;
 use App\Models\SamplePlant;
 use App\Models\second_part\Submission;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Result extends Model
 {
     use HasFactory;
+        use Prunable;
+    public function prunable()
+    {
+        $days = Tenant::first()->tenant_delete_days ?? 30;
+
+        return static::where('created_at', '<=', now()->subDays($days));
+    }
     protected $guarded = ['id'];
 
     public function submission()
