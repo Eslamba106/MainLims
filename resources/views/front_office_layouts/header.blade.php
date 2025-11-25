@@ -19,9 +19,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="{{ asset(main_path() . 'assets/images/logo.png') }}" alt="Logo" width="50px"
-                            height="50px" />
+                    <a class="navbar-brand" href="{{ route('landing-page') }}">
+                        <img src="{{ asset( main_path().$logo->value) }}" alt="Logo" width="50px"
+                            height="50px" id="logo_image" />
                     </a>
                     <button class="navbar-toggler">
                         <span class="toggler-icon"> </span>
@@ -44,15 +44,16 @@
                             <li class="nav-item">
                                 <a class="ud-menu-scroll" href="#pricing">{{ translate('Pricing') }}</a>
                             </li>
+                              <li class="nav-item">
+                                <a class="ud-menu-scroll" href="#contact">{{ translate('Contact') }}</a>
+                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('policy_page') }} ">{{ translate('Policy') }}</a>
                             </li>
                             {{-- <li class="nav-item">
                                     <a class="ud-menu-scroll" href="#team">Team</a>
                                 </li> --}}
-                            <li class="nav-item">
-                                <a class="ud-menu-scroll" href="#contact">{{ translate('Contact') }}</a>
-                            </li>
+                          
                             @if ($isSubdomain)
                                 <li class="nav-item">
                                     <a href="{{ route('login-page') }}"

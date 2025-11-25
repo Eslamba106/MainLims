@@ -66,6 +66,8 @@ Route::group(["prefix" => "admin"], function () {
         Route::patch("home/update", [LandingPageSettingsController::class, "home_update"])->name("admin.landing_page_settings.home.update")->middleware('auth:admins');
         Route::get("/feature", [LandingPageSettingsController::class, "feature"])->name("admin.landing_page_settings.feature")->middleware('auth:admins');
         Route::patch("feature/update", [LandingPageSettingsController::class, "feature_update"])->name("admin.landing_page_settings.feature.update")->middleware('auth:admins');
+        Route::get("/contact", [LandingPageSettingsController::class, "contact"])->name("admin.landing_page_settings.contact")->middleware('auth:admins');
+        Route::patch("contact/update", [LandingPageSettingsController::class, "contact_update"])->name("admin.landing_page_settings.contact.update")->middleware('auth:admins');
     });
     Route::group(["prefix" => "conversation-requests"], function () {
         Route::get("/", [ConversationRequestController::class, "list"])->name("admin.conversation_requests")->middleware('auth:admins'); 

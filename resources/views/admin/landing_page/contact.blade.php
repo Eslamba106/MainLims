@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    {{ translate('header_section') }}
+    {{ translate('contact_section') }}
 @endsection
 @section('css')
     {{-- <link href="{{ asset('css/tags-input.min.css') }}" rel="stylesheet"> --}}
@@ -22,7 +22,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">{{ translate('header_section') }}</h4>
+                <h4 class="page-title">{{ translate('contact_section') }}</h4>
                 <div class="d-flex align-items-center">
 
                 </div>
@@ -34,7 +34,7 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route('admin.dashboard') }}">{{ translate('dashboard') }} </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ translate('header_section') }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ translate('contact_section') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -48,7 +48,7 @@
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
-        <form action="{{ route('admin.landing_page_settings.header.update') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.landing_page_settings.contact.update') }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="row">
@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <div class="row">
 
-                                {{-- <div class="col-md-6 col-lg-6 col-xl-6">
+                                <div class="col-md-6 col-lg-6 col-xl-6">
 
                                     <div class="form-group">
                                         <label for="">{{ translate('title') }} <span
@@ -78,37 +78,18 @@
                                             <span class="error text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>    --}} 
+                                </div>   
                                 <div class="col-md-6 col-lg-6 col-xl-6">
+
                                     <div class="form-group">
-                                        <label for="logo" class="form-label">
-                                            <i class="fas fa-logo"></i>
-                                            {{ translate('logo') }}
-                                        </label>
-                                        <input type="file" name="logo" id="logo"
-                                            class="form-control @error('logo') is-invalid @enderror dropify"
-                                            accept="logo/*"
-                                            data-default-file="{{ (isset($logo) && $logo->key == 'header_logo' ) ? asset( main_path().$logo->value) : asset(main_path().'assets/images/me.png') }}">
-                                        @error('logo')
-                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        <label for="">{{ translate('email') }} <span
+                                                class="text-danger">*</span></label>
+                                        <input name="email"  class="form-control" value="{{ $email->value ?? '' }} " required>
+                                        @error('email')
+                                            <span class="error text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xl-6">
-                                    <div class="form-group">
-                                        <label for="favicon" class="form-label">
-                                            <i class="fas fa-favicon"></i>
-                                            {{ translate('favicon') }}
-                                        </label>
-                                        <input type="file" name="favicon" id="favicon"
-                                            class="form-control @error('favicon') is-invalid @enderror dropify"
-                                            accept="favicon/*"
-                                            data-default-file="{{ (isset($favicon) && $favicon->key == 'header_favicon' ) ? asset( main_path().$favicon->value) : asset(main_path().'assets/images/me.png') }}">
-                                        @error('favicon')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                </div> 
 
 
 
@@ -134,10 +115,10 @@
     </script>
     <script>
         $("#customFileUploadLoader").change(function() {
-            read_logo(this, 'viewerLoader');
+            read_image(this, 'viewerLoader');
         });
 
-        function read_logo(input, id) {
+        function read_image(input, id) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 

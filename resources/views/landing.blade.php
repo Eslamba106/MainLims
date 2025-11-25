@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="ud-section-title">
-                        <span>Features</span>
+                        <span>{{ translate('Features') }}</span>
                         <h2>{{ $feature_title->value }}</h2>
                         <p>{{ $feature_subtitle->value }}</p>
                     </div>
@@ -169,11 +169,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ud-section-title mx-auto text-center">
-                        <span>Pricing</span>
-                        <h2>Our Pricing Plans</h2>
-                        <p>
-                            Choose a LIMS System Pricing Plan That’s Right for Your Lab!
-                        </p>
+                        <span>{{ translate('Pricing') }}</span>
+                        <h2>{{ translate('Our_Pricing_Plans') }}</h2>
+                        {{-- <p>
+                            {{ translate('') }} 
+                        </p> --}}
                     </div>
                 </div>
             </div>
@@ -792,10 +792,9 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="ud-contact-content-wrapper">
                         <div class="ud-contact-title">
-                            <span>CONTACT US</span>
+                            <span>{{ translate('CONTACT_US') }}</span>
                             <h2>
-                                Let’s talk about <br />
-                                Love to hear from you!
+                                {{ $contact_title->value }}<br /> 
                             </h2>
                         </div>
                         <div class="ud-contact-info-wrapper">
@@ -813,8 +812,8 @@
                                     <i class="lni lni-envelope"></i>
                                 </div>
                                 <div class="ud-info-meta">
-                                    <h5>How Can We Help?</h5>
-                                    <p>care@chemstage.com</p>
+                                    <h5>{{ $contact_subtitle->value }}</h5>
+                                    <p>{{ $contact_email->value }}</p>
                                 </div>
                             </div>
                         </div>

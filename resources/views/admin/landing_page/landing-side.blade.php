@@ -58,6 +58,11 @@
                              <a class="accordion-button"   href="{{ route('admin.landing_page_settings.feature') }}"  >{{ translate('feature_settings') }}</a>  
                          </h2>  
                      </div>
+                     <div class="accordion-item ">
+                         <h2 class="accordion-header list-group-item" id="headingTwo">
+                             <a class="accordion-button"   href="{{ route('admin.landing_page_settings.contact') }}"  >{{ translate('contact_settings') }}</a>  
+                         </h2>  
+                     </div>
                     
                     
 

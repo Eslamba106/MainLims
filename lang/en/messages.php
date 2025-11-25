@@ -349,4 +349,12 @@
   'feature_settings' => 'Feature settings',
   'feature_section' => 'Feature section',
   'Feature settings updated successfully.' => 'Feature settings updated successfully.',
+  'Our_Pricing_Plans' => 'Our Pricing Plans',
+  'header_section' => 'Header section',
+  'favicon' => 'Favicon',
+  'contact_settings' => 'Contact settings',
+  'contact_section' => 'Contact section',
+  'Contact us settings updated successfully.' => 'Contact us settings updated successfully.',
+  'CONTACT_US' => 'CONTACT US',
+  'language_Translate' => 'Language Translate',
 );

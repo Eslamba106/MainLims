@@ -13,13 +13,20 @@
       ud_header.classList.remove("sticky");
     }
 
-    // === logo change
-    if (ud_header.classList.contains("sticky")) {
-      logo.src = "public/assets/images/logo.png";
-    } else {
-      logo.src = "public/assets/images/logo.png";
-    }
+    // // === logo change
+    // if (ud_header.classList.contains("sticky")) {
+    //   logo.src = "public/assets/images/logo.png";
+    // } else {
+    //   logo.src = "public/assets/images/logo.png";
+    // }
+const logo_image = document.getElementById("logo_image");
 
+// مثال: لما الهيدر يبقى sticky، غير الصورة
+if (ud_header.classList.contains("sticky")) {
+    logo_image.src = dynamicLogo;
+} else {
+    logo_image.src = dynamicLogo;
+}
     // show or hide the back-top-top button
     const backToTop = document.querySelector(".back-to-top");
     if (

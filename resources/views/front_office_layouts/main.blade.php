@@ -7,7 +7,12 @@
  Version: 1.1
 
 ========== -->
-
+@php
+    
+            $favicon = App\Models\LandingSettings::where('type', 'header_settings')->where('key' , 'header_favicon')->select('key', 'value' ,'type')->first();
+        $logo = App\Models\LandingSettings::where('type', 'header_settings')->where('key' , 'header_logo')->select('key', 'value' ,'type')->first();
+        
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +41,7 @@
     <meta property="twitter:image" content="https://uideck.com/wp-content/uploads/2021/09/play-meta-bs.jpg">
 
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/svg" />
+    <link rel="shortcut icon" href="{{ asset( main_path().$favicon->value) }}" type="image/svg" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     <!-- ===== All CSS files ===== -->
