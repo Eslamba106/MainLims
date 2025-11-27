@@ -5,14 +5,16 @@ namespace App\Http\Controllers\Admin;
 use Throwable;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Schema;
 use App\Models\Tenant;
+use App\helper\Helpers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\CompanyCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Schema;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TenantController extends Controller
@@ -155,10 +157,54 @@ class TenantController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        if(!Helpers::module_check('edit_tenant')){
+            return abort(403);
+        }
+        $tenant = Tenant::findOrFail($id);
+        return view("admin.tenant.edit", compact("tenant"));
+    }
+
+    public function update(Request $request, $id)
+    {
+        if(!Helpers::module_check('edit_tenant')){
+            return abort(403);
+        }
+        $validatedData = $request->validate([
+            'name'             => 'required|string|max:255',
+            'tenant_id'         => 'required|unique:tenants,tenant_id,' . $id, 
+            'tenant_delete_days'            => 'required|integer',  
+        ]);
+
+        $tenant = Tenant::findOrFail($id);
+        $tenant->name = $request->name;
+        $tenant->tenant_id = $request->tenant_id;
+        $tenant->domain = $request->tenant_id . '.' . $request->getHost(); 
+        $tenant->tenant_delete_days = $request->tenant_delete_days; 
+        $tenant->save();
+
+
+        // update tenant databas
+        $db = "lims_{$tenant->id}";
+        DB::purge('tenant');
+        Config::set('database.connections.tenant.database', $db);
+        DB::reconnect('tenant');
+        (new Tenant())->setConnection('tenant')->where('id', $tenant->id)->update([
+            'name'                          => $request->name ?? 0,
+            'tenant_id'                     => $request->tenant_id ?? 0,
+            'domain'                        => $request->tenant_id . '.' . $request->getHost(), 
+            'tenant_delete_days'            => $request->tenant_delete_days ,
+        ]);
+        return redirect()->route('admin.tenant_management')->with("success", translate('updated_successfully'));
+    }
 
     public function registerPage($id)
     {
         $schema = Schema::findOrFail($id);
         return view("admin.tenant.register", compact("schema"));
     }
+
+
+    
 }

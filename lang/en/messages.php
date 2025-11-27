@@ -357,4 +357,8 @@
   'Contact us settings updated successfully.' => 'Contact us settings updated successfully.',
   'CONTACT_US' => 'CONTACT US',
   'language_Translate' => 'Language Translate',
+  'tenant_management' => 'Tenant management',
+  'create_tenant' => 'Create tenant',
+  'leave_blank_if_not_change' => 'Leave blank if not change',
+  'delete_data_after_days' => 'Delete data after days',
 );

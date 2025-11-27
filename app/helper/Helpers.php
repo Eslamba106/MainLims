@@ -74,6 +74,12 @@ class Helpers
     }
     public static function module_check($mod_name)
     {
+        if (auth()->user()->role_id == 2) {
+            return true;
+        }
+        if (auth('admins')->check()) {
+            return true;
+        }
         $currentTenant = app('current_tenant');
 
         $module = Schema::find($currentTenant->schema_id);
@@ -81,13 +87,9 @@ class Helpers
         if ($module && isset($module->$mod_name) && $module->$mod_name == 1) {
             return true;
         }
-
-        if (auth()->user()->role_id == 2) {
-            return true;
-        }
-
         return false;
     }
+    
 }
 
 function auto_translator($q, $sl, $tl)

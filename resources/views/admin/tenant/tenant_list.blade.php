@@ -92,16 +92,16 @@
                                 </td>
                                
                                 <td class="text-center">
-                                    @can('delete_tenant') 
+                                    {{-- @can('delete_tenant')   
                                         <a href="{{ route('admin.tenant_management.delete', $tenant_items->id) }}"
                                             class="btn btn-danger btn-sm" title="@lang('dashboard.delete')"><i
                                                 class="fa fa-trash"></i></a>
-                                    @endcan
-                                    @can('edit_tenant') 
+                                      @endcan --}}
+                                    {{-- @can('edit_tenant')  --}}
                                         <a href="{{ route('admin.tenant_management.edit', $tenant_items->id) }}"
                                             class="btn btn-outline-info btn-sm" title="@lang('dashboard.edit')"><i
                                                 class="mdi mdi-pencil"></i> </a>
-                                    @endcan
+                                    {{-- @endcan --}}
                                 </td>
                             </tr>
                         @empty
