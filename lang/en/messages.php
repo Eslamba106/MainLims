@@ -361,4 +361,5 @@
   'create_tenant' => 'Create tenant',
   'leave_blank_if_not_change' => 'Leave blank if not change',
   'delete_data_after_days' => 'Delete data after days',
+  'delete_data_after' => 'Delete data after',
 );

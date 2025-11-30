@@ -207,7 +207,7 @@ class LanguageController extends Controller
                     'value'=>$value
                 ];
             };
-        }
+        } 
         return response()->json($data);
     }
 

@@ -313,20 +313,8 @@ use App\Models\Tenant;
         Route::get('bank-edit/{id}', [ProfileController::class, 'bank_edit'])->name('bankInfo');
         Route::post('bank-update/{id}', [ProfileController::class, 'bank_update'])->name('bank_update');
     });
+    
 
-    Route::group(['prefix' => 'language', 'as' => 'language.'], function () {
-        Route::get('', [LanguageController::class, 'index'])->name('index');
-        Route::post('add-new', [LanguageController::class, 'store'])->name('add-new');
-        Route::get('update-status', [LanguageController::class, 'update_status'])->name('update-status');
-        Route::get('update-default-status', [LanguageController::class, 'update_default_status'])->name('update-default-status');
-        Route::post('update', [LanguageController::class, 'update'])->name('update');
-        Route::get('translate/{lang}', [LanguageController::class, 'translate'])->name('translate');
-        Route::get('translate-list/{lang}', [LanguageController::class, 'translate_list'])->name('translate.list');
-        Route::post('translate-submit/{lang}', [LanguageController::class, 'translate_submit'])->name('translate-submit');
-        Route::post('remove-key/{lang}', [LanguageController::class, 'translate_key_remove'])->name('remove-key');
-        Route::get('delete/{lang}', [LanguageController::class, 'delete'])->name('delete');
-        Route::any('auto-translate/{lang}', [LanguageController::class, 'auto_translate'])->name('auto-translate');
-    });
     // Roles
     Route::group(['prefix' => 'admin/roles'], function () {
         Route::get('/', [RoleController::class, 'index'])->name('roles');
@@ -352,3 +340,5 @@ use App\Models\Tenant;
         $tenant = Tenant::findOrFail(request()->tenant_id);
         return view('admin.tenant.payment' , compact('schema' ,'tenant'));
     })->name('payment.page');
+
+    

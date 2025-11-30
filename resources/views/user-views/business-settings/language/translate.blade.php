@@ -4,20 +4,28 @@
 
 @push('css')
     <!-- Custom styles for this page -->
-    <link href="{{asset(main_path().'css/dataTables.bootstrap4.min.css')}} " rel="stylesheet">
+    <link href="{{ asset(main_path() . 'datatables/dataTables.bootstrap4.min.css') }} " rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
 
     <style>
-        #dataTable_wrapper > .row:nth-child(1){
+        #dataTable_wrapper>.row:nth-child(1) {
             display: flex;
         }
-        #dataTable_wrapper > .row:nth-child(1) #dataTable_length{
+
+        #dataTable_wrapper>.row:nth-child(1) #dataTable_length {
             display: none;
         }
+
         [dir="rtl"] div.dataTables_wrapper div.dataTables_filter {
             text-align: left !important;
             padding-inline-end: 0px !important;
         }
-        [dir="rtl"] div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
+
+        [dir="rtl"] div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-child {
             padding-left: 0;
         }
     </style>
@@ -27,36 +35,34 @@
     <div class="content container-fluid">
         <!-- Page Heading -->
         <nav aria-label="breadcrumb" class="w-100"
-             style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+            style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a
-                        href="{{route('admin.dashboard')}}">{{translate('dashboard')}}</a>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ translate('dashboard') }}</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">{{translate('language')}}</li>
+                <li class="breadcrumb-item" aria-current="page">{{ translate('language') }}</li>
             </ol>
         </nav>
 
         <div class="row __mt-20">
             <div class="col-md-12">
-                <div class="card" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+                <div class="card" style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};">
                     <div class="card-header">
-                        <h5>{{translate('language_content_table')}}</h5>
-                        <a href="{{route('language.index')}}"
-                           class="btn btn-sm btn-danger btn-icon-split float-right">
-                            <span class="text text-capitalize">{{translate('back')}}</span>
+                        <h5>{{ translate('language_content_table') }}</h5>
+                        <a href="{{ route('language.index') }}" class="btn btn-sm btn-danger btn-icon-split float-right">
+                            <span class="text text-capitalize">{{ translate('back') }}</span>
                         </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
-                                <tr>
-                                    <th style="max-width: 100px">{{translate('SL')}}</th>
-                                    <th style="width: 400px">{{translate('key')}}</th>
-                                    <th style="min-width: 300px">{{translate('value')}}</th>
-                                    <th style="max-width: 150px">{{translate('auto_translate')}}</th>
-                                    <th style="max-width: 150px">{{translate('update')}}</th>
-                                </tr>
+                                    <tr>
+                                        <th style="max-width: 100px">{{ translate('SL') }}</th>
+                                        <th style="width: 400px">{{ translate('key') }}</th>
+                                        <th style="min-width: 300px">{{ translate('value') }}</th>
+                                        <th style="max-width: 150px">{{ translate('auto_translate') }}</th>
+                                        <th style="max-width: 150px">{{ translate('update') }}</th>
+                                    </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
@@ -69,8 +75,9 @@
 @endsection
 
 @section('js')
-    <!-- Page level plugins -->
-    <script src="{{asset(main_path().'js/dataTables.bootstrap4.min.js')}} "></script>
+    <!-- Page level plugins --> 
+    <script src="{{ asset(main_path() . 'datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset(main_path() . 'datatables/dataTables.bootstrap4.min.js')}}"></script>
     <!-- Page level custom scripts -->
     <script>
         function update_lang(key, value) {
@@ -80,19 +87,19 @@
                 }
             });
             $.ajax({
-                url: "{{route('language.translate-submit',[$lang])}}",
+                url: "{{ route('language.translate-submit', [$lang]) }}",
                 method: 'POST',
                 data: {
                     key: key,
                     value: value
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#loading').fadeIn();
                 },
-                success: function (response) {
-                    toastr.success('{{translate("text_updated_successfully")}}');
+                success: function(response) {
+                    toastr.success('{{ translate('text_updated_successfully') }}');
                 },
-                complete: function () {
+                complete: function() {
                     $('#loading').fadeOut();
                 },
             });
@@ -105,19 +112,19 @@
                 }
             });
             $.ajax({
-                url: "{{route('language.remove-key',[$lang])}}",
+                url: "{{ route('language.remove-key', [$lang]) }}",
                 method: 'POST',
                 data: {
                     key: key
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#loading').fadeIn();
                 },
-                success: function (response) {
-                    toastr.success('{{translate("key_removed_successfully")}}');
+                success: function(response) {
+                    toastr.success('{{ translate('key_removed_successfully') }}');
                     $('#lang-' + id).hide();
                 },
-                complete: function () {
+                complete: function() {
                     $('#loading').fadeOut();
                 },
             });
@@ -130,21 +137,21 @@
                 }
             });
             $.ajax({
-                url: "{{route('language.auto-translate',[$lang])}}",
+                url: "{{ route('language.auto-translate', [$lang]) }}",
                 method: 'POST',
                 data: {
                     key: key
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#loading').fadeIn();
                 },
-                success: function (response) {
-                    toastr.success('{{translate("key_translated_successfully")}}');
+                success: function(response) {
+                    toastr.success('{{ translate('key_translated_successfully') }}');
                     console.log(response.translated_data)
-                    $('#value-'+id).val(response.translated_data);
+                    $('#value-' + id).val(response.translated_data);
                     //$('#value-' + id).text(response.translated_data);
                 },
-                complete: function () {
+                complete: function() {
                     $('#loading').fadeOut();
                 },
             });
@@ -152,12 +159,13 @@
     </script>
 
     <script>
-        $(document).ready(function () { 
+        $(document).ready(function() {
+
             $('#dataTable').DataTable({
-                "pageLength": {{\App\helper\Helpers::pagination_limit()}},
+                "pageLength": {{ \App\helper\Helpers::pagination_limit() }},
                 ajax: {
                     type: "get",
-                    url: "{{ route('language.translate.list', ['lang'=>$lang]) }}",
+                    url: "{{ route('language.translate.list', ['lang' => $lang]) }}",
                     dataSrc: ''
                 },
                 language: {
@@ -182,7 +190,7 @@
                 columns: [{
                         data: null,
                         className: "text-center",
-                        render: function (data, type, full, meta) {
+                        render: function(data, type, full, meta) {
                             return meta.row + 1;
                         }
                     },
@@ -191,35 +199,35 @@
                         data: 'key'
                     },
                     {
-                        "data":null,
+                        "data": null,
                         className: "text-center",
-                        render: function (data, type, full, meta) {
-                            return `<input class="form-control w-100" id="value-${meta.row + 1}" value="`+data.value+`">`;
+                        render: function(data, type, full, meta) {
+                            return `<input class="form-control w-100" id="value-${meta.row + 1}" value="` +
+                                data.value + `">`;
                         },
                     },
                     {
-                        "data":null,
+                        "data": null,
                         className: "text-center",
-                        render: function (data, type, full, meta) {
+                        render: function(data, type, full, meta) {
                             return `<button type="button" onclick="auto_translate('${data.key}','${meta.row + 1}')" class="btn btn-ghost-success btn-block">
                                         <i class="tio-globe"></i></button>`;
                         },
                     },
                     {
-                        "data":null,
+                        "data": null,
                         className: "text-center",
-                        render: function (data, type, full, meta) {
+                        render: function(data, type, full, meta) {
                             return `<button type="button" onclick="update_lang('${data.key}', $('#value-${meta.row + 1}').val())"
-                                            class="btn btn--primary btn-block"><i class="tio-save-outlined"></i>
+                                            class="btn btn-primary btn-block"><i class="tio-save-outlined"></i>{{ translate('translate') }}
                                     </button>`;
                         },
                     },
                 ],
             });
-            // Call the dataTables jQuery plugin || End
+            // Call the dataTables jQuery plugin || End 
+            console.log("ess");
         });
-
-
     </script>
 
 @endsection

@@ -70,6 +70,7 @@
                         <tr>
                             <th><input class="bulk_check_all" type="checkbox" /></th>
                             <th class="text-center" scope="col">{{ translate('name') }}</th> 
+                            <th class="text-center" scope="col">{{ translate('delete_data_after') }}</th> 
                             <th class="text-center" scope="col">{{ translate('company_id')  }}</th> 
                             <th class="text-center" scope="col">{{ translate ('status') }}</th>
                             <th class="text-center" scope="col">{{ translate('Actions') }}</th>
@@ -86,6 +87,7 @@
                                     </label>
                                 </th>
                                 <td class="text-center">{{ $tenant_items->name }}</td> 
+                                <td class="text-center">{{ $tenant_items->tenant_delete_days }}</td> 
                                 <td class="text-center">{{ $tenant_items->tenant_id }} </td> 
                                 <td class="text-center"> <span
                                         class="badge badge-pill {{ $tenant_items->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $tenant_items->status }}</span>
