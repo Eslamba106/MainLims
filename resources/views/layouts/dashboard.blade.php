@@ -4,10 +4,42 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title -->
+    <title>Lims Stage Platform</title>
+
+    <!-- Meta Description -->
+    <meta name="description" content="منصة تعليمية تقدم محتوى علمي، دورات تدريبية، وشروحات مميزة للطلاب والمتعلمين.">
+
+    <!-- Keywords -->
+    <meta name="keywords" content="تعليم, منصة تعليمية, دروس, شروحات, تعليم اونلاين, تعلم, كورسات, educational website, learning platform, tutorials">
+
+    <!-- Author -->
+    <meta name="author" content="Lims Stage">
+
+    <!-- Category -->
+    <meta name="classification" content="Education">
+    <meta name="category" content="Educational">
+
+    <!-- Open Graph (Social Media SEO) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Educational Platform – منصة تعليمية">
+    <meta property="og:description" content="موقع تعليمي يقدم شروحات ودروس وكورسات.">
+    <meta property="og:site_name" content="Educational Platform">
+    <meta property="og:locale" content="ar_AR">
+
+    <!-- Schema.org (Structured Data for Educational Website) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Educational Platform",
+      "url": "https://yourwebsite.com",
+      "description": "منصة تعليمية تقدم محتوى علمي وشروحات وكورسات.",
+      "logo": "https://yourwebsite.com/logo.png"
+    }
+    </script>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo.png') }}">
     <title> @yield('title', 'Dashboard') </title>
