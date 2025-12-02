@@ -19,27 +19,42 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title')</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Play - Free Open Source HTML Bootstrap Template by UIdeck">
-    <meta name="description" content="Play - Free Open Source HTML Bootstrap Template by UIdeck Team">
+    <!-- Title -->
+    <title>Lims Stage Platform</title>
 
-    <!-- Open Graph / Facebook -->
+    <!-- Meta Description -->
+    <meta name="description" content="منصة تعليمية تقدم محتوى علمي، دورات تدريبية، وشروحات مميزة للطلاب والمتعلمين.">
+
+    <!-- Keywords -->
+    <meta name="keywords" content="تعليم, منصة تعليمية, دروس, شروحات, تعليم اونلاين, تعلم, كورسات, educational website, learning platform, tutorials">
+
+    <!-- Author -->
+    <meta name="author" content="Lims Stage">
+
+    <!-- Category -->
+    <meta name="classification" content="Education">
+    <meta name="category" content="Educational">
+
+    <!-- Open Graph (Social Media SEO) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://uideck.com/play/">
-    <meta property="og:title" content="Play - Free Open Source HTML Bootstrap Template by UIdeck">
-    <meta property="og:description" content="Play - Free Open Source HTML Bootstrap Template by UIdeck Team">
-    <meta property="og:image" content="https://uideck.com/wp-content/uploads/2021/09/play-meta-bs.jpg">
+    <meta property="og:title" content="Educational Platform – منصة تعليمية">
+    <meta property="og:description" content="موقع تعليمي يقدم شروحات ودروس وكورسات.">
+    <meta property="og:site_name" content="Educational Platform">
+    <meta property="og:locale" content="ar_AR">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://uideck.com/play/">
-    <meta property="twitter:title" content="Play - Free Open Source HTML Bootstrap Template by UIdeck">
-    <meta property="twitter:description" content="Play - Free Open Source HTML Bootstrap Template by UIdeck Team">
-    <meta property="twitter:image" content="https://uideck.com/wp-content/uploads/2021/09/play-meta-bs.jpg">
-
+    <!-- Schema.org (Structured Data for Educational Website) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Educational Platform",
+      "url": "https://yourwebsite.com",
+      "description": "منصة تعليمية تقدم محتوى علمي وشروحات وكورسات.",
+      "logo": "https://yourwebsite.com/logo.png"
+    }
+    </script>
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{ asset( main_path().$favicon->value) }}" type="image/svg" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
