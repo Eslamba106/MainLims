@@ -73,6 +73,10 @@
                             <th class="text-center" scope="col">{{ translate('delete_data_after') }}</th> 
                             <th class="text-center" scope="col">{{ translate('company_id')  }}</th> 
                             <th class="text-center" scope="col">{{ translate ('status') }}</th>
+                            <th class="text-center" scope="col">{{ translate ('subscription_ends_at') }}</th>
+                            <th class="text-center" scope="col">{{ translate ('Plan') }}</th>
+                            <th class="text-center" scope="col">{{ translate ('email') }}</th>
+                            <th class="text-center" scope="col">{{ translate ('Phone') }}</th>
                             <th class="text-center" scope="col">{{ translate('Actions') }}</th>
                         </tr>
                     </thead>
@@ -90,8 +94,12 @@
                                 <td class="text-center">{{ $tenant_items->tenant_delete_days }}</td> 
                                 <td class="text-center">{{ $tenant_items->tenant_id }} </td> 
                                 <td class="text-center"> <span
-                                        class="badge badge-pill {{ $tenant_items->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $tenant_items->status }}</span>
+                                    class="badge badge-pill {{ $tenant_items->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $tenant_items->status }}</span>
                                 </td>
+                                <td class="text-center">{{ $tenant_items->expire }} </td> 
+                                <td class="text-center">{{ $tenant_items->schema->name }} </td> 
+                                <td class="text-center">{{ $tenant_items->email }} </td> 
+                                <td class="text-center">{{ $tenant_items->phone }} </td> 
                                
                                 <td class="text-center">
                                     {{-- @can('delete_tenant')   

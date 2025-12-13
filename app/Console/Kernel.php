@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('app:submission-schedule')->hourly();
         $schedule->command('model:prune')->daily();
+        $schedule->command('tenants:deactivate-expired')->daily();
     }
 
     /**

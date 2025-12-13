@@ -25,12 +25,12 @@ class TenantController extends Controller
 
         // $this->authorize('tenant_management');
 
+    Tenant::deactivateExpiredTenants();
 
         $ids = $request->bulk_ids;
         $now = Carbon::now()->toDateTimeString();
         if ($request->bulk_action_btn === 'update_status' && $request->status && is_array($ids) && count($ids)) {
-            $data = ['status' => $request->status];
-            $this->authorize('change_tenants_status');
+            $data = ['status' => $request->status]; 
 
             Tenant::whereIn('id', $ids)->update($data);
             return back()->with('success', __('general.updated_successfully'));

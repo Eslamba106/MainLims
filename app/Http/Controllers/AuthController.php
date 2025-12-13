@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User; 
 use App\Models\Tenant;
 use Illuminate\Http\Request;
@@ -122,17 +123,20 @@ class AuthController extends Controller
         return redirect()->route('login-page');
     }
     public function admin_login(Request $request)
-    {
-        // dd($request['user_name']);
+    { 
+         
+        $request->validate([ 
+            'user_name' => 'required_without:email',
+            'password' => 'required',
+        ]);
         if (isset($request['user_name']) && Auth::guard('admins')->attempt(['user_name' => $request->input('user_name'), 'password' => $request->input('password')])) {
            
             return redirect()->route('admin.dashboard');
         } 
         // elseif (isset($request['email']) && Auth::guard('admins')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
         //     return redirect()->route('admin.dashboard');
-        // }
-    
-        return redirect()->back()->with('error', __('login.user_not_found'));
+        // } 
+        return redirect()->back()->with('error', translate('user_not_found'));
     }
     
 

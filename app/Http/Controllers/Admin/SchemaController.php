@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Schema;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Nette\Utils\Json;
 
 class SchemaController extends Controller
 {
@@ -162,6 +163,12 @@ class SchemaController extends Controller
         }
         $schema->update($data);
         return redirect()->route('admin.schema')->with('success', translate('Schema updated successfully!'));
+    }
 
+    public function list_for_api(Request $request)
+    {
+         
+        $schemas = Schema::orderBy("created_at", "desc")->paginate(10);
+        return Json::encode($schemas); 
     }
 }

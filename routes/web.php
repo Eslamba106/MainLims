@@ -7,10 +7,10 @@
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\PaymentsController;
-use App\Http\Controllers\part\PlantController;
-use App\Http\Controllers\Admin\TenantController;
-use App\Http\Controllers\ConversationRequestController;
+    use App\Http\Controllers\PaymentsController;
+    use App\Http\Controllers\part\PlantController;
+    use App\Http\Controllers\Admin\TenantController;
+    use App\Http\Controllers\ConversationRequestController;
     use App\Http\Controllers\CoaSettingsController;
     use App\Http\Controllers\part\SampleController;
     use App\Http\Controllers\part\GeneralController;
@@ -23,9 +23,9 @@ use App\Http\Controllers\ConversationRequestController;
     use App\Models\Certificate;
     use App\Http\Controllers\CertificateController;
     use App\Http\Controllers\CoaGenerationSettingController;
-use App\Http\Controllers\LandingPageController;
-use App\Models\Schema;
-use App\Models\Tenant;
+    use App\Http\Controllers\LandingPageController;
+    use App\Models\Schema;
+    use App\Models\Tenant;
 
     /*
     |--------------------------------------------------------------------------
@@ -38,14 +38,14 @@ use App\Models\Tenant;
     |
     */
 
-    Route::get('/',  [LandingPageController::class , 'index'])->name('landing-page');
+    // Route::get('/',  [LandingPageController::class , 'index'])->name('landing-page');
     // Route::get('/', function () {
     //     return view('landing');
     // })->name('landing-page');
 
-  Route::get('/policy_page', function () {
-        return view('policy');
-    })->name('policy_page');
+    //   Route::get('/policy_page', function () {
+    //         return view('policy');
+    //     })->name('policy_page');
 
     Route::get('/login-page', function () {
         return view('auth.login-page');
@@ -61,9 +61,9 @@ use App\Models\Tenant;
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login_tenancy', [AuthController::class, 'login_tenancy'])->name('login_tenancy');
     Route::get('logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         return view('dashboard.index');
-    })->name('dashboard');
+    })->name('dashboard')->middleware('auth');
     Route::get('language/{locale}', function ($locale) {
         if (in_array($locale, ['en', 'ar'])) {
             Session::put('locale', $locale);
@@ -313,7 +313,7 @@ use App\Models\Tenant;
         Route::get('bank-edit/{id}', [ProfileController::class, 'bank_edit'])->name('bankInfo');
         Route::post('bank-update/{id}', [ProfileController::class, 'bank_update'])->name('bank_update');
     });
-    
+
 
     // Roles
     Route::group(['prefix' => 'admin/roles'], function () {
@@ -334,11 +334,9 @@ use App\Models\Tenant;
 
     Route::post('send-conversation-request', [ConversationRequestController::class, 'store'])->name('send.conversation.request');
 
-    Route::get('/schema/{schema}/payment/callback', [PaymentsController::class , 'callback'])->name('payment.callback');
-    Route::get('/schema/{id}/{tenant_id}', function(){
+    Route::get('/schema/{schema}/payment/callback', [PaymentsController::class, 'callback'])->name('payment.callback');
+    Route::get('/schema/{id}/{tenant_id}', function () {
         $schema = Schema::findOrFail(request()->id);
         $tenant = Tenant::findOrFail(request()->tenant_id);
-        return view('admin.tenant.payment' , compact('schema' ,'tenant'));
+        return view('admin.tenant.payment', compact('schema', 'tenant'));
     })->name('payment.page');
-
-    

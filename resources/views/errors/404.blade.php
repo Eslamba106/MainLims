@@ -34,7 +34,7 @@
                 <p style="text-align: center;">{{translate('we_are_sorry')}}, {{translate('the_page_you_requested_could_not_be_found')}} <br>
                     {{translate('please_go_back_to_the_homepage')}}</p>
                 <div style="text-align: center;">
-                    <a class="btn btn--primary bg-light-blue" href="{{ route('landing-page') }}"> {{translate('home')}}</a>
+                    <a class="btn btn--primary bg-light-blue" href="{{ url()->previous() }}"> {{translate('home')}}</a>
                 </div>
             </div>
         </div>

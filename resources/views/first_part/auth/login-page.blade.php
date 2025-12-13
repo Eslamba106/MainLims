@@ -34,65 +34,120 @@
         <!-- ============================================================== -->
         <!-- Login box.scss -->
         <!-- ============================================================== -->
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url({{ asset(main_path().'assets/images/big/auth-bg.jpg') }}) no-repeat center center;background-size: cover;    width: 100vw;height: 100vh;">
+                @php
+            $host = request()->getHost();
+            // examples:
+            // limsstage.com
+            // tenant1.limsstage.com
+            // admin.limsstage.com
+
+            $tenant_id = null;
+            $isSubdomain = false;
+            $isAdmin = false;
+
+            $parts = explode('.', $host);
+ 
+            if (count($parts) > 2) {
+                $isSubdomain = true;
+                $subdomain = $parts[0];
+
+                if ($subdomain === 'admin') { 
+                    $isAdmin = true;
+                } else { 
+                    $tenant_id = $subdomain;
+                }
+            }
+        @endphp
+
+
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
+            style="background:url({{ asset(main_path() . 'assets/images/big/auth-bg.jpg') }}) no-repeat center center;background-size: cover;    width: 100vw;height: 100vh;">
             <div class="auth-box">
                 <div id="loginform">
                     <div class="logo">
-                        <span class="db"><img width="50px" src="{{ asset(main_path().'assets/images/logo.png') }}" alt="logo" /></span>
-                        <h5 class="font-medium m-b-20">{{ __('login.sign_in') }}</h5>
+                        <span class="db"><img width="50px"
+                                src="{{ asset(main_path() . 'assets/images/logo.png') }}" alt="logo" /></span>
+                        <h5 class="font-medium m-b-20">{{ translate('sign_in') }}</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
                         <ul class="nav nav-tabs w-fit-content mb-4">
-                            <li class="nav-item">
-                                <a class="nav-link type_link active" href="#"
-                                    id="company-link">{{ __('tenants.tenant') }}</a>
-                            </li>
-                            {{-- <li class="nav-item">
-                                <a class="nav-link type_link " href="#" id="admin-link">{{ __('general.admin') }}</a>
-                            </li> --}}
+                            @if ($tenant_id != null)
+                                <li class="nav-item">
+                                    <a class="nav-link type_link  @if ($isSubdomain && !$isAdmin) active @endif "
+                                        href="#" id="company-link">{{ translate('tenant') }}</a>
+                                </li>
+                            @endif
+                            @if ($tenant_id == null)
+                                <li class="nav-item">
+                                    <a class="nav-link type_link @if ($isAdmin) active @endif "
+                                        href="#" id="admin-link">{{ translate('admin') }}</a>
+                                </li>
+                            @endif
                         </ul>
                         <div class="col-12">
-                             
-                            <div class="col-md-12 admin_form company-form" id="company-form">
-                                <form action="{{ route('login_tenancy') }}" method="post">
-                                    @csrf
-                                    @include('includes.auth.login')
-                                </form>
-                            </div>
+                            @if ($tenant_id == null)
+                                <div class="col-md-12 admin_form @if ($isSubdomain && !$isAdmin) d-none @endif admin-form"
+                                    id="admin-form">
+                                    <form action="{{ route('admin.login') }}" method="post">
+                                        @csrf
+                                        @include('includes.auth.admin_login')
+                                    </form>
+                                </div>
+                            @endif
+                            {{-- <div class="col-md-12 admin_form company-form" id="company-form">
+                                    <form action="{{ route('login') }}" method="post">
+                                        @csrf
+                                        @include('includes.auth.company_login')
+                                    </form>
+                                </div>  --}}
+
+
+                            @if ($isSubdomain && !$isAdmin)
+                                <div class="col-md-12 admin_form company-form" id="company-form">
+                                    <form action="{{ route('login') }}" method="post">
+                                        @csrf
+                                        @include('includes.auth.company_login')
+                                    </form>
+                                </div>
+                            @endif
+
+
+
                             @if (Session::has('success'))
-                            <script>
-                                swal("Message", "{{ Session::get('success') }}", 'success', {
-                                    button: true,
-                                    button: "Ok",
-                                    timer: 3000,
-                                })
-                            </script>
-                        @endif
-                        @if (Session::has('info'))
-                            <script>
-                                swal("Message", "{{ Session::get('info') }}", 'info', {
-                                    button: true,
-                                    button: "Ok",
-                                    timer: 3000,
-                                })
-                            </script>
-                        @endif
-                        @if (Session::has('error'))
-                            <script>
-                                swal("Message", "{{ Session::get('error') }}", 'error', {
-                                    button: true,
-                                    button: "Ok",
-                                    timer: 3000,
-                                })
-                            </script>
-                        @endif
+                                <script>
+                                    swal("Message", "{{ Session::get('success') }}", 'success', {
+                                        button: true,
+                                        button: "Ok",
+                                        timer: 3000,
+                                    })
+                                </script>
+                            @endif
+                            @if (Session::has('info'))
+                                <script>
+                                    swal("Message", "{{ Session::get('info') }}", 'info', {
+                                        button: true,
+                                        button: "Ok",
+                                        timer: 3000,
+                                    })
+                                </script>
+                            @endif
+                            @if (Session::has('error'))
+                                <script>
+                                    swal("Message", "{{ Session::get('error') }}", 'error', {
+                                        button: true,
+                                        button: "Ok",
+                                        timer: 3000,
+                                    })
+                                </script>
+                            @endif
                         </div>
                     </div>
                 </div>
-             
+
             </div>
         </div>
+
    
     </div>
    
